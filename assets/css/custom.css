@@ -8,3 +8,11 @@ Make sure to respect the media queries! Otherwise you may
 accidentally add desktop styles to the mobile layout.
 https://www.w3schools.com/css/css_rwd_mediaqueries.asp
 --------------------------------------------------------------*/
+.bb-activity img.avatar{border-radius:20%}
+.list-view .bb-forums__avatar .avatar{border-radius:20%}
+.user-link img{border-radius:20%}
+#friend-list.item-list .item-avatar img,#members-list.item-list .item-avatar img{border-radius:20%}
+#bbpress-forums#bbpress-forums .bs-forums-items .item-avatar img{border-radius:20%}
+.avatar{border-radius:20%}
+body #buddypress:not(.round-avatars) #item-header-cover-image #item-header-avatar img.avatar{border-radius:5%}
+
