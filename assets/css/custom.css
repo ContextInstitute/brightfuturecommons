@@ -14,5 +14,7 @@ https://www.w3schools.com/css/css_rwd_mediaqueries.asp
 #friend-list.item-list .item-avatar img,#members-list.item-list .item-avatar img{border-radius:20%}
 #bbpress-forums#bbpress-forums .bs-forums-items .item-avatar img{border-radius:20%}
 .avatar{border-radius:20%}
-body #buddypress:not(.round-avatars) #item-header-cover-image #item-header-avatar img.avatar{border-radius:5%}
-
+body #buddypress:not(.round-avatars) .groups-header #item-header-cover-image #item-header-avatar img.avatar{border-radius:5%}
+body #buddypress:not(.round-avatars) .users-header #item-header-cover-image #item-header-avatar img.avatar{border-radius:20%}
+#groups-list.bp-list .avatar{border-radius:5%}
+.grid .member-status{right:0px;top:0px;width:14px;height:14px;}
