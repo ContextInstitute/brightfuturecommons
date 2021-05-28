@@ -6,7 +6,7 @@ It began as a fork of CUNY’s [Commons In A Box](http://commonsinabox.org/), wh
 
 ## Status
 
-Our current focus is developing a child theme based on the BuddyBoss theme. If you like to learn more, please contact rgilman@context.org
+Our current focus is developing a child theme based on the BuddyBoss theme. If you'd like to learn more, please contact rgilman@context.org
 
 ## License
 
