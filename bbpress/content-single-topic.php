@@ -9,10 +9,10 @@
 
 ?>
 
-<div id="bbpress-forums" class="bb-content-area bs-replies-wrapper">
+<div id="bbpress-forums" class="bb-content-area bs-replies-wrapper"><!-- bfc-marker content-single-topic.php -->
 	<div class="bb-grid">
 
-		<div class="replies-content">
+		<div class="replies-content"><!-- bfc-marker content-single-topic.php -->
 			<?php bbp_breadcrumb(); ?>
 
 			<?php do_action( 'bbp_template_before_single_topic' ); ?>

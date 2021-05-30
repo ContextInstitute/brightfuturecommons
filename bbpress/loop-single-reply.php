@@ -14,7 +14,7 @@
 	'scrubberpost'
 ) ); ?> data-date="<?php echo get_post_time( 'F Y', false, bbp_get_reply_id(), true ); ?>">
 
-    <div class="flex align-items-center bs-reply-header">
+    <div class="flex align-items-center bs-reply-header"><!-- bfc-marker loop-single-reply.php -->
 
         <div class="bbp-reply-author item-avatar">
 			<?php $args = array( 'type' => 'avatar' );

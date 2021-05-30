@@ -8,7 +8,10 @@ Make sure to respect the media queries! Otherwise you may
 accidentally add desktop styles to the mobile layout.
 https://www.w3schools.com/css/css_rwd_mediaqueries.asp
 --------------------------------------------------------------*/
-.bb-activity img.avatar{border-radius:20%}
+
+/* Avatars */
+
+.bb-activity img.avatar{border-radius:20%} */
 .list-view .bb-forums__avatar .avatar{border-radius:20%}
 .user-link img{border-radius:20%}
 #friend-list.item-list .item-avatar img,#members-list.item-list .item-avatar img{border-radius:20%}
@@ -18,3 +21,14 @@ body #buddypress:not(.round-avatars) .groups-header #item-header-cover-image #it
 body #buddypress:not(.round-avatars) .users-header #item-header-cover-image #item-header-avatar img.avatar{border-radius:20%}
 #groups-list.bp-list .avatar{border-radius:5%}
 .grid .member-status{right:0px;top:0px;width:14px;height:14px;}
+
+/* Groups */
+
+nav#object-nav li.bfc-group-name-nav{
+	font-size:14px;
+	font-weight: 700;
+	line-height: 28px;
+	padding:11px 30px 11px 0;
+	}
+
+/* Forums */

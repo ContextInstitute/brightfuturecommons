@@ -7,11 +7,15 @@
  */
 ?>
 
-<nav class="<?php bp_nouveau_single_item_nav_classes(); ?>" id="object-nav" role="navigation" aria-label="<?php esc_attr_e( 'Group menu', 'buddyboss' ); ?>">
+<nav class="<?php bp_nouveau_single_item_nav_classes(); ?>" id="object-nav" role="navigation" aria-label="<?php esc_attr_e( 'Group menu', 'buddyboss' ); ?>"><!-- bfc-marker item-nav.php -->
 
 	<?php if ( bp_nouveau_has_nav( array( 'object' => 'groups' ) ) ) : ?>
 
 		<ul>
+
+			<li class="bfc-group-name-nav">
+			<?php echo esc_attr( bp_get_group_name() ); ?>
+			</li>
 
 			<?php
 			while ( bp_nouveau_nav_items() ) :

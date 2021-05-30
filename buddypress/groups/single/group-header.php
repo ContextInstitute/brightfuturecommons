@@ -12,7 +12,7 @@ $group_avatar = trailingslashit( $admin_link . 'group-avatar' );
 $group_cover_link = trailingslashit( $admin_link . 'group-cover-image' );
 $tooltip_position = bp_disable_group_cover_image_uploads() ? 'down' : 'up';
 ?>
-<div id="cover-image-container" class="item-header-wrap">
+<div id="cover-image-container" class="item-header-wrap"><!-- bfc-marker group-header.php -->
 
 	<?php $class = bp_disable_group_cover_image_uploads() ? 'bb-disable-cover-img' : 'bb-enable-cover-img'; ?>
 
@@ -29,7 +29,7 @@ $tooltip_position = bp_disable_group_cover_image_uploads() ? 'down' : 'up';
 		<?php endif; ?>
 
 		<?php if ( ! bp_nouveau_groups_front_page_description() ) : ?>
-			<div id="item-header-content">
+			<div id="item-header-content"><!-- bfc-marker group-header.php -->
 				<?php if ( function_exists('bp_enable_group_hierarchies') && bp_enable_group_hierarchies() ): ?>
 					<?php
 					$parent_id = bp_get_parent_group_id();
