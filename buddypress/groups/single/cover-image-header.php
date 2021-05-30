@@ -20,7 +20,7 @@ $has_cover_image_position = '';
 $default_cover_image = buddyboss_theme_get_option( 'buddyboss_group_cover_default' );
 ?>
 
-<div id="cover-image-container">
+<div id="cover-image-container"><!-- bfc-marker cover-image-header.php -->
 
 	<?php
 		if ( ! empty( $group_cover_image ) || ! empty( $default_cover_image['url'] )) {
@@ -70,7 +70,7 @@ $default_cover_image = buddyboss_theme_get_option( 'buddyboss_group_cover_defaul
 
 	<?php $class = bp_disable_group_cover_image_uploads() ? 'bb-disable-cover-img' : 'bb-enable-cover-img'; ?>
 
-	<div id="item-header-cover-image" class="item-header-wrap <?php echo $class; ?>">
+	<div id="item-header-cover-image" class="item-header-wrap <?php echo $class; ?>"><!-- bfc-marker cover-image-header.php -->
 		<?php if ( ! bp_disable_group_avatar_uploads() ) : ?>
 			<div id="item-header-avatar">
 				<?php if ( bp_is_item_admin() ) { ?>
@@ -84,7 +84,7 @@ $default_cover_image = buddyboss_theme_get_option( 'buddyboss_group_cover_defaul
 
 		<?php if ( ! bp_nouveau_groups_front_page_description() ) : ?>
 
-			<div id="item-header-content">
+			<div id="item-header-content"><!-- bfc-marker cover-image-header.php -->
 				<?php if ( function_exists('bp_enable_group_hierarchies') && bp_enable_group_hierarchies() ): ?>
 					<?php
 					$parent_id = bp_get_parent_group_id();

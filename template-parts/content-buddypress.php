@@ -12,7 +12,7 @@
 
 	<?php if ( ! bp_is_user() && ! bp_is_group_single() && ! bp_is_group_create()
 	           && ( ! function_exists( 'bbp_is_topic_archive' ) || ! bbp_is_topic_archive() ) ) : ?>
-		<header class="entry-header">
+		<header class="entry-header"><!-- bfc-marker content-buddypress.php -->
 			<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
             <?php
             if ( function_exists( 'bp_is_register_page' ) ) {
@@ -33,7 +33,7 @@
 	}
 	?>
 
-	<div class="entry-content">
+	<div class="entry-content"><!-- bfc-marker content-buddypress.php -->
 		<?php
 		the_content();
 
@@ -45,7 +45,7 @@
 	</div><!-- .entry-content -->
 
 	<?php if ( get_edit_post_link() ) : ?>
-		<footer class="entry-footer">
+		<footer class="entry-footer"><!-- bfc-marker content-buddypress.php -->
 			<?php
 			edit_post_link(
 			sprintf(

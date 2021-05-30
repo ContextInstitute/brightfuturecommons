@@ -16,9 +16,9 @@ if ( bp_has_groups() ) :
 
 		<?php bp_nouveau_group_hook( 'before', 'home_content' ); ?>
 
-		<div id="item-header" role="complementary" data-bp-item-id="<?php bp_group_id(); ?>" data-bp-item-component="groups" class="groups-header single-headers">
+		<div id="item-header" role="complementary" data-bp-item-id="<?php bp_group_id(); ?>" data-bp-item-component="groups" class="groups-header single-headers"><!-- bfc-marker home.php -->
 
-			<?php bp_nouveau_group_header_template_part(); ?>
+			<?php bp_nouveau_group_header_template_part(); ?><!-- bfc-marker remove to remove header -->
 
 		</div><!-- #item-header -->
 
@@ -27,7 +27,7 @@ if ( bp_has_groups() ) :
 				<div class="bp-wrap-outer">
 		<?php } ?>
 
-		<div class="bp-wrap">
+		<div class="bp-wrap"><!-- bfc-marker home.php -->
 
 			<?php if ( ! bp_nouveau_is_object_nav_in_sidebar() ) : ?>
 
@@ -36,7 +36,7 @@ if ( bp_has_groups() ) :
 			<?php endif; ?>
 
 			<div class="bb-profile-grid bb-grid">
-				<div id="item-body" class="item-body">
+				<div id="item-body" class="item-body"><!-- bfc-marker home.php -->
 					<?php bp_nouveau_group_template_part(); ?>
 				</div>
 

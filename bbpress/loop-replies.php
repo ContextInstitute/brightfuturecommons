@@ -12,7 +12,7 @@
 <?php do_action( 'bbp_template_before_replies_loop' ); ?>
 
 <ul id="topic-<?php bbp_topic_id(); ?>-replies"
-    class="bs-item-list bs-forums-items bs-single-forum-list bb-single-reply-list list-view">
+    class="bs-item-list bs-forums-items bs-single-forum-list bb-single-reply-list list-view"><!-- bfc-marker loop-replies.php -->
 
 	<?php
 	if ( ! empty( bbp_get_topic_id() ) ) {
