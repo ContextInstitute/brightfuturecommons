@@ -18,7 +18,9 @@ if ( bp_has_groups() ) :
 
 		<div id="item-header" role="complementary" data-bp-item-id="<?php bp_group_id(); ?>" data-bp-item-component="groups" class="groups-header single-headers"><!-- bfc-marker home.php -->
 
-			<?php bp_nouveau_group_header_template_part(); ?><!-- bfc-marker remove to remove header -->
+			<?php 
+				// bp_nouveau_group_header_template_part(); 
+			?><!-- bfc-marker remove to remove header -->
 
 		</div><!-- #item-header -->
 
