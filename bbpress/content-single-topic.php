@@ -53,7 +53,7 @@
 
 		</div>
 
-		<div class="bb-sm-grid bs-single-topic-sidebar">
+		<!-- <div class="bb-sm-grid bs-single-topic-sidebar">
             <div class="bs-topic-sidebar-inner">
                 <div class="single-topic-sidebar-links">
         			<p class="bb-topic-reply-link-wrap"><?php bbp_topic_reply_link(); ?></p>
@@ -93,7 +93,7 @@
                     </a>
                 </div>
             </div>
-		</div>
+		</div> -->
 
 	</div>
 
