@@ -7,6 +7,9 @@
  * @subpackage Theme
  */
 
+$is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
+$follow_class = $is_follow_active ? 'follow-active' : '';
+
 ?>
 
 <div id="post-<?php bbp_reply_id(); ?>" <?php bbp_reply_class( bbp_get_reply_id(), array(
@@ -14,40 +17,52 @@
 	'scrubberpost'
 ) ); ?> data-date="<?php echo get_post_time( 'F Y', false, bbp_get_reply_id(), true ); ?>">
 
-    <div class="flex align-items-center bs-reply-header"><!-- bfc-marker loop-single-reply.php -->
+    <div class="flex bs-reply-header"><!-- bfc-marker loop-single-reply.php removed align-items-center-->
 
-        <div class="bbp-reply-author item-avatar">
-			<?php $args = array( 'type' => 'avatar' );
-			echo bbp_get_reply_author_link( $args ); ?>
-        </div><!-- .bbp-reply-author -->
+        <div class="bbp-reply-author">
+			<div class="item-avatar">
+				<!-- <?php $args = array( 'type' => 'avatar' );
+				echo bbp_get_reply_author_link( $args ); ?> -->
+				<span data-toggle="reply-author-dropdown-<?php echo esc_attr( bbp_get_reply_id() ); ?>"><?php bbp_reply_author_avatar( bbp_get_reply_id(),  $size = 80 ); ?></span><br>
+				<div class="dropdown-pane <?php echo $follow_class; ?>" id="reply-author-dropdown-<?php echo esc_attr( bbp_get_reply_id() ); ?>" data-dropdown data-hover="true" data-hover-pane="true" data-auto-focus="false">
+				<?php if(bbp_get_reply_author_id() != bp_loggedin_user_id())  : ?>
+					<a href="/members/<?php echo bp_core_get_username(bp_loggedin_user_id()); ?>/messages/compose/?r=<?php echo bp_core_get_username(bbp_get_reply_author_id()); ?>">Send a message</a><br>
+					<?php if($is_follow_active) {bp_add_follow_button( bbp_get_reply_author_id(), bp_loggedin_user_id() );}?>
+				<?php endif; ?>
+				<a href="/members/<?php echo bp_core_get_username(bbp_get_reply_author_id()); ?>">Visit profile</a>
+				<br>Plus info from profile
+				</div>
+			</div>
+ 
+			<div class="item-meta flex-1">
+				<h3><?php
+					$args = array( 'type' => 'name' );
+					echo bbp_get_reply_author_display_name( );
+					?></h3>
 
-        <div class="item-meta flex-1">
-            <h3><?php
-				$args = array( 'type' => 'name' );
-				echo bbp_get_reply_author_link( $args );
-				?></h3>
+				<!-- <?php bbp_reply_author_role(); ?> -->
+				<span class="bs-timestamp"><?php bbp_reply_post_date(); ?></span>
 
-			<?php bbp_reply_author_role(); ?>
-            <span class="bs-timestamp"><?php bbp_reply_post_date(); ?></span>
+				<?php if ( bbp_is_single_user_replies() ) : ?>
 
-			<?php if ( bbp_is_single_user_replies() ) : ?>
+					<span class="bbp-header">
+					<?php esc_html_e( 'in reply to: ', 'buddyboss-theme' ); ?>
+						<a class="bbp-topic-permalink"
+						href="<?php bbp_topic_permalink( bbp_get_reply_topic_id() ); ?>"><?php bbp_topic_title( bbp_get_reply_topic_id() ); ?></a>
+					</span>
 
-                <span class="bbp-header">
-				<?php esc_html_e( 'in reply to: ', 'buddyboss-theme' ); ?>
-					<a class="bbp-topic-permalink"
-                       href="<?php bbp_topic_permalink( bbp_get_reply_topic_id() ); ?>"><?php bbp_topic_title( bbp_get_reply_topic_id() ); ?></a>
-				</span>
+				<?php endif; ?>
 
-			<?php endif; ?>
+			</div>
+		</div><!-- .bbp-reply-author -->
 
-        </div>
 
 		<?php
 		/**
 		 * Checked bbp_get_reply_admin_links() is empty or not if links not return then munu dropdown will not show
 		 */
 		if ( is_user_logged_in() && ! empty( strip_tags( bbp_get_reply_admin_links() ) ) ) { ?>
-            <div class="bbp-meta push-right">
+            <!-- <div class="bbp-meta push-right">
                 <div class="more-actions bb-reply-actions bs-dropdown-wrap align-self-center">
 					<?php
 					$empty       = false;
@@ -133,23 +148,23 @@
 						?>
                     </div>
                 </div>
-            </div><!-- .bbp-meta -->
+            </div> -->
 		<?php } ?>
 
-    </div>
 
-    <div class="bbp-after-author-hook">
-		<?php do_action( 'bbp_theme_after_reply_author_details' ); ?>
-    </div>
+		<div class="bbp-after-author-hook">
+			<?php do_action( 'bbp_theme_after_reply_author_details' ); ?>
+		</div>
 
-    <div class="bbp-reply-content bs-forum-content">
+		<div class="bbp-reply-content bs-forum-content">
 
-		<?php do_action( 'bbp_theme_before_reply_content' ); ?>
+			<?php do_action( 'bbp_theme_before_reply_content' ); ?>
 
-		<?php bbp_reply_content(); ?>
+			<?php bbp_reply_content(); ?>
 
-		<?php do_action( 'bbp_theme_after_reply_content' ); ?>
+			<?php do_action( 'bbp_theme_after_reply_content' ); ?>
 
-    </div><!-- .bbp-reply-content -->
+		</div><!-- .bbp-reply-content -->
+	</div>
 
 </div><!-- .reply -->
