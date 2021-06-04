@@ -21,17 +21,12 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 
         <div class="bbp-reply-author">
 			<div class="item-avatar">
-				<!-- <?php $args = array( 'type' => 'avatar' );
-				echo bbp_get_reply_author_link( $args ); ?> -->
 				<span data-toggle="reply-author-dropdown-<?php echo esc_attr( bbp_get_reply_id() ); ?>"><?php bbp_reply_author_avatar( bbp_get_reply_id(),  $size = 80 ); ?></span><br>
-				<div class="dropdown-pane <?php echo $follow_class; ?>" id="reply-author-dropdown-<?php echo esc_attr( bbp_get_reply_id() ); ?>" data-dropdown data-hover="true" data-hover-pane="true" data-auto-focus="false">
-				<?php if(bbp_get_reply_author_id() != bp_loggedin_user_id())  : ?>
-					<a href="/members/<?php echo bp_core_get_username(bp_loggedin_user_id()); ?>/messages/compose/?r=<?php echo bp_core_get_username(bbp_get_reply_author_id()); ?>">Send a message</a><br>
-					<?php if($is_follow_active) {bp_add_follow_button( bbp_get_reply_author_id(), bp_loggedin_user_id() );}?>
-				<?php endif; ?>
-				<a href="/members/<?php echo bp_core_get_username(bbp_get_reply_author_id()); ?>">Visit profile</a>
-				<br>Plus info from profile
-				</div>
+				<?php 
+				$type = 'reply-author';
+				$source = bbp_get_reply_id();
+				echo bfc_avatar_dropdown ($type,$source,$follow_class);
+				?>
 			</div>
  
 			<div class="item-meta flex-1">
