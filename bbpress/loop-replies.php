@@ -198,10 +198,4 @@
 	?>
 </div>
 
-<script>
-	jQuery(document).foundation();
-</script>
-
-
-
 <?php do_action( 'bbp_template_after_replies_loop' ); ?>
