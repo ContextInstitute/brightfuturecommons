@@ -74,7 +74,7 @@
 
 		<div class="screen-content members-directory-content">
 
-			<div id="members-dir-list" class="members dir-list" data-bp-list="members">
+			<div id="members-dir-grid" class="members dir-list" data-bp-list="members">
 				<div id="bp-ajax-loader"><?php bp_nouveau_user_feedback( 'directory-members-loading' ); ?></div>
 			</div><!-- #members-dir-list -->
 
