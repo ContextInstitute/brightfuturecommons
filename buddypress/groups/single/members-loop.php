@@ -37,7 +37,7 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 
 	<?php
 	$count = groups_get_current_group()->total_member_count;
-	If ($count < 22) : ?>
+	if ($count < 22) : ?>
 	<ul id="members-intros" class="bp-list">
 	<?php
 		while ( bp_group_members() ) :
