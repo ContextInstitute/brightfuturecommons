@@ -165,6 +165,11 @@
                     </div>
 					<?php
 				}
+				remove_filter( 'bbp_get_reply_content', 'bbp_reply_content_append_revisions', 99, 2 );
+				?>
+				<input type="hidden" name="bbp_topic_excerpt" id="bbp_topic_excerpt" value="<?php echo bbp_reply_excerpt( bbp_get_topic_id(), 50 ); ?>"/>
+				<?php
+				add_filter( 'bbp_get_reply_content', 'bbp_reply_content_append_revisions', 99, 2 );
 				?>
             </div>
         </li><!-- .bbp-header -->
