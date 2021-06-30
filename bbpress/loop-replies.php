@@ -186,22 +186,6 @@
 
 </ul><!-- #topic-<?php bbp_topic_id(); ?>-replies -->
 
-<div class="single-topic-sidebar-links">
-	<p class="bb-topic-reply-link-wrap"><?php bbp_topic_reply_link(); ?></p>
-	<p class="bb-topic-subscription-link-wrap"><?php $args = array('before' => '');
-	echo bbp_get_topic_subscription_link( $args ); ?></p>
-	<?php
-	if ( bp_is_active( 'moderation' ) && function_exists( 'bbp_get_topic_report_link' ) ) {
-		?>
-		<p  class="bb-topic-report-link-wrap">
-			<?php
-			echo bbp_get_topic_report_link( array( 'id' => get_the_ID() ) );
-			?>
-		</p>
-	<?php
-	}
-	?>
-</div>
 <script> 
 	jQuery(document).foundation();
 </script>
