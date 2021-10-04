@@ -73,7 +73,11 @@ $tooltip_position = bp_disable_group_cover_image_uploads() ? 'down' : 'up';
 				<?php bp_get_template_part( 'groups/single/parts/header-item-actions' ); ?>
 
 				<?php bp_nouveau_group_header_buttons(); ?>
-
+				<?php
+				if ( function_exists( 'bb_nouveau_group_header_bubble_buttons' ) ) {
+					bb_nouveau_group_header_bubble_buttons();
+				}
+                ?>
 			</div><!-- #item-header-content -->
 		<?php endif; ?>
 

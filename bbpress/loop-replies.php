@@ -95,6 +95,26 @@
 								}
 							}
 							?>
+
+	                        <?php if ( function_exists( 'bp_is_active' ) && bp_is_active( 'moderation' ) && function_exists( 'bbp_get_topic_report_link' ) && bbp_get_topic_report_link( array( 'id' => get_the_ID() ) ) ) { ?>
+                                <div class="forum_single_action_wrap">
+									<span class="forum_single_action_more-wrap" data-balloon-pos="up"
+                                          data-balloon="<?php _e( 'More Options', 'buddyboss-theme' ); ?>">
+										<i class="bb-icon bb-icon-menu-dots-v"></i>
+									</span>
+                                    <div class="forum_single_action_options">
+				                        <?php
+				                        if ( bp_is_active( 'moderation' ) && function_exists( 'bbp_get_topic_report_link' ) ) {
+					                        ?>
+                                            <p class="bb-topic-report-link-wrap">
+						                        <?php echo bbp_get_topic_report_link( array( 'id' => get_the_ID() ) ); ?>
+                                            </p>
+					                        <?php
+				                        }
+				                        ?>
+                                    </div>
+                                </div><!-- .forum_single_action_wrap -->
+	                        <?php } ?>
                         </div>
 					<?php endif; ?>
                 </div>
