@@ -146,20 +146,20 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
             </div> -->
 		<?php } ?>
 
+    </div>
 
-		<div class="bbp-after-author-hook">
-			<?php do_action( 'bbp_theme_after_reply_author_details' ); ?>
-		</div>
+    <div class="bbp-after-author-hook">
+		<?php do_action( 'bbp_theme_after_reply_author_details' ); ?>
+    </div>
 
-		<div class="bbp-reply-content bs-forum-content">
+    <div class="bbp-reply-content bs-forum-content">
 
-			<?php do_action( 'bbp_theme_before_reply_content' ); ?>
+		<?php do_action( 'bbp_theme_before_reply_content' ); ?>
 
-			<?php bbp_reply_content(); ?>
+		<?php bbp_reply_content(); ?>
 
-			<?php do_action( 'bbp_theme_after_reply_content' ); ?>
+		<?php do_action( 'bbp_theme_after_reply_content' ); ?>
 
-		</div><!-- .bbp-reply-content -->
-	</div>
+    </div><!-- .bbp-reply-content -->
 
 </div><!-- .reply -->
