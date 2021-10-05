@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyBoss - Members Loop
+ * BuddyPress - Members Loop
  *
- * @since BuddyPress 3.0.0
+ * @since 3.0.0
  * @version 3.0.0
  */
 
@@ -34,8 +34,6 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 	<script> 
 		jQuery(document).foundation();
 	</script>
-
-	<?php bp_nouveau_pagination( 'top' ); ?>
 
 	<ul id="members-list" class="<?php bp_nouveau_loop_classes(); ?>">
 
