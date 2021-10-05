@@ -129,12 +129,6 @@ $default_cover_image = buddyboss_theme_get_option( 'buddyboss_group_cover_defaul
 
 				<?php bp_nouveau_group_header_buttons(); ?>
 
-				<?php
-				if ( function_exists( 'bb_nouveau_group_header_bubble_buttons' ) ) {
-					bb_nouveau_group_header_bubble_buttons();
-				}
-				?>
-
 			</div><!-- #item-header-content -->
 
 		<?php endif; ?>
