@@ -1,5 +1,59 @@
 <?php
 
+/**
+ * Register our sidebars and widgetized areas on the user and group home pages.
+ *
+ */
+function bfc_widgets_init() {
+
+	register_sidebar( array(
+		'name'          => 'User Home Left Panel',
+		'id'            => 'user_left_panel',
+		'before_widget' => '<div>',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="rounded">',
+		'after_title'   => '</h2>',
+	) );
+
+	register_sidebar( array(
+		'name'          => 'User Home Center Panel',
+		'id'            => 'user_center_panel',
+		'before_widget' => '<div>',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="rounded">',
+		'after_title'   => '</h2>',
+	) );
+
+	register_sidebar( array(
+		'name'          => 'User Home Right Panel',
+		'id'            => 'user_right_panel',
+		'before_widget' => '<div>',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="rounded">',
+		'after_title'   => '</h2>',
+	) );
+
+	register_sidebar( array(
+		'name'          => 'Group Dash Left Panel',
+		'id'            => 'dash_left_panel',
+		'before_widget' => '<div>',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="rounded">',
+		'after_title'   => '</h2>',
+	) );
+
+	register_sidebar( array(
+		'name'          => 'Group Dash Right Panel',
+		'id'            => 'dash_right_panel',
+		'before_widget' => '<div>',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="rounded">',
+		'after_title'   => '</h2>',
+	) );
+
+}
+
+add_action( 'widgets_init', 'bfc_widgets_init' );
 
 // new widget to show topics, but with latest author
 
