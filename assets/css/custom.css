@@ -67,21 +67,28 @@ nav#object-nav li.bfc-group-name-nav{
 	width: 810px;
 	margin: 0 auto;
 }
+
+#bbpress-forums .bs-single-forum-list>li .bs-reply-list-item {
+	padding: 15px 30px 15px 0px;
+}
 #bbpress-forums#bbpress-forums .bs-forums-items .bbp-reply-author{
-	max-width: 160px;
-	margin-left: -30px;
+	width: 150px;
+	/* margin-left: -30px; */
 	padding: 0 20px;
 }
 #bbpress-forums h1.bb-reply-topic-title {
 	font-size: 28px;
 }
 #bbpress-forums#bbpress-forums .bs-forums-items .item-avatar {
-	margin-right: 0px;
+	margin: auto;
+	padding-bottom: 5px;
 }
-#bbpress-forums div.bbp-forum-content, #bbpress-forums div.bbp-reply-content, #bbpress-forums div.bbp-topic-content {
-	width: 670px;
-	/* margin-left: 140px; */
+
+
+#bbpress-forums .bs-reply-list-item {
+	display: flex;
 }
+
 .bbp-reply-content.bs-forum-content {
 	font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
 	font-size: 17px;
