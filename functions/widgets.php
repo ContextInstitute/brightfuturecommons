@@ -2,6 +2,9 @@
 
 /**
  * Register our sidebars and widgetized areas on the user and group home pages.
+ * The 'name' creates a section in Appearance > Widgets in the Admin backend
+ * The 'id' is used as a selector in the HTML of the relevant page template
+ * See https://developer.wordpress.org/reference/functions/register_sidebar/
  *
  */
 function bfc_widgets_init() {
@@ -55,7 +58,10 @@ function bfc_widgets_init() {
 
 add_action( 'widgets_init', 'bfc_widgets_init' );
 
-// new widget to show topics, but with latest author
+/**
+ * new widget to show topics, but with latest author
+ * modified from the bbPress Style Pack Display Topics widget
+ */ 
 
 function register_la_widget() {
     register_widget("bsp_Activity_Widget");
