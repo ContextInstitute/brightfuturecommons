@@ -60,6 +60,10 @@ get_header(); ?>
 			</div>
 
 			</div>
+
+			<script>
+				jQuery(document).foundation();
+			</script>
 								
 			</main> <!-- end #main -->
 			
