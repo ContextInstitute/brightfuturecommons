@@ -12,22 +12,26 @@ get_header(); ?>
 			<main class="main small-12 medium-12 large-12 cell" role="main">
 				
 			<div class="user-home-page">
+				<h2 class="user-home-welcome">
+				<span class="user-home-welcome-welcome">Welcome, </span>
+				<span class="user-home-welcome-name"><?php echo bp_get_user_meta( bp_loggedin_user_id(),'first_name',true);?></span></h2>
+				<div class="user-home-welcome-tagline"><span>to your Bright Future Commons Dashboard</span></div>
 
 			<div id="bfc-user-panels" class="bfc-user-panels">
 				<?php if ( is_active_sidebar( 'user_left_panel' ) ) : ?>
-					<div id="bfc-user-panel-left" class="bfc-user-panel-left widget-area">
+					<div id="bfc-user-panel-left" class="bfc-user-panel widget-area">
 						<?php dynamic_sidebar( 'user_left_panel' ); ?>
 					</div><!-- #bfc-user-panel-left -->
 
 				<?php endif; ?>
 				<?php if ( is_active_sidebar( 'user_center_panel' ) ) : ?>
-					<div id="bfc-user-panel-center" class="bfc-user-panel-center widget-area">
+					<div id="bfc-user-panel-center" class="bfc-user-panel widget-area">
 						<?php dynamic_sidebar( 'user_center_panel' ); ?>
 					</div><!-- #bfc-user-panel-center -->
 				<?php endif; ?>
 
 				<?php if ( is_active_sidebar( 'user_right_panel' ) ) : ?>
-					<div id="bfc-user-panel-right" class="bfc-user-panel-right widget-area">
+					<div id="bfc-user-panel-right" class="bfc-user-panel widget-area">
 						<?php dynamic_sidebar( 'user_right_panel' ); ?>
 					</div><!-- #bfc-user-panel-right -->
 				<?php endif; ?>

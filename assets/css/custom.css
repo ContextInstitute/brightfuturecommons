@@ -9,6 +9,12 @@ accidentally add desktop styles to the mobile layout.
 https://www.w3schools.com/css/css_rwd_mediaqueries.asp
 --------------------------------------------------------------*/
 
+/* Global */
+
+body {
+	-webkit-font-smoothing:auto;
+}
+
 /* Avatars */
 
 .bb-activity img.avatar{
@@ -242,9 +248,21 @@ nav#object-nav li.bfc-group-name-nav{
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-template-areas: 'LeftPanel CenterPanel RightPanel';
-	gap: 0px 10px;
+	gap: 0px 30px;
 	margin: 10px 0px;
 }
+
+#bfc-user-panels .bfc-user-panel{
+	border: 1px solid #e7e9ec;
+	padding: 10px 20px;
+	background-color: #fff;
+	position: relative;
+}
+#bfc-user-panels .widget-area:not(.widget-area-secondary){
+	max-width: none;
+	padding-top: ;
+}
+
 
 .bfc-dash-panels {
 	display: grid;
@@ -317,11 +335,11 @@ nav#object-nav li.bfc-group-name-nav{
 }
 
 .bfc-user-panels h2 {
-	font-size: 28px;
+	font-size: 26px;
 }
 #bfc-user-panels div.tribe-compatibility-container h2.tribe-events-widget-events-list__header-title {
 	font-weight: 400;
-	font-size: 28px;
+	font-size: 26px;
 	font-family: "SF UI Display", sans-serif;
 	color: #122B46;
 }
@@ -355,4 +373,22 @@ nav#object-nav li.bfc-group-name-nav{
 	.bfc-user-accordion .widget-area {
 		padding-bottom: 0px;
 	}
+}
+
+.user-home-welcome{
+	margin-top: 20px;
+	font-size: 34px;
+	line-height: 32px;
+	-webkit-font-smoothing: auto;
+}
+
+.user-home-welcome-name{
+	font-weight: 500;
+}
+
+.user-home-welcome-tagline{
+	color: #4D5C6D;
+    font-size: 22px;
+    line-height: 24px;
+	margin-bottom: 30px;
 }
