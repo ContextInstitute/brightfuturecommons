@@ -1,20 +1,22 @@
 <?php
-/*
-Template Name: Home
-*/
+/**
+ * Template Name: Home
+ *
+ * @package BFCom
+ */
 
 get_header(); ?>
-	
+
 	<div class="content">
-	
+
 		<div class="inner-content grid-x grid-margin-x grid-padding-x">
-	
+
 			<main class="main small-12 medium-12 large-12 cell" role="main">
-				
+
 			<div class="user-home-page">
 				<h2 class="user-home-welcome">
 				<span class="user-home-welcome-welcome">Welcome, </span>
-				<span class="user-home-welcome-name"><?php echo bp_get_user_meta( bp_loggedin_user_id(),'first_name',true);?></span></h2>
+				<span class="user-home-welcome-name"><?php echo esc_html( bp_get_user_meta( bp_loggedin_user_id(), 'first_name', true ) ); ?></span></h2>
 				<div class="user-home-welcome-tagline"><span>to your Bright Future Commons Dashboard</span></div>
 
 			<div id="bfc-user-panels" class="bfc-user-panels">
@@ -68,9 +70,9 @@ get_header(); ?>
 			<script>
 				jQuery(document).foundation();
 			</script>
-								
+
 			</main> <!-- end #main -->
-			
+
 		</div> <!-- end #inner-content -->
 
 	</div> <!-- end #content -->
