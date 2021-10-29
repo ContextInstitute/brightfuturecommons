@@ -257,12 +257,8 @@ nav#object-nav li.bfc-group-name-nav{
 	padding: 10px 20px;
 	background-color: #fff;
 	position: relative;
-}
-#bfc-user-panels .widget-area:not(.widget-area-secondary){
 	max-width: none;
-	padding-top: ;
 }
-
 
 .bfc-dash-panels {
 	display: grid;
@@ -351,6 +347,23 @@ nav#object-nav li.bfc-group-name-nav{
 	border-top-style: solid;
 }
 
+.user-home-welcome{
+	margin-top: 20px;
+	font-size: 34px;
+	line-height: 32px;
+	-webkit-font-smoothing: auto;
+}
+
+.user-home-welcome-name{
+	font-weight: 500;
+}
+
+.user-home-welcome-tagline{
+	color: #4D5C6D;
+    font-size: 22px;
+    line-height: 24px;
+	margin-bottom: 30px;
+}
 @media (max-width:767px) {
 	.bfc-dash-accordion {
 		display: block;
@@ -373,22 +386,9 @@ nav#object-nav li.bfc-group-name-nav{
 	.bfc-user-accordion .widget-area {
 		padding-bottom: 0px;
 	}
-}
 
-.user-home-welcome{
-	margin-top: 20px;
-	font-size: 34px;
-	line-height: 32px;
-	-webkit-font-smoothing: auto;
-}
+	.user-home-welcome{
+		font-size: 32px;
+	}
 
-.user-home-welcome-name{
-	font-weight: 500;
-}
-
-.user-home-welcome-tagline{
-	color: #4D5C6D;
-    font-size: 22px;
-    line-height: 24px;
-	margin-bottom: 30px;
 }
