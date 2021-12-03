@@ -52,9 +52,9 @@
 			<?php do_action( 'bbp_template_after_single_topic' ); ?>
 
 		</div>
-
+	</div>
 		<!-- <div class="bb-sm-grid bs-single-topic-sidebar">
-            <div class="bs-topic-sidebar-inner">
+            <div class="bs-topic-sidebar-inner"> -->
                 <div class="single-topic-sidebar-links">
         			<p class="bb-topic-reply-link-wrap"><?php bbp_topic_reply_link(); ?></p>
         			<p class="bb-topic-subscription-link-wrap"><?php $args = array('before' => '');
@@ -72,7 +72,7 @@
                     ?>
                 </div>
 
-                <div class="scrubber" id="scrubber" data-key="<?php echo esc_attr( buddyboss_unique_id( 'forums_scrubber_' ) ); ?>">
+               <!--  <div class="scrubber" id="scrubber" data-key="<?php echo esc_attr( buddyboss_unique_id( 'forums_scrubber_' ) ); ?>">
                     <a href="#" class="firstpostbtn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11">
                             <path fill="none" stroke="#C8CBCF" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.44" d="M1 10l4.5-4 4.5 4M1 5l4.5-4L10 5"/>
@@ -91,10 +91,10 @@
                         </svg>
                         <?php _e( 'Now', 'buddyboss-theme' ); ?>
                     </a>
-                </div>
-            </div>
-		</div> -->
+                </div> -->
+           <!--   </div>
+		</div>  -->
 
-	</div>
+	
 
 </div>
