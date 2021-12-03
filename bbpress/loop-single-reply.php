@@ -36,7 +36,7 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 					?></h3>
 
 				<!-- <?php bbp_reply_author_role(); ?> -->
-				<span class="bs-timestamp"><?php bbp_reply_post_date(); ?></span>
+				<span class="bs-timestamp"><?php bfc_reply_post_date(); ?></span>
 
 				<?php if ( bbp_is_single_user_replies() ) : ?>
 

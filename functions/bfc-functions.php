@@ -17,4 +17,22 @@ function bfc_avatar_dropdown ($type,$source,$follow_class){
   return $output;
 }
 
+function bfc_reply_post_date() {
+	/*
+	 Replaces bbp_reply_post_date() in loop-single-reply.php and loop-search-reply.php 
+	 Based on bbp_get_reply_post_date()
+	*/
+	$today = current_time('M j, Y');
+	$yestertime = current_time('timestamp') - 86400;
+	$yesterday = date('M j, Y', $yestertime );
+	$post_date = get_post_time( 'M j, Y' );
+	if ($post_date==$today) {
+		$result = "Today at " . get_post_time( 'g:i A' );
+	} elseif ($post_date==$yesterday) {
+		$result =  "Yesterday at " . get_post_time( 'g:i A' );
+	} else {
+		$result = get_the_date('M j, Y');
+	}
+	echo apply_filters( 'bfc_reply_post_date', $result );
+  }
 ?>
