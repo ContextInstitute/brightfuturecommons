@@ -1,6 +1,7 @@
 <?php
 /**
- * BP Nouveau Activity Widget template.
+ * BFC Activity Widget template.
+ * Adapted from BP Nouveau Activity Widget template.
  *
  * @since BuddyPress 3.0.0
  * @version 3.0.0
@@ -15,7 +16,7 @@
 		while ( bp_activities() ) :
 			bp_the_activity();
 		?>
-
+		<?php if ( bp_activity_has_content() ) : ?>
 		<div class="activity-update">
 
 			<div class="update-item">
@@ -40,6 +41,19 @@
 			</div>
 
 		</div>
+		<div class="activity-content <?php ( function_exists('bp_activity_entry_css_class') ) ? bp_activity_entry_css_class(): ''; ?>">
+		
+			<div class="activity-inner <?php echo ( function_exists( 'bp_activity_has_content' ) && empty( bp_activity_has_content() ) ) ? esc_attr( 'bb-empty-content' ) : esc_attr( '' ); ?>">
+				<?php
+					add_filter('bp_activity_excerpt_length','bfc_activity_widget_excerpt_length',900);
+					bp_nouveau_activity_content();
+					remove_filter('bp_activity_excerpt_length','bfc_activity_widget_excerpt_length',900);
+				?>
+			</div>
+
+		</div>
+
+		<?php endif; ?>
 
 		<?php endwhile; ?>
 
