@@ -290,9 +290,10 @@ nav#object-nav li.bfc-group-name-nav{
 .bfc-la-li {
 	display: grid;
 	grid-template-columns: 46px 1fr;
-	margin-top: 0;
+	margin-bottom: 10px;
 	padding-top: 10px;
-	border: 1px solid #eeeeee;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #eaeaea;
 }
 
 .bfc-la-ul {
@@ -392,3 +393,36 @@ nav#object-nav li.bfc-group-name-nav{
 	}
 
 }
+
+
+.bfc-user-panel .activity-update cite::before {
+	content: none;
+}
+
+.bfc-user-panel .activity-list {
+	padding: 0px;
+}
+
+.bfc-user-panel .activity-update .update-item {
+	display: grid;
+    grid-template-columns: 46px 1fr;
+	margin-top: 22px;
+}
+
+.bfc-user-panel .activity-content {
+	/* margin-left: 46px; */	
+	font-size: 13px;
+	margin-bottom: 24px;
+	/* padding-bottom: 10px; */
+	border-bottom: 1px solid #eaeaea;
+
+}
+
+.bfc-user-panel .activity-inner {
+	word-break: break-word;
+}
+
+.bfc-user-panel .activity-inner p {
+	margin-bottom: 10px;
+}
+

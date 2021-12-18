@@ -442,4 +442,24 @@ class bsp_Activity_Widget extends WP_Widget {
 	}
 }
 
+/**
+ * For the User Dashboard
+ */
+function bfc_activity_widget_excerpt_length(){
+	$excerpt_length = 150;
+	return (int) $excerpt_length;
+}
 
+
+
+/**
+ * A filter to simplify the output from bp_activity_action() in the Activty widget on the User Dashboard
+ */
+
+function bfc_simplify_activity_action ($action){
+	$action = str_replace(' posted an update','<br>', $action );
+	$action = 'From ' . $action;
+	return $action;
+}
+
+add_filter( 'bp_get_activity_action_pre_meta', 'bfc_simplify_activity_action', 10, 1);
