@@ -52,12 +52,25 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 		</div><!-- .bbp-reply-author -->
 
 
+
+	</div>
+
+	<div class="bbp-after-author-hook">
+		<?php do_action( 'bbp_theme_after_reply_author_details' ); ?>
+	</div>
+
+	<div class="bbp-reply-content bs-forum-content">
+
+		<?php do_action( 'bbp_theme_before_reply_content' ); ?>
+
+		<?php bbp_reply_content(); ?>
+
 		<?php
 		/**
 		 * Checked bbp_get_reply_admin_links() is empty or not if links not return then munu dropdown will not show
 		 */
 		if ( is_user_logged_in() && ! empty( strip_tags( bbp_get_reply_admin_links() ) ) ) { ?>
-            <!-- <div class="bbp-meta push-right">
+            <div class="bbp-meta push-right">
                 <div class="more-actions bb-reply-actions bs-dropdown-wrap align-self-center">
 					<?php
 					$empty       = false;
@@ -113,16 +126,16 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
                     <div class="bs-dropdown-wrap-inner <?php echo esc_attr( $parent_class ); ?>">
 						<?php
 						// If post is a topic, print the topic admin links instead.
-						if ( bbp_is_topic( bbp_get_reply_id() ) ) {
-							add_filter( 'bbp_get_topic_reply_link', 'bb_theme_topic_link_attribute_change', 9999, 3 );
-							echo bbp_get_topic_reply_link();
-							remove_filter( 'bbp_get_topic_reply_link', 'bb_theme_topic_link_attribute_change', 9999, 3 );
-							// If post is a reply, print the reply admin links instead.
-						} else {
-							add_filter( 'bbp_get_reply_to_link', 'bb_theme_reply_link_attribute_change', 9999, 3 );
-							echo bbp_get_reply_to_link();
-							remove_filter( 'bbp_get_reply_to_link', 'bb_theme_reply_link_attribute_change', 9999, 3 );
-						}
+						// if ( bbp_is_topic( bbp_get_reply_id() ) ) {
+						// 	add_filter( 'bbp_get_topic_reply_link', 'bb_theme_topic_link_attribute_change', 9999, 3 );
+						// 	echo bbp_get_topic_reply_link();
+						// 	remove_filter( 'bbp_get_topic_reply_link', 'bb_theme_topic_link_attribute_change', 9999, 3 );
+						// 	// If post is a reply, print the reply admin links instead.
+						// } else {
+						// 	add_filter( 'bbp_get_reply_to_link', 'bb_theme_reply_link_attribute_change', 9999, 3 );
+						// 	echo bbp_get_reply_to_link();
+						// 	remove_filter( 'bbp_get_reply_to_link', 'bb_theme_reply_link_attribute_change', 9999, 3 );
+						// }
 						if ( ! $empty ) {
 							?>
                             <a href="#" class="bs-dropdown-link bb-reply-actions-button" data-balloon-pos="up"
@@ -143,20 +156,9 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 						?>
                     </div>
                 </div>
-            </div> -->
+            </div>
 		<?php } ?>
 
-	</div>
-
-	<div class="bbp-after-author-hook">
-		<?php do_action( 'bbp_theme_after_reply_author_details' ); ?>
-	</div>
-
-	<div class="bbp-reply-content bs-forum-content">
-
-		<?php do_action( 'bbp_theme_before_reply_content' ); ?>
-
-		<?php bbp_reply_content(); ?>
 
 		<?php do_action( 'bbp_theme_after_reply_content' ); ?>
 

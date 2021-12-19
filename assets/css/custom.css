@@ -103,6 +103,25 @@ nav#object-nav li.bfc-group-name-nav{
 .bs-forum-content .bbp-topic-revision-log, .bs-forum-content .bbp-reply-revision-log{
 	display: none;
 }
+
+#bbpress-forums#bbpress-forums .bs-forums-items.list-view .bs-dropdown-wrap .bs-dropdown-wrap-inner>a {
+	float: right;
+}
+
+#bbpress-forums div.bbp-reply-content ul li, #bbpress-forums div.bbp-topic-content ul li {
+    list-style-type: none;
+}
+
+.bs-dropdown {
+	min-width: 100px;
+ }
+ 
+ #bbpress-forums#bbpress-forums .bs-forums-items.list-view .bs-dropdown-wrap .bs-dropdown-wrap-inner .bs-dropdown {
+   width: 100px;
+}
+
+
+
 /* dropdown pane */
 
 #buddypress .bb-grid  .dropdown-pane .generic-button, #buddypress .bp-list  .dropdown-pane .generic-button {
