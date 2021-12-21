@@ -451,3 +451,9 @@ nav#object-nav li.bfc-group-name-nav{
 	margin-bottom: 10px;
 }
 
+.bfc-after-widget {
+	border-top: #122B46;
+    border-top-width: 1px;
+    border-top-style: solid;
+    margin-bottom: -10px;
+}
