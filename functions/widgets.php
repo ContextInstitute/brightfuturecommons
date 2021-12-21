@@ -7,7 +7,7 @@
  * See https://developer.wordpress.org/reference/functions/register_sidebar/
  *
  */
-function bfc_widgets_init() {
+function bfc_sidebars_init() {
 
 	register_sidebar( array(
 		'name'          => 'User Home Left Panel',
@@ -56,7 +56,13 @@ function bfc_widgets_init() {
 
 }
 
-add_action( 'widgets_init', 'bfc_widgets_init' );
+add_action( 'widgets_init', 'bfc_sidebars_init' );
+
+function bfc_register_messages_widget() {
+	register_widget( 'bfc_messages_widget' );
+}
+add_action( 'widgets_init', 'bfc_register_messages_widget' );
+
 
 /**
  * new widget to show topics, but with latest author
@@ -217,6 +223,10 @@ class bsp_Activity_Widget extends WP_Widget {
 		if ( ! $widget_query->have_posts() ) {
 			return;
 		}
+
+		$is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
+		$follow_class = $is_follow_active ? 'follow-active' : '';
+
 		
 		echo $args['before_widget'];
 		
@@ -251,7 +261,15 @@ class bsp_Activity_Widget extends WP_Widget {
 				?>
 
 				<li class="bfc-la-li">
-				<?php echo '<div class="bfc-la-topic-author-avatar topic-author">' . $author_avatar . '</div><div class="bfc-la-topic-text">';
+				<div class="bfc-la-topic-author-avatar topic-author">
+				<span data-toggle="reply-author-dropdown-<?php echo esc_attr( $post_id ); ?>"><?php bbp_reply_author_avatar( $post_id,  $size = 40 ); ?></span><br>
+				<?php 
+				$type = 'reply-author';
+				$source = $post_id;
+				echo bfc_avatar_dropdown ($type,$source,$follow_class);
+				?>
+				<?php 
+				echo '</div><div class="bfc-la-topic-text">';
 				//if no replies set the link to the topic
 				if (empty ($reply)) {?>
 					<a class="bsp-la-reply-topic-title" href="<?php bbp_topic_permalink( $topic_id ); ?>"><?php bbp_topic_title( $topic_id ); ?></a>
@@ -295,6 +313,11 @@ class bsp_Activity_Widget extends WP_Widget {
 			<?php endwhile; ?>
 
 		</ul>
+
+		<script> 
+			jQuery(document).foundation();
+		</script>
+
 
 		<?php echo $args['after_widget'];
 
@@ -440,7 +463,7 @@ class bsp_Activity_Widget extends WP_Widget {
 			'order_by'     => false
 		), 'latest_activity_widget_settings' );
 	}
-}
+} //end of latest activity widget
 
 /**
  * For the User Dashboard
@@ -463,3 +486,127 @@ function bfc_simplify_activity_action ($action){
 }
 
 add_filter( 'bp_get_activity_action_pre_meta', 'bfc_simplify_activity_action', 10, 1);
+
+// Latest messages widget 
+class bfc_messages_widget extends WP_Widget {
+ 
+	// The construct part  
+	function __construct() {
+		parent::__construct(
+			
+		// Base ID of your widget
+		'bfc_messages_widget', 
+			
+		// Widget name will appear in UI
+		__('(BFC) Latest Messages', 'bfc_messages_widget_domain'), 
+			
+		// Widget description
+		array( 'description' => __( 'A widget to display a user\'s latest private messages', 'bfc_messages_widget_domain' ), ) 
+		);
+	}
+	  
+	// Creating widget front-end
+	public function widget( $args, $instance ) {
+		global $messages_template;
+
+		$is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
+		$follow_class = $is_follow_active ? 'follow-active' : '';
+
+		$title = apply_filters( 'widget_title', $instance['title'] );
+  
+		// before and after widget arguments are defined by themes
+		echo $args['before_widget'];
+		if ( ! empty( $title ) )
+		echo $args['before_title'] . $title . $args['after_title'];
+		
+		// This is where you run the code and display the output
+		echo '<ul class="bfc-la-ul">';
+
+		$args = array(
+			// 'user_id'      => $user_id,
+			// 'box'          => $default_box,
+			// 'per_page'     => 10,
+			'max'          => 6,
+			// 'type'         => 'all',
+			// 'search_terms' => $search_terms,
+			// 'include'      => false,
+			// 'page_arg'     => 'mpage', // See https://buddypress.trac.wordpress.org/ticket/3679.
+			// 'meta_query'   => array(),
+			'after_widget' => '<div class="bfc-after-widget"></div>',
+		);
+
+		  
+ 
+		
+		if (bp_has_message_threads($args)) {
+			while ( bp_message_threads() ) {
+				bp_message_thread();
+				// echo bp_get_message_thread_id();
+				// bp_message_thread_view_link();
+				// echo '<br>';
+				// bp_message_thread_last_post_date();
+				// echo date('M j, Y', bp_get_message_thread_last_post_date_raw() );
+				$type = 'widget';
+				$source = $messages_template->thread->last_sender_id;
+				?>
+				<div class="activity-list item-list">
+					<div class="activity-update">
+						<div class="update-item">
+							<span data-toggle="widget-dropdown-<?php echo $source ; ?>">
+								<?php bp_message_thread_avatar(array( 'type'   => 'thumb', 'width'  => '40', 'height' => '40' )); ?></span>
+								<?php 
+								echo bfc_avatar_dropdown ($type,$source,$follow_class);
+								?>
+							<div class="bp-activity-info">
+								<p>From <?php bp_message_thread_from(); ?><br>
+								<a href="<?php bp_message_thread_view_link(); ?>">
+									<?php echo bfc_nice_date (date('M j, Y', strtotime ($messages_template->thread->last_message_date))); ?>
+								</a>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="activity-content ">	
+						<div class="activity-inner ">
+							<?php echo bp_create_excerpt( stripslashes($messages_template->thread->last_message_content), 150 ); ?>
+						</div>
+					</div>
+				</div>
+
+			<?php }	
+				
+		}
+						echo $args['after_widget']; ?>
+		</div>
+		<script> 
+			jQuery(document).foundation();
+		</script>
+	<?php }
+			  
+	// Creating widget Backend 
+	public function form( $instance ) {
+		if ( isset( $instance[ 'title' ] ) ) {
+			$title = $instance[ 'title' ];
+		}
+		else {
+			$title = __( 'New title', 'bfc_messages_widget_domain' );
+		}
+		?>
+		<!-- Widget admin form -->
+		<p>
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+		</p>
+		<?php			
+	}
+		  
+	// Updating widget replacing old instances with new
+	public function update( $new_instance, $old_instance ) {
+		$instance = array();
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		return $instance;
+	}
+	 
+	// Class wpb_widget ends here
+	} 
+
