@@ -31,9 +31,6 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 <?php endif; ?>
 
 <?php if ( bp_has_members( bp_ajax_querystring( 'members' ) ) ) : ?>
-	<script> 
-		jQuery(document).foundation();
-	</script>
 
 	<ul id="members-list" class="<?php bp_nouveau_loop_classes(); ?>">
 
@@ -82,8 +79,13 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 	</ul>
 
 	<?php bp_nouveau_pagination( 'bottom' ); ?>
+	<script> 
+		jQuery(document).foundation();
+	</script>
+
 
 <?php
+
 else :
 
 	bp_nouveau_user_feedback( 'members-loop-none' );
