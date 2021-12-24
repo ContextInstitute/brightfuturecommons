@@ -23,7 +23,7 @@ body {
 .list-view .bb-forums__avatar .avatar{
 	border-radius:20%;
 	}
-.user-link img{
+.notification-avatar img, .user-link img{
 	border-radius:20%;
 	}
 #friend-list.item-list .item-avatar img,#members-list.item-list .item-avatar img{
@@ -124,12 +124,17 @@ nav#object-nav li.bfc-group-name-nav{
 
 /* dropdown pane */
 
-#buddypress .bb-grid  .dropdown-pane .generic-button, #buddypress .bp-list  .dropdown-pane .generic-button {
+#buddypress .bb-grid  .dropdown-pane .generic-button, 
+#buddypress .bp-list  .dropdown-pane .generic-button, 
+#bfc-user-panels .dropdown-pane .generic-button, 
+#bfc-user-accordion .dropdown-pane .generic-button {
 	margin: 0;
 }
 
-
-#buddypress .bb-grid  .dropdown-pane .follow-button, #buddypress .bp-list  .dropdown-pane .follow-button {
+#buddypress .bb-grid  .dropdown-pane .follow-button, 
+#buddypress .bp-list .dropdown-pane .follow-button, 
+#bfc-user-panels .dropdown-pane .follow-button, 
+#bfc-user-accordion .dropdown-pane .follow-button {
 	background: transparent;
 	border: 0;
 	border-radius: 0;
@@ -139,12 +144,16 @@ nav#object-nav li.bfc-group-name-nav{
 	min-height: 1px;
 	padding: 0;
 	font-size: 16px;
-	text-align: center;
+	/* text-align: center; */
 }
 		
-#buddypress .bb-grid .dropdown-pane, #buddypress .bp-list .dropdown-pane {
+#buddypress .bb-grid .dropdown-pane, 
+#buddypress .bp-list .dropdown-pane, 
+#bfc-user-panels .dropdown-pane, 
+#bfc-user-accordion .dropdown-pane {
 	border-radius:10%;
 	font-size: 16px;
+	text-align: center;
 }
 
 /* member directory */
