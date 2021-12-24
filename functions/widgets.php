@@ -314,11 +314,6 @@ class bsp_Activity_Widget extends WP_Widget {
 
 		</ul>
 
-		<script> 
-			jQuery(document).foundation();
-		</script>
-
-
 		<?php echo $args['after_widget'];
 
 		// Reset the $post global
@@ -578,9 +573,6 @@ class bfc_messages_widget extends WP_Widget {
 		}
 						echo $args['after_widget']; ?>
 		</div>
-		<script> 
-			jQuery(document).foundation();
-		</script>
 	<?php }
 			  
 	// Creating widget Backend 

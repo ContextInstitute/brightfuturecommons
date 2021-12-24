@@ -41,7 +41,7 @@ function buddyboss_theme_child_scripts_styles()
    **/
 
   // Register Foundation scripts
-  wp_enqueue_script( 'foundation-js', get_stylesheet_directory_uri() . '/foundation-sites/dist/js/foundation.min.js', array('jquery'), "false" );
+  wp_enqueue_script( 'foundation-js', get_stylesheet_directory_uri() . '/foundation-sites/dist/js/foundation.min.js', array('jquery'), "true" );
 	
   // Register Foundation styles
   wp_enqueue_style( 'foundation-css', get_stylesheet_directory_uri() . '/foundation-sites/dist/css/foundation.min.css', array(), "false", 'all' );
