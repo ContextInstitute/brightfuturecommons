@@ -17,7 +17,7 @@ get_header(); ?>
 				<h2 class="user-home-welcome">
 				<span class="user-home-welcome-welcome">Welcome, </span>
 				<span class="user-home-welcome-name"><?php echo esc_html( bp_get_user_meta( bp_loggedin_user_id(), 'first_name', true ) ); ?></span></h2>
-				<div class="user-home-welcome-tagline"><span>to your Bright Future Commons Dashboard</span></div>
+				<div class="user-home-welcome-tagline"><span>to your personal Bright Future Commons home-space</span></div>
 
 			<div id="bfc-user-panels" class="bfc-user-panels">
 				<?php if ( is_active_sidebar( 'user_left_panel' ) ) : ?>
