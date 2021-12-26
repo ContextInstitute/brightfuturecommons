@@ -13,9 +13,9 @@
 
 		<ul>
 
-			<li class="bfc-group-name-nav">
+			<!-- <li class="bfc-group-name-nav">
 			<?php echo esc_attr( bp_get_group_name() ); ?>
-			</li>
+			</li> -->
 
 			<?php
 			while ( bp_nouveau_nav_items() ) :
