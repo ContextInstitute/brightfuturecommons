@@ -1,5 +1,7 @@
 <?php
 
+define( 'BP_GROUPS_DEFAULT_EXTENSION', 'courtyard' );
+
 function bfc_avatar_dropdown( $type, $source, $follow_class ) {
 	$user = bp_loggedin_user_id();
 	$person = $source;
@@ -84,7 +86,7 @@ function buddypress_custom_group_tab() {
 	}
 }
 
- add_action( 'bp_setup_nav', 'buddypress_custom_group_tab', 20 );
+add_action( 'bp_setup_nav', 'buddypress_custom_group_tab', 20 );
 
 /**
  * Set template for new tab.
