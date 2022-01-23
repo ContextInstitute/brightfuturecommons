@@ -33,17 +33,21 @@
 
 				<?php if ( bbp_has_replies() ) : ?>
 
-					<?php //bbp_get_template_part( 'pagination', 'replies' ); ?>
+					<?php // bbp_get_template_part( 'pagination', 'replies' ); ?>
 
-					<?php bbp_get_template_part( 'loop',       'replies' ); ?>
+					<?php bbp_get_template_part( 'loop', 'replies' ); ?>
 
 					<?php bbp_get_template_part( 'pagination', 'replies' ); ?>
 
 				<?php endif; ?>
 
-                <p class="bb-topic-reply-link-wrap mobile-only"><?php bbp_topic_reply_link(); ?></p>
-				<p class="bb-topic-subscription-link-wrap mobile-only"><?php $args = array('before' => '');
-			echo bbp_get_topic_subscription_link( $args ); ?></p>
+				<p class="bb-topic-reply-link-wrap mobile-only"><?php bbp_topic_reply_link(); ?></p>
+				<p class="bb-topic-subscription-link-wrap mobile-only">
+					<?php
+					$args = array( 'before' => '' );
+					echo bbp_get_topic_subscription_link( $args );
+					?>
+				</p>
 
 				<?php bbp_get_template_part( 'form', 'reply' ); ?>
 
@@ -55,22 +59,22 @@
 	</div>
 		<!-- <div class="bb-sm-grid bs-single-topic-sidebar">
             <div class="bs-topic-sidebar-inner"> -->
-                <div class="single-topic-sidebar-links">
-        			<p class="bb-topic-reply-link-wrap"><?php bbp_topic_reply_link(); ?></p>
-        			<p class="bb-topic-subscription-link-wrap"><?php $args = array('before' => '');
-        			echo bbp_get_topic_subscription_link( $args ); ?></p>
-                    <?php
-                    if ( bp_is_active( 'moderation' ) && function_exists( 'bbp_get_topic_report_link' ) ) {
-                        ?>
-                        <p  class="bb-topic-report-link-wrap">
-                            <?php
-                            echo bbp_get_topic_report_link( array( 'id' => get_the_ID() ) );
-                            ?>
-                        </p>
-                    <?php
-                    }
-                    ?>
-                </div>
+				<div class="single-topic-sidebar-links">
+					<p class="bb-topic-reply-link-wrap"><?php bbp_topic_reply_link(); ?></p>
+					<p class="bb-topic-subscription-link-wrap">
+					<?php
+					$args = array( 'before' => '' );
+					echo bbp_get_topic_subscription_link( $args );
+					?>
+					</p>
+				</div>
+
+				<?php
+				$bbp       = bbpress();
+				$start_num = intval( ( $bbp->reply_query->paged - 1 ) * $bbp->reply_query->posts_per_page ) + 1;
+				$from_num  = bbp_number_format( $start_num );
+				$to_num    = bbp_number_format( ( $start_num + ( $bbp->reply_query->posts_per_page - 1 ) > $bbp->reply_query->found_posts ) ? $bbp->reply_query->found_posts : $start_num + ( $bbp->reply_query->posts_per_page - 1 ) );
+				?>
 
                <!--  <div class="scrubber" id="scrubber" data-key="<?php echo esc_attr( buddyboss_unique_id( 'forums_scrubber_' ) ); ?>">
                     <a href="#" class="firstpostbtn">
