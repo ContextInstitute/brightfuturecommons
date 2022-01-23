@@ -125,17 +125,7 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 					?>
                     <div class="bs-dropdown-wrap-inner <?php echo esc_attr( $parent_class ); ?>">
 						<?php
-						// If post is a topic, print the topic admin links instead.
-						// if ( bbp_is_topic( bbp_get_reply_id() ) ) {
-						// 	add_filter( 'bbp_get_topic_reply_link', 'bb_theme_topic_link_attribute_change', 9999, 3 );
-						// 	echo bbp_get_topic_reply_link();
-						// 	remove_filter( 'bbp_get_topic_reply_link', 'bb_theme_topic_link_attribute_change', 9999, 3 );
-						// 	// If post is a reply, print the reply admin links instead.
-						// } else {
-						// 	add_filter( 'bbp_get_reply_to_link', 'bb_theme_reply_link_attribute_change', 9999, 3 );
-						// 	echo bbp_get_reply_to_link();
-						// 	remove_filter( 'bbp_get_reply_to_link', 'bb_theme_reply_link_attribute_change', 9999, 3 );
-						// }
+						// BB Theme code removed - admin links
 						if ( ! $empty ) {
 							?>
                             <a href="#" class="bs-dropdown-link bb-reply-actions-button" data-balloon-pos="up"
@@ -156,7 +146,7 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 						?>
                     </div>
                 </div>
-            </div>
+            </div><!-- .bbp-meta -->
 		<?php } ?>
 
 

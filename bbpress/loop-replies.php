@@ -119,49 +119,7 @@
 					<?php endif; ?>
                 </div>
 
-                <!-- <div class="item-meta">
-					<span class="bs-replied">
-						<span class="bbp-topic-freshness-author"><?php bbp_author_link( array(
-								'post_id' => bbp_get_topic_last_active_id(),
-								'size'    => 1
-							) ); ?></span> <?php _e( 'updated', 'buddyboss-theme' ); ?> <?php bbp_topic_freshness_link(); ?>
-					</span>
-						<span class="bs-voices-wrap">
-						<?php
-						$topic_id    = bbp_get_topic_id();
-						$voice_count = bbp_get_topic_voice_count( $topic_id );
-						$voice_text  = $voice_count > 1 ? __( 'Members', 'buddyboss-theme' ) : __( 'Member', 'buddyboss-theme' );
-
-						$topic_reply_count = bbp_get_topic_reply_count( $topic_id );
-						$topic_post_count  = bbp_get_topic_post_count( $topic_id );
-						$reply_count       = bbp_get_topic_replies_link( $topic_id );
-						$topic_reply_text  = '';
-						?>
-							<span class="bs-voices"><?php bbp_topic_voice_count(); ?> <?php echo $voice_text; ?></span>
-						<span class="bs-separator">&middot;</span>
-						<span class="bs-replies"><?php
-							if ( bbp_show_lead_topic() ) {
-								bbp_topic_reply_count( $topic_id );
-								$topic_reply_text = $topic_reply_count > 1 ? __( 'Replies', 'buddyboss-theme' ) : __( 'Reply', 'buddyboss-theme' );
-							} else {
-								bbp_topic_post_count( $topic_id );
-								$topic_reply_text = $topic_post_count > 1 ? __( 'Posts', 'buddyboss-theme' ) : __( 'Post', 'buddyboss-theme' );
-							}
-							?>
-
-							<?php echo $topic_reply_text; ?>
-						</span>
-					</span>
-
-					<?php if ( ! empty( bbp_get_topic_forum_title() ) ) { ?>
-                        <div class="action bs-forums-meta flex align-items-center">
-						<span class="color bs-meta-item"
-                              style="background: <?php echo color2rgba( textToColor( bbp_get_topic_forum_title() ), 0.6 ); ?>">
-							<a href="<?php bbp_forum_permalink( bbp_get_topic_forum_id() ); ?>"><?php echo bbp_get_topic_forum_title();; ?></a>
-						</span>
-                        </div>
-					<?php } ?>
-                </div> -->
+                <!-- BB Theme code removed - item-meta block -->
 				<?php
 				$terms = bbp_get_form_topic_tags();
 				if ( $terms && bbp_allow_topic_tags() ) {
