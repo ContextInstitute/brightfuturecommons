@@ -124,7 +124,7 @@ function custom_group_tab_content() {
 			$group_admins = groups_get_group_admins( bp_get_current_group_id() );
 			
 			$ga_count = 0;
-			(1 < count( $group_admins )) ? $olabel = "Organizers: " : $olabel =  "Organizer: "; 
+			(1 < count( $group_admins )) ? $olabel = "Stewards: " : $olabel =  "Steward: "; 
 			echo $olabel;
 			$is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
 			$follow_class = $is_follow_active ? 'follow-active' : '';
@@ -200,4 +200,60 @@ function custom_group_tab_content() {
 
 <?php return;}
 
+/*	This function restructures the Groups directory page so the default tab is "My Groups". 
+	It also adds a second tab for "Other Groups".
+*/
+
+add_filter( 'bp_nouveau_get_groups_directory_nav_items', 'bfc_groups_dir_nav' ); 
+
+function bfc_groups_dir_nav  ( $nav ) {
+	if ( is_user_logged_in() ) {
+
+		unset($nav['all']);
+		$nav['personal']['li_class'] = 'selected';
+		$nav['personal']['position'] = '5';
+
+
+		$my_groups_count = bp_get_total_group_count_for_user( bp_loggedin_user_id() );
+		$other_groups_count = bp_get_total_group_count() - $my_groups_count;
+		if ( $other_groups_count ) {
+			$nav['others'] = array(
+				'component' => 'groups',
+				'slug'      => 'others', // slug is used because BP_Core_Nav requires it, but it's the scope
+				'li_class'  => array(),
+				'link'      => bp_get_groups_directory_permalink(),
+				'text'      => __( 'Other Groups', 'buddypress' ),
+				'count'     => $other_groups_count,
+				'position'  => 20,
+			);
+		}
+	}
+	return $nav;
+}
+
+add_action( 'bp_ajax_querystring', 'bfc_custom_group_args', 9999, 2 );
+
+function bfc_custom_group_args ( $qs, $object ) {
+  
+  if ( 'groups' !== $object ) {
+    return $qs;
+  }
+
+  if ( ! is_user_logged_in() ) {
+    return $qs;
+  }
+
+  $args = wp_parse_args( $qs );
+
+  if ( $args['scope'] === 'others' ) { // You can change the scope value
+
+    $groupids = BP_Groups_Member::get_group_ids( get_current_user_id());
+    $args['exclude'] = $groupids['groups'];
+
+  } 
+  $qs = build_query( $args );
+
+  return $qs;
+
+}
 ?>
