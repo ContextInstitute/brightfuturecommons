@@ -124,7 +124,7 @@ function custom_group_tab_content() {
 			$group_admins = groups_get_group_admins( bp_get_current_group_id() );
 			
 			$ga_count = 0;
-			(1 < count( $group_admins )) ? $olabel = "Organizers: " : $olabel =  "Organizer: "; 
+			(1 < count( $group_admins )) ? $olabel = "Stewards: " : $olabel =  "Steward: "; 
 			echo $olabel;
 			$is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
 			$follow_class = $is_follow_active ? 'follow-active' : '';
