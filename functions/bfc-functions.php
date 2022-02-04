@@ -243,13 +243,17 @@ function bfc_custom_group_args ( $qs, $object ) {
     return $qs;
   }
 
+  $groupids = BP_Groups_Member::get_group_ids( get_current_user_id());
+
   $args = wp_parse_args( $qs );
 
+  if ( !isset ($args['scope'])) {
+	$args['scope'] = 'personal';
+	$args['include'] = $groupids['groups'];
+  }
+
   if ( $args['scope'] === 'others' ) { // You can change the scope value
-
-    $groupids = BP_Groups_Member::get_group_ids( get_current_user_id());
-    $args['exclude'] = $groupids['groups'];
-
+	$args['exclude'] = $groupids['groups'];
   } 
   $qs = build_query( $args );
 
