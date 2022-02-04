@@ -96,6 +96,16 @@ bp_nouveau_before_loop(); ?>
 
 	</ul>
 
+	<script>
+		if ( document.getElementById("groups-personal").classList.contains('selected') ){
+			document.getElementById("groups-dir-list").classList.add("my-groups");
+			document.getElementById("groups-dir-list").classList.remove("other-groups");
+		} else if ( document.getElementById("groups-others").classList.contains('selected') ){
+			document.getElementById("groups-dir-list").classList.add("other-groups");
+			document.getElementById("groups-dir-list").classList.remove("my-groups");
+		} 
+	</script>
+
 	<?php bp_nouveau_pagination( 'bottom' ); ?>
 
 <?php else : ?>
