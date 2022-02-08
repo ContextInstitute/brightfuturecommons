@@ -65,6 +65,14 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 
 		<?php bbp_reply_content(); ?>
 
+		aaa
+		<?php
+			bfc_post_state();
+		?>
+		bbb
+
+		<?php bfc_post_entry_buttons(); ?>
+
 		<?php
 		/**
 		 * Checked bbp_get_reply_admin_links() is empty or not if links not return then munu dropdown will not show

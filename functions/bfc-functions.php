@@ -260,4 +260,525 @@ function bfc_custom_group_args ( $qs, $object ) {
   return $qs;
 
 }
+
+/**
+ * Output the state buttons inside an Activity Loop.
+ *
+ * @since BuddyPress 3.0.0
+ */
+// TODO: move to template-tags??
+function bfc_post_state() {
+
+	$post_id         = get_the_ID();
+	$like_text       = bfc_post_get_like_users_string( $post_id );
+	$liked_users     = bfc_post_get_like_users_tooltip_string( $post_id );
+
+	?>
+	<!--  TODO: rename styling from activity to post. keeping in order to follow threads... -->
+	<div class="activity-state <?php echo $like_text ? 'has-likes' : ''; ?>">
+		<a href="javascript:void(0);" class="activity-state-likes">
+			<span class="like-text hint--bottom hint--medium hint--multiline" data-hint="<?php echo ( $liked_users ) ? $liked_users : ''; ?>">
+				<?php echo $like_text ?: ''; ?>
+			</span>
+		</a>
+	</div>
+	<?php
+}
+
+/**
+ * Get like count for post
+ *
+ * @since BuddyBoss 1.0.0
+ *
+ * @param $post_id
+ *
+ * @return int|string
+ */
+function bfc_post_get_like_users_string( $post_id ) {
+
+	$like_count      = get_post_meta( $post_id, 'bfc_like_count', true );
+	$like_count      = ( isset( $like_count ) && ! empty( $like_count ) ) ? $like_count : 0;
+	$liked_users     = get_post_meta( $post_id, 'bfc_like_users', true );
+
+	if ( empty( $liked_users ) || ! is_array( $liked_users ) ) {
+		return 0;
+	}
+
+	if ( $like_count > sizeof( $liked_users ) ) {
+		$like_count = sizeof( $liked_users );
+	}
+
+	$current_user_fav = false;
+	if ( bp_loggedin_user_id() && in_array( bp_loggedin_user_id(), $liked_users ) ) {
+		$current_user_fav = true;
+		if ( sizeof( $liked_users ) > 1 ) {
+			$pos = array_search( bp_loggedin_user_id(), $liked_users );
+			unset( $liked_users[ $pos ] );
+		}
+	}
+
+	$return_str = '';
+	if ( 1 == $like_count ) {
+		if ( $current_user_fav ) {
+			$return_str = __( 'You like this', 'buddyboss' );
+		} else {
+			$user_data         = get_userdata( array_pop( $liked_users ) );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
+			$return_str        = $user_display_name . ' ' . __( 'likes this', 'buddyboss' );
+		}
+	} elseif ( 2 == $like_count ) {
+		if ( $current_user_fav ) {
+			$return_str .= __( 'You and', 'buddyboss' ) . ' ';
+
+			$user_data         = get_userdata( array_pop( $liked_users ) );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
+			$return_str       .= $user_display_name . ' ' . __( 'like this', 'buddyboss' );
+		} else {
+			$user_data         = get_userdata( array_pop( $liked_users ) );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
+			$return_str       .= $user_display_name . ' ' . __( 'and', 'buddyboss' ) . ' ';
+
+			$user_data         = get_userdata( array_pop( $liked_users ) );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
+			$return_str       .= $user_display_name . ' ' . __( 'like this', 'buddyboss' );
+		}
+	} elseif ( 3 == $like_count ) {
+
+		if ( $current_user_fav ) {
+			$return_str .= __( 'You,', 'buddyboss' ) . ' ';
+
+			$user_data         = get_userdata( array_pop( $liked_users ) );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
+			$return_str       .= $user_display_name . ' ' . __( 'and', 'buddyboss' ) . ' ';
+
+			$return_str .= ' ' . __( '1 other like this', 'buddyboss' );
+		} else {
+
+			$user_data         = get_userdata( array_pop( $liked_users ) );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
+			$return_str       .= $user_display_name . ', ';
+
+			$user_data         = get_userdata( array_pop( $liked_users ) );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
+			$return_str       .= $user_display_name . ' ' . __( 'and', 'buddyboss' ) . ' ';
+
+			$return_str .= ' ' . __( '1 other like this', 'buddyboss' );
+		}
+	} elseif ( 3 < $like_count ) {
+
+		$like_count = ( isset( $like_count ) && ! empty( $like_count ) ) ? (int) $like_count - 2 : 0;
+
+		if ( $current_user_fav ) {
+			$return_str .= __( 'You,', 'buddyboss' ) . ' ';
+
+			$user_data         = get_userdata( array_pop( $liked_users ) );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
+			$return_str       .= $user_display_name . ' ' . __( 'and', 'buddyboss' ) . ' ';
+		} else {
+			$user_data         = get_userdata( array_pop( $liked_users ) );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
+			$return_str       .= $user_display_name . ', ';
+
+			$user_data         = get_userdata( array_pop( $liked_users ) );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
+			$return_str       .= $user_display_name . ' ' . __( 'and', 'buddyboss' ) . ' ';
+		}
+
+		if ( $like_count > 1 ) {
+			$return_str .= $like_count . ' ' . __( 'others like this', 'buddyboss' );
+		} else {
+			$return_str .= $like_count . ' ' . __( 'other like this', 'buddyboss' );
+		}
+	} else {
+		$return_str = $like_count;
+	}
+
+	return $return_str;
+}
+
+/**
+ * Get users for post like tooltip
+ *
+ * @since BuddyBoss 1.0.0
+ *
+ * @param $post_id
+ *
+ * @return string
+ */
+function bfc_post_get_like_users_tooltip_string( $post_id ) {
+
+	$current_user_id = get_current_user_id();
+	$favorited_users = get_post_meta( $post_id, 'bfc_like_users', true );
+
+	if ( ! empty( $favorited_users ) ) {
+		$like_text       = bfc_post_get_like_users_string( $post_id );
+		$favorited_users = array_reduce(
+			$favorited_users,
+			function ( $carry, $user_id ) use ( $current_user_id, $like_text ) {
+				if ( $user_id != $current_user_id ) {
+					$user_display_name = bp_core_get_user_displayname( $user_id );
+					if ( strpos( $like_text, $user_display_name ) === false ) {
+						$carry .= $user_display_name . '&#10;';
+					}
+				}
+
+				return $carry;
+			}
+		);
+	}
+
+	return $favorited_users;
+}
+
+// Start button stuff
+
+/**
+ * Output the action buttons inside a Post Loop.
+ *
+ * @since BuddyPress 3.0.0
+ *
+ * @param array $args See bp_nouveau_wrapper() for the description of parameters.
+ */
+function bfc_post_entry_buttons( $args = array() ) {
+	$output = join( ' ', bfc_get_post_entry_buttons( $args ) );
+
+	ob_start();
+
+	/**
+	 * Fires at the end of the activity entry meta data area.
+	 *
+	 * @since BuddyPress 1.2.0
+	 */
+	// TODO: do we need this?
+	// do_action( 'bp_activity_entry_meta' );
+
+	$output .= ob_get_clean();
+
+	$has_content = trim( $output, ' ' );
+	if ( ! $has_content ) {
+		return;
+	}
+
+	if ( ! $args ) {
+		$args = array( 'classes' => array( 'activity-meta' ) );
+	}
+
+	bp_nouveau_wrapper( array_merge( $args, array( 'output' => $output ) ) );
+}
+
+/**
+ * Get the action buttons inside a Post Loop,
+ *
+ * @todo  This function is too large and needs refactoring and reviewing.
+ */
+function bfc_get_post_entry_buttons( $args ) {
+	$buttons = array();
+
+	// if ( ! isset( $GLOBALS['activities_template'] ) ) {
+	// 	return $buttons;
+	// }
+
+	$post_id    = get_the_ID();
+//	$activity_type  = bp_get_activity_type();
+	$parent_element = '';
+	$button_element = 'a';
+
+	if ( ! $post_id ) {
+		return $buttons;
+	}
+
+	/*
+	 * If the container is set to 'ul' force the $parent_element to 'li',
+	 * else use parent_element args if set.
+	 *
+	 * This will render li elements around anchors/buttons.
+	 */
+	if ( isset( $args['container'] ) && 'ul' === $args['container'] ) {
+		$parent_element = 'li';
+	} elseif ( ! empty( $args['parent_element'] ) ) {
+		$parent_element = $args['parent_element'];
+	}
+
+	$parent_attr = ( ! empty( $args['parent_attr'] ) ) ? $args['parent_attr'] : array();
+
+	/*
+	 * If we have an arg value for $button_element passed through
+	 * use it to default all the $buttons['button_element'] values
+	 * otherwise default to 'a' (anchor)
+	 * Or override & hardcode the 'element' string on $buttons array.
+	 *
+	 */
+	if ( ! empty( $args['button_element'] ) ) {
+		$button_element = $args['button_element'];
+	}
+
+	if ( bfc_post_can_like() && bfc_is_post_like_active() ) {
+
+		// If button element set attr needs to be data-* else 'href'.
+		if ( 'button' === $button_element ) {
+			$key = 'data-bp-nonce';
+		} else {
+			$key = 'href';
+		}
+
+		if ( ! bfc_get_post_is_like() ) {
+			$fav_args = array(
+				'parent_element' => $parent_element,
+				'parent_attr'    => $parent_attr,
+				'button_element' => $button_element,
+				'link_class'     => 'button fav bp-secondary-action',
+				// 'data_bp_tooltip'  => __( 'Like', 'buddyboss' ),
+				'link_text'      => __( 'Like', 'buddyboss' ),
+				'aria-pressed'   => 'false',
+				'link_attr'      => bfc_get_post_like_link(),
+			);
+
+		} else {
+			$fav_args = array(
+				'parent_element' => $parent_element,
+				'parent_attr'    => $parent_attr,
+				'button_element' => $button_element,
+				'link_class'     => 'button unfav bp-secondary-action',
+				// 'data_bp_tooltip' => __( 'Unlike', 'buddyboss' ),
+				'link_text'      => __( 'Unlike', 'buddyboss' ),
+				'aria-pressed'   => 'true',
+				'link_attr'      => bfc_get_post_unlike_link(),
+			);
+		}
+
+		$buttons['post_like'] = array(
+			'id'                => 'post_like',
+			'position'          => 4,
+			'component'         => 'post', // TODO: verify
+			'parent_element'    => $parent_element,
+			'parent_attr'       => $parent_attr,
+			'must_be_logged_in' => true,
+			'button_element'    => $fav_args['button_element'],
+			'link_text'         => sprintf( '<span class="bp-screen-reader-text">%1$s</span>  <span class="like-count">%2$s</span>', esc_html( $fav_args['link_text'] ), esc_html( $fav_args['link_text'] ) ),
+			'button_attr'       => array(
+				$key           => $fav_args['link_attr'],
+				'class'        => $fav_args['link_class'],
+				// 'data-bp-tooltip' => $fav_args['data_bp_tooltip'],
+				'aria-pressed' => $fav_args['aria-pressed'],
+			),
+		);
+	}
+
+	// TODO: verify this works. I think we're done and don't need to do all the following stuff.
+	return $buttons;
+
+	/*
+	 * The view conversation button and the comment one are sharing
+	 * the same id because when display_comments is on stream mode,
+	 * it is not possible to comment an activity comment and as we
+	 * are updating the links to avoid sorting the activity buttons
+	 * for each entry of the loop, it's a convenient way to make
+	 * sure the right button will be displayed.
+	 */
+	// if ( $activity_type === 'activity_comment' ) {
+		// TODO: do we need this?
+		// $buttons['activity_conversation'] = array(
+		// 	'id'                => 'activity_conversation',
+		// 	'position'          => 5,
+		// 	'component'         => 'activity',
+		// 	'parent_element'    => $parent_element,
+		// 	'parent_attr'       => $parent_attr,
+		// 	'must_be_logged_in' => false,
+		// 	'button_element'    => $button_element,
+		// 	'button_attr'       => array(
+		// 		'class'               => 'button view bp-secondary-action bp-tooltip',
+		// 		'data-bp-tooltip'     => __( 'View Conversation', 'buddyboss' ),
+		// 		'data-bp-tooltip-pos' => 'up',
+		// 	),
+		// 	'link_text'         => sprintf(
+		// 		'<span class="bp-screen-reader-text">%1$s</span>',
+		// 		__( 'View Conversation', 'buddyboss' )
+		// 	),
+		// );
+
+		// // If button element set add url link to data-attr.
+		// if ( 'button' === $button_element ) {
+		// 	$buttons['activity_conversation']['button_attr']['data-bp-url'] = bp_get_activity_thread_permalink();
+		// } else {
+		// 	$buttons['activity_conversation']['button_attr']['href'] = bp_get_activity_thread_permalink();
+		// 	$buttons['activity_conversation']['button_attr']['role'] = 'button';
+		// }
+
+		// /*
+		// * We always create the Button to make sure we always have the right numbers of buttons,
+		// * no matter the previous activity had less.
+		// */
+	// } else {
+		// TODO: verify not needed -- comments are handled differently in posts.
+		// $buttons['activity_conversation'] = array(
+		// 	'id'                => 'activity_conversation',
+		// 	'position'          => 5,
+		// 	'component'         => 'activity',
+		// 	'parent_element'    => $parent_element,
+		// 	'parent_attr'       => $parent_attr,
+		// 	'must_be_logged_in' => true,
+		// 	'button_element'    => $button_element,
+		// 	'button_attr'       => array(
+		// 		'id'            => 'acomment-comment-' . $activity_id,
+		// 		'class'         => 'button acomment-reply bp-primary-action',
+		// 		// 'data-bp-tooltip' => __( 'Comment', 'buddyboss' ),
+		// 		'aria-expanded' => 'false',
+		// 	),
+		// 	'link_text'         => sprintf(
+		// 		'<span class="bp-screen-reader-text">%1$s</span> <span class="comment-count">%2$s</span>',
+		// 		__( 'Comment', 'buddyboss' ),
+		// 		__( 'Comment', 'buddyboss' )
+		// 	),
+		// );
+
+		// // If button element set add href link to data-attr.
+		// if ( 'button' === $button_element ) {
+		// 	$buttons['activity_conversation']['button_attr']['data-bp-url'] = bp_get_activity_comment_link();
+		// } else {
+		// 	$buttons['activity_conversation']['button_attr']['href'] = bp_get_activity_comment_link();
+		// 	$buttons['activity_conversation']['button_attr']['role'] = 'button';
+		// }
+	// }
+
+	/**
+	 * Filter to add your buttons, use the position argument to choose where to insert it.
+	 *
+	 * @since BuddyPress 3.0.0
+	 *
+	 * @param array $buttons     The list of buttons.
+	 * @param int   $activity_id The current activity ID.
+	 */
+	$buttons_group = apply_filters( 'bp_nouveau_get_activity_entry_buttons', $buttons, $post_id );
+
+	if ( ! $buttons_group ) {
+		return $buttons;
+	}
+
+	// It's the first entry of the loop, so build the Group and sort it.
+	if ( ! isset( bp_nouveau()->activity->entry_buttons ) || ! is_a( bp_nouveau()->activity->entry_buttons, 'BP_Buttons_Group' ) ) {
+		$sort                                 = true;
+		bp_nouveau()->activity->entry_buttons = new BP_Buttons_Group( $buttons_group );
+
+		// It's not the first entry, the order is set, we simply need to update the Buttons Group.
+	} else {
+		$sort = false;
+		bp_nouveau()->activity->entry_buttons->update( $buttons_group );
+	}
+
+	$return = bp_nouveau()->activity->entry_buttons->get( $sort );
+
+	if ( ! $return ) {
+		return array();
+	}
+
+	// Remove the Comment button if the user can't comment.
+	if ( ! bp_activity_can_comment() && $activity_type !== 'activity_comment' ) {
+		unset( $return['activity_conversation'] );
+	}
+
+	/**
+	 * Leave a chance to adjust the $return
+	 *
+	 * @since BuddyPress 3.0.0
+	 *
+	 * @param array $return      The list of buttons ordered.
+	 * @param int   $activity_id The current activity ID.
+	 */
+	do_action_ref_array( 'bp_nouveau_return_activity_entry_buttons', array( &$return, $activity_id ) );
+
+	return $return;
+}
+
+function bfc_post_can_like() {
+	return true;
+}
+
+/**
+ * Check whether Post Like is enabled.
+ *
+ * @see bp_is_activity_like_active()
+ * 
+ * @param bool $default Optional. Fallback value if not found in the database.
+ *                      Default: true.
+ * @return bool True if Like is enabled, otherwise false.
+ */
+function bfc_is_post_like_active( $default = true ) {
+
+	/**
+	 * Filters whether or not Activity Like is enabled.
+	 *
+	 * @since BuddyBoss 1.0.0
+	 *
+	 * @param bool $value Whether or not Activity Like is enabled.
+	 */
+	// TODO: I don't get it.
+	return (bool) apply_filters( 'bfc_is_post_like_active', (bool) bp_get_option( '_bp_enable_activity_like', $default ) );
+}
+
+/**
+ * Return whether the current post is in a current user's likes.
+ *
+ * @see bp_get_activity_is_favorite()
+ *
+ * @global object $activities_template {@link BP_Activity_Template}
+ *
+ * @return bool True if user favorite, false otherwise.
+ */
+function bfc_get_post_is_like() {
+	global $posts_template;
+
+	/**
+	 * Filters whether the current post is in the current user's likes.
+	 *
+	 * @since BuddyPress 1.2.0
+	 *
+	 * @param bool $value Whether or not the current post is in the current user's likes.
+	 */
+	return (bool) apply_filters( 'bfc_get_post_is_like', in_array( $posts_template->post->id, (array) $posts_template->my_likes ) );
+}
+
+/**
+ * Return the post like link.
+ *
+ * @see bp_get_activity_favorite_link()
+ *
+ * @global object $posts_template {@link BP_Activity_Template}
+ *
+ * @return string The activity favorite link.
+ */
+function bfc_get_post_like_link() {
+	global $posts_template;
+
+	/**
+	 * Filters the activity favorite link.
+	 *
+	 * @since BuddyPress 1.2.0
+	 *
+	 * @param string $value Constructed link for favoriting the activity comment.
+	 */
+	return apply_filters( 'bfc_get_post_like_link', wp_nonce_url( home_url( bp_get_activity_root_slug() . '/favorite/' . $activities_template->activity->id . '/' ), 'mark_favorite' ) );
+}
+
+/**
+ * Return the activity unfavorite link.
+ *
+ * @since BuddyPress 1.2.0
+ *
+ * @global object $activities_template {@link BP_Activity_Template}
+ *
+ * @return string The activity unfavorite link.
+ */
+function bp_get_activity_unfavorite_link() {
+	global $activities_template;
+
+	/**
+	 * Filters the activity unfavorite link.
+	 *
+	 * @since BuddyPress 1.2.0
+	 *
+	 * @param string $value Constructed link for unfavoriting the activity comment.
+	 */
+	return apply_filters( 'bp_get_activity_unfavorite_link', wp_nonce_url( home_url( bp_get_activity_root_slug() . '/unfavorite/' . $activities_template->activity->id . '/' ), 'unmark_favorite' ) );
+}
+
 ?>
