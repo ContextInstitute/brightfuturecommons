@@ -60,11 +60,11 @@
 		<!-- <div class="bb-sm-grid bs-single-topic-sidebar">
             <div class="bs-topic-sidebar-inner"> -->
 				<div class="single-topic-sidebar-links">
-					<p class="bb-topic-reply-link-wrap"><?php bbp_topic_reply_link(); ?></p>
+					<!-- <p class="bb-topic-reply-link-wrap"><?php bbp_topic_reply_link(); ?></p> -->
 					<p class="bb-topic-subscription-link-wrap">
 					<?php
-					$args = array( 'before' => '' );
-					echo bbp_get_topic_subscription_link( $args );
+					// $args = array( 'before' => '' );
+					// echo bbp_get_topic_subscription_link( $args );
 					?>
 					</p>
 				</div>
