@@ -260,4 +260,159 @@ function bfc_custom_group_args ( $qs, $object ) {
   return $qs;
 
 }
+
+function bfc_remove_bp_forum_notifications () {
+	if ('yes' == (bp_get_user_meta(bp_loggedin_user_id(), 'notification_forums_following_reply', true ))) {
+		bp_update_user_meta (bp_loggedin_user_id(), 'notification_forums_following_reply', 'no' );
+	}
+	if ('yes' == (bp_get_user_meta(bp_loggedin_user_id(), 'notification_forums_following_topic', true ))) {
+		bp_update_user_meta (bp_loggedin_user_id(), 'notification_forums_following_topic', 'no' );
+	}
+}
+add_action( 'bp_notification_settings', 'bfc_remove_bp_forum_notifications', 99 );
+
+function bfc_group_members( $group_id = false, $role = array() ) {
+
+	if ( ! $group_id ) {
+		return '';
+	}
+
+	$members = new \BP_Group_Member_Query(
+		array(
+			'group_id'     => $group_id,
+			'per_page'     => 10,
+			'page'         => 1,
+			'group_role'   => $role,
+			'exclude'      => false,
+			'search_terms' => false,
+			'type'         => 'first_joined',
+		)
+	);
+
+	$total   = $members->total_users;
+	$members = array_values( $members->results );
+
+	if ( ! empty( $members ) ) {
+		?><span class="bs-group-members">
+		<?php
+		foreach ( $members as $member ) {
+			$avatar = bp_core_fetch_avatar(
+				array(
+					'item_id'    => $member->ID,
+					'avatar_dir' => 'avatars',
+					'object'     => 'user',
+					'type'       => 'thumb',
+					'html'       => false,
+				)
+			);
+			$uname = esc_attr( bp_core_get_user_displayname( $member->ID ) );
+			?>
+			<div class="bfc-tooltip">
+				<img src="<?php echo $avatar; ?>"
+				 alt="<?php echo $uname; ?>" class=".bfc-rounded"/>
+				<span class="bfc-tooltiptext"><a href="/members/<?php echo bp_core_get_username( $member->ID );?>"><?php echo $uname; ?></a>
+				<?php 
+				if (groups_is_user_admin( $member->ID, $group_id )) {
+					echo '<br>group steward';
+					} 
+				?>
+			</span>
+			</div>
+			<?php
+		}
+		?>
+		</span>
+		<?php
+		if ( $total - sizeof( $members ) != 0 ) {
+			$member_count = $total - sizeof( $members );
+			?>
+			<span class="members">
+				<span class="members-count-g">+<?php echo esc_html( $member_count  ); ?></span> <?php printf( _n( 'member', 'members', $member_count, 'buddyboss-theme' ) ); ?>
+			</span>
+			<?php
+		}
+	}
+
+}
+
+function bfc_latest_post ($ugroup_id = 0) {
+
+	$topics_query = array(
+		'post_type'           => bbp_get_topic_post_type(),
+		'post_parent__in'     => groups_get_groupmeta( $ugroup_id, $meta_key = 'forum_id', $single = true),
+		'posts_per_page'      => 1,
+		'post_status'         => array( bbp_get_public_status_id(), bbp_get_closed_status_id() ),
+		'ignore_sticky_posts' => true,
+		'no_found_rows'       => true,
+		'meta_key'            => '_bbp_last_active_time',
+		'orderby'             => 'meta_value',
+		'order'               => 'DESC',
+	);
+
+	global $bsp_style_settings_la ;
+	$avatar_size = (!empty($bsp_style_settings_la['AvatarSize']) ? $bsp_style_settings_la['AvatarSize']  : '40') ;
+
+	$is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
+	$follow_class = $is_follow_active ? 'follow-active' : '';
+
+	$widget_query = new WP_Query( $topics_query );
+    // Bail if no topics are found
+    if ( ! $widget_query->have_posts() ) {
+    return;
+    } ?>
+    <ul class="bfc-la-ul">
+    <?php
+    $widget_query->the_post();
+    $topic_id    = bbp_get_topic_id( $widget_query->post->ID );
+    $author_link = '';
+    
+    //check if this topic has a reply
+    $reply = get_post_meta( $topic_id, '_bbp_last_reply_id',true);
+    
+    //if no reply the author
+    if (empty ($reply)) {
+        $author_avatar = bbp_get_topic_author_link( array( 'post_id' => $topic_id, 'type' => 'avatar', 'size' => $avatar_size ) );
+        $author_name = bbp_get_topic_author_link( array( 'post_id' => $topic_id, 'type' => 'name' ) );
+    //if has a reply then get the author of the reply
+    } else { 
+        $author_avatar = bbp_get_reply_author_link( array( 'post_id' => $reply, 'type' => 'avatar', 'size' => $avatar_size) );
+        $author_name = bbp_get_reply_author_link( array( 'post_id' => $reply, 'type' => 'name') );
+    } 
+    
+    // Create excerpt
+    $post_id = empty ($reply)? $topic_id : $reply;
+    $bfc_excerpt = wp_trim_words(bbp_get_reply_content($post_id), 15);
+    ?>
+
+    <li class="bfc-la-li">
+    <div class="bfc-la-topic-author-avatar topic-author bfc-rounded">
+    <span data-toggle="reply-author-dropdown-<?php echo esc_attr( $post_id ); ?>"><?php bbp_reply_author_avatar( $post_id,  $size = 40 ); ?></span><br>
+   
+   <?php 
+    echo '</div><div class="bfc-la-topic-text">';
+    //if no replies set the link to the topic
+    if (empty ($reply)) {?>
+        <a class="bsp-la-reply-topic-title" href="<?php bbp_topic_permalink( $topic_id ); ?>"><?php bbp_topic_title( $topic_id ); ?></a>
+    <?php } 
+    //if replies then set link to the latest reply
+    else { 
+        echo '<a class="bsp-la-reply-topic-title" href="' . esc_url( bbp_get_reply_url( $reply ) ) . '" >' . bbp_get_reply_topic_title( $reply ) . '</a>';
+    } ?>
+    
+        <?php if ( ! empty( $settings['show_count'] ) && bbp_get_topic_post_type() == get_post_type()) {
+                        $topic = get_the_ID(); ?>
+                            <span class="bsp-topic-posts">
+                                <?php if ( ! empty( $settings['reply_count_label'] )) echo $settings['reply_count_label'] ; ?>
+                                <?php bbp_topic_reply_count($topic); ?>
+                            </span>
+        <?php } 
+        
+        echo '<div class="bfc-la-topic-excerpt">' . $bfc_excerpt . '</div>';
+        echo '<span class="bfc-la-topic-author-name topic-author">' . $author_name . '</span>';
+    ?>
+    </li>
+    </ul>
+    <?php
+    wp_reset_postdata();
+}
 ?>
