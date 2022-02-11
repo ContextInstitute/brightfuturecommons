@@ -79,15 +79,22 @@ bp_nouveau_before_loop(); ?>
 
 					</div>
 
+					<div class="bfc-group-latest-post">
+						<?php bfc_latest_post (bp_get_group_id()); ?>
+					</div>
+
+
 					<div class="item-desc group-item-desc only-list-view"><?php bp_group_description_excerpt( false , 250 ) ?></div>
+
+					<div class="group-members-wrap">
+						<?php echo bfc_group_members( bp_get_group_id(), array( 'member', 'mod', 'admin' ) ); ?>
+					</div>
 
 					<?php bp_nouveau_groups_loop_item(); ?>
 
 					<div class="groups-loop-buttons footer-button-wrap"><?php bp_nouveau_groups_loop_buttons(); ?></div>
 
-					<div class="group-members-wrap only-grid-view">
-						<?php echo buddyboss_theme()->buddypress_helper()->group_members( bp_get_group_id(), array( 'member', 'mod', 'admin' ) ); ?>
-					</div>
+
 				</div>
 			</div>
 		</li>
