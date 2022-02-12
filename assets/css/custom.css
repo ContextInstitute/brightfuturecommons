@@ -580,5 +580,13 @@ nav#object-nav li.bfc-group-name-nav{
 .post .entry-content p {
 	font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
 	font-size: 17px;
-	margin-bottom: 0;
+	margin-bottom: 20px;
+}
+
+#buddypress #item-body div.bp-profile-content table.profile-fields tr td {
+	padding-bottom: 4px;
+}
+
+.buddypress-wrap table.profile-fields td.data>p {
+	margin: 0;
 }
