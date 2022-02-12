@@ -63,6 +63,12 @@ function buddypress_custom_group_tab() {
 
 		global $bp;
 
+		if (isset($bp->groups->current_group->slug) && $bp->groups->current_group->slug == $bp->current_item) {
+			$bp->bp_options_nav[$bp->groups->current_group->slug]['documents']['name'] = 'Uploads';
+			$bp->bp_options_nav[$bp->groups->current_group->slug]['activity']['name'] = 'Timeline';
+		}
+
+
 		// var_dump($bp->groups->nav);
 
 		// Get current group page link.
