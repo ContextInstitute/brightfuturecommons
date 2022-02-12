@@ -421,4 +421,12 @@ function bfc_latest_post ($ugroup_id = 0) {
     <?php
     wp_reset_postdata();
 }
+
+function bfc_rename_group_navs ($link_text,$nav_item,$displayed_nav){
+	if ('Discussions' == $link_text && 'groups'== $displayed_nav) {$link_text = 'Forum';}
+	return $link_text;
+}
+
+add_filter( 'bp_nouveau_get_nav_link_text', 'bfc_rename_group_navs',10,3);
+
 ?>

@@ -329,7 +329,8 @@ nav#object-nav li.bfc-group-name-nav{
 	border-bottom: 1px solid #eaeaea;
 }
 
-.my-groups #groups-list .bfc-la-li {
+.my-groups #groups-list .bfc-la-li,
+.mygroups #groups-list .bfc-la-li  {
 	display: grid;
 	grid-template-columns: 46px 1fr;
 	margin: 0;
@@ -338,12 +339,14 @@ nav#object-nav li.bfc-group-name-nav{
 }
 
 .my-groups #groups-list .bfc-la-ul,
+.mygroups #groups-list .bfc-la-ul,
 .bfc-la-ul {
 	margin-left: 0;
 	list-style-type: none;
 }
 
-.my-groups #groups-list .bp-list li:after, .bp-list li:before {
+.my-groups #groups-list .bp-list li:after, .bp-list li:before,
+.mygroups #groups-list .bp-list li:after, .bp-list li:before  {
 	content: "";
     display: none;
 }
@@ -498,11 +501,16 @@ nav#object-nav li.bfc-group-name-nav{
 .my-groups #groups-list .group-details,
 .my-groups #groups-list .item-desc.group-item-desc,
 .my-groups #groups-list .group-members-wrap,
-#buddypress .my-groups .bp-list .action .generic-button .group-button {
+#buddypress .my-groups .bp-list .action .generic-button .group-button, 
+.mygroups #groups-list .group-details,
+.mygroups #groups-list .item-desc.group-item-desc,
+.mygroups #groups-list .group-members-wrap,
+#buddypress .mygroups .bp-list .action .generic-button .group-button {
 	display: none;
 }
 
-.my-groups #groups-list .bfc-group-latest-post {
+.my-groups #groups-list .bfc-group-latest-post,
+.mygroups #groups-list .bfc-group-latest-post {
 	flex-grow: 1;
 }
 
