@@ -267,6 +267,51 @@ function bfc_custom_group_args ( $qs, $object ) {
 
 }
 
+add_filter( 'bp_nouveau_get_members_directory_nav_items', 'bfc_followers_nav' ); 
+
+function bfc_followers_nav  ( $nav_items ) {
+	if ( is_user_logged_in() ) {
+		if ( bp_is_active( 'activity' ) && bp_is_activity_follow_active() ) {
+			$counts = bp_total_follow_counts();
+
+			if ( ! empty( $counts['followers'] ) ) {
+				$nav_items['followers'] = array(
+					'component' => 'members',
+					'slug'      => 'followers', // slug is used because BP_Core_Nav requires it, but it's the scope
+					'li_class'  => array(),
+					'link'      => bp_loggedin_user_domain() . bp_get_follow_slug() . '/my-followers/',
+					'text'      => __( 'Followers', 'buddyboss' ),
+					'count'     => $counts['followers'],
+					'position'  => 20,
+				);
+			}
+		}
+	return $nav_items;
+	}	
+}
+
+add_action( 'bp_ajax_querystring', 'bfc_followers_args', 99, 2 );
+
+function bfc_followers_args ( $qs, $object ) {
+  
+  if ( 'members' !== $object ) {
+    return $qs;
+  }
+
+  if ( ! is_user_logged_in() ) {
+    return $qs;
+  }
+
+  $args = wp_parse_args( $qs );
+
+  if ( $args['scope'] === 'followers' ) { 
+	$args['include'] = bp_get_follower_ids( array ('user_id' => bp_loggedin_user_id()) );
+	$qs = build_query( $args );
+  } 
+ 
+  return $qs;
+}
+
 function bfc_remove_bp_forum_notifications () {
 	if ('yes' == (bp_get_user_meta(bp_loggedin_user_id(), 'notification_forums_following_reply', true ))) {
 		bp_update_user_meta (bp_loggedin_user_id(), 'notification_forums_following_reply', 'no' );
