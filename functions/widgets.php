@@ -247,12 +247,14 @@ class bsp_Activity_Widget extends WP_Widget {
 				
 				//if no reply the author
 				if (empty ($reply)) {
-					$author_avatar = bbp_get_topic_author_link( array( 'post_id' => $topic_id, 'type' => 'avatar', 'size' => $avatar_size ) );
+					// $author_avatar = bbp_get_topic_author_link( array( 'post_id' => $topic_id, 'type' => 'avatar', 'size' => $avatar_size ) );
 					$author_name = bbp_get_topic_author_link( array( 'post_id' => $topic_id, 'type' => 'name' ) );
+					$author_id = bbp_get_topic_author_id ($topic_id);
 				//if has a reply then get the author of the reply
 				} else { 
-					$author_avatar = bbp_get_reply_author_link( array( 'post_id' => $reply, 'type' => 'avatar', 'size' => $avatar_size) );
+					// $author_avatar = bbp_get_reply_author_link( array( 'post_id' => $reply, 'type' => 'avatar', 'size' => $avatar_size) );
 					$author_name = bbp_get_reply_author_link( array( 'post_id' => $reply, 'type' => 'name') );
+					$author_id = bbp_get_reply_author_id( $reply );
 				} 
 				
 				// Create excerpt
@@ -260,7 +262,7 @@ class bsp_Activity_Widget extends WP_Widget {
 				$bfc_excerpt = wp_trim_words(bbp_get_reply_content($post_id), 15);
 				?>
 
-				<li class="bfc-la-li">
+				<li class="bfc-la-li" data-bp-item-id="<?php echo $author_id; ?>" data-bp-item-component="members">
 				<div class="bfc-la-topic-author-avatar topic-author">
 				<span data-toggle="reply-author-dropdown-<?php echo esc_attr( $post_id ); ?>"><?php bbp_reply_author_avatar( $post_id,  $size = 40 ); ?></span><br>
 				<?php 
@@ -546,7 +548,7 @@ class bfc_messages_widget extends WP_Widget {
 				?>
 				<div class="activity-list item-list">
 					<div class="activity-update">
-						<div class="update-item">
+						<div class="update-item" data-bp-item-id="<?php echo $source; ?>" data-bp-item-component="members">
 							<span data-toggle="widget-dropdown-<?php echo $source ; ?>">
 								<?php bp_message_thread_avatar(array( 'type'   => 'thumb', 'width'  => '40', 'height' => '40' )); ?></span>
 								<?php 
@@ -571,8 +573,11 @@ class bfc_messages_widget extends WP_Widget {
 			<?php }	
 				
 		}
-						echo $args['after_widget']; ?>
+		echo $args['after_widget']; ?>
 		</div>
+		<script>
+			jQuery(document).foundation();
+		</script>
 	<?php }
 			  
 	// Creating widget Backend 
