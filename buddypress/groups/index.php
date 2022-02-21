@@ -33,10 +33,15 @@
 			<?php bp_get_template_part( 'common/filters/grid-filters' ); ?>
 		</div>
 	</div>
+	<?php
+	$tab = 'my-groups';
+	if ( bp_get_total_group_count_for_user( bp_loggedin_user_id() ) == 0 ) {
+		$tab = 'other-groups';
+	} ?>
 
 	<div class="screen-content">
 
-		<div id="groups-dir-list" class="groups dir-list" data-bp-list="groups">
+		<div id="groups-dir-list" class="groups dir-list <?php echo $tab; ?>" data-bp-list="groups">
 			<div id="bp-ajax-loader"><?php bp_nouveau_user_feedback( 'directory-groups-loading' ); ?></div>
 		</div><!-- #groups-dir-list -->
 
