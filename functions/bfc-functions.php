@@ -254,8 +254,12 @@ function bfc_custom_group_args ( $qs, $object ) {
   $args = wp_parse_args( $qs );
 
   if ( !isset ($args['scope'])) {
-	$args['scope'] = 'personal';
-	$args['include'] = $groupids['groups'];
+	if ( bp_get_total_group_count_for_user( bp_loggedin_user_id() ) >0 ) {
+		$args['scope'] = 'personal';
+		$args['include'] = $groupids['groups'];
+	} else {
+		$args['scope'] = 'other';
+	}
   }
 
   if ( $args['scope'] === 'others' ) { // You can change the scope value
