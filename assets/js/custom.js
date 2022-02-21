@@ -14,4 +14,7 @@ jQuery( document ).ready( function() {// Remove empty P tags created by WP insid
 			jQuery( this ).wrap( "<div class='responsive-embed'/>" );
 		}
 	} );
+
+	jQuery( '#buddypress .bp-wrap, #content .bfc-user-panels' ).on( 'click', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonAction );
+	jQuery( '#buddypress .bp-wrap, #content .bfc-user-panels' ).on( 'blur', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonRevert );
 } );

@@ -18,15 +18,15 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 ) ); ?> data-date="<?php echo get_post_time( 'F Y', false, bbp_get_reply_id(), true ); ?>">
 
     <div class="flex bs-reply-header"><!-- bfc-marker loop-single-reply.php removed align-items-center-->
-
-        <div class="bbp-reply-author">
+		<?php 
+			$type = 'reply-author';
+			$source = bbp_get_reply_id();
+			$person = bbp_get_reply_author_id( $source );
+		?>
+        <div class="bbp-reply-author" data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members">
 			<div class="item-avatar">
 				<span data-toggle="reply-author-dropdown-<?php echo esc_attr( bbp_get_reply_id() ); ?>"><?php bbp_reply_author_avatar( bbp_get_reply_id(),  $size = 80 ); ?></span><br>
-				<?php 
-				$type = 'reply-author';
-				$source = bbp_get_reply_id();
-				echo bfc_avatar_dropdown ($type,$source,$follow_class);
-				?>
+				<?php echo bfc_avatar_dropdown ($type,$source,$follow_class);?>
 			</div>
  
 			<div class="item-meta flex-1">

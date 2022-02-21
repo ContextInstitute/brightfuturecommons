@@ -304,6 +304,10 @@ function bfc_followers_args ( $qs, $object ) {
 
   $args = wp_parse_args( $qs );
 
+  if ( !isset ($args['scope'])) {
+	$args['scope'] = 'all';
+  }
+  
   if ( $args['scope'] === 'followers' ) { 
 	$args['include'] = bp_get_follower_ids( array ('user_id' => bp_loggedin_user_id()) );
 	$qs = build_query( $args );
