@@ -58,7 +58,8 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 						<?php 
 						$type = 'member';
 						$source = bp_get_member_user_id();
-						echo bfc_avatar_dropdown ($type,$source,$follow_class);
+						$person = $source;
+						echo bfc_member_dropdown( $type, $source, $person, $follow_class )
 						?>
 					</div>
 

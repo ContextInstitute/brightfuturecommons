@@ -261,15 +261,14 @@ class bsp_Activity_Widget extends WP_Widget {
 				$post_id = empty ($reply)? $topic_id : $reply;
 				$bfc_excerpt = wp_trim_words(bbp_get_reply_content($post_id), 15);
 				?>
-
+				<?php 
+					global $bfc_dropdown_prefix;
+					$type = $bfc_dropdown_prefix . '-forum';
+					$person = bbp_get_reply_author_id($post_id);?>
 				<li class="bfc-la-li" data-bp-item-id="<?php echo $author_id; ?>" data-bp-item-component="members">
 				<div class="bfc-la-topic-author-avatar topic-author">
-				<span data-toggle="reply-author-dropdown-<?php echo esc_attr( $post_id ); ?>"><?php bbp_reply_author_avatar( $post_id,  $size = 40 ); ?></span><br>
-				<?php 
-				$type = 'reply-author';
-				$source = $post_id;
-				echo bfc_avatar_dropdown ($type,$source,$follow_class);
-				?>
+				<span data-toggle="<?php echo $type . '-dropdown-' . esc_attr( $post_id ); ?>"><?php bbp_reply_author_avatar( $post_id,  $size = 40 ); ?></span><br>
+				<?php echo bfc_member_dropdown( $type, $post_id, $person, $follow_class );?>
 				<?php 
 				echo '</div><div class="bfc-la-topic-text">';
 				//if no replies set the link to the topic
@@ -543,16 +542,18 @@ class bfc_messages_widget extends WP_Widget {
 				// echo '<br>';
 				// bp_message_thread_last_post_date();
 				// echo date('M j, Y', bp_get_message_thread_last_post_date_raw() );
-				$type = 'widget';
-				$source = $messages_template->thread->last_sender_id;
+				global $bfc_dropdown_prefix;
+				$type = $bfc_dropdown_prefix . '-message';
+				$instance_id = $messages_template->thread->thread_id;
+				$person = $messages_template->thread->last_sender_id;
 				?>
 				<div class="activity-list item-list">
 					<div class="activity-update">
-						<div class="update-item" data-bp-item-id="<?php echo $source; ?>" data-bp-item-component="members">
-							<span data-toggle="widget-dropdown-<?php echo $source ; ?>">
+						<div class="update-item" data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members">
+							<span data-toggle="<?php echo $type . '-dropdown-' . $instance_id ; ?>">
 								<?php bp_message_thread_avatar(array( 'type'   => 'thumb', 'width'  => '40', 'height' => '40' )); ?></span>
 								<?php 
-								echo bfc_avatar_dropdown ($type,$source,$follow_class);
+								echo bfc_member_dropdown( $type, $instance_id, $person, $follow_class );
 								?>
 							<div class="bp-activity-info">
 								<p>From <?php bp_message_thread_from(); ?><br>
