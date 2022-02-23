@@ -26,7 +26,7 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
         <div class="bbp-reply-author" data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members">
 			<div class="item-avatar">
 				<span data-toggle="reply-author-dropdown-<?php echo esc_attr( bbp_get_reply_id() ); ?>"><?php bbp_reply_author_avatar( bbp_get_reply_id(),  $size = 80 ); ?></span><br>
-				<?php echo bfc_avatar_dropdown ($type,$source,$follow_class);?>
+				<?php echo bfc_member_dropdown( $type, $source, $person, $follow_class );?>
 			</div>
  
 			<div class="item-meta flex-1">

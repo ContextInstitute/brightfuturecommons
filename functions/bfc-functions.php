@@ -2,13 +2,10 @@
 
 define( 'BP_GROUPS_DEFAULT_EXTENSION', 'courtyard' );
 
-function bfc_avatar_dropdown( $type, $source, $follow_class ) {
+
+function bfc_member_dropdown( $type, $instance_id, $person, $follow_class ) {
 	$user = bp_loggedin_user_id();
-	$person = $source;
-	if ( 'reply-author' == $type ) {
-		$person = bbp_get_reply_author_id( $source );
-	}
-	$output = '<div class="dropdown-pane ' . $follow_class . '" id="' . $type . '-dropdown-' . esc_attr( $source ) . '" data-dropdown data-hover="true" data-hover-pane="true" data-auto-focus="false">';
+	$output = '<div class="dropdown-pane ' . $follow_class . '" id="' . $type . '-dropdown-' . esc_attr( $instance_id ) . '" data-dropdown data-hover="true" data-hover-pane="true" data-auto-focus="false">';
 	if ( $person != $user ) {
 		$output .= '<a href="/members/' . bp_core_get_username( $user ) . '/messages/compose/?r=' . bp_core_get_username( $person ) . '">Send a message</a><br>';
 		if ( 'follow-active' == $follow_class ) {
@@ -140,19 +137,24 @@ function custom_group_tab_content() {
 					echo ", ";
 				}
 				?>
-				<span class="item-avatar" data-toggle="organizer-dropdown-<?php echo esc_attr( $admin->user_id ); ?>">
+				<span class="item-avatar" data-toggle="steward-dropdown-<?php echo esc_attr( $admin->user_id ); ?>">
 					<?php echo bp_core_fetch_avatar( array( 'item_id' => $admin->user_id, 'type'   => 'thumb', 'width'  => '40', 'height' => '40' )); 
 					echo " " .  bp_core_get_user_displayname($admin->user_id); ?></span>
 				<?php 
-				$type = 'organizer';
-				$source = $admin->user_id;
-				echo bfc_avatar_dropdown ($type,$source,$follow_class);
+				$type = 'steward';
+				$instance_id = $admin->user_id;
+				$person = $instance_id;
+				echo bfc_member_dropdown( $type, $instance_id, $person, $follow_class );
 			}
 			?>
 		</div>
 		
 
 		<div id="bfc-user-panels" class="bfc-user-panels">
+			<?php
+				global $bfc_dropdown_prefix;
+				$bfc_dropdown_prefix = 'dt';
+				?>
 			<?php if ( is_active_sidebar( 'dash_left_panel' ) ) : ?>
 				<div id="bfc-dash-panel-left" class="bfc-user-panel widget-area">
 					<?php dynamic_sidebar( 'dash_left_panel' ); ?>
@@ -173,6 +175,7 @@ function custom_group_tab_content() {
 		</div>
 
 		<div id="bfc-user-accordion" class="bfc-user-accordion accordion" data-accordion data-allow-all-closed="true">
+			<?php $bfc_dropdown_prefix = 'ac';?>
 			<?php if ( is_active_sidebar( 'dash_left_panel' ) ) : ?>
 				<div id="bfc-dash-panel-top" class="bfc-user-panel-top widget-area" data-accordion-item>
 				<a href="#" class="accordion-title">Latest Updates</a>
@@ -482,4 +485,3 @@ function bfc_rename_group_navs ($link_text,$nav_item,$displayed_nav){
 
 add_filter( 'bp_nouveau_get_nav_link_text', 'bfc_rename_group_navs',10,3);
 
-?>

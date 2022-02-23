@@ -36,9 +36,12 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 
 	<?php
 	$count = groups_get_current_group()->total_member_count;
-	if ($count < 22) : ?>
+	global $bfc_dropdown_prefix;
+
+	if ($count <22) : ?>
 	<ul id="members-intros" class="bp-list">
 	<?php
+		$bfc_dropdown_prefix = 'sm';
 		while ( bp_group_members() ) :
 			bp_group_the_member();
 			$member_id           = bp_get_member_user_id();
@@ -49,18 +52,18 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 			$members_list_item_content = ob_get_contents();
 			ob_end_clean();
 			$member_loop_has_content = empty($members_list_item_content) ? false : true;
+			$type = $bfc_dropdown_prefix . '-group-member';
+			$source = bp_get_member_user_id();
+			$person = $source;
 			?>
 			<li <?php bp_member_class( array( 'item-entry' ) ); ?> data-bp-item-id="<?php echo esc_attr( bp_get_group_member_id() ); ?>" data-bp-item-component="members">
 				<div class="list-wrap <?php echo $footer_buttons_class; ?> <?php echo $follow_class; ?> <?php echo $member_loop_has_content ? ' has_hook_content' : ''; ?>">
 					<div class="item-avatar">
-						<span data-toggle="group-member-dropdown-<?php bp_member_user_id() ; ?>"><?php 
+						<span data-toggle="<?php echo $type . '-dropdown-' . $source ; ?>">
+						<?php 
 							bb_user_status( bp_get_member_user_id() );
 							bp_member_avatar( bp_nouveau_avatar_args() );?></span>
-						<?php 
-						$type = 'group-member';
-						$source = bp_get_member_user_id();
-						echo bfc_avatar_dropdown ($type,$source,$follow_class);
-						?>
+						<?php echo bfc_member_dropdown( $type, $source, $person, $follow_class );?>
 						<div class="list-title member-name"><?php bp_member_name(); ?></div>
 					</div>
 				</div>
@@ -83,6 +86,7 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 		else :?>
 		<ul id="members-list" class="<?php bp_nouveau_loop_classes(); ?>">
 		<?php
+		$bfc_dropdown_prefix = 'lg';
 		while ( bp_group_members() ) :
 			bp_group_the_member();
 			$member_id           = bp_get_member_user_id();
@@ -93,19 +97,20 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 			$members_list_item_content = ob_get_contents();
 			ob_end_clean();
 			$member_loop_has_content = empty($members_list_item_content) ? false : true;
+			$type = $bfc_dropdown_prefix . '-group-member';
+			$source = bp_get_member_user_id();
+			$person = $source;
 			?>
 			<li <?php bp_member_class( array( 'item-entry' ) ); ?> data-bp-item-id="<?php echo esc_attr( bp_get_group_member_id() ); ?>" data-bp-item-component="members">
 				<div class="list-wrap <?php echo $footer_buttons_class; ?> <?php echo $follow_class; ?> <?php echo $member_loop_has_content ? ' has_hook_content' : ''; ?>">
 					<div class="item-avatar">
-						<span data-toggle="group-member-dropdown-<?php bp_member_user_id() ; ?>"><?php 
-							bb_user_status( bp_get_member_user_id() );
-							bp_member_avatar( bp_nouveau_avatar_args() );?></span>
-						<span class="list-title member-name"><?php bp_member_name(); ?></span>
-						<?php 
-						$type = 'group-member';
-						$source = bp_get_member_user_id();
-						echo bfc_avatar_dropdown ($type,$source,$follow_class);
-						?>
+					<span data-toggle="<?php echo $type . '-dropdown-' . $source ; ?>">
+					<?php 
+						bb_user_status( bp_get_member_user_id() );
+						bp_member_avatar( bp_nouveau_avatar_args() );?></span>
+					<?php echo bfc_member_dropdown( $type, $source, $person, $follow_class );?>
+					<span class="list-title member-name"><?php bp_member_name(); ?></span>
+						
 					</div>
 
 					<div class="bp-members-list-hook">

@@ -2,3 +2,5 @@
 .DS_Store
 .DS_Store
 *.code-workspace
+/foundation-sites/dist/js/foundation.js
+/foundation-sites/dist/js/foundation.js.map

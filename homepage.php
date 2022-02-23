@@ -20,6 +20,10 @@ get_header(); ?>
 				<div class="user-home-welcome-tagline"><span>to your personal Bright Future Commons dashboard</span></div>
 
 			<div id="bfc-user-panels" class="bfc-user-panels">
+				<?php
+				global $bfc_dropdown_prefix;
+				$bfc_dropdown_prefix = 'dt';
+				?>
 				<?php if ( is_active_sidebar( 'user_left_panel' ) ) : ?>
 					<div id="bfc-user-panel-left" class="bfc-user-panel widget-area">
 						<?php dynamic_sidebar( 'user_left_panel' ); ?>
@@ -40,6 +44,7 @@ get_header(); ?>
 			</div>
 
 			<div id="bfc-user-accordion" class="bfc-user-accordion accordion" data-accordion data-allow-all-closed="true">
+				<?php $bfc_dropdown_prefix = 'ac';?>
 				<?php if ( is_active_sidebar( 'user_left_panel' ) ) : ?>
 					<div id="bfc-user-panel-top" class="bfc-user-panel-top widget-area" data-accordion-item>
 					<a href="#" class="accordion-title">Latest Updates</a>
