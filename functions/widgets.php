@@ -576,9 +576,6 @@ class bfc_messages_widget extends WP_Widget {
 		}
 		echo $args['after_widget']; ?>
 		</div>
-		<script>
-			jQuery(document).foundation();
-		</script>
 	<?php }
 			  
 	// Creating widget Backend 
