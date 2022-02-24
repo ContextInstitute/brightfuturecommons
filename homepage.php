@@ -43,32 +43,32 @@ get_header(); ?>
 				<?php endif; ?>
 			</div>
 
-			<div id="bfc-user-accordion" class="bfc-user-accordion accordion" data-accordion data-allow-all-closed="true">
-				<?php $bfc_dropdown_prefix = 'ac';?>
+			<?php $bfc_dropdown_prefix = 'ac';?>
+			<ul id="bfc-user-accordion" class="bfc-user-accordion accordion" data-accordion data-allow-all-closed="true">
 				<?php if ( is_active_sidebar( 'user_left_panel' ) ) : ?>
-					<div id="bfc-user-panel-top" class="bfc-user-panel-top widget-area" data-accordion-item>
+					<li class="accordion-item bfc-user-panel-top widget-area" data-accordion-item >
 					<a href="#" class="accordion-title">Latest Updates</a>
 					<div class="accordion-content" data-tab-content>
 						<?php dynamic_sidebar( 'user_left_panel' ); ?>
-					</div></div><!-- #bfc-user-panel-le-top -->
+					</div></li><!-- #bfc-user-panel-le-top -->
 
 				<?php endif; ?>
 				<?php if ( is_active_sidebar( 'user_center_panel' ) ) : ?>
-					<div id="bfc-user-panel-middle" class="bfc-user-panel-middle widget-area" data-accordion-item>
+					<li class="accordion-item bfc-user-panel-middle widget-area" data-accordion-item >
 					<a href="#" class="accordion-title">Forum Posts</a>
 					<div class="accordion-content" data-tab-content>
 						<?php dynamic_sidebar( 'user_center_panel' ); ?>
-					</div></div><!-- #bfc-user-panel-middle -->
+					</div></li><!-- #bfc-user-panel-middle -->
 				<?php endif; ?>
 
 				<?php if ( is_active_sidebar( 'user_right_panel' ) ) : ?>
-					<div id="bfc-user-panel-bottom" class="bfc-user-panel-bottom widget-area" data-accordion-item>
+					<li class="accordion-item bfc-user-panel-bottom widget-area" data-accordion-item >
 					<a href="#" class="accordion-title">Blog Posts</a>
 					<div class="accordion-content" data-tab-content>
 						<?php dynamic_sidebar( 'user_right_panel' ); ?>
-					</div></div><!-- #bfc-user-panel-bottom -->
+					</div></li><!-- #bfc-user-panel-bottom -->
 				<?php endif; ?>
-			</div>
+				</ul>
 
 			</div>
 
