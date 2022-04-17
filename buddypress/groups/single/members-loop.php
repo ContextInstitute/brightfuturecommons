@@ -30,14 +30,12 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 
 	<?php bp_nouveau_group_hook( 'before', 'members_list' ); ?>
 
-	<script> 
-		jQuery(document).foundation();
-	</script>
 
 	<?php
-	$count = groups_get_current_group()->total_member_count;
 	global $bfc_dropdown_prefix;
-
+	$count = groups_get_current_group()->total_member_count;
+	// We use 21 as the break point between groups that feel "small" and those that feel "large". This page always displays
+	// the group members' avatars and names. For small groups, it also displays their self intros.
 	if ($count <22) : ?>
 	<ul id="members-intros" class="bp-list">
 	<?php
@@ -131,6 +129,10 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 		?>
 
 	</ul>
+
+	<script> 
+		jQuery(document).foundation();
+	</script>
 
 	<?php bp_nouveau_group_hook( 'after', 'members_list' ); ?>
 
