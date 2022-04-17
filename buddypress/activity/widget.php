@@ -16,7 +16,6 @@
 		while ( bp_activities() ) :
 			bp_the_activity();
 		?>
-		<?php if ( bp_activity_has_content() ) : ?>
 		<div class="activity-update">
 
 			<div class="update-item">
@@ -52,8 +51,6 @@
 			</div>
 
 		</div>
-
-		<?php endif; ?>
 
 		<?php endwhile; ?>
 
