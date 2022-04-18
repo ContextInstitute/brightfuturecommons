@@ -41,7 +41,14 @@
 
 				<?php endif; ?>
 
-				<p class="bb-topic-reply-link-wrap mobile-only"><?php bbp_topic_reply_link(); ?></p>
+				<p class="bb-topic-reply-link-wrap mobile-only">
+					<?php
+					bbp_topic_reply_link();
+					if ( ! bbp_current_user_can_access_create_reply_form() && ! bbp_is_topic_closed() && ! bbp_is_forum_closed( bbp_get_topic_forum_id() ) && ! is_user_logged_in() ) {
+						?>
+						<a href="<?php echo esc_url( wp_login_url() ); ?>" class="bbp-topic-login-link bb-style-primary-bgr-color bb-style-border-radius"><?php esc_html_e( 'Log In to Reply', 'buddyboss-theme' ); ?></a>
+					<?php } ?>
+				</p>
 				<p class="bb-topic-subscription-link-wrap mobile-only">
 					<?php
 					$args = array( 'before' => '' );
@@ -60,7 +67,14 @@
 		<!-- <div class="bb-sm-grid bs-single-topic-sidebar">
             <div class="bs-topic-sidebar-inner"> -->
 				<div class="single-topic-sidebar-links">
-					<!-- <p class="bb-topic-reply-link-wrap"><?php bbp_topic_reply_link(); ?></p> -->
+					<!--<p class="bb-topic-reply-link-wrap">
+						<?php
+						bbp_topic_reply_link();
+						if ( ! bbp_current_user_can_access_create_reply_form() && ! bbp_is_topic_closed() && ! bbp_is_forum_closed( bbp_get_topic_forum_id() ) && ! is_user_logged_in() ) {
+							?>
+							<a href="<?php echo esc_url( wp_login_url() ); ?>" class="bbp-topic-login-link bb-style-primary-bgr-color bb-style-border-radius"><?php esc_html_e( 'Log In to Reply', 'buddyboss-theme' ); ?></a>
+						<?php } ?>
+					</p> -->
 					<p class="bb-topic-subscription-link-wrap">
 					<?php
 					// $args = array( 'before' => '' );

@@ -127,28 +127,42 @@
 
 						<?php if ( bbp_is_subscriptions_active() && ! bbp_is_anonymous() && ( ! bbp_is_reply_edit() || ( bbp_is_reply_edit() && ! bbp_is_reply_anonymous() ) ) ) : ?>
 
-							<?php do_action( 'bbp_theme_before_reply_form_subscription' ); ?>
+							<?php
+							if (
+								! function_exists( 'bb_enabled_legacy_email_preference' ) ||
+								(
+									function_exists( 'bb_enabled_legacy_email_preference' ) &&
+									(
+										bb_enabled_legacy_email_preference() ||
+										( ! bb_enabled_legacy_email_preference() && bb_get_modern_notification_admin_settings_is_enabled( 'bb_forums_subscribed_reply' ) )
+									)
+								)
+							) {
+								?>
 
-							<div class="bb_subscriptions_active">
+								<?php do_action( 'bbp_theme_before_reply_form_subscription' ); ?>
 
-								<input name="bbp_topic_subscription" id="bbp_topic_subscription" class="bs-styled-checkbox" type="checkbox" value="bbp_subscribe"<?php bbp_form_topic_subscribed(); ?> tabindex="<?php bbp_tab_index(); ?>" />
+								<div class="bb_subscriptions_active">
 
-								<?php if ( bbp_is_reply_edit() && ( bbp_get_reply_author_id() !== bbp_get_current_user_id() ) ) : ?>
+									<input name="bbp_topic_subscription" id="bbp_topic_subscription" class="bs-styled-checkbox" type="checkbox" value="bbp_subscribe"<?php bbp_form_topic_subscribed(); ?> tabindex="<?php bbp_tab_index(); ?>" />
 
-									<label for="bbp_topic_subscription"><?php esc_html_e( 'Notify the author of replies via email', 'buddyboss-theme' ); ?></label>
+									<?php if ( bbp_is_reply_edit() && ( bbp_get_reply_author_id() !== bbp_get_current_user_id() ) ) : ?>
 
-								<?php else : ?>
+										<label for="bbp_topic_subscription"><?php esc_html_e( 'Notify the author of replies via email', 'buddyboss-theme' ); ?></label>
 
-									<label for="bbp_topic_subscription"><?php esc_html_e( 'Notify me of replies via email', 'buddyboss-theme' ); ?></label>
+									<?php else : ?>
 
-								<?php endif; ?>
+										<label for="bbp_topic_subscription"><?php esc_html_e( 'Notify me of replies via email', 'buddyboss-theme' ); ?></label>
 
-							</div>
+									<?php endif; ?>
 
-							<?php do_action( 'bbp_theme_after_reply_form_subscription' ); ?>
+								</div>
+
+								<?php do_action( 'bbp_theme_after_reply_form_subscription' ); ?>
+
+						<?php } ?>
 
 						<?php endif; ?>
-
 
 						<?php do_action( 'bbp_theme_before_reply_form_submit_wrapper' ); ?>
 
@@ -204,13 +218,14 @@
 
 <?php else : ?>
 
-	<div id="no-reply-<?php bbp_topic_id(); ?>" class="bbp-no-reply">
-		<div class="bp-feedback info">
-			<span class="bp-icon" aria-hidden="true"></span>
-			<p><?php is_user_logged_in() ? esc_html__( 'You cannot reply to this discussion.', 'buddyboss-theme' ) : esc_html__( 'Log in  to reply.', 'buddyboss-theme' ); ?></p>
+<?php if ( is_user_logged_in() ) : ?>
+		<div id="no-reply-<?php bbp_topic_id(); ?>" class="bbp-no-reply">
+			<div class="bp-feedback info">
+				<span class="bp-icon" aria-hidden="true"></span>
+				<p><?php esc_html_e( 'You cannot reply to this discussion.', 'buddyboss-theme' ); ?></p>
+			</div>
 		</div>
-	</div>
-
+	<?php endif; ?>
 <?php endif; ?>
 
 <?php if ( bbp_is_reply_edit() ) : ?>
