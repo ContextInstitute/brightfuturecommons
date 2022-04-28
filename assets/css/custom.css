@@ -189,6 +189,7 @@ nav#object-nav li.bfc-group-name-nav{
 	padding: 0;
 	border-bottom: 0 none #000000;
 	justify-self: center;
+	min-width: min-content;
 }
 
 #members-group-list.group_members #members-list.bp-list .item-avatar,
@@ -600,3 +601,49 @@ nav#object-nav li.bfc-group-name-nav{
 .buddypress-wrap table.profile-fields td.data>p {
 	margin: 0;
 }
+
+#buddypress .bbp-reply-content.bs-forum-content .bfc-post-functions {
+	display: flex;
+}
+
+#buddypress .bbp-reply-content.bs-forum-content .bfc-post-functions .bfc-like-section {
+	flex-grow: 1;
+	margin-top: -9px;
+}
+
+.like-state > .like-state-likes > span {
+	color: rgb(85,85,85);
+	font-family: "SF UI Text", sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	letter-spacing: -.18px;
+	line-height: 16px;
+}
+
+#buddypress .bs-forum-content .post-like-meta .generic-button .bfc-post-like {
+	line-height: 18px;
+}
+
+.post-like-meta > .generic-button > .bfc-post-like > .bfc-post-like-text {
+	color: rgb(127, 134, 143);
+	font-family: "SF UI Text", sans-serif;
+	font-size: 14px;
+	font-weight: 400;
+	letter-spacing: -.18px;
+	line-height: 14px;
+	margin-left: 2px;
+	text-align: center;
+}
+
+.post-like-meta > .generic-button > .bfc-post-like:before {
+	content: "\e815";
+	color: rgb(0, 124, 255);
+	display: inline-block;
+	font-family: bb-icons;
+	font-size: 22px;
+	line-height: 22px;
+	min-width: 22px;
+	position: relative;
+	top: -3px;
+	vertical-align: middle;
+  }
