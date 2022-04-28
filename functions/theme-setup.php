@@ -31,26 +31,31 @@ add_action( 'after_setup_theme', 'buddyboss_theme_child_languages' );
  */
 function buddyboss_theme_child_scripts_styles()
 {
-  /**
-   * Scripts and Styles loaded by the parent theme can be unloaded if needed
-   * using wp_deregister_script or wp_deregister_style.
-   *
-   * See the WordPress Codex for more information about those functions:
-   * http://codex.wordpress.org/Function_Reference/wp_deregister_script
-   * http://codex.wordpress.org/Function_Reference/wp_deregister_style
-   **/
+	/**
+	 * Scripts and Styles loaded by the parent theme can be unloaded if needed
+	 * using wp_deregister_script or wp_deregister_style.
+	 *
+	 * See the WordPress Codex for more information about those functions:
+	 * http://codex.wordpress.org/Function_Reference/wp_deregister_script
+	 * http://codex.wordpress.org/Function_Reference/wp_deregister_style
+	 **/
 
-  // Register Foundation scripts
-  wp_enqueue_script( 'foundation-js', get_stylesheet_directory_uri() . '/foundation-sites/dist/js/foundation.min.js', array('jquery'), "true" );
-	
-  // Register Foundation styles
-  wp_enqueue_style( 'foundation-css', get_stylesheet_directory_uri() . '/foundation-sites/dist/css/foundation.min.css', array(), "false", 'all' );
-	
-  // Styles
-  wp_enqueue_style( 'buddyboss-child-css', get_stylesheet_directory_uri().'/assets/css/custom.css', '', '1.0.0' );
+	// Register Foundation scripts
+	wp_enqueue_script( 'foundation-js', get_stylesheet_directory_uri() . '/foundation-sites/dist/js/foundation.min.js', array('jquery'), "true" );
 
-  // Javascript
-  wp_enqueue_script( 'buddyboss-child-js', get_stylesheet_directory_uri().'/assets/js/custom.js', '', '1.0.0' );
+	// Register Foundation styles
+	wp_enqueue_style( 'foundation-css', get_stylesheet_directory_uri() . '/foundation-sites/dist/css/foundation.min.css', array(), "false", 'all' );
+
+	// Styles
+	wp_enqueue_style( 'buddyboss-child-css', get_stylesheet_directory_uri().'/assets/css/custom.css', '', '1.0.0' );
+
+	// Javascript
+	wp_enqueue_script( 'buddyboss-child-js', get_stylesheet_directory_uri().'/assets/js/custom.js', '', '1.0.0' );
+
+	// Liker script
+	wp_enqueue_script( 'bfc-liker-js', get_stylesheet_directory_uri().'/assets/js/like.js', array('jquery'), "true" );
+	wp_localize_script( 'bfc-liker-js', 'bfcAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
+
   
 }
 add_action( 'wp_enqueue_scripts', 'buddyboss_theme_child_scripts_styles', 9999 );
