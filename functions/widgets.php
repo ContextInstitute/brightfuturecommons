@@ -232,8 +232,39 @@ class bsp_Activity_Widget extends WP_Widget {
 
 		
 		echo $args['before_widget'];
+		echo "<div class='bfc-widget-head'>";
 		
 		echo '<span class="bsp-la-title">' . $args['before_title'] . $settings['title'] . $args['after_title'] . '</span>' ;
+
+		If (bp_current_component() == 'groups') {
+			$forum_id = bbp_get_group_forum_ids (bp_get_current_group_id());
+			$compose_link = esc_url( bbp_get_forum_permalink ($forum_id[0])); 
+		?>
+		<div class='bfc-write-new'><a href="<?php echo $compose_link ?>" class= ><span class= 'bb-icon-edit' ></span></a></div>
+		<?php }
+		
+		$helptip = "<div class='bfc-helptip'><span class= 'bb-icon-help-circle' ></span><span class='bfc-helptiptext'>";
+		If (bp_current_component() == 'groups') {
+			$helptip .= "<p>These are the <strong>most recent forum posts</strong> from this group.</p>
+			<p>To see the full post in its thread, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name.</p>			
+			<p>Once you've gone to the full post, you can also <em>like</em> it and/or add a reply.</p>			
+			<p>Clicking on the thread subject takes you to the start of the thread.</p>			
+			<p>You can create a new thread by clicking on the <span class= 'bb-icon-edit' ></span> symbol to the left of the <span class= 'bb-icon-help-circle' ></span> symbol. This takes to the page that lists all of threads. Click the <em>New discussion</em> button to create your new thread.</p>			
+			<p>Hover over the sender's picture for quick access to sending them a new message, following them or going to their profile.</p>			
+			<p>Clicking on the sender's name also takes you to their profile.</p>";
+		} else {
+			$helptip .= "<p>These are the <strong>most recent forum posts</strong> from the <strong>groups</strong> you are part of.</p>
+			<p>To see the full post in its thread, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name.</p>
+			<p>Once you've gone to the full post, you can also <em>like</em> it and/or add a reply.</p>			
+			<p>Clicking on the thread subject takes you to the start of the thread.</p>			
+			<p>Clicking on the group name in the lower right takes you to the group dashboard/homepage.</p>			
+			<p>Hover over the sender's picture for quick access to sending them a new message, following them or going to their profile.</p>			
+			<p>Clicking on the sender's name also takes you to their profile.</p>";
+		}
+		$helptip .= "</span></div></div>";
+		echo $helptip;
+		
+		
 		?>
 		
 		<ul class="bfc-la-ul">
@@ -243,7 +274,7 @@ class bsp_Activity_Widget extends WP_Widget {
 
 				$widget_query->the_post();
 				$topic_id    = bbp_get_topic_id( $widget_query->post->ID );
-				$author_link = '';
+				// $author_link = '';
 				
 				//check if this topic has a reply
 				$reply = get_post_meta( $topic_id, '_bbp_last_reply_id',true);
@@ -262,56 +293,59 @@ class bsp_Activity_Widget extends WP_Widget {
 				
 				// Create excerpt
 				$post_id = empty ($reply)? $topic_id : $reply;
-				$bfc_excerpt = wp_trim_words(bbp_get_reply_content($post_id), 15);
+				$bfc_excerpt = wp_trim_words(bbp_get_reply_content($post_id), 20);
 				?>
 				<?php 
-					global $bfc_dropdown_prefix;
-					$type = $bfc_dropdown_prefix . '-forum';
-					$person = bbp_get_reply_author_id($post_id);?>
+				global $bfc_dropdown_prefix;
+				$type = $bfc_dropdown_prefix . '-forum';
+				$person = bbp_get_reply_author_id($post_id);?>
+
 				<li class="bfc-la-li" data-bp-item-id="<?php echo $author_id; ?>" data-bp-item-component="members">
-				<div class="bfc-la-topic-author-avatar topic-author">
-				<span data-toggle="<?php echo $type . '-dropdown-' . esc_attr( $post_id ); ?>"><?php bbp_reply_author_avatar( $post_id,  $size = 40 ); ?></span><br>
-				<?php echo bfc_member_dropdown( $type, $post_id, $person, $follow_class );?>
-				<?php 
-				echo '</div><div class="bfc-la-topic-text">';
-				//if no replies set the link to the topic
-				if (empty ($reply)) {?>
-					<a class="bsp-la-reply-topic-title" href="<?php bbp_topic_permalink( $topic_id ); ?>"><?php bbp_topic_title( $topic_id ); ?></a>
-				<?php } 
-				//if replies then set link to the latest reply
-				else { 
-					echo '<a class="bsp-la-reply-topic-title" href="' . esc_url( bbp_get_reply_url( $reply ) ) . '" >' . bbp_get_reply_topic_title( $reply ) . '</a>';
-				} ?>
-				
-					<?php if ( ! empty( $settings['show_count'] ) && bbp_get_topic_post_type() == get_post_type()) {
-									$topic = get_the_ID(); ?>
-										<span class="bsp-topic-posts">
-											<?php if ( ! empty( $settings['reply_count_label'] )) echo $settings['reply_count_label'] ; ?>
-											<?php bbp_topic_reply_count($topic); ?>
-										</span>
-					<?php } 
-					
-					echo '<div class="bfc-la-topic-excerpt">' . $bfc_excerpt . '</div>';
-					echo '<span class="bfc-la-topic-author-name topic-author">' . $author_name . '</span>';
-					
-					if ( ! empty( $settings['show_freshness'] ) ) : ?>
-					<?php $output = bbp_get_topic_last_active_time( $topic_id ) ; 
-						//shorten freshness?
-						if ( ! empty( $settings['shorten_freshness'] ) ) $output = preg_replace( '/, .*[^ago]/', ' ', $output );
-							echo '<span class="bsp-activity-freshness bsp-la-freshness">'.$output. '</span>'; 
-					endif; ?>
+				<div class = "update-item">
+					<div class="bfc-la-topic-author-avatar topic-author">
+						<span class="bfc-dropdown-span" data-toggle="<?php echo $type . '-dropdown-' . esc_attr( $post_id ); ?>"><?php bbp_reply_author_avatar( $post_id,  $size = 40 ); ?></span><br>
+						<?php echo bfc_member_dropdown( $type, $post_id, $person, $follow_class );?>
+					</div>
+					<!-- <div class="bfc-la-topic-text"> -->
+						<div class="bfc-forum-links">
+							<div class="bsp-la-reply-topic-title">
+								<a href="<?php bbp_topic_permalink( $topic_id ); ?>"><?php bbp_topic_title( $topic_id ); ?></a><br>
+								<?php 					
+								echo '<span class="bfc-la-topic-author-name topic-author">' . $author_name . '</span>';
+								
+								if ( ! empty( $settings['show_freshness'] ) ) : ?>
+								<?php $output = bbp_get_topic_last_active_time( $topic_id ) ; 
+									//shorten freshness?
+									if ( ! empty( $settings['shorten_freshness'] ) ) { $output = preg_replace( '/, .*[^ago]/', ' ', $output );
+										echo '<span class="bsp-activity-freshness bsp-la-freshness">'.$output. '</span>';} 
+								endif; ?>
+							</div>
+							
+						</div>
+						
+						<div class = "bfc-widget-actions">
+							<a href="<?php echo esc_url( bbp_get_reply_url( $reply ) ); ?>" class = "bb-icon-arrow-up-right"></a>
+						</div>
+
+
+					<?php
+					echo '</div><div><div class="bfc-la-topic-excerpt">' . $bfc_excerpt . '</div>';
+					bfc_widget_like_state($post_id);
+					?>
 					
 					<?php if ( ! bp_is_group()) : ?>
 					<div class = "bsp-activity-forum">
 						<?php
 						$forum = bbp_get_topic_forum_id($topic_id);
-						$forum1 = get_the_title($forum) ;
+						$forum1 = bfc_get_forum_title($forum) ;
 						$forum2 = esc_url( bbp_get_forum_permalink( $forum )) ;
+						$forum3 = substr($forum2, 0, strpos($forum2, "forum/"));
 					?>
-						<a class="bsp-la-forum-title bbp-forum-title" href="<?php echo $forum2; ?>"><?php echo $forum1 ; ?></a>
-					</div></div>
+						<a class="bsp-la-forum-title bbp-forum-title" href="<?php echo $forum3; ?>"><?php echo $forum1 ; ?></a>
+
+					</div>
 					<?php endif; ?>
-				
+					</div>
 				</li>
 
 			<?php endwhile; ?>
@@ -479,12 +513,60 @@ function bfc_activity_widget_excerpt_length(){
  */
 
 function bfc_simplify_activity_action ($action){
+	global $activities_template;
 	$action = str_replace(' posted an update','<br>', $action );
-	$action = 'From ' . $action;
+	$action = str_replace(' the group','', $action );
+
+	if ($activities_template->activity->type == 'activity_update') {
+		$action = 'From ' . $action;
+	}
+	If (bp_current_component() == 'groups') {
+		$target = 'in <a href="' . bp_get_group_permalink() . '">' . bp_get_group_name() . '</a>';
+		$action = str_replace($target,' ', $action );
+	}
 	return $action;
 }
 
 add_filter( 'bp_get_activity_action_pre_meta', 'bfc_simplify_activity_action', 10, 1);
+
+function bfc_activity_info(){
+	global $activities_template;
+	
+	$author = $activities_template->activity->action;
+	$author = str_replace(' posted an update','<br>', $author );
+	$author = str_replace(' the group','', $author );
+	
+	if ($activities_template->activity->type == 'activity_update') {
+		$author = 'From ' . $author;
+	}
+	if (bp_current_component() == 'groups') {
+		$target = 'in <a href="' . bp_get_group_permalink() . '">' . bp_get_group_name() . '</a>';
+		$author = str_replace($target,' ', $author );
+	// 	if(str_contains($author, 'joined')) {$author .= ' ';}
+	// } elseif (str_contains($author, 'in <a href="')) {
+	// 	$author .= ' ';
+	}
+	$author .= ' ';
+	if(str_contains($author, '<br>')) {
+		$author .= ' ';
+	}else {
+		$author .= '<br>';
+	}
+	// Get the time since this activity was recorded.
+	$date_recorded = bp_core_time_since( $activities_template->activity->date_recorded );
+
+	$time_since = '';
+	// Remove time since from single activity page.
+
+	// Set up 'time-since' <span>.
+	$time_since = sprintf(
+		'<span class="time-since" data-livestamp="%1$s">%2$s</span>',
+		bp_core_get_iso8601_date( $activities_template->activity->date_recorded ),
+		$date_recorded
+	);
+
+	echo '<p>' . $author . $time_since . '</p>';
+}
 
 // Latest messages widget 
 class bfc_messages_widget extends WP_Widget {
@@ -515,8 +597,24 @@ class bfc_messages_widget extends WP_Widget {
   
 		// before and after widget arguments are defined by themes
 		echo $args['before_widget'];
+		echo "<div class='bfc-widget-head'>";
+
 		if ( ! empty( $title ) )
 		echo $args['before_title'] . $title . $args['after_title'];
+
+		$compose_link = bp_loggedin_user_domain() . bp_get_messages_slug() . '/compose/';
+		?>
+		<div class='bfc-write-new'><a href="<?php echo $compose_link ?>" class= ><span class= 'bb-icon-edit' ></span></a></div>
+		<?php
+
+		$helptip = "<div class='bfc-helptip'><span class= 'bb-icon-help-circle' ></span><span class='bfc-helptiptext'>";
+		$helptip .= "<p>These are your <strong>unread private messages</strong>.</p><p>To see the full message thread and reply to it, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name. This will also mark the message as read and take you to your full inbox where you can work with other messages and create new ones.</p>
+		<p>You can create a new message by clicking on the <span class= 'bb-icon-edit' ></span> symbol to the left of the <span class= 'bb-icon-help-circle' ></span> symbol.</p>
+		<p>You can also access your messages via the <span class = 'bb-icon-inbox-small' style='font-size:16px;'></span> symbol at the right of the top menu.</p>
+		<p>Hover over the sender's picture for quick access to sending them a new message, following them or going to their profile.</p>
+		<p>Clicking on the sender's name also takes you to their profile.</p>";
+		$helptip .= "</span></div></div>";
+		echo $helptip;
 		
 		// This is where you run the code and display the output
 		echo '<ul class="bfc-la-ul">';
@@ -526,7 +624,7 @@ class bfc_messages_widget extends WP_Widget {
 			// 'box'          => $default_box,
 			// 'per_page'     => 10,
 			'max'          => 6,
-			// 'type'         => 'all',
+			'type'         => 'all', // Values: 'all', 'read', 'unread'
 			// 'search_terms' => $search_terms,
 			// 'include'      => false,
 			// 'page_arg'     => 'mpage', // See https://buddypress.trac.wordpress.org/ticket/3679.
@@ -534,48 +632,50 @@ class bfc_messages_widget extends WP_Widget {
 			'after_widget' => '<div class="bfc-after-widget"></div>',
 		);
 
-		  
- 
+		$message_count = 0;
 		
 		if (bp_has_message_threads($args)) {
 			while ( bp_message_threads() ) {
 				bp_message_thread();
-				// echo bp_get_message_thread_id();
-				// bp_message_thread_view_link();
-				// echo '<br>';
-				// bp_message_thread_last_post_date();
-				// echo date('M j, Y', bp_get_message_thread_last_post_date_raw() );
-				global $bfc_dropdown_prefix;
-				$type = $bfc_dropdown_prefix . '-message';
-				$instance_id = $messages_template->thread->thread_id;
-				$person = $messages_template->thread->last_sender_id;
-				?>
-				<div class="activity-list item-list">
-					<div class="activity-update">
-						<div class="update-item" data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members">
-							<span data-toggle="<?php echo $type . '-dropdown-' . $instance_id ; ?>">
-								<?php bp_message_thread_avatar(array( 'type'   => 'thumb', 'width'  => '40', 'height' => '40' )); ?></span>
-								<?php 
-								echo bfc_member_dropdown( $type, $instance_id, $person, $follow_class );
-								?>
-							<div class="bp-activity-info">
-								<p>From <?php bp_message_thread_from(); ?><br>
-								<a href="<?php bp_message_thread_view_link(); ?>">
-									<?php echo bfc_nice_date (date('M j, Y', strtotime ($messages_template->thread->last_message_date))); ?>
-								</a>
-								</p>
+				if (bp_message_thread_has_unread()) {
+
+					$message_count++;
+					global $bfc_dropdown_prefix;
+					$type = $bfc_dropdown_prefix . '-message';
+					$instance_id = $messages_template->thread->thread_id;
+					$person = $messages_template->thread->last_sender_id;
+					?>
+					<div class="activity-list item-list">
+						<div class="activity-update">
+							<div class="update-item" data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members">
+								<span class="bfc-dropdown-span" data-toggle="<?php echo $type . '-dropdown-' . $instance_id ; ?>">
+									<?php bp_message_thread_avatar(array( 'type'   => 'thumb', 'width'  => '40', 'height' => '40' )); ?></span>
+									<?php 
+									echo bfc_member_dropdown( $type, $instance_id, $person, $follow_class );
+									?>
+								<div class="bp-activity-info">
+									<p>From <?php bp_message_thread_from(); ?><br>
+									<?php echo bfc_nice_date (date('M j, Y', strtotime (bp_get_message_thread_last_post_date_raw())));?>
+									</p>
+								</div>
+								<div class = "bfc-widget-actions">
+									<p>
+										<a href="<?php bp_message_thread_view_link(); ?>" class = "bb-icon-arrow-up-right"></a>
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="activity-content ">	
+							<div class="activity-inner ">
+								<?php echo wp_trim_words(stripslashes($messages_template->thread->last_message_content), 20);?>
 							</div>
 						</div>
 					</div>
-					<div class="activity-content ">	
-						<div class="activity-inner ">
-							<?php echo bp_create_excerpt( stripslashes($messages_template->thread->last_message_content), 150 ); ?>
-						</div>
-					</div>
-				</div>
-
-			<?php }	
-				
+				<?php }
+			}					
+		}
+		if ($message_count == 0) {
+			echo "<p class='bfc-no-unread'>You have no unread messages.</p>";
 		}
 		echo $args['after_widget']; ?>
 		</div>
@@ -700,10 +800,46 @@ class bfc_latest_activities extends WP_Widget {
 		}
 
 		echo $args['before_widget'];
+		echo "<div class='bfc-widget-head'>";
 
 		if ( $title ) {
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
+		If (bp_current_component() == 'groups') {
+			$compose_link = bp_get_group_permalink() . 'activity/';
+		} else {
+			$compose_link = bp_loggedin_user_domain() . 'activity/';
+		}
+		
+		?>
+		<div class='bfc-write-new'><a href="<?php echo $compose_link ?>" ><span class= 'bb-icon-edit' ></span></a></div>
+		<?php
+		
+		$helptip = "<div class='bfc-helptip'><span class= 'bb-icon-help-circle' ></span><span class='bfc-helptiptext'>";
+		If (bp_current_component() == 'groups') {
+			$helptip .= "<p>These are <strong>update messages</strong> from and for this group.</strong></p>
+			<p>To see the full message plus any comments, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name.</p>		
+			<p>Once you've gone to the full message, you can also <em>like</em> it and/or add your comment.</p>
+			<p>You can create a new update by clicking on the <span class= 'bb-icon-edit' ></span> symbol to the left of the <span class= 'bb-icon-help-circle' ></span> symbol.</p>					
+			<p>You can access the group's full activity feed in its <a href='";
+			$helptip .= bp_get_group_permalink();
+			$helptip .= "activity/'>Timeline section</a>.</p>		
+			<p>Hover over the person's picture for quick access to sending them a new message, following them or going to their profile.</p>		
+			<p>Clicking on the person's name also takes you to their profile.</p>";
+		} else {
+			$helptip .= "<p>These are <strong>update messages</strong> from <strong>people you are following, groups you are part of and the one's you've sent.</strong></p>
+			<p>To see the full message plus any comments, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name.</p>		
+			<p>Once you've gone to the full message, you can also <em>like</em> it and/or add your comment.</p>			
+			<p>You can create a new update by clicking on the <span class= 'bb-icon-edit' ></span> symbol to the left of the <span class= 'bb-icon-help-circle' ></span> symbol.</p>
+			<p>If it's an update from a group, clicking on the group name take you to the group's home page.</p>		
+			<p>You can access your full activity feed in the <a href='/members/";
+			$helptip .= bp_core_get_username( bp_loggedin_user_id() );
+			$helptip .= "/activity'>Timeline section</a> of your Profile.</p>		
+			<p>Hover over the sender's picture for quick access to sending them a new message, following them or going to their profile.</p>		
+			<p>Clicking on the sender's name also takes you to their profile.</p>";
+		}
+		$helptip .= "</span></div></div>";
+		echo $helptip;
 
 		$reset_activities_template = null;
 		if ( ! empty( $GLOBALS['activities_template'] ) ) {
@@ -718,7 +854,7 @@ class bfc_latest_activities extends WP_Widget {
 		$followers = bp_get_following( array ('user_id' => bp_loggedin_user_id()) );
 		$followers[] = bp_loggedin_user_id();
 		$followers_and_me = implode(',', (array)$followers); 
-		// var_dump($followers);
+
 		$bp_nouveau->activity->widget_args = array(
 			'max'          => 10,
 			'scope'        => 'all',
