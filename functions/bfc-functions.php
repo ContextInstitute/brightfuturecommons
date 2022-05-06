@@ -1,5 +1,8 @@
 <?php
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 define( 'BP_GROUPS_DEFAULT_EXTENSION', 'courtyard' );
 
 
@@ -12,7 +15,7 @@ function bfc_member_dropdown( $type, $instance_id, $person, $follow_class ) {
 			$output .= bp_get_add_follow_button( $person, $user );
 		}
 	}
-	$output .= '<a href="/members/' . bp_core_get_username( $person ) . '">Visit profile</a><br>Plus info from profile</div>';
+	$output .= '<a href="/members/' . bp_core_get_username( $person ) . '">Visit profile</a></div>';
 	return $output;
 }
 
@@ -35,10 +38,12 @@ function bfc_nice_date ($post_date){
 	} elseif ($post_date==$yesterday) {
 		$result =  "Yesterday at " . get_post_time( 'g:i A' );
 	} else {
-		$result = get_the_date('M j, Y');
+		$result = $post_date;
 	}
 	return $result;
 }
+
+
 /**
  * Add custom sub-tab on groups page.
  */
@@ -115,7 +120,7 @@ function custom_group_tab_title() {
  */
 function custom_group_tab_content() {
 ?>
-	<div class="user-home-page">
+	<div class="group-home-page">
 		<h2 class="user-home-welcome">
 			<span class="user-home-welcome-welcome">Welcome to the  </span>
 			<span class="user-home-welcome-name"><?php echo esc_html( bp_get_group_name() ); ?></span>
