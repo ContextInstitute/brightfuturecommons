@@ -1,5 +1,8 @@
 <?php
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 define( 'BP_GROUPS_DEFAULT_EXTENSION', 'courtyard' );
 
 
@@ -12,7 +15,7 @@ function bfc_member_dropdown( $type, $instance_id, $person, $follow_class ) {
 			$output .= bp_get_add_follow_button( $person, $user );
 		}
 	}
-	$output .= '<a href="/members/' . bp_core_get_username( $person ) . '">Visit profile</a><br>Plus info from profile</div>';
+	$output .= '<a href="/members/' . bp_core_get_username( $person ) . '">Visit profile</a></div>';
 	return $output;
 }
 
@@ -35,10 +38,12 @@ function bfc_nice_date ($post_date){
 	} elseif ($post_date==$yesterday) {
 		$result =  "Yesterday at " . get_post_time( 'g:i A' );
 	} else {
-		$result = get_the_date('M j, Y');
+		$result = $post_date;
 	}
 	return $result;
 }
+
+
 /**
  * Add custom sub-tab on groups page.
  */
@@ -115,7 +120,7 @@ function custom_group_tab_title() {
  */
 function custom_group_tab_content() {
 ?>
-	<div class="user-home-page">
+	<div class="group-home-page">
 		<h2 class="user-home-welcome">
 			<span class="user-home-welcome-welcome">Welcome to the  </span>
 			<span class="user-home-welcome-name"><?php echo esc_html( bp_get_group_name() ); ?></span>
@@ -484,5 +489,53 @@ function bfc_rename_group_navs ($link_text,$nav_item,$displayed_nav){
 }
 
 add_filter( 'bp_nouveau_get_nav_link_text', 'bfc_rename_group_navs',10,3);
+
+/**
+ * Output the state buttons in the Activity Update widget.
+ *
+ * @since BuddyPress 3.0.0
+ */
+function bfc_widget_activity_state() {
+
+	$activity_id     = bp_get_activity_id();
+	$like_text       = bp_activity_get_favorite_users_string( $activity_id );
+	$comment_count   = bp_activity_get_comment_count();
+	// $favorited_users = bp_activity_get_favorite_users_tooltip_string( $activity_id );
+
+	?>
+	<div class="activity-state <?php echo $like_text ? 'has-likes' : ''; ?> <?php echo $comment_count ? 'has-comments' : ''; ?>">
+		<span class="activity-state-likes like-text">
+			<?php echo $like_text ?: ''; ?>
+		</span>
+		<?php if ($like_text) : ?>
+			<span class="ac-state-separator">&middot;</span>
+		<?php endif;
+		if ( bp_activity_can_comment() && $comment_count) :
+			$activity_state_comment_class['activity_state_comment_class'] = 'activity-state-comments';
+			$activity_state_class            = apply_filters( 'bp_nouveau_get_activity_comment_buttons_activity_state', $activity_state_comment_class, $activity_id );
+			?>
+			<!-- <a href="#" class="<?php echo esc_attr( trim( implode( ' ', $activity_state_class ) ) ); ?>"> -->
+				<span class="comments-count">
+					<?php
+					if ( $comment_count > 1 ) {
+						echo $comment_count . ' ' . __( 'Comments', 'buddyboss' );
+					} else {
+						echo $comment_count . ' ' . __( 'Comment', 'buddyboss' );
+					}
+					?>
+				</span>
+			<!-- </a> -->
+		<?php endif; ?>
+	</div>
+	<?php
+}
+
+function bfc_get_forum_title( $post = 0 ) {
+	$post = get_post( $post );
+
+	$title = isset( $post->post_title ) ? $post->post_title : '';
+	$id    = isset( $post->ID ) ? $post->ID : 0;
+	return apply_filters( 'bfc_forum_title', $title, $id );
+}
 
 ?>
