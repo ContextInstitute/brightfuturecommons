@@ -25,6 +25,23 @@ function bfc_like_state($post_id) { // from bp_nouveau_activity_state() /buddybo
 	<?php
 }
 
+function bfc_widget_like_state($post_id) { 
+	
+	$like_users_string       = bfc_like_users_string( $post_id );
+	$favorited_users = bfc_like_users_tooltip_string( $post_id );
+	// if ($like_users_string == '') { return '';}
+	
+	?>
+	<div class="like-state <?php echo $like_users_string ? 'has-likes' : ''; ?>">
+		<!-- <a href="javascript:void(0);" class="like-state-likes"> -->
+			<span class="like-text" style="<?php echo $like_users_string ? 'display:inline-block' : 'display:none'; ?>" data-post_id="<?php echo $post_id; ?>">
+				<?php echo $like_users_string ?: ''; ?>
+			</span>
+		<!-- </a> -->
+	</div>
+	<?php
+}
+
 /**
  * Get like count for forum post
  *
