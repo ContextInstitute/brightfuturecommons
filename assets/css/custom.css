@@ -159,6 +159,11 @@ nav#object-nav li.bfc-group-name-nav{
 	border-radius:10%;
 	font-size: 16px;
 	text-align: center;
+	width: 180px;
+}
+
+.bfc-dropdown-span {
+	height: 40px;
 }
 
 /* member directory */
@@ -286,6 +291,11 @@ nav#object-nav li.bfc-group-name-nav{
 	margin: 10px 0px;
 }
 
+.group-home-page .bfc-user-panels {
+	grid-template-columns: 1fr 1fr;
+	grid-template-areas: 'LeftPanel RightPanel';
+}
+
 #bfc-user-panels .bfc-user-panel{
 	border: 1px solid #e7e9ec;
 	padding: 10px 20px;
@@ -322,10 +332,7 @@ nav#object-nav li.bfc-group-name-nav{
 }
 
 .bfc-la-li {
-	display: grid;
-	grid-template-columns: 46px 1fr;
 	margin-bottom: 10px;
-	padding-top: 10px;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #eaeaea;
 }
@@ -379,7 +386,11 @@ nav#object-nav li.bfc-group-name-nav{
 }
 
 .bsp-la-forum-title {
-	float: right
+	float: right;
+}
+
+.bsp-activity-forum {
+	margin-bottom: 10px;
 }
 
 .bfc-user-panels h2 {
@@ -457,9 +468,10 @@ nav#object-nav li.bfc-group-name-nav{
 }
 
 .bfc-user-accordion .activity-update .update-item,
-.bfc-user-panel .activity-update .update-item {
+.bfc-user-panel .activity-update .update-item,
+.bfc-la-li .update-item {
 	display: grid;
-    grid-template-columns: 46px 1fr;
+    grid-template-columns: 46px 1fr 24px;
 	margin-top: 22px;
 }
 
@@ -476,6 +488,7 @@ nav#object-nav li.bfc-group-name-nav{
 .bfc-user-accordion .activity-inner,
 .bfc-user-panel .activity-inner {
 	word-break: break-word;
+	margin-bottom: 10px;
 }
 
 .bfc-user-accordion .activity-inner p,
@@ -538,9 +551,18 @@ nav#object-nav li.bfc-group-name-nav{
     z-index: 3;
 }
 
-.other-groups #groups-list .bs-group-members .bfc-tooltip {
+.bfc-write-new .bb-icon-edit {
+	font-size: 18px;
+    line-height: 36px;
+}
+
+.other-groups #groups-list .bs-group-members .bfc-tooltip, .bfc-helptip {
 	position: relative;
 	display: inline-block;
+}
+
+.bfc-helptip {
+	width: 36px;
 }
 
 .other-groups #groups-list .bs-group-members .bfc-tooltiptext {
@@ -564,6 +586,35 @@ nav#object-nav li.bfc-group-name-nav{
 	transition: opacity 0.3s;  
 }
 
+.bfc-widget-head .bfc-helptip .bfc-helptiptext {
+	visibility: hidden;
+	width: 240px;
+	background-color: rgb(255, 255, 255);
+	color: #555;
+	text-align: left;
+	padding: 5px 10px;
+	font-size: 13px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #555;
+	border-radius: 6px;
+	
+	/* Position the tooltip text */
+	position: absolute;
+	z-index: 10;
+	top: 80%;
+	right: 0px;
+	
+	/* Fade in tooltip */
+	opacity: 0;
+	transition: opacity 0.3s;  
+	
+}
+
+.bfc-user-panels .bfc-widget-head .bfc-helptip .bfc-helptiptext {
+	width: 320px;
+}
+
 .other-groups #groups-list .bs-group-members .bfc-tooltiptext::after {
 	content: "";
 	position: absolute;
@@ -575,7 +626,18 @@ nav#object-nav li.bfc-group-name-nav{
 	border-color: #555 transparent transparent transparent;  
 }
 
-.other-groups #groups-list .bs-group-members .bfc-tooltip:hover .bfc-tooltiptext {
+.bfc-widget-head .bfc-helptip .bfc-helptiptext:after {
+	content: "";
+	position: absolute;
+	bottom: 100%;
+	right: 4px;
+	margin-left: -5px;
+	border-width: 6px;
+	border-style: solid;
+	border-color: transparent transparent #555 transparent;  
+}
+
+.other-groups #groups-list .bs-group-members .bfc-tooltip:hover .bfc-tooltiptext, .bfc-helptip:hover .bfc-helptiptext {
 	visibility: visible;
 	opacity: 1;
 }
@@ -586,6 +648,22 @@ nav#object-nav li.bfc-group-name-nav{
 
 .other-groups #groups-list .bs-group-members .bfc-tooltiptext>a {
 	color: rgb(218, 208, 255)
+}
+
+.bfc-widget-head {
+	display: flex;
+}
+
+.bfc-widget-head h2, .buddypress .buddypress-wrap .bfc-widget-head h2 {
+	flex-grow: 1;
+	margin-bottom: 8px;
+}
+
+.bfc-helptip > .bb-icon-help-circle {
+	font-size: 20px;
+	line-height: 36px;
+	float: right;
+	color: #999;
 }
 
 .post .entry-content p {
@@ -635,6 +713,11 @@ nav#object-nav li.bfc-group-name-nav{
 	text-align: center;
 }
 
+.bfc-la-ul .like-text {
+	color: #a3a5a9;
+    font-size: 13px;
+}
+
 .post-like-meta > .generic-button > .bfc-post-like:before {
 	content: "\e815";
 	color: rgb(0, 124, 255);
@@ -647,3 +730,53 @@ nav#object-nav li.bfc-group-name-nav{
 	top: -3px;
 	vertical-align: middle;
   }
+
+  .bfc-widget-actions {
+	  font-size: 13px;
+	  text-align: right;
+  }
+
+  .bfc-widget-actions .bb-icon-arrow-up-right,
+  .bfc-widget-actions.bb-icon-arrow-up-right {
+	  font-size: 12px;
+	  border-style: solid;
+	  border-width: 1px;
+	  border-color: #87bff9;
+	  border-radius: 20%;
+	  margin-right: 4px;
+  }
+
+  .bfc-forum-links {
+	  display: flex;
+  }
+
+  .bsp-la-reply-topic-title,
+  .bsp-la-title {
+	  flex-grow: 1;
+  }
+
+  .bsp-la-reply-topic-title {
+	  margin-bottom: 14px;
+	  line-height: 21px;
+  }
+ .bfc-la-topic-author-avatar {
+	height: 40px;
+    position: relative;
+    top: -3px;
+ }
+
+ #buddypress a.view.activity-time-since {
+	display: inline-block;
+ }
+
+ .header-aside .bfc-message-links {
+	 display: flex;
+ }
+
+ .header-aside .bfc-message-links .delete-all {
+	flex-grow: 1;
+}
+
+.group-home-page .bfc-group-organizers {
+	margin-bottom: 28px;
+}

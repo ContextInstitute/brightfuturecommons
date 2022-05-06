@@ -13,15 +13,22 @@
 	<div class="activity-list item-list">
 
 		<?php
+		$is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
+		$follow_class = $is_follow_active ? 'follow-active' : '';
+		
 		while ( bp_activities() ) :
 			bp_the_activity();
+			global $bfc_dropdown_prefix;
+			$type = $bfc_dropdown_prefix . '-update';
+			$person = bp_get_activity_user_id();
+			$activity_id = bp_get_activity_id();
+
 		?>
 		<div class="activity-update">
 
 			<div class="update-item">
 
-				<cite>
-					<a href="<?php bp_activity_user_link(); ?>" class="bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="<?php echo esc_attr( bp_activity_member_display_name() ); ?>">
+					<span class="bfc-dropdown-span" data-toggle="<?php echo $type . '-dropdown-' . esc_attr( $activity_id ); ?>">
 						<?php
 						bp_activity_avatar(
 							array(
@@ -30,13 +37,20 @@
 								'height' => '40',
 							)
 						);
+						echo bfc_member_dropdown( $type, $activity_id, $person, $follow_class );
 						?>
-					</a>
-				</cite>
+					</span>
 
 				<div class="bp-activity-info">
-					<?php bp_activity_action(); ?>
+					<?php bfc_activity_info(); ?>
+					<!-- <?php bp_activity_action();?> -->
 				</div>
+				<div class = "bfc-widget-actions">
+					<!-- <p> -->
+						<a href="<?php echo bp_activity_get_permalink( $activity_id ); ?>" class = "bb-icon-arrow-up-right"></a>
+					<!-- </p> -->
+				</div>
+
 			</div>
 
 		</div>
@@ -47,6 +61,7 @@
 					add_filter('bp_activity_excerpt_length','bfc_activity_widget_excerpt_length',900);
 					bp_nouveau_activity_content();
 					remove_filter('bp_activity_excerpt_length','bfc_activity_widget_excerpt_length',900);
+					bfc_widget_activity_state();
 				?>
 			</div>
 
@@ -58,8 +73,6 @@
 
 <?php else : ?>
 
-	<div class="widget-error">
-		<?php bp_nouveau_user_feedback( 'activity-loop-none' ); ?>
-	</div>
+	<p class="widget-error">You have no updates yet.</p>
 
 <?php endif; ?>
