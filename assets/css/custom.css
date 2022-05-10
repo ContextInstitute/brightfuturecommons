@@ -548,7 +548,7 @@ nav#object-nav li.bfc-group-name-nav{
 }
 
 #groups-list.bp-list:not(.grid)  {
-	flex-wrap: wrap;
+	display: block;
 }
 
 #groups-list .item-entry {
@@ -561,6 +561,11 @@ nav#object-nav li.bfc-group-name-nav{
 
 #buddypress #groups-list .item-block {
 	flex-basis: 22%;
+	min-width: 220px;
+}
+
+#buddypress #groups-list .groups-loop-buttons {
+	min-width: 200px;
 }
 
 .other-groups #groups-list .group-members-wrap{
@@ -640,7 +645,7 @@ nav#object-nav li.bfc-group-name-nav{
 	
 }
 
-.bfc-user-panels .bfc-widget-head .bfc-helptip .bfc-helptiptext {
+.group-home-page .bfc-widget-head .bfc-helptip .bfc-helptiptext {
 	width: 320px;
 }
 
