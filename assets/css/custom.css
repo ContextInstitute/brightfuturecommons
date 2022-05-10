@@ -365,10 +365,6 @@ nav#object-nav li.bfc-group-name-nav{
 }
 
 
-.bfc-la-topic-author-avatar img {
-	margin-top: 4px;
-}
-
 .bsp-la-reply-topic-title,
 .bb-recent-posts h4 {
 	font-size: 15px;
@@ -762,7 +758,6 @@ nav#object-nav li.bfc-group-name-nav{
  .bfc-la-topic-author-avatar {
 	height: 40px;
     position: relative;
-    top: -3px;
  }
 
  #buddypress a.view.activity-time-since {
