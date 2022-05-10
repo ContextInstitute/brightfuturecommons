@@ -302,30 +302,27 @@ class bsp_Activity_Widget extends WP_Widget {
 
 				<li class="bfc-la-li" data-bp-item-id="<?php echo $author_id; ?>" data-bp-item-component="members">
 				<div class = "update-item">
-					<div class="bfc-la-topic-author-avatar topic-author">
-						<span class="bfc-dropdown-span" data-toggle="<?php echo $type . '-dropdown-' . esc_attr( $post_id ); ?>"><?php bbp_reply_author_avatar( $post_id,  $size = 40 ); ?></span><br>
-						<?php echo bfc_member_dropdown( $type, $post_id, $person, $follow_class );?>
-					</div>
-					<!-- <div class="bfc-la-topic-text"> -->
-						<div class="bfc-forum-links">
-							<div class="bsp-la-reply-topic-title">
-								<a href="<?php bbp_topic_permalink( $topic_id ); ?>"><?php bbp_topic_title( $topic_id ); ?></a><br>
-								<?php 					
-								echo '<span class="bfc-la-topic-author-name topic-author">' . $author_name . '</span>';
-								
-								if ( ! empty( $settings['show_freshness'] ) ) : ?>
-								<?php $output = bbp_get_topic_last_active_time( $topic_id ) ; 
-									//shorten freshness?
-									if ( ! empty( $settings['shorten_freshness'] ) ) { $output = preg_replace( '/, .*[^ago]/', ' ', $output );
-										echo '<span class="bsp-activity-freshness bsp-la-freshness">'.$output. '</span>';} 
-								endif; ?>
-							</div>
+					<span class="bfc-la-topic-author-avatar topic-author bfc-dropdown-span" data-toggle="<?php echo $type . '-dropdown-' . esc_attr( $post_id ); ?>"><?php bbp_reply_author_avatar( $post_id,  $size = 40 ); ?></span>
+					<?php echo bfc_member_dropdown( $type, $post_id, $person, $follow_class );?>
+					<div class="bfc-forum-links">
+						<div class="bsp-la-reply-topic-title">
+							<a href="<?php bbp_topic_permalink( $topic_id ); ?>"><?php bbp_topic_title( $topic_id ); ?></a><br>
+							<?php 					
+							echo '<span class="bfc-la-topic-author-name topic-author">' . $author_name . '</span>';
 							
+							if ( ! empty( $settings['show_freshness'] ) ) : ?>
+							<?php $output = bbp_get_topic_last_active_time( $topic_id ) ; 
+								//shorten freshness?
+								if ( ! empty( $settings['shorten_freshness'] ) ) { $output = preg_replace( '/, .*[^ago]/', ' ', $output );
+									echo '<span class="bsp-activity-freshness bsp-la-freshness">'.$output. '</span>';} 
+							endif; ?>
 						</div>
 						
-						<div class = "bfc-widget-actions">
-							<a href="<?php echo esc_url( bbp_get_reply_url( $reply ) ); ?>" class = "bb-icon-arrow-up-right"></a>
-						</div>
+					</div>
+					
+					<div class = "bfc-widget-actions">
+						<a href="<?php echo esc_url( bbp_get_reply_url( $reply ) ); ?>" class = "bb-icon-arrow-up-right"></a>
+					</div>
 
 
 					<?php
