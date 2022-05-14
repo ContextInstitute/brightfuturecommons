@@ -42,51 +42,62 @@
 
 			<div class="item">
 				<div class="item-title">
-					<a class="bbp-topic-permalink" href="<?php bbp_topic_permalink(); ?>"><?php bbp_topic_title(); ?></a>
+					<a class="bbp-topic-permalink bfc-item-title" href="<?php bbp_topic_permalink(); ?>"><?php bbp_topic_title(); ?></a>
+					<span class="bs-voices-wrap bfc-item-meta bb-reply-meta">
+						<?php
+							$voice_count = bbp_get_topic_voice_count( bbp_get_topic_id() );
+							$voice_text  = $voice_count > 1 ? __( 'Members', 'buddyboss-theme' ) : __( 'Member', 'buddyboss-theme' );
+
+							$topic_reply_count = bbp_get_topic_reply_count( bbp_get_topic_id() );
+							$topic_post_count  = bbp_get_topic_post_count( bbp_get_topic_id() );
+							$topic_reply_text  = '';
+						?>
+						<span class="bs-voices"><?php bbp_topic_voice_count(); ?> <?php echo wp_kses_post( $voice_text ); ?></span>
+						<span class="bs-separator">&middot;</span>
+						<span class="bs-replies">
+						<?php
+						if ( bbp_show_lead_topic() ) {
+							bbp_topic_reply_count();
+							$topic_reply_text = $topic_reply_count > 1 ? __( 'Replies', 'buddyboss-theme' ) : __( 'Reply', 'buddyboss-theme' );
+						} else {
+							bbp_topic_post_count();
+							$topic_reply_text = $topic_post_count > 1 ? __( 'Posts', 'buddyboss-theme' ) : __( 'Post', 'buddyboss-theme' );
+						}
+						echo ' ' . wp_kses_post( $topic_reply_text );
+						?>
+						</span>
+					</span>
 				</div>
 
 				<div class="item-meta bb-reply-meta">
 					<!-- <i class="bb-icon-reply"></i> -->
 					<div>
-						<span class="bs-voices-wrap">
-							<?php
-								$voice_count = bbp_get_topic_voice_count( bbp_get_topic_id() );
-								$voice_text  = $voice_count > 1 ? __( 'Members', 'buddyboss-theme' ) : __( 'Member', 'buddyboss-theme' );
+						<span class="bs-voices-wrap bs-replied">
+							<?php 
+							esc_html_e( 'Started by ', 'buddyboss-theme' );
+							bbp_topic_author_link(array('type' => 'name'));
+							?>
+						</span>
 
-								$topic_reply_count = bbp_get_topic_reply_count( bbp_get_topic_id() );
-								$topic_post_count  = bbp_get_topic_post_count( bbp_get_topic_id() );
-								$topic_reply_text  = '';
-							?>
-							<span class="bs-voices"><?php bbp_topic_voice_count(); ?> <?php echo wp_kses_post( $voice_text ); ?></span>
-							<span class="bs-separator">&middot;</span>
-							<span class="bs-replies">
-							<?php
-							if ( bbp_show_lead_topic() ) {
-								bbp_topic_reply_count();
-								$topic_reply_text = $topic_reply_count > 1 ? __( 'Replies', 'buddyboss-theme' ) : __( 'Reply', 'buddyboss-theme' );
-							} else {
-								bbp_topic_post_count();
-								$topic_reply_text = $topic_post_count > 1 ? __( 'Replies', 'buddyboss-theme' ) : __( 'Reply', 'buddyboss-theme' );
-							}
-							echo ' ' . wp_kses_post( $topic_reply_text ) . ' -> ';
-							?>
+						<?php if( $topic_post_count > 1 ) : ?>
+							<span class="bs-replied">
+								<span class="bbp-topic-freshness-author">
+								<?php
+								echo  ' - Latest reply by';
+								bbp_author_link(
+									array(
+										'post_id' => bbp_get_topic_last_active_id(),
+										'size'    => 1,
+									)
+								);
+								?>
+								</span> 
 							</span>
-						</span>
-						<span class="bs-replied">
-							<span class="bbp-topic-freshness-author">
-							<?php
-							bbp_author_link(
-								array(
-									'post_id' => bbp_get_topic_last_active_id(),
-									'size'    => 1,
-								)
-							);
-							?>
-							</span> <?php esc_html_e( 'replied', 'buddyboss-theme' ); ?> 
-							<a href="<?php echo esc_url( bbp_get_reply_url(bbp_get_topic_last_active_id()) ); ?>">
-							<?php echo bbp_get_topic_last_active_time( $topic_id );?>
-							<span class = "bfc-forumlist bb-icon-arrow-up-right"></span></a>
-						</span>
+						<?php endif; ?>
+						<span class="bs-voices-wrap bs-replied">
+						<a href="<?php echo esc_url( bbp_get_reply_url(bbp_get_topic_last_active_id())); ?>">
+						<?php echo bbp_get_topic_last_active_time( $topic_id );?>
+						<span class = "bfc-forumlist bb-icon-arrow-up-right"></span></a></span>
 
 					</div>
 				</div>
