@@ -834,3 +834,27 @@ nav#object-nav li.bfc-group-name-nav{
 	margin-bottom: 28px;
 }
 
+.buddypress-wrap .members-directory-container .bp-navs .bfc-members-filter {
+	float: right;
+}
+
+#members-order-by {
+	margin-bottom: 0;
+}
+
+#buddypress .members-directory-container .bp-secondary-header {
+	display: none;
+}
+
+.buddypress-wrap.bp-dir-hori-nav:not(.bp-vertical-navs) nav {
+	margin-bottom: 25px;
+}
+
+.buddypress-wrap .members-directory-container .bp-navs .bfc-members-filter .select-wrap {
+    margin-right: 0;
+}
+@media screen and (min-width: 32em) {
+	.buddypress-wrap .members-directory-container .bp-navs .bfc-members-filter .select-wrap {
+    margin-right: 0;
+}
+}

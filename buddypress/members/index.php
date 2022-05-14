@@ -64,9 +64,9 @@
 				<div class="bp-profile-filter-wrap subnav-filters filters no-ajax">
 					<?php bp_get_template_part( 'common/filters/member-filters' ); ?>
 				</div>
-				<div class="bp-members-filter-wrap subnav-filters filters no-ajax">
+				<!-- <div class="bp-members-filter-wrap subnav-filters filters no-ajax">
 					<?php bp_get_template_part( 'common/filters/directory-filters' ); ?>
-				</div>
+				</div> -->
 
 				<?php bp_get_template_part( 'common/filters/grid-filters' ); ?>
 			</div>
