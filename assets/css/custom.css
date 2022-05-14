@@ -63,6 +63,25 @@ body {
 #bbpress-forums#bbpress-forums .bbp-topics1.bs-forums-items .item-title {
     line-height: 18px;
 }
+
+#bbpress-forums#bbpress-forums .bbp-topics1.bs-forums-items .bfc-item-title {
+    margin-right: 10px;
+}
+
+#bbpress-forums#bbpress-forums .bs-forums-items .item-meta .bs-replied {
+    margin-right: 0px;
+}
+
+#bbpress-forums#bbpress-forums .bs-forums-items .bfc-item-meta>span {
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-top: 0px;
+	margin-left: 0px;
+    display: inline-block;
+	font-size: 14px;
+	color: rgb(163, 165, 169);
+}
+
 	
 .entry-content-wrap .avatar, .avatar{
 	border-radius:20%;
@@ -814,3 +833,4 @@ nav#object-nav li.bfc-group-name-nav{
 .group-home-page .bfc-group-organizers {
 	margin-bottom: 28px;
 }
+
