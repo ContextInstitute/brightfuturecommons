@@ -646,10 +646,10 @@ class bfc_messages_widget extends WP_Widget {
 						<div class="activity-update">
 							<div class="update-item" data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members">
 								<span class="bfc-dropdown-span" data-toggle="<?php echo $type . '-dropdown-' . $instance_id ; ?>">
-									<?php bp_message_thread_avatar(array( 'type'   => 'thumb', 'width'  => '40', 'height' => '40' )); ?></span>
-									<?php 
-									echo bfc_member_dropdown( $type, $instance_id, $person, $follow_class );
-									?>
+									<?php bp_message_thread_avatar(array( 'type'   => 'thumb', 'width'  => '40', 'height' => '40' )); ?>
+								</span>
+								<?php echo bfc_member_dropdown( $type, $instance_id, $person, $follow_class ); ?>
+								
 								<div class="bp-activity-info">
 									<p>From <?php bp_message_thread_from(); ?><br>
 									<?php echo bfc_nice_date (date('M j, Y', strtotime (bp_get_message_thread_last_post_date_raw())));?>

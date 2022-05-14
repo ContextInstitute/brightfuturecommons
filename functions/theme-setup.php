@@ -50,7 +50,7 @@ function buddyboss_theme_child_scripts_styles()
 	wp_enqueue_style( 'buddyboss-child-css', get_stylesheet_directory_uri().'/assets/css/custom.css', '', '1.0.0' );
 
 	// Javascript
-	wp_enqueue_script( 'buddyboss-child-js', get_stylesheet_directory_uri().'/assets/js/custom.js', '', '1.0.0' );
+	wp_enqueue_script( 'buddyboss-child-js', get_stylesheet_directory_uri().'/assets/js/custom.js', array('jquery'), '1.0.0', "true");
 
 	// Liker script
 	wp_enqueue_script( 'bfc-liker-js', get_stylesheet_directory_uri().'/assets/js/like.js', array('jquery'), "true" );

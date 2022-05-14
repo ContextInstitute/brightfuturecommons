@@ -26,21 +26,12 @@
 		?>
 		<div class="activity-update">
 
-			<div class="update-item">
-
-					<span class="bfc-dropdown-span" data-toggle="<?php echo $type . '-dropdown-' . esc_attr( $activity_id ); ?>">
-						<?php
-						bp_activity_avatar(
-							array(
-								'type'   => 'thumb',
-								'width'  => '40',
-								'height' => '40',
-							)
-						);
-						echo bfc_member_dropdown( $type, $activity_id, $person, $follow_class );
-						?>
-					</span>
-
+			<div class="update-item" data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members">
+				<span class="bfc-dropdown-span" data-toggle="<?php echo $type . '-dropdown-' . esc_attr( $activity_id ); ?>">
+					<?php bp_activity_avatar( array( 'type'   => 'thumb', 'width'  => '40', 'height' => '40' )); ?>
+				</span>
+				<?php echo bfc_member_dropdown( $type, $activity_id, $person, $follow_class );?>
+					
 				<div class="bp-activity-info">
 					<?php bfc_activity_info(); ?>
 					<!-- <?php bp_activity_action();?> -->
