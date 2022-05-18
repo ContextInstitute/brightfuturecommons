@@ -315,6 +315,7 @@ class bsp_Activity_Widget extends WP_Widget {
 							// $output = bbp_get_topic_last_active_time( $topic_id ) ; 
 							$last_active = get_post_field( 'post_date_gmt', $post_id );
 							$output = bfc_nice_date( strtotime( $last_active ) );
+							echo '<span class="bs-separator">&middot;&nbsp;</span>';
 							echo '<span class="bsp-activity-freshness bsp-la-freshness">'.$output. '</span>';
 							endif; 
 							?>
@@ -545,12 +546,16 @@ function bfc_activity_info(){
 	// } elseif (str_contains($author, 'in <a href="')) {
 	// 	$author .= ' ';
 	}
-	$author .= ' ';
+
 	if(str_contains($author, '<br>')) {
 		$author .= ' ';
 	}else {
 		$author .= '<br>';
 	}
+
+	if(str_contains($author, '<br> in ')) {
+		$author .= '<span class="bs-separator">&middot;&nbsp;</span>';
+	} 
 	// Get the time since this activity was recorded.
 	$date_recorded = strtotime( $activities_template->activity->date_recorded );
 
