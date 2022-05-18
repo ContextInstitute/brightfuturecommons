@@ -24,25 +24,22 @@ function bfc_reply_post_date() {
 	 Replaces bbp_reply_post_date() in loop-single-reply.php and loop-search-reply.php 
 	 Based on bbp_get_reply_post_date()
 	*/
-	$post_date = get_post_time( 'M j, Y' );
-	echo apply_filters( 'bfc_reply_post_date', bfc_nice_date ($post_date) );
+	$post_timestamp = get_post_time('U', true);
+	// $post_date = get_post_time( 'M j, Y' );
+	echo apply_filters( 'bfc_reply_post_date', bfc_nice_date ($post_timestamp) );
   }
 
-function bfc_nice_date ($post_date){
-	$today = current_time('M j, Y');
-	$yestertime = current_time('timestamp') - 86400;
-	$yesterday = date('M j, Y', $yestertime );
-	// $post_date = get_post_time( 'M j, Y' );
-	if ($post_date==$today) {
-		$result = "Today at " . get_post_time( 'g:i A' );
-	} elseif ($post_date==$yesterday) {
-		$result =  "Yesterday at " . get_post_time( 'g:i A' );
-	} else {
-		$result = $post_date;
-	}
-	return $result;
-}
+function bfc_nice_date ($post_timestamp){
+	/*
+	* $post_timestamp should be in GMT
+	*/
 
+	if(time() - $post_timestamp  < 7*86400 ) {
+		return bp_core_time_since ($post_timestamp);
+	} else {
+		return date ('M j, Y', $post_timestamp);
+	}
+}
 
 /**
  * Add custom sub-tab on groups page.

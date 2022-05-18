@@ -163,9 +163,5 @@
 	<?php endif; ?>
 
 </ul><!-- #topic-<?php bbp_topic_id(); ?>-replies -->
-
-<script> 
-	jQuery(document).foundation();
-</script>
  
 <?php do_action( 'bbp_template_after_replies_loop' ); ?>

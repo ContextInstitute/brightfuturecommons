@@ -84,12 +84,7 @@
 								<span class="bbp-topic-freshness-author">
 								<?php
 								echo  ' - Latest reply by';
-								bbp_author_link(
-									array(
-										'post_id' => bbp_get_topic_last_active_id(),
-										'size'    => 1,
-									)
-								);
+								bbp_author_link( array( 'post_id' => bbp_get_topic_last_active_id(), 'type'    => 'name', ) );
 								?>
 								</span> 
 							</span>
