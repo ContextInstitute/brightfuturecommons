@@ -213,7 +213,8 @@ class bsp_Activity_Widget extends WP_Widget {
 		
 		// The default forum query with allowed forum ids array added
 		//reset the max to be shown
-		$topics_query['posts_per_page'] =(int) $settings['max_shown'] ;
+		$shown_topics = (int) $settings['max_shown'] ;
+		$topics_query['posts_per_page'] = 3*$shown_topics;
 		
 		//add any include/exclude forums ;
 		if (!empty ($settings['post_parent__not_in'])) $topics_query['post_parent__not_in'] = $settings['post_parent__not_in'] ;
@@ -245,7 +246,8 @@ class bsp_Activity_Widget extends WP_Widget {
 		
 		$helptip = "<div class='bfc-helptip'><span class= 'bb-icon-help-circle' ></span><span class='bfc-helptiptext'>";
 		If (bp_current_component() == 'groups') {
-			$helptip .= "<p>These are the <strong>most recent forum posts</strong> from this group.</p>
+			$helptip .= "<p>These are the <strong>most recent forum posts by others</strong> from this group.</p>
+			<p>Threads where your post is the most recent aren't included since you've seen them.</p>
 			<p>To see the full post in its thread, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name.</p>			
 			<p>Once you've gone to the full post, you can also <em>like</em> it and/or add a reply.</p>			
 			<p>Clicking on the thread subject takes you to the start of the thread.</p>			
@@ -253,7 +255,8 @@ class bsp_Activity_Widget extends WP_Widget {
 			<p>Hover over the sender's picture for quick access to sending them a new message, following them or going to their profile.</p>			
 			<p>Clicking on the sender's name also takes you to their profile.</p>";
 		} else {
-			$helptip .= "<p>These are the <strong>most recent forum posts</strong> from the <strong>groups</strong> you are part of.</p>
+			$helptip .= "<p>These are the <strong>most recent forum posts by others</strong> from the <strong>groups</strong> you are part of.</p>
+			<p>Threads where your post is the most recent aren't included since you've seen them.</p>
 			<p>To see the full post in its thread, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name.</p>
 			<p>Once you've gone to the full post, you can also <em>like</em> it and/or add a reply.</p>			
 			<p>Clicking on the thread subject takes you to the start of the thread.</p>			
@@ -269,7 +272,9 @@ class bsp_Activity_Widget extends WP_Widget {
 		
 		<ul class="bfc-la-ul">
 
-			<?php while ( $widget_query->have_posts() ) :
+			<?php 
+			$visible_topics = 0;
+			while ( $widget_query->have_posts() ) :
 				
 
 				$widget_query->the_post();
@@ -298,7 +303,9 @@ class bsp_Activity_Widget extends WP_Widget {
 				<?php 
 				global $bfc_dropdown_prefix;
 				$type = $bfc_dropdown_prefix . '-forum';
-				$person = bbp_get_reply_author_id($post_id);?>
+				$person = bbp_get_reply_author_id($post_id);
+				if($person == bp_loggedin_user_id()) {continue;}
+				?>
 
 				<li class="bfc-la-li" data-bp-item-id="<?php echo $author_id; ?>" data-bp-item-component="members">
 				<div class = "update-item">
@@ -348,7 +355,10 @@ class bsp_Activity_Widget extends WP_Widget {
 					</div>
 				</li>
 
-			<?php endwhile; ?>
+			<?php 
+			$visible_topics++;
+			if ($visible_topics == $shown_topics) {break;}
+			endwhile; ?>
 
 		</ul>
 
