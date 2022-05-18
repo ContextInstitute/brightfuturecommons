@@ -93,4 +93,7 @@
                <!--  BB code removed - scrubber -->
            <!--   </div>
 		</div>  -->
+	<script> 
+		jQuery(document).foundation();
+	</script>
 </div>
