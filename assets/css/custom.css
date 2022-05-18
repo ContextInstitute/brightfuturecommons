@@ -863,3 +863,7 @@ nav#object-nav li.bfc-group-name-nav{
 #bbpress-forums .replies-content .bbp-reply-form.bb-modal.bb-modal-box {
 	display: block !important;
 }
+
+#bbpress-forums .bbp-pagination.bbp-pagination {
+	margin-bottom: 20px;
+}
