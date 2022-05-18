@@ -311,11 +311,13 @@ class bsp_Activity_Widget extends WP_Widget {
 							echo '<span class="bfc-la-topic-author-name topic-author">' . $author_name . '</span>';
 							
 							if ( ! empty( $settings['show_freshness'] ) ) : ?>
-							<?php $output = bbp_get_topic_last_active_time( $topic_id ) ; 
-								//shorten freshness?
-								if ( ! empty( $settings['shorten_freshness'] ) ) { $output = preg_replace( '/, .*[^ago]/', ' ', $output );
-									echo '<span class="bsp-activity-freshness bsp-la-freshness">'.$output. '</span>';} 
-							endif; ?>
+							<?php 
+							// $output = bbp_get_topic_last_active_time( $topic_id ) ; 
+							$last_active = get_post_field( 'post_date_gmt', $post_id );
+							$output = bfc_nice_date( strtotime( $last_active ) );
+							echo '<span class="bsp-activity-freshness bsp-la-freshness">'.$output. '</span>';
+							endif; 
+							?>
 						</div>
 						
 					</div>
@@ -550,17 +552,19 @@ function bfc_activity_info(){
 		$author .= '<br>';
 	}
 	// Get the time since this activity was recorded.
-	$date_recorded = bp_core_time_since( $activities_template->activity->date_recorded );
+	$date_recorded = strtotime( $activities_template->activity->date_recorded );
 
 	$time_since = '';
 	// Remove time since from single activity page.
 
 	// Set up 'time-since' <span>.
-	$time_since = sprintf(
-		'<span class="time-since" data-livestamp="%1$s">%2$s</span>',
-		bp_core_get_iso8601_date( $activities_template->activity->date_recorded ),
-		$date_recorded
-	);
+	// $time_since = sprintf(
+	// 	'<span class="time-since" data-livestamp="%1$s">%2$s</span>',
+	// 	bp_core_get_iso8601_date( $activities_template->activity->date_recorded ),
+	// 	$date_recorded
+	// );
+
+	$time_since = '<span class="time-since">' . bfc_nice_date($date_recorded) . '</span>';
 
 	echo '<p>' . $author . $time_since . '</p>';
 }
@@ -652,7 +656,7 @@ class bfc_messages_widget extends WP_Widget {
 								
 								<div class="bp-activity-info">
 									<p>From <?php bp_message_thread_from(); ?><br>
-									<?php echo bfc_nice_date (date('M j, Y', strtotime (bp_get_message_thread_last_post_date_raw())));?>
+									<?php echo bfc_nice_date (strtotime (bp_get_message_thread_last_post_date_raw()));?>
 									</p>
 								</div>
 								<div class = "bfc-widget-actions">
