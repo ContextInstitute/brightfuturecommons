@@ -213,8 +213,13 @@ class bsp_Activity_Widget extends WP_Widget {
 		
 		// The default forum query with allowed forum ids array added
 		//reset the max to be shown
-		$shown_topics = (int) $settings['max_shown'] ;
-		$topics_query['posts_per_page'] = 3*$shown_topics;
+		$hide_own_posts = false;
+		if ($hide_own_posts) {
+			$shown_topics = (int) $settings['max_shown'];
+			$topics_query['posts_per_page'] = 3*$shown_topics;
+		} else {
+			$topics_query['posts_per_page'] = (int) $settings['max_shown'];
+		}
 		
 		//add any include/exclude forums ;
 		if (!empty ($settings['post_parent__not_in'])) $topics_query['post_parent__not_in'] = $settings['post_parent__not_in'] ;
@@ -246,18 +251,26 @@ class bsp_Activity_Widget extends WP_Widget {
 		
 		$helptip = "<div class='bfc-helptip'><span class= 'bb-icon-help-circle' ></span><span class='bfc-helptiptext'>";
 		If (bp_current_component() == 'groups') {
-			$helptip .= "<p>These are the <strong>most recent forum posts by others</strong> from this group.</p>
-			<p>Threads where your post is the most recent aren't included since you've seen them.</p>
-			<p>To see the full post in its thread, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name.</p>			
+			if($hide_own_posts){
+				$helptip .= "<p>These are the <strong>most recent forum posts by others</strong> from this group.</p>
+				<p>Threads where your post is the most recent aren't included since you've seen them.</p>";
+			} else {
+				$helptip .= "<p>These are the <strong>most recent forum posts</strong> from this group.</p>";
+			}
+			$helptip .= "<p>To see the full post in its thread, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name.</p>			
 			<p>Once you've gone to the full post, you can also <em>like</em> it and/or add a reply.</p>			
 			<p>Clicking on the thread subject takes you to the start of the thread.</p>			
 			<p>You can create a new thread by clicking on the <span class= 'bb-icon-edit' ></span> symbol to the left of the <span class= 'bb-icon-help-circle' ></span> symbol. This takes to the page that lists all of threads. Click the <em>New discussion</em> button to create your new thread.</p>			
 			<p>Hover over the sender's picture for quick access to sending them a new message, following them or going to their profile.</p>			
 			<p>Clicking on the sender's name also takes you to their profile.</p>";
 		} else {
-			$helptip .= "<p>These are the <strong>most recent forum posts by others</strong> from the <strong>groups</strong> you are part of.</p>
-			<p>Threads where your post is the most recent aren't included since you've seen them.</p>
-			<p>To see the full post in its thread, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name.</p>
+			if($hide_own_posts){
+				$helptip .= "<p>These are the <strong>most recent forum posts by others</strong> from the <strong>groups</strong> you are part of.</p>
+				<p>Threads where your post is the most recent aren't included since you've seen them.</p>";
+			} else {
+				$helptip .= "<p>These are the <strong>most recent forum posts</strong> from the <strong>groups</strong> you are part of.</p>";
+			}
+			$helptip .= "<p>To see the full post in its thread, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name.</p>
 			<p>Once you've gone to the full post, you can also <em>like</em> it and/or add a reply.</p>			
 			<p>Clicking on the thread subject takes you to the start of the thread.</p>			
 			<p>Clicking on the group name in the lower right takes you to the group dashboard/homepage.</p>			
@@ -304,7 +317,7 @@ class bsp_Activity_Widget extends WP_Widget {
 				global $bfc_dropdown_prefix;
 				$type = $bfc_dropdown_prefix . '-forum';
 				$person = bbp_get_reply_author_id($post_id);
-				if($person == bp_loggedin_user_id()) {continue;}
+				if($hide_own_posts && $person == bp_loggedin_user_id()) {continue;}
 				?>
 
 				<li class="bfc-la-li" data-bp-item-id="<?php echo $author_id; ?>" data-bp-item-component="members">
@@ -356,8 +369,10 @@ class bsp_Activity_Widget extends WP_Widget {
 				</li>
 
 			<?php 
-			$visible_topics++;
-			if ($visible_topics == $shown_topics) {break;}
+			if($hide_own_posts) {
+				$visible_topics++;
+				if ($visible_topics == $shown_topics) {break;}
+			}
 			endwhile; ?>
 
 		</ul>
