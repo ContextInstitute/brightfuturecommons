@@ -26,9 +26,9 @@
             <div class="bp-group-filter-wrap subnav-filters filters no-ajax">
 				<?php bp_get_template_part( 'common/filters/group-filters' ); ?>
             </div>
-			<div class="bp-groups-filter-wrap subnav-filters filters no-ajax">
+			<!-- <div class="bp-groups-filter-wrap subnav-filters filters no-ajax">
 				<?php bp_get_template_part( 'common/filters/directory-filters' ); ?>
-			</div>
+			</div> -->
 
 			<?php bp_get_template_part( 'common/filters/grid-filters' ); ?>
 		</div>
