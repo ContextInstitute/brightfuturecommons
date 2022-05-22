@@ -325,15 +325,15 @@ function bfc_followers_args ( $qs, $object ) {
   return $qs;
 }
 
-function bfc_remove_bp_forum_notifications () {
-	if ('no' == (bp_get_user_meta(bp_loggedin_user_id(), 'notification_forums_following_reply', true ))) {
-		bp_update_user_meta (bp_loggedin_user_id(), 'notification_forums_following_reply', 'yes' );
-	}
-	if ('no' == (bp_get_user_meta(bp_loggedin_user_id(), 'notification_forums_following_topic', true ))) {
-		bp_update_user_meta (bp_loggedin_user_id(), 'notification_forums_following_topic', 'yes' );
-	}
-}
-add_action( 'bp_notification_settings', 'bfc_remove_bp_forum_notifications', 99 );
+// function bfc_remove_bp_forum_notifications () {
+// 	if ('no' == (bp_get_user_meta(bp_loggedin_user_id(), 'notification_forums_following_reply', true ))) {
+// 		bp_update_user_meta (bp_loggedin_user_id(), 'notification_forums_following_reply', 'yes' );
+// 	}
+// 	if ('no' == (bp_get_user_meta(bp_loggedin_user_id(), 'notification_forums_following_topic', true ))) {
+// 		bp_update_user_meta (bp_loggedin_user_id(), 'notification_forums_following_topic', 'yes' );
+// 	}
+// }
+// add_action( 'bp_notification_settings', 'bfc_remove_bp_forum_notifications', 99 );
 
 function bfc_group_members( $group_id = false, $role = array() ) {
 
@@ -535,4 +535,20 @@ function bfc_get_forum_title( $post = 0 ) {
 	return apply_filters( 'bfc_forum_title', $title, $id );
 }
 
+add_filter('bp_core_replace_tokens_in_text', 'bfc_remove_p_in_emails',100);
+
+function bfc_remove_p_in_emails ($content){
+
+	$content = str_replace('&lt;', '<', $content);
+	$content = str_replace('&gt;', '>', $content);
+	return $content;
+}
+
+// This is a debugging function that should be removed once we're in production
+function bfc_write_to_console($data) {
+
+	$console = 'console.log(' . json_encode($data) . ');';
+	$console = sprintf('<script>%s</script>', $console);
+	echo $console;
+   }
 ?>

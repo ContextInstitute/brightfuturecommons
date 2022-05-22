@@ -876,3 +876,35 @@ nav#object-nav li.bfc-group-name-nav{
 #bbpress-forums .bbp-pagination.bbp-pagination {
 	margin-bottom: 20px;
 }
+
+/* New message form */
+.bp-messages-content #bp-message-content .medium-editor-element:not(.emojionearea) {
+	min-height: 160px;
+	max-height: -webkit-calc(80vh - 78px);
+	max-height: calc(80vh - 78px);
+}
+
+#bp-message-content {
+    border-bottom: 1px solid #e7e9ec;
+}
+
+#send_message_form #bp-message-content {
+	margin-top: 0;
+}
+
+#send_message_form {
+	min-height: -webkit-calc(50vh + 128px);
+	min-height: calc(50vh + 128px);
+}
+
+/* Reply message form */
+.message-box #bp-message-content .medium-editor-element:not(.emojionearea) {
+	min-height: 120px;
+}
+
+#bp-message-thread-list {
+	max-height: -webkit-calc(50vh - 78px);
+	max-height: calc(50vh - 78px);
+	min-height: -webkit-calc(40vh - 78px);
+	min-height: calc(40vh - 78px);
+}
