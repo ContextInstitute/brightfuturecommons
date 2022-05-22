@@ -32,11 +32,11 @@
 							if ( ! empty( bbp_get_topic_close_link() ) ) { ?>
 								<?php if ( bbp_is_topic_open() ) { ?>
                                     <span data-balloon-pos="up"
-                                          data-balloon="<?php _e( 'Close', 'buddyboss-theme' ); ?>"><i
+                                          data-balloon="<?php _e( 'Close', 'bfcommons-theme' ); ?>"><i
                                                 class="bb-topic-status open"><?php echo bbp_get_topic_close_link(); ?></i></span>
 								<?php } else { ?>
                                     <span data-balloon-pos="up"
-                                          data-balloon="<?php _e( 'Open', 'buddyboss-theme' ); ?>"><i
+                                          data-balloon="<?php _e( 'Open', 'bfcommons-theme' ); ?>"><i
                                                 class="bb-topic-status closed"><?php echo bbp_get_topic_close_link(); ?></i></span>
 								<?php } ?>
 							<?php } ?>
@@ -46,11 +46,11 @@
 							 */
 							if ( ! bbp_is_topic_super_sticky( bbp_get_topic_id() ) && ! empty( bbp_get_topic_stick_link() ) ) {
 								if ( bbp_is_topic_sticky() ) { ?>
-                                <span data-balloon-pos="up" data-balloon="<?php _e( 'Unstick', 'buddyboss-theme' ); ?>">
+                                <span data-balloon-pos="up" data-balloon="<?php _e( 'Unstick', 'bfcommons-theme' ); ?>">
                                     <i class="bb-topic-status bb-sticky sticky"><?php echo bbp_get_topic_stick_link(); ?></i>
                                     </span><?php
 								} else { ?>
-                                <span data-balloon-pos="up" data-balloon="<?php _e( 'Sticky', 'buddyboss-theme' ); ?>">
+                                <span data-balloon-pos="up" data-balloon="<?php _e( 'Sticky', 'bfcommons-theme' ); ?>">
                                     <i class="bb-topic-status bb-sticky unsticky"><?php echo bbp_get_topic_stick_link(); ?></i>
                                     </span><?php
 								}
@@ -62,13 +62,13 @@
 
 							if ( ! empty( bbp_get_topic_stick_link() ) ) {
 								if ( bbp_is_topic_super_sticky( bbp_get_topic_id() ) ) { ?>
-                                <span data-balloon-pos="up" data-balloon="<?php _e( 'Unstick', 'buddyboss-theme' ); ?>">
+                                <span data-balloon-pos="up" data-balloon="<?php _e( 'Unstick', 'bfcommons-theme' ); ?>">
                                     <i
                                             class="bb-topic-status bb-super-sticky super-sticky"><?php echo bbp_get_topic_stick_link(); ?></i>
                                     </span><?php
 								} elseif ( ( ! bp_is_group() && ! bp_is_group_forum_topic() ) && ! bbp_is_topic_sticky() ) { ?>
                                 <span data-balloon-pos="up"
-                                      data-balloon="<?php _e( 'Super Sticky', 'buddyboss-theme' ); ?>"><i
+                                      data-balloon="<?php _e( 'Super Sticky', 'bfcommons-theme' ); ?>"><i
                                             class="bb-topic-status bb-super-sticky super-sticky unsticky"><?php echo bbp_get_topic_stick_link(); ?></i>
                                     </span><?php
 								}
@@ -80,16 +80,16 @@
 								$is_fav = bbp_is_user_favorite( get_current_user_id(), bbp_get_topic_id() );
 								if ( $is_fav ) { ?>
                                 <span class="bb-favorite-wrap" data-balloon-pos="up"
-                                      data-balloon="<?php _e( 'Unfavorite', 'buddyboss-theme' ); ?>"
-                                      data-unfav="<?php _e( 'Unfavorite', 'buddyboss-theme' ); ?>"
-                                      data-fav="<?php _e( 'Favorite', 'buddyboss-theme' ); ?>"><i
+                                      data-balloon="<?php _e( 'Unfavorite', 'bfcommons-theme' ); ?>"
+                                      data-unfav="<?php _e( 'Unfavorite', 'bfcommons-theme' ); ?>"
+                                      data-fav="<?php _e( 'Favorite', 'bfcommons-theme' ); ?>"><i
                                             class="bb-topic-status bb-favorite-status favorited"><?php bbp_user_favorites_link(); ?></i>
                                     </span><?php
 								} else { ?>
                                 <span class="bb-favorite-wrap" data-balloon-pos="up"
-                                      data-balloon="<?php _e( 'Favorite', 'buddyboss-theme' ); ?>"
-                                      data-unfav="<?php _e( 'Unfavorite', 'buddyboss-theme' ); ?>"
-                                      data-fav="<?php _e( 'Favorite', 'buddyboss-theme' ); ?>"><i
+                                      data-balloon="<?php _e( 'Favorite', 'bfcommons-theme' ); ?>"
+                                      data-unfav="<?php _e( 'Unfavorite', 'bfcommons-theme' ); ?>"
+                                      data-fav="<?php _e( 'Favorite', 'bfcommons-theme' ); ?>"><i
                                             class="bb-topic-status bb-favorite-status unfavorited"><?php bbp_user_favorites_link(); ?></i>
                                     </span><?php
 								}
@@ -99,7 +99,7 @@
 	                        <?php if ( function_exists( 'bp_is_active' ) && bp_is_active( 'moderation' ) && function_exists( 'bbp_get_topic_report_link' ) && bbp_get_topic_report_link( array( 'id' => get_the_ID() ) ) ) { ?>
                                 <div class="forum_single_action_wrap">
 									<span class="forum_single_action_more-wrap" data-balloon-pos="up"
-                                          data-balloon="<?php _e( 'More Options', 'buddyboss-theme' ); ?>">
+                                          data-balloon="<?php _e( 'More Options', 'bfcommons-theme' ); ?>">
 										<i class="bb-icon bb-icon-menu-dots-v"></i>
 									</span>
                                     <div class="forum_single_action_options">

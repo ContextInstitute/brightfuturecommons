@@ -289,7 +289,7 @@ function bfc_followers_nav  ( $nav_items ) {
 					'slug'      => 'followers', // slug is used because BP_Core_Nav requires it, but it's the scope
 					'li_class'  => array(),
 					'link'      => bp_loggedin_user_domain() . bp_get_follow_slug() . '/my-followers/',
-					'text'      => __( 'Followers', 'buddyboss' ),
+					'text'      => __( 'Followers', 'bfcommons-theme' ),
 					'count'     => $counts['followers'],
 					'position'  => 20,
 				);
@@ -391,7 +391,7 @@ function bfc_group_members( $group_id = false, $role = array() ) {
 			$member_count = $total - sizeof( $members );
 			?>
 			<span class="members">
-				<span class="members-count-g">+<?php echo esc_html( $member_count  ); ?></span> <?php printf( _n( 'member', 'members', $member_count, 'buddyboss-theme' ) ); ?>
+				<span class="members-count-g">+<?php echo esc_html( $member_count  ); ?></span> <?php printf( _n( 'member', 'members', $member_count, 'bfcommons-theme' ) ); ?>
 			</span>
 			<?php
 		}
@@ -515,9 +515,9 @@ function bfc_widget_activity_state() {
 				<span class="comments-count">
 					<?php
 					if ( $comment_count > 1 ) {
-						echo $comment_count . ' ' . __( 'Comments', 'buddyboss' );
+						echo $comment_count . ' ' . __( 'Comments', 'bfcommons-theme' );
 					} else {
-						echo $comment_count . ' ' . __( 'Comment', 'buddyboss' );
+						echo $comment_count . ' ' . __( 'Comment', 'bfcommons-theme' );
 					}
 					?>
 				</span>

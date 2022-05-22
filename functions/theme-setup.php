@@ -15,11 +15,11 @@ function buddyboss_theme_child_languages()
    */
 
   // Translate text from the PARENT theme.
-  load_theme_textdomain( 'buddyboss-theme', get_stylesheet_directory() . '/languages' );
+  // load_theme_textdomain( 'buddyboss-theme', get_stylesheet_directory() . '/languages' );
 
   // Translate text from the CHILD theme only.
-  // Change 'buddyboss-theme' instances in all child theme files to 'buddyboss-theme-child'.
-  // load_theme_textdomain( 'buddyboss-theme-child', get_stylesheet_directory() . '/languages' );
+  // Change 'buddyboss-theme' instances in all child theme files to 'bfcommons-theme'.
+  load_theme_textdomain( 'bfcommons-theme', get_stylesheet_directory() . '/languages' );
 
 }
 add_action( 'after_setup_theme', 'buddyboss_theme_child_languages' );

@@ -20,7 +20,7 @@ $tooltip_position = bp_disable_group_cover_image_uploads() ? 'down' : 'up';
 		<?php if ( ! bp_disable_group_avatar_uploads() ) : ?>
 			<div id="item-header-avatar">
 				<?php if ( bp_is_item_admin() ) { ?>
-					<a href="<?php echo $group_avatar; ?>" class="link-change-profile-image" data-balloon-pos="down" data-balloon="<?php _e('Change Group Photo', 'buddyboss-theme'); ?>">
+					<a href="<?php echo $group_avatar; ?>" class="link-change-profile-image" data-balloon-pos="down" data-balloon="<?php _e('Change Group Photo', 'bfcommons-theme'); ?>">
 						<i class="bb-icon-edit-thin"></i>
 					</a>
 				<?php } ?>
