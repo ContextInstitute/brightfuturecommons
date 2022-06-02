@@ -17,7 +17,7 @@
             <?php
             if ( function_exists( 'bp_is_register_page' ) ) {
             	if ( !is_user_logged_in() && bp_is_register_page() && 'request-details' === bp_get_current_signup_step() ) { ?>
-                    <span><?php _e( 'or', 'buddyboss-theme' ); ?> <a href="<?php echo esc_url( wp_login_url() ); ?>"><?php _e( 'Sign in', 'buddyboss-theme' ); ?></a></span>
+                    <span><?php _e( 'or', 'bfcommons-theme' ); ?> <a href="<?php echo esc_url( wp_login_url() ); ?>"><?php _e( 'Sign in', 'bfcommons-theme' ); ?></a></span>
                 <?php }
             } ?>
 		</header><!-- .entry-header -->
@@ -28,7 +28,7 @@
 		$vue_components = buddyboss_bp()->get_vue_components();
 		if ( function_exists( 'bp_is_user_notifications' ) && bp_is_user_notifications() && isset( $vue_components['buddyboss_vue_bp_notifications'] ) && ! $vue_components['buddyboss_vue_bp_notifications'] ) {
 			?>
-			<h1 class="title"><?php _e( 'Notifications', 'buddyboss-theme' ); ?></h1><?php
+			<h1 class="title"><?php _e( 'Notifications', 'bfcommons-theme' ); ?></h1><?php
 		}
 	}
 	?>
@@ -38,7 +38,7 @@
 		the_content();
 
 		wp_link_pages( array(
-			'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'buddyboss-theme' ),
+			'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'bfcommons-theme' ),
 			'after'	 => '</div>',
 		) );
 		?>
@@ -51,7 +51,7 @@
 			sprintf(
 			wp_kses(
 			/* translators: %s: Name of current post. Only visible to screen readers */
-			__( 'Edit <span class="screen-reader-text">%s</span>', 'buddyboss-theme' ), array(
+			__( 'Edit <span class="screen-reader-text">%s</span>', 'bfcommons-theme' ), array(
 				'span' => array(
 					'class' => array(),
 				),

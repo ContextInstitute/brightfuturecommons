@@ -71,7 +71,7 @@ bp_nouveau_before_loop(); ?>
 							<?php
 							printf(
 								/* translators: %s = last activity timestamp (e.g. "active 1 hour ago") */
-								__( 'active %s', 'buddyboss-theme' ),
+								__( 'active %s', 'bfcommons-theme' ),
 								bp_get_group_last_active()
 							);
 							?>

@@ -27,7 +27,7 @@ if ( ( function_exists( 'bp_is_register_page' ) && bp_is_register_page() ) || ( 
     if ( $admin_custom_login && $admin_login_background_switch ) {
         echo '<div class="login-split"><div style="' . $heading_postion_style . '">';
         if ( $admin_login_background_text ) {
-            echo wp_kses_post( sprintf( esc_html__( '%s', 'buddyboss-theme' ), $admin_login_background_text ) );
+            echo wp_kses_post( sprintf( esc_html__( '%s', 'bfcommons-theme' ), $admin_login_background_text ) );
         }
         if ( $admin_login_background_textarea ) {
             echo '<span>';

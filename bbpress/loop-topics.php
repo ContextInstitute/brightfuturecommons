@@ -29,16 +29,16 @@
 
 				echo sprintf(
 					/* translators: Discussions tags. */
-					wp_kses_post( __( "Discussions tagged with '%s' ", 'buddyboss-theme' ) ),
+					wp_kses_post( __( "Discussions tagged with '%s' ", 'bfcommons-theme' ) ),
 					wp_kses_post( $bbp_topic_tag )
 				);
 			} else {
 				if ( function_exists( 'bbp_is_shortcode' ) && bbp_is_shortcode() && bbp_is_query_name( 'bbp_view' ) && 'popular' === bbpress()->current_view_id ) {
-					esc_html_e( 'Popular Discussions', 'buddyboss-theme' );
+					esc_html_e( 'Popular Discussions', 'bfcommons-theme' );
 				} elseif ( function_exists( 'bbp_is_shortcode' ) && bbp_is_shortcode() && bbp_is_query_name( 'bbp_view' ) && 'no-replies' === bbpress()->current_view_id ) {
-					esc_html_e( 'Unanswered Discussions', 'buddyboss-theme' );
+					esc_html_e( 'Unanswered Discussions', 'bfcommons-theme' );
 				} else {
-					esc_html_e( 'All Discussions', 'buddyboss-theme' );
+					esc_html_e( 'All Discussions', 'bfcommons-theme' );
 				}
 			}
 			?>

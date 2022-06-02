@@ -289,7 +289,7 @@ function bfc_followers_nav  ( $nav_items ) {
 					'slug'      => 'followers', // slug is used because BP_Core_Nav requires it, but it's the scope
 					'li_class'  => array(),
 					'link'      => bp_loggedin_user_domain() . bp_get_follow_slug() . '/my-followers/',
-					'text'      => __( 'Followers', 'buddyboss' ),
+					'text'      => __( 'Followers', 'bfcommons-theme' ),
 					'count'     => $counts['followers'],
 					'position'  => 20,
 				);
@@ -391,7 +391,7 @@ function bfc_group_members( $group_id = false, $role = array() ) {
 			$member_count = $total - sizeof( $members );
 			?>
 			<span class="members">
-				<span class="members-count-g">+<?php echo esc_html( $member_count  ); ?></span> <?php printf( _n( 'member', 'members', $member_count, 'buddyboss-theme' ) ); ?>
+				<span class="members-count-g">+<?php echo esc_html( $member_count  ); ?></span> <?php printf( _n( 'member', 'members', $member_count, 'bfcommons-theme' ) ); ?>
 			</span>
 			<?php
 		}
@@ -515,9 +515,9 @@ function bfc_widget_activity_state() {
 				<span class="comments-count">
 					<?php
 					if ( $comment_count > 1 ) {
-						echo $comment_count . ' ' . __( 'Comments', 'buddyboss' );
+						echo $comment_count . ' ' . __( 'Comments', 'bfcommons-theme' );
 					} else {
-						echo $comment_count . ' ' . __( 'Comment', 'buddyboss' );
+						echo $comment_count . ' ' . __( 'Comment', 'bfcommons-theme' );
 					}
 					?>
 				</span>
@@ -534,21 +534,4 @@ function bfc_get_forum_title( $post = 0 ) {
 	$id    = isset( $post->ID ) ? $post->ID : 0;
 	return apply_filters( 'bfc_forum_title', $title, $id );
 }
-
-add_filter('bp_core_replace_tokens_in_text', 'bfc_remove_p_in_emails',100);
-
-function bfc_remove_p_in_emails ($content){
-
-	$content = str_replace('&lt;', '<', $content);
-	$content = str_replace('&gt;', '>', $content);
-	return $content;
-}
-
-// This is a debugging function that should be removed once we're in production
-function bfc_write_to_console($data) {
-
-	$console = 'console.log(' . json_encode($data) . ');';
-	$console = sprintf('<script>%s</script>', $console);
-	echo $console;
-   }
 ?>

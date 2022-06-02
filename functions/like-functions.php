@@ -81,91 +81,91 @@ function bfc_like_users_string( $post_id ) { // bp_activity_get_favorite_users_s
 	$return_str = '';
 	if ( 1 == $like_count ) {
 		if ( $current_user_fav ) {
-			$return_str = __( 'You like this', 'buddyboss' );
+			$return_str = __( 'You like this', 'bfcommons-theme' );
 		} else {
 			$user_data         = get_userdata( array_pop( $favorited_users ) );
-			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
-			$return_str        = $user_display_name . ' ' . __( 'likes this', 'buddyboss' );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
+			$return_str        = $user_display_name . ' ' . __( 'likes this', 'bfcommons-theme' );
 		}
 	} elseif ( 2 == $like_count ) {
 		if ( $current_user_fav ) {
-			$return_str .= __( 'You and', 'buddyboss' ) . ' ';
+			$return_str .= __( 'You and', 'bfcommons-theme' ) . ' ';
 
 			$user_data         = get_userdata( array_pop( $favorited_users ) );
-			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
-			$return_str       .= $user_display_name . ' ' . __( 'like this', 'buddyboss' );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
+			$return_str       .= $user_display_name . ' ' . __( 'like this', 'bfcommons-theme' );
 		} else {
 			$user_data         = get_userdata( array_pop( $favorited_users ) );
-			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
-			$return_str       .= $user_display_name . ' ' . __( 'and', 'buddyboss' ) . ' ';
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
+			$return_str       .= $user_display_name . ' ' . __( 'and', 'bfcommons-theme' ) . ' ';
 
 			$user_data         = get_userdata( array_pop( $favorited_users ) );
-			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
-			$return_str       .= $user_display_name . ' ' . __( 'like this', 'buddyboss' );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
+			$return_str       .= $user_display_name . ' ' . __( 'like this', 'bfcommons-theme' );
 		}
 	} elseif ( 3 == $like_count ) {
 
 		if ( $current_user_fav ) {
-			$return_str .= __( 'You,', 'buddyboss' ) . ' ';
+			$return_str .= __( 'You,', 'bfcommons-theme' ) . ' ';
 
 			$user_data         = get_userdata( array_pop( $favorited_users ) );
-			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
-			$return_str       .= $user_display_name . ' ' . __( 'and', 'buddyboss' ) . ' ';
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
+			$return_str       .= $user_display_name . ' ' . __( 'and', 'bfcommons-theme' ) . ' ';
 
 			$user_data         = get_userdata( array_pop( $favorited_users ) );
-			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
-			$return_str       .= $user_display_name . ' ' . __( 'like this.', 'buddyboss' ) . ' ';
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
+			$return_str       .= $user_display_name . ' ' . __( 'like this.', 'bfcommons-theme' ) . ' ';
 
-			// $return_str .= ' ' . __( '1 other like this', 'buddyboss' );
+			// $return_str .= ' ' . __( '1 other like this', 'bfcommons-theme' );
 		} else {
 
 			$user_data         = get_userdata( array_pop( $favorited_users ) );
-			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
 			$return_str       .= $user_display_name . ', ';
 
 			$user_data         = get_userdata( array_pop( $favorited_users ) );
-			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
-			$return_str       .= $user_display_name . ' ' . __( 'and', 'buddyboss' ) . ' ';
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
+			$return_str       .= $user_display_name . ' ' . __( 'and', 'bfcommons-theme' ) . ' ';
 
 			$user_data         = get_userdata( array_pop( $favorited_users ) );
-			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
-			$return_str       .= $user_display_name . ' ' . __( 'like this.', 'buddyboss' ) . ' ';
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
+			$return_str       .= $user_display_name . ' ' . __( 'like this.', 'bfcommons-theme' ) . ' ';
 
-			// $return_str .= ' ' . __( '1 other like this', 'buddyboss' );
+			// $return_str .= ' ' . __( '1 other like this', 'bfcommons-theme' );
 		}
 	} elseif ( 3 < $like_count ) {
 
 		$like_count = ( isset( $like_count ) && ! empty( $like_count ) ) ? (int) $like_count - 3 : 0;
 
 		if ( $current_user_fav ) {
-			$return_str .= __( 'You,', 'buddyboss' ) . ' ';
+			$return_str .= __( 'You,', 'bfcommons-theme' ) . ' ';
 
 			$user_data         = get_userdata( array_pop( $favorited_users ) );
-			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
 			$return_str       .= $user_display_name . ', ';
 
 			$user_data         = get_userdata( array_pop( $favorited_users ) );
-			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
-			$return_str       .= $user_display_name . ' ' . __( 'and', 'buddyboss' ) . ' ';
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
+			$return_str       .= $user_display_name . ' ' . __( 'and', 'bfcommons-theme' ) . ' ';
 
 		} else {
 			$user_data         = get_userdata( array_pop( $favorited_users ) );
-			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
 			$return_str       .= $user_display_name . ', ';
 
 			$user_data         = get_userdata( array_pop( $favorited_users ) );
-			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
 			$return_str       .= $user_display_name . ', ';
 
 			$user_data         = get_userdata( array_pop( $favorited_users ) );
-			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'buddyboss' );
-			$return_str       .= $user_display_name . ' ' . __( 'and', 'buddyboss' ) . ' ';
+			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
+			$return_str       .= $user_display_name . ' ' . __( 'and', 'bfcommons-theme' ) . ' ';
 		}
 
 		if ( $like_count > 1 ) {
-			$return_str .= $like_count . ' ' . __( 'others like this', 'buddyboss' );
+			$return_str .= $like_count . ' ' . __( 'others like this', 'bfcommons-theme' );
 		} else {
-			$return_str .= $like_count . ' ' . __( 'other like this', 'buddyboss' );
+			$return_str .= $like_count . ' ' . __( 'other like this', 'bfcommons-theme' );
 		}
 	} else {
 		$return_str = $like_count;
@@ -241,7 +241,7 @@ function bfc_ajax_mark_post_like() {
 	}
 	if ( bfc_post_add_like_user( $_POST['post_id'] ) ) { // from bp_activity_add_user_favorite buddyboss-platform/bp-activity/bp-activity-functions.php line 941
 		$response = array(
-			'content'    => __( 'Unlike', 'buddyboss' ),
+			'content'    => __( 'Unlike', 'bfcommons-theme' ),
 			'like_users_string' => bfc_like_users_string( $_POST['post_id'] ),
 			'tooltip'    => bfc_like_users_tooltip_string( $_POST['post_id'] ),
 			// 'nonce2'	 => wp_create_nonce( 'bfc_post_unlike' ),
@@ -253,7 +253,7 @@ function bfc_ajax_mark_post_like() {
 		// 	if ( 1 === $fav_count ) {
 		// 		$response['directory_tab'] = '<li id="activity-favorites" data-bp-scope="favorites" data-bp-object="activity">
 		// 			<a href="' . bp_loggedin_user_domain() . bp_get_activity_slug() . '/favorites/">
-		// 				' . esc_html__( 'Likes', 'buddyboss' ) . '
+		// 				' . esc_html__( 'Likes', 'bfcommons-theme' ) . '
 		// 			</a>
 		// 		</li>';
 		// 	} else {
@@ -286,7 +286,7 @@ function bfc_ajax_unmark_post_like () { //bp_nouveau_ajax_unmark_activity_favori
 	}
 	if ( bfc_post_remove_like_user( $_POST['post_id'] ) ) {
 		$response = array(
-			'content'    => __( 'Like', 'buddyboss' ),
+			'content'    => __( 'Like', 'bfcommons-theme' ),
 			'like_users_string' => bfc_like_users_string( $_POST['post_id'] ),
 			'tooltip'    => bfc_like_users_tooltip_string( $_POST['post_id'] ),
 			// 'nonce2'	 => wp_create_nonce( 'bfc_post_like' ),
@@ -296,7 +296,7 @@ function bfc_ajax_unmark_post_like () { //bp_nouveau_ajax_unmark_activity_favori
 
 		// if ( 0 === $fav_count && ! bp_is_single_activity() ) { //todo
 		// 	$response['no_favorite'] = '<li><div class="bp-feedback bp-messages info">
-		// 		' . __( 'Sorry, there was no activity found.', 'buddyboss' ) . '
+		// 		' . __( 'Sorry, there was no activity found.', 'bfcommons-theme' ) . '
 		// 	</div></li>';
 		// } else {
 		// 	$response['fav_count'] = $fav_count;

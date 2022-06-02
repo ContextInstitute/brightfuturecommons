@@ -4,3 +4,4 @@
 *.code-workspace
 /foundation-sites/dist/js/foundation.js
 /foundation-sites/dist/js/foundation.js.map
+/functions/local-only.php

@@ -41,7 +41,7 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 				<?php if ( bbp_is_single_user_replies() ) : ?>
 
 					<span class="bbp-header">
-					<?php esc_html_e( 'in reply to: ', 'buddyboss-theme' ); ?>
+					<?php esc_html_e( 'in reply to: ', 'bfcommons-theme' ); ?>
 						<a class="bbp-topic-permalink"
 						href="<?php bbp_topic_permalink( bbp_get_reply_topic_id() ); ?>"><?php bbp_topic_title( bbp_get_reply_topic_id() ); ?></a>
 					</span>
@@ -138,7 +138,7 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 							if ( ! $empty ) {
 								?>
 								<a href="#" class="bs-dropdown-link bb-reply-actions-button" data-balloon-pos="up"
-								data-balloon="<?php esc_html_e( 'More actions', 'buddyboss-theme' ); ?>"><i
+								data-balloon="<?php esc_html_e( 'More actions', 'bfcommons-theme' ); ?>"><i
 											class="bb-icon-menu-dots-v"></i></a>
 								<ul class="bs-dropdown bb-reply-actions-dropdown">
 									<li>

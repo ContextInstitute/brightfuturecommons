@@ -45,23 +45,23 @@ $default_cover_image = buddyboss_theme_get_option( 'buddyboss_group_cover_defaul
 		?>
 
 		<?php if ( bp_is_item_admin() ){ ?>
-			<a href="<?php echo $group_cover_link; ?>" class="link-change-cover-image" data-balloon-pos="right" data-balloon="<?php _e('Change Cover Photo', 'buddyboss-theme'); ?>">
+			<a href="<?php echo $group_cover_link; ?>" class="link-change-cover-image" data-balloon-pos="right" data-balloon="<?php _e('Change Cover Photo', 'bfcommons-theme'); ?>">
 				<i class="bb-icon-edit-thin"></i>
 			</a>
 		<?php } ?>
 
 			<?php if ( ( ! empty( $group_cover_image ) || ! empty( $default_cover_image['url'] ) ) && bp_is_item_admin() ) { ?>
-				<a href="#" class="position-change-cover-image" data-balloon-pos="right" data-balloon="<?php _e('Reposition Cover Photo', 'buddyboss-theme'); ?>">
+				<a href="#" class="position-change-cover-image" data-balloon-pos="right" data-balloon="<?php _e('Reposition Cover Photo', 'bfcommons-theme'); ?>">
 					<span class="dashicons dashicons-move"></span>
 				</a>
 				<div class="header-cover-reposition-wrap">
-					<a href="#" class="button small cover-image-cancel"><?php _e('Cancel', 'buddyboss-theme'); ?></a>
-					<a href="#" class="button small cover-image-save"><?php _e('Save Changes', 'buddyboss-theme'); ?></a>
-					<span class="drag-element-helper"><i class="bb-icon-menu"></i><?php _e('Drag to move cover photo', 'buddyboss-theme'); ?></span>
+					<a href="#" class="button small cover-image-cancel"><?php _e('Cancel', 'bfcommons-theme'); ?></a>
+					<a href="#" class="button small cover-image-save"><?php _e('Save Changes', 'bfcommons-theme'); ?></a>
+					<span class="drag-element-helper"><i class="bb-icon-menu"></i><?php _e('Drag to move cover photo', 'bfcommons-theme'); ?></span>
 					<?php if ( ! empty( $group_cover_image ) ) { ?>
-						<img src="<?php echo esc_url( $group_cover_image );  ?>" alt="<?php _e('Cover photo', 'buddyboss-theme'); ?>" />
+						<img src="<?php echo esc_url( $group_cover_image );  ?>" alt="<?php _e('Cover photo', 'bfcommons-theme'); ?>" />
 					<?php } elseif( ! empty( $default_cover_image['url'] ) ) { ?>
-						<img src="<?php echo esc_url( $default_cover_image['url'] );  ?>" alt="<?php _e('Cover photo', 'buddyboss-theme'); ?>" />
+						<img src="<?php echo esc_url( $default_cover_image['url'] );  ?>" alt="<?php _e('Cover photo', 'bfcommons-theme'); ?>" />
 					<?php } ?>
 				</div>
 			<?php } ?>
@@ -74,7 +74,7 @@ $default_cover_image = buddyboss_theme_get_option( 'buddyboss_group_cover_defaul
 		<?php if ( ! bp_disable_group_avatar_uploads() ) : ?>
 			<div id="item-header-avatar">
 				<?php if ( bp_is_item_admin() ) { ?>
-					<a href="<?php echo $group_avatar; ?>" class="link-change-profile-image" data-balloon-pos="down" data-balloon="<?php _e('Change Group Photo', 'buddyboss-theme'); ?>">
+					<a href="<?php echo $group_avatar; ?>" class="link-change-profile-image" data-balloon-pos="down" data-balloon="<?php _e('Change Group Photo', 'bfcommons-theme'); ?>">
 						<i class="bb-icon-edit-thin"></i>
 					</a>
 				<?php } ?>

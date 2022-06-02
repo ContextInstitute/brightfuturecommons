@@ -13,7 +13,7 @@ $message_button_args = array(
 	'link_text'         => '<i class="bb-icon-mail-small"></i>',
 	'button_attr' => array(
 		'data-balloon-pos' => 'down',
-		'data-balloon' => __( 'Message', 'buddyboss-theme' ),
+		'data-balloon' => __( 'Message', 'bfcommons-theme' ),
 	)
 );
 
