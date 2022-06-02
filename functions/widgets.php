@@ -332,7 +332,6 @@ class bsp_Activity_Widget extends WP_Widget {
 							
 							if ( ! empty( $settings['show_freshness'] ) ) : ?>
 							<?php 
-							// $output = bbp_get_topic_last_active_time( $topic_id ) ; 
 							$last_active = get_post_field( 'post_date_gmt', $post_id );
 							$output = bfc_nice_date( strtotime( $last_active ) );
 							echo '<span class="bs-separator">&middot;&nbsp;</span>';
@@ -356,13 +355,12 @@ class bsp_Activity_Widget extends WP_Widget {
 					<?php if ( ! bp_is_group()) : ?>
 					<div class = "bsp-activity-forum">
 						<?php
-						$forum = bbp_get_topic_forum_id($topic_id);
-						$forum1 = bfc_get_forum_title($forum) ;
-						$forum2 = esc_url( bbp_get_forum_permalink( $forum )) ;
-						$forum3 = substr($forum2, 0, strpos($forum2, "forum/"));
-					?>
-						<a class="bsp-la-forum-title bbp-forum-title" href="<?php echo $forum3; ?>"><?php echo $forum1 ; ?></a>
-
+						$forum_id = bbp_get_topic_forum_id($topic_id);
+						$forum_title = bfc_get_forum_title($forum_id) ;
+						$forum_link = esc_url( bbp_get_forum_permalink( $forum_id )) ;
+						$group_link = substr($forum_link, 0, strpos($forum_link, "forum/"));
+						echo '<a class="bsp-la-forum-title bbp-forum-title" href="' . $group_link . '">' . $forum_title . '</a>';
+						?>
 					</div>
 					<?php endif; ?>
 					</div>

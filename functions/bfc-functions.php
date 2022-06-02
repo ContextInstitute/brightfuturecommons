@@ -534,21 +534,4 @@ function bfc_get_forum_title( $post = 0 ) {
 	$id    = isset( $post->ID ) ? $post->ID : 0;
 	return apply_filters( 'bfc_forum_title', $title, $id );
 }
-
-add_filter('bp_core_replace_tokens_in_text', 'bfc_remove_p_in_emails',100);
-
-function bfc_remove_p_in_emails ($content){
-
-	$content = str_replace('&lt;', '<', $content);
-	$content = str_replace('&gt;', '>', $content);
-	return $content;
-}
-
-// This is a debugging function that should be removed once we're in production
-function bfc_write_to_console($data) {
-
-	$console = 'console.log(' . json_encode($data) . ');';
-	$console = sprintf('<script>%s</script>', $console);
-	echo $console;
-   }
 ?>
