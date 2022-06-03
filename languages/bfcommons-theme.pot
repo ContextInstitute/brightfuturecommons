@@ -1,0 +1,468 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Bright Future Commons\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-02 17:01+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.6.2; wp-6.0\n"
+"X-Domain: bfcommons-theme"
+
+#: buddypress.php:30
+#, php-format
+msgid "%s"
+msgstr ""
+
+#: functions/widgets.php:779
+msgid "(BFC) Latest Activities"
+msgstr ""
+
+#. Description of the theme
+msgid ""
+"A child theme of BuddyBoss Theme. To ensure easy updates, make your own "
+"edits in this theme."
+msgstr ""
+
+#. %s = last activity timestamp (e.g. "active 1 hour ago")
+#: buddypress/groups/groups-loop.php:74
+#, php-format
+msgid "active %s"
+msgstr ""
+
+#: functions/widgets.php:989
+msgid "Activity Type:"
+msgstr ""
+
+#: bbpress/loop-topics.php:41
+msgid "All Discussions"
+msgstr ""
+
+#: buddypress/common/js-templates/activity/parts/bp-activity-post-case-privacy.php:19
+msgid "All Members"
+msgstr ""
+
+#: functions/like-functions.php:100 functions/like-functions.php:113
+#: functions/like-functions.php:128 functions/like-functions.php:149
+#: functions/like-functions.php:162
+msgid "and"
+msgstr ""
+
+#: buddypress/assets/emails/single-bp-email.php:370
+#: buddypress/assets/emails/bfc-ges-digest.php:367
+msgid "Avatar"
+msgstr ""
+
+#. Name of the theme
+msgid "Bright Future Commons"
+msgstr ""
+
+#: bbpress/form-reply.php:175
+#: buddypress/groups/single/cover-image-header.php:58
+msgid "Cancel"
+msgstr ""
+
+#: buddypress/groups/single/cover-image-header.php:48
+msgid "Change Cover Photo"
+msgstr ""
+
+#: buddypress/groups/single/cover-image-header.php:77
+#: buddypress/groups/single/group-header.php:23
+msgid "Change Group Photo"
+msgstr ""
+
+#: buddypress/members/single/member-header.php:20
+msgid "Change Profile Photo"
+msgstr ""
+
+#: bbpress/loop-replies.php:35
+msgid "Close"
+msgstr ""
+
+#: bbpress/loop-topic-list.php:20
+msgid "Closed"
+msgstr ""
+
+#: functions/bfc-functions.php:520
+msgid "Comment"
+msgstr ""
+
+#: functions/bfc-functions.php:518
+msgid "Comments"
+msgstr ""
+
+#. Author of the theme
+msgid "Context Institute"
+msgstr ""
+
+#: buddypress/groups/single/cover-image-header.php:62
+#: buddypress/groups/single/cover-image-header.php:64
+msgid "Cover photo"
+msgstr ""
+
+#: buddypress/common/nav/directory-nav.php:10
+msgid "Directory menu"
+msgstr ""
+
+#. Discussions tags.
+#: bbpress/loop-topics.php:32
+#, php-format
+msgid "Discussions tagged with '%s' "
+msgstr ""
+
+#: buddypress/groups/single/cover-image-header.php:60
+msgid "Drag to move cover photo"
+msgstr ""
+
+#. %s: Name of current post. Only visible to screen readers
+#: template-parts/content-buddypress.php:54
+#, php-format
+msgid "Edit <span class=\"screen-reader-text\">%s</span>"
+msgstr ""
+
+#: bbpress/loop-replies.php:85 bbpress/loop-replies.php:90
+#: bbpress/loop-replies.php:92
+msgid "Favorite"
+msgstr ""
+
+#: functions/bfc-functions.php:292
+msgid "Followers"
+msgstr ""
+
+#: buddypress/assets/emails/single-bp-email.php:456
+msgid "go here."
+msgstr ""
+
+#: buddypress/common/js-templates/activity/parts/bp-activity-post-form-privacy.php:57
+#: buddypress/common/js-templates/activity/parts/bp-activity-post-case-privacy.php:25
+msgid "Group"
+msgstr ""
+
+#: buddypress/groups/single/parts/item-nav.php:10
+msgid "Group menu"
+msgstr ""
+
+#. Name of the template
+msgid "Home"
+msgstr ""
+
+#. URI of the theme
+msgid "https://github.com/ContextInstitute/bfcom"
+msgstr ""
+
+#. Author URI of the theme
+msgid "https://www.context.org/"
+msgstr ""
+
+#: buddypress/assets/emails/bfc-ges-digest.php:453
+msgid "If you don't want to receive these emails in the future, please "
+msgstr ""
+
+#: buddypress/assets/emails/single-bp-email.php:456
+msgid "If you'd like to change your email notification preferences, please "
+msgstr ""
+
+#: bbpress/loop-single-reply.php:44
+msgid "in reply to: "
+msgstr ""
+
+#: bbpress/form-reply.php:110
+msgid "Keep a log of this edit:"
+msgstr ""
+
+#: functions/like-functions.php:289
+msgid "Like"
+msgstr ""
+
+#: functions/like-functions.php:96 functions/like-functions.php:104
+msgid "like this"
+msgstr ""
+
+#: functions/like-functions.php:117 functions/like-functions.php:132
+msgid "like this."
+msgstr ""
+
+#: functions/like-functions.php:88
+msgid "likes this"
+msgstr ""
+
+#: bbpress/content-single-topic.php:49 bbpress/content-single-topic.php:75
+msgid "Log In to Reply"
+msgstr ""
+
+#: functions/widgets.php:985
+msgid "Maximum amount to display:"
+msgstr ""
+
+#: bbpress/loop-topic-list.php:49
+msgid "Member"
+msgstr ""
+
+#: functions/bfc-functions.php:394
+msgid "member"
+msgid_plural "members"
+msgstr[0] ""
+msgstr[1] ""
+
+#: bbpress/loop-topic-list.php:49
+msgid "Members"
+msgstr ""
+
+#: buddypress/members/members-loop.php:16
+#: buddypress/groups/single/members-loop.php:15
+msgid "Message"
+msgstr ""
+
+#: template-parts/messages-dropdown.php:10
+#: template-parts/messages-dropdown.php:19
+msgid "Messages"
+msgstr ""
+
+#: bbpress/loop-single-reply.php:141
+msgid "More actions"
+msgstr ""
+
+#: bbpress/loop-replies.php:102
+msgid "More Options"
+msgstr ""
+
+#: buddypress/common/js-templates/activity/parts/bp-activity-post-case-privacy.php:21
+msgid "My Connections"
+msgstr ""
+
+#: template-parts/content-buddypress.php:31
+msgid "Notifications"
+msgstr ""
+
+#: bbpress/form-reply.php:155
+msgid "Notify me of replies via email"
+msgstr ""
+
+#: bbpress/form-reply.php:151
+msgid "Notify the author of replies via email"
+msgstr ""
+
+#: buddypress/common/js-templates/activity/parts/bp-activity-post-case-privacy.php:23
+msgid "Only Me"
+msgstr ""
+
+#: bbpress/loop-replies.php:39
+msgid "Open"
+msgstr ""
+
+#: bbpress/form-reply.php:115
+msgid "Optional reason for editing"
+msgstr ""
+
+#: bbpress/form-reply.php:114
+msgid "Optional reason for editing:"
+msgstr ""
+
+#: template-parts/content-buddypress.php:20
+msgid "or"
+msgstr ""
+
+#: functions/like-functions.php:168
+msgid "other like this"
+msgstr ""
+
+#: functions/like-functions.php:166
+msgid "others like this"
+msgstr ""
+
+#: template-parts/content-buddypress.php:41
+msgid "Pages:"
+msgstr ""
+
+#: bbpress/loop-topics.php:37
+msgid "Popular Discussions"
+msgstr ""
+
+#: bbpress/form-reply.php:178 bbpress/loop-topic-list.php:64
+msgid "Post"
+msgstr ""
+
+#: buddypress/common/js-templates/activity/parts/bp-activity-post-form-privacy.php:53
+msgid "Post in Group"
+msgstr ""
+
+#: bbpress/loop-topic-list.php:64
+msgid "Posts"
+msgstr ""
+
+#: buddypress/common/js-templates/activity/parts/bp-activity-post-case-privacy.php:17
+msgid "Public"
+msgstr ""
+
+#: bbpress/loop-search-reply.php:17
+msgid "replied"
+msgstr ""
+
+#: bbpress/loop-topic-list.php:61
+msgid "Replies"
+msgstr ""
+
+#: bbpress/loop-topic-list.php:61
+#: buddypress/assets/emails/single-bp-email.php:408
+#: buddypress/assets/emails/bfc-ges-digest.php:405
+msgid "Reply"
+msgstr ""
+
+#: bbpress/form-reply.php:41
+msgid "Reply to:"
+msgstr ""
+
+#: buddypress/groups/single/cover-image-header.php:54
+msgid "Reposition Cover Photo"
+msgstr ""
+
+#: buddypress/groups/single/cover-image-header.php:59
+msgid "Save Changes"
+msgstr ""
+
+#: functions/widgets.php:774
+msgid ""
+"Select to display the latest activity updates, by type, posted within your "
+"community."
+msgstr ""
+
+#: buddypress/assets/emails/single-bp-email.php:360
+#: buddypress/assets/emails/bfc-ges-digest.php:357
+msgid "sent you a new message"
+msgstr ""
+
+#: buddypress/common/js-templates/activity/parts/bp-activity-post-case-privacy.php:13
+msgid "Set by album privacy"
+msgstr ""
+
+#: template-parts/content-buddypress.php:20
+msgid "Sign in"
+msgstr ""
+
+#: bbpress/loop-topic-list.php:77
+msgid "Started by "
+msgstr ""
+
+#: bbpress/loop-replies.php:53 bbpress/loop-topic-list.php:28
+msgid "Sticky"
+msgstr ""
+
+#: bbpress/loop-topic-list.php:36
+msgid "Subscribed"
+msgstr ""
+
+#: bbpress/loop-replies.php:71 bbpress/loop-topic-list.php:26
+msgid "Super Sticky"
+msgstr ""
+
+#: bbpress/form-reply.php:206
+#, php-format
+msgid "The discussion &#8216;%s&#8217; is closed to new replies."
+msgstr ""
+
+#: bbpress/form-reply.php:215
+#, php-format
+msgid "The forum &#8216;%s&#8217; is closed to new discussions and replies."
+msgstr ""
+
+#: bbpress/form-reply.php:28
+msgid ""
+"This discussion is marked as closed to new replies, however your posting "
+"capabilities still allow you to do so."
+msgstr ""
+
+#: functions/widgets.php:980
+msgid "Title:"
+msgstr ""
+
+#: bbpress/form-reply.php:81
+msgid "Type one or more tag, comma separated"
+msgstr ""
+
+#: bbpress/loop-topics.php:39
+msgid "Unanswered Discussions"
+msgstr ""
+
+#: bbpress/loop-replies.php:83 bbpress/loop-replies.php:84
+#: bbpress/loop-replies.php:91
+msgid "Unfavorite"
+msgstr ""
+
+#: functions/like-functions.php:87 functions/like-functions.php:95
+#: functions/like-functions.php:99 functions/like-functions.php:103
+#: functions/like-functions.php:112 functions/like-functions.php:116
+#: functions/like-functions.php:123 functions/like-functions.php:127
+#: functions/like-functions.php:131 functions/like-functions.php:144
+#: functions/like-functions.php:148 functions/like-functions.php:153
+#: functions/like-functions.php:157 functions/like-functions.php:161
+msgid "Unknown"
+msgstr ""
+
+#: functions/like-functions.php:244
+msgid "Unlike"
+msgstr ""
+
+#: bbpress/loop-replies.php:49 bbpress/loop-replies.php:65
+msgid "Unstick"
+msgstr ""
+
+#: buddypress/assets/emails/bfc-ges-digest.php:453
+msgid "unsubscribe"
+msgstr ""
+
+#: functions/widgets.php:793 functions/widgets.php:963
+msgid "Updates"
+msgstr ""
+
+#: template-parts/messages-dropdown.php:28
+msgid "View Inbox"
+msgstr ""
+
+#: buddypress/common/js-templates/activity/parts/bp-activity-post-form-privacy.php:32
+msgid "Visible only to you"
+msgstr ""
+
+#: buddypress/common/js-templates/activity/parts/bp-activity-post-form-privacy.php:30
+msgid "Visible only to your connections"
+msgstr ""
+
+#: buddypress/common/js-templates/activity/parts/bp-activity-post-form-privacy.php:28
+msgid "Visible to all members on this site"
+msgstr ""
+
+#: buddypress/common/js-templates/activity/parts/bp-activity-post-form-privacy.php:26
+msgid "Visible to anyone, on or off this site"
+msgstr ""
+
+#: buddypress/common/js-templates/activity/parts/bp-activity-post-form-privacy.php:54
+msgid "Visible to members of a group"
+msgstr ""
+
+#: functions/like-functions.php:92
+msgid "You and"
+msgstr ""
+
+#: bbpress/form-reply.php:225
+msgid "You cannot reply to this discussion."
+msgstr ""
+
+#: functions/like-functions.php:84
+msgid "You like this"
+msgstr ""
+
+#: bbpress/form-reply.php:62
+msgid ""
+"You may use these <abbr title=\"HyperText Markup Language\">HTML</abbr> tags "
+"and attributes:"
+msgstr ""
+
+#: functions/like-functions.php:109 functions/like-functions.php:141
+msgid "You,"
+msgstr ""

@@ -481,7 +481,7 @@ function bfc_latest_post ($ugroup_id = 0) {
 }
 
 function bfc_rename_group_navs ($link_text,$nav_item,$displayed_nav){
-	if ('Discussions' == $link_text && 'groups'== $displayed_nav) {$link_text = 'Forum';}
+	if (('Forum Threads' == $link_text || 'Discussions' == $link_text) && 'groups'== $displayed_nav) {$link_text = 'Forum';}
 	return $link_text;
 }
 

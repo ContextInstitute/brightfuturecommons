@@ -168,6 +168,12 @@ nav#object-nav li.bfc-group-name-nav{
 	list-style-type: none;
 }
 
+.bbp-reply-content p.bfc-single-user-topic-link {
+	font-family: "SF UI Display", sans-serif;
+	font-size: 15px;
+	margin-block-end: 5px;
+}
+
 /* .bs-dropdown {
 	min-width: 100px;
  } */
