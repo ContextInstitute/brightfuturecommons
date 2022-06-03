@@ -37,17 +37,6 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 
 				<!-- <?php bbp_reply_author_role(); ?> -->
 				<span class="bs-timestamp"><?php bfc_reply_post_date(); ?></span>
-
-				<?php if ( bbp_is_single_user_replies() ) : ?>
-
-					<span class="bbp-header">
-					<?php esc_html_e( 'in reply to: ', 'bfcommons-theme' ); ?>
-						<a class="bbp-topic-permalink"
-						href="<?php bbp_topic_permalink( bbp_get_reply_topic_id() ); ?>"><?php bbp_topic_title( bbp_get_reply_topic_id() ); ?></a>
-					</span>
-
-				<?php endif; ?>
-
 			</div>
 		</div><!-- .bbp-reply-author -->
 
@@ -60,6 +49,16 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 	</div>
 
 	<div class="bbp-reply-content bs-forum-content">
+
+		<?php if ( bbp_is_single_user_replies() ) : ?>
+
+			<p class="bbp-header bfc-single-user-topic-link">[<em>
+			<?php esc_html_e( 'In reply to: ', 'bfcommons-theme' ); ?>
+				<a class="bbp-topic-permalink"
+				href="<?php bbp_topic_permalink( bbp_get_reply_topic_id() ); ?>"><?php bbp_topic_title( bbp_get_reply_topic_id() ); ?></a></em> ]
+			</p>
+
+		<?php endif; ?>
 
 		<?php do_action( 'bbp_theme_before_reply_content' ); ?>
 
