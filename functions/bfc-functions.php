@@ -534,4 +534,129 @@ function bfc_get_forum_title( $post = 0 ) {
 	$id    = isset( $post->ID ) ? $post->ID : 0;
 	return apply_filters( 'bfc_forum_title', $title, $id );
 }
+// from https://gist.github.com/rohmann/6151699 ; modified with bfc_bulk_join_group()
+add_action('load-users.php',function() {
+
+	if(isset($_GET['action']) && isset($_GET['bp_gid']) && isset($_GET['users'])) {
+		$group_id = $_GET['bp_gid'];
+		$users = $_GET['users'];
+		$added = 0;
+		$newusers = array();
+		foreach ($users as $user_id) {
+			if(bfc_bulk_join_group( $group_id, $user_id )){
+				$added++;
+				$newusers[] = $user_id;
+			}
+		}
+		// Record this in activity feeds.
+		// if( !is_serialized( $newusers ) ) {
+		// 	$newusers = maybe_serialize($newusers);
+		// }
+		if ( bp_is_active( 'activity' ) &&  $added ) {
+			$act_id = groups_record_activity( array(
+				'type'    => 'bulk_add_to_group',
+				'item_id' => $group_id,
+			) );
+			$content = implode( ',', $newusers);
+			bp_activity_add_meta($act_id,'added_users', $content);
+		}
+
+	}
+		//Add some Javascript to handle the form submission
+		add_action('admin_footer',function(){ ?>
+		<script>
+			jQuery("select[name='action']").append(jQuery('<option value="groupadd">Add to BP Group</option>'));
+			jQuery("#doaction").click(function(e){
+				if(jQuery("select[name='action'] :selected").val()=="groupadd") { e.preventDefault();
+					gid=prompt("Please enter a BuddyPres Group ID","1");
+					jQuery(".wrap form").append('<input type="hidden" name="bp_gid" value="'+gid+'" />').submit();
+				}
+			});
+		</script>
+		<?php
+		});
+	});
+
+function bfc_bulk_join_group( $group_id, $user_id = 0 ) {
+
+	if ( empty( $user_id ) )
+		return false;
+	
+	// Check if the user has an outstanding invite. If so, delete it.
+	if ( groups_check_user_has_invite( $user_id, $group_id ) )
+		groups_delete_invite( $user_id, $group_id );
+	
+	// Check if the user has an outstanding request. If so, delete it.
+	if ( groups_check_for_membership_request( $user_id, $group_id ) )
+		groups_delete_membership_request( null, $user_id, $group_id );
+	
+	// User is already a member, just return true.
+	if ( groups_is_user_member( $user_id, $group_id ) )
+		return false;
+	
+	$new_member                = new BP_Groups_Member;
+	$new_member->group_id      = $group_id;
+	$new_member->user_id       = $user_id;
+	$new_member->inviter_id    = 0;
+	$new_member->is_admin      = 0;
+	$new_member->user_title    = '';
+	$new_member->date_modified = bp_core_current_time();
+	$new_member->is_confirmed  = 1;
+	
+	if ( !$new_member->save() )
+		return false;
+	
+	// $bp = buddypress();
+	
+	// if ( !isset( $bp->groups->current_group ) || !$bp->groups->current_group || $group_id != $bp->groups->current_group->id )
+	// 	$group = groups_get_group( $group_id );
+	// else
+	// 	$group = $bp->groups->current_group;
+	
+	/**
+	 * Fires after a user joins a group.
+	 *
+	 * @since BuddyPress 1.0.0
+	 *
+	 * @param int $group_id ID of the group.
+	 * @param int $user_id  ID of the user joining the group.
+	 */
+	do_action( 'bfc_bult_join_group', $group_id, $user_id );
+	
+	return true;
+}
+add_action( 'bp_register_activity_actions', 'bfc_bulk_add_register_activity_actions' );
+
+function bfc_bulk_add_register_activity_actions (){
+	$component_id = 'groups';
+	$type = 'bulk_add_to_group';
+	$description = __( 'Added users in bulk to a group', 'bfcommons-theme' );
+	$format_callback = 'bfc_activity_format_group_action_bulk_add';
+	bp_activity_set_action( $component_id, $type, $description, $format_callback, $label = false, $context = array(), $position = 0 );
+}
+
+function bfc_activity_format_group_action_bulk_add( $action, $activity ) {
+
+	$actor = bp_core_get_userlink( $activity->user_id );
+	$added_users = explode (',', bp_activity_get_meta($activity->id, 'added_users'));
+	$users = array();
+	foreach ($added_users as $added_user) {
+		$users[] = bp_core_get_userlink($added_user);
+	}
+	$users_str = implode (', ', $users);
+	$group_obj = groups_get_group($activity->item_id);
+	$group = bp_get_group_link($group_obj);
+	$action = sprintf( __( '%s bulk-added %s to %s', 'bfcommons-theme' ), $actor, $users_str, $group);
+    
+ 
+    /**
+     * Filters the formatted activity action update string.
+     *
+     * @since BuddyPress 1.2.0
+     *
+     * @param string               $action   Activity action string value.
+     * @param BP_Activity_Activity $activity Activity item object.
+     */
+    return apply_filters( 'bfc_activity_format_group_action_bulk_add', $action, $activity );
+}
 ?>
