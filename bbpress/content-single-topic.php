@@ -41,7 +41,7 @@
 
 				<?php endif; ?>
 
-				<p class="bb-topic-reply-link-wrap mobile-only">
+				<!-- <p class="bb-topic-reply-link-wrap mobile-only">
 					<?php
 					bbp_topic_reply_link();
 					if ( ! bbp_current_user_can_access_create_reply_form() && ! bbp_is_topic_closed() && ! bbp_is_forum_closed( bbp_get_topic_forum_id() ) && ! is_user_logged_in() ) {
@@ -54,7 +54,7 @@
 					$args = array( 'before' => '' );
 					echo bbp_get_topic_subscription_link( $args );
 					?>
-				</p>
+				</p> -->
 
 				<?php bbp_get_template_part( 'form', 'reply' ); ?>
 

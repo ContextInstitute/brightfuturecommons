@@ -124,8 +124,8 @@ nav#object-nav li.bfc-group-name-nav{
 /* Forums and Group Member Intros*/
 
 #members-intros,
-#bbpress-forums.bb-content-area {
-	width: 810px;
+#bbpress-forums {
+	max-width: 810px;
 	margin: 0 auto;
 }
 
@@ -150,7 +150,7 @@ nav#object-nav li.bfc-group-name-nav{
 	display: flex;
 }
 
-.bbp-reply-content.bs-forum-content {
+#buddypress #bbpress-forums .bbp-reply-content.bs-forum-content {
 	font-family: charter, Georgia, Cambria, 'Times New Roman', Times, serif;
 	font-size: 17px;
 	line-height: 1.6;
@@ -249,6 +249,7 @@ nav#object-nav li.bfc-group-name-nav{
 
 #members-group-list.group_members #members-list.bp-list li.item-entry,
 #members-dir-grid.members #members-list.bp-list li.item-entry {
+	display: flex;
 	margin: 0;
 	padding: 0;
 	border-bottom: 0 none #000000;
@@ -308,7 +309,6 @@ nav#object-nav li.bfc-group-name-nav{
 }
 
 #members-group-list .item-intro {
-	margin-left: 130px;
 	padding: 12px 12px 14px 0;
 	max-width: 640px;
 	font-size: 17px;
@@ -316,20 +316,24 @@ nav#object-nav li.bfc-group-name-nav{
 }
 
 #members-group-list .item-avatar {
-	float: left;
+	float: none;
 	text-align: center;
-	width: 115px;
+	width: fit-content;
 	font-size: 14px;
-	margin-right: 0;
+	margin: 16px auto 0 auto;
 }
 
 #members-group-list .item-avatar img {
 	border: none;
 	max-width: 80px;
 	padding: 0;
-	margin: 12px auto 0 auto;
+	margin: 0 auto 5px;
 	border-radius: 12px;
 }
+
+/* #member-group-list #members-intros .item-entry {
+	position: relative;
+} */
 
 .single-item.group-members .page-title {
 	font-size: 16px;
@@ -338,6 +342,29 @@ nav#object-nav li.bfc-group-name-nav{
 .single-item.group-members .bp-screen-title {
 	margin: 0 0 10px 0;
 	line-height: 1em;
+}
+
+#members-group-list #members-intros {
+	background-color: #fff;
+}
+
+#members-group-list #members-intros li.item-entry{
+	display: flex;
+}
+
+#members-group-list #members-intros li.item-entry .list-wrap{
+	width: 150px;
+}
+
+#members-group-list #members-intros .member-status {
+	right: -2px;
+	top: -1px;
+}
+
+#members-group-list #members-intros .member-name {
+	text-align: center;
+	font-size: 14px;
+	font-weight: 600;
 }
 
 /* User and Group Dashboards */
@@ -913,4 +940,85 @@ nav#object-nav li.bfc-group-name-nav{
 	max-height: calc(50vh - 78px);
 	min-height: -webkit-calc(40vh - 78px);
 	min-height: calc(40vh - 78px);
+}
+
+@media (max-width: 640px) {
+	#members-intros, #bbpress-forums.bb-content-area {
+		width: auto;
+	}
+
+	#bbpress-forums .bs-single-forum-list>li .bs-reply-list-item {
+		padding: 16px 24px;
+	}
+
+	#bbpress-forums .bs-reply-list-item {
+		display: block;
+	}
+
+	#bbpress-forums#bbpress-forums .bs-forums-items .bbp-reply-author {
+		width: auto;
+		margin: 0;
+		padding: 0;
+		display: flex;
+	}
+
+	#bbpress-forums#bbpress-forums .bs-forums-items.list-view .item-meta {
+		text-align: left;
+		padding: 4px 8px;
+	}
+
+	.bs-single-forum-list .item-meta h3 {
+		font-weight: 500;
+	}
+
+	#bbpress-forums#bbpress-forums .bs-forums-items.bs-item-list.list-view .action .button {
+		padding-left: 0;
+	}
+
+	#bbpress-forums#bbpress-forums .bs-forums-items.bs-item-list.list-view div.action {
+		padding-left: 0;
+		margin-top: 4px;
+
+	}
+
+	#buddypress .bbp-reply-content.bs-forum-content .bfc-post-functions .bfc-like-section {
+		padding-left: 0;
+		margin-top: -8px;
+	}
+
+	#buddypress .bbp-reply-content.bs-forum-content .bfc-post-functions .bfc-like-section .has-likes {
+		margin-bottom: -5px;
+	}
+
+	#members-group-list #members-intros li.item-entry {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	#members-group-list #members-intros li.item-entry .list-wrap {
+		width: auto;
+		display: flex;
+	}
+
+	#members-group-list .item-avatar {
+		margin: 0;
+	}
+
+	#members-group-list #members-intros .member-name {
+		text-align: left;
+		align-self: self-end;
+		margin-left: 12px;
+	}
+
+	#buddypress #bbpress-forums .bbp-reply-content.bs-forum-content,
+	#buddypress #bbpress-forums .bbp-reply-content.bs-forum-content p,
+	#buddypress #members-group-list #members-intros .item-intro,
+	#buddypress #members-group-list #members-intros .item-intro p{
+		font-size: 16px;
+		line-height: 1.5em;
+	}
+
+	#bbpress-forums#bbpress-forums .bs-forums-items .item-avatar img {
+		width: 80px;
+	}
 }
