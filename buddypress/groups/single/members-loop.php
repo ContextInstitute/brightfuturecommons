@@ -62,8 +62,8 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 							bb_user_status( bp_get_member_user_id() );
 							bp_member_avatar( bp_nouveau_avatar_args() );?></span>
 						<?php echo bfc_member_dropdown( $type, $source, $person, $follow_class );?>
-						<div class="list-title member-name"><?php bp_member_name(); ?></div>
 					</div>
+					<div class="list-title member-name"><?php bp_member_name(); ?></div>
 				</div>
 				<div class="item-intro">
 					<?php
