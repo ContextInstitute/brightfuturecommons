@@ -1021,4 +1021,34 @@ nav#object-nav li.bfc-group-name-nav{
 	#bbpress-forums#bbpress-forums .bs-forums-items .item-avatar img {
 		width: 80px;
 	}
+
+	#buddypress #item-body .bp-profile-content .intro .profile-fields tr {
+		display: grid;
+	}
+
+	
+	#buddypress #item-body .bp-profile-content .intro .profile-fields tr td.label {
+		font-style: italic;
+	}
+
+	#buddypress #item-body .bp-profile-content .intro .profile-fields tr td.data {
+		width: auto;
+	}
+
+	.my-groups #groups-list .bfc-group-latest-post,
+	.mygroups #groups-list .bfc-group-latest-post {
+	margin-top: 11px;
+	}
+
+	#buddypress #groups-list .groups-loop-buttons {
+		align-self: self-end;
+	}
+
+	#buddypress #groups-list .groups-loop-buttons {
+		min-width: 0;
+	}
+
+	.item-list.groups-list:not(.grid) .list-wrap {
+		display: block;
+	}
 }
