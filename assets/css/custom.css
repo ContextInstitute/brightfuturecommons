@@ -590,6 +590,10 @@ nav#object-nav li.bfc-group-name-nav{
 	position:relative;
 }
 
+#buddypress .item-desc.group-item-desc {
+	align-self: unset;
+}
+
 .other-groups #groups-list .bfc-group-latest-post,
 .my-groups #groups-list .item-desc.group-item-desc,
 .my-groups #groups-list .group-members-wrap,
@@ -618,7 +622,16 @@ nav#object-nav li.bfc-group-name-nav{
 }
 
 #buddypress #groups-list .groups-loop-buttons {
+	min-width: 150px;
+	align-self: unset;
+}
+
+#buddypress .other-groups #groups-list .groups-loop-buttons {
 	min-width: 200px;
+}
+
+#buddypress #groups-list .groups-loop-buttons .action {
+    float: right;
 }
 
 .other-groups #groups-list .group-members-wrap{
@@ -942,6 +955,9 @@ nav#object-nav li.bfc-group-name-nav{
 	min-height: calc(40vh - 78px);
 }
 
+.bb-mobile-panel-header .avatar {
+	border-radius: 20%;
+}
 @media (max-width: 640px) {
 	#members-intros, #bbpress-forums.bb-content-area {
 		width: auto;
@@ -969,25 +985,6 @@ nav#object-nav li.bfc-group-name-nav{
 
 	.bs-single-forum-list .item-meta h3 {
 		font-weight: 500;
-	}
-
-	#bbpress-forums#bbpress-forums .bs-forums-items.bs-item-list.list-view .action .button {
-		padding-left: 0;
-	}
-
-	#bbpress-forums#bbpress-forums .bs-forums-items.bs-item-list.list-view div.action {
-		padding-left: 0;
-		margin-top: 4px;
-
-	}
-
-	#buddypress .bbp-reply-content.bs-forum-content .bfc-post-functions .bfc-like-section {
-		padding-left: 0;
-		margin-top: -8px;
-	}
-
-	#buddypress .bbp-reply-content.bs-forum-content .bfc-post-functions .bfc-like-section .has-likes {
-		margin-bottom: -5px;
 	}
 
 	#members-group-list #members-intros li.item-entry {
@@ -1034,7 +1031,16 @@ nav#object-nav li.bfc-group-name-nav{
 	#buddypress #item-body .bp-profile-content .intro .profile-fields tr td.data {
 		width: auto;
 	}
+}
+@media (max-width: 1200px) {
+	#bbpress-forums#bbpress-forums .bs-forums-items.bs-item-list.list-view .bfc-like-section div.action {
+		margin-top: 0;
+		min-width: 0;
+		padding-left: 0;
+	}
+}
 
+@media (max-width: 1000px) {
 	.my-groups #groups-list .bfc-group-latest-post,
 	.mygroups #groups-list .bfc-group-latest-post {
 	margin-top: 11px;
@@ -1050,5 +1056,23 @@ nav#object-nav li.bfc-group-name-nav{
 
 	.item-list.groups-list:not(.grid) .list-wrap {
 		display: block;
+	}
+
+	#buddypress .bbp-reply-content.bs-forum-content .bfc-post-functions .bfc-like-section {
+		padding-left: 0;
+		margin-top: -8px;
+	}
+
+	#buddypress .bbp-reply-content.bs-forum-content .bfc-post-functions .bfc-like-section .has-likes {
+		margin-bottom: -5px;
+	}
+
+	#bbpress-forums#bbpress-forums .bs-forums-items.bs-item-list.list-view .action .button {
+		padding-left: 0;
+	}
+
+	#bbpress-forums#bbpress-forums .bs-forums-items.bs-item-list.list-view div.action {
+		padding-left: 0;
+		margin-top: 4px;
 	}
 }
