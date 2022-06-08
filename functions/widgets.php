@@ -228,10 +228,6 @@ class bsp_Activity_Widget extends WP_Widget {
 		// Note: private and hidden forums will be excluded via the
 		// bbp_pre_get_posts_normalize_forum_visibility action and function.
 		$widget_query = new WP_Query( $topics_query );
-				// Bail if no topics are found
-		if ( ! $widget_query->have_posts() ) {
-			return;
-		}
 
 		$is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
 		$follow_class = $is_follow_active ? 'follow-active' : '';
@@ -241,6 +237,12 @@ class bsp_Activity_Widget extends WP_Widget {
 		echo "<div class='bfc-widget-head'>";
 		
 		echo '<span class="bsp-la-title">' . $args['before_title'] . $settings['title'] . $args['after_title'] . '</span>' ;
+
+		// Bail with error messages if group has no forum
+		If (bp_current_component() == 'groups' && !bp_group_is_forum_enabled()) {
+			echo '</div><p class="widget-error">This group has no forum</p>';
+			return;
+		}
 
 		If (bp_current_component() == 'groups') {
 			$forum_id = bbp_get_group_forum_ids (bp_get_current_group_id());
@@ -279,7 +281,16 @@ class bsp_Activity_Widget extends WP_Widget {
 		}
 		$helptip .= "</span></div></div>";
 		echo $helptip;
-		
+
+		// Bail with error messages if no topics are found
+		if ( ! $widget_query->have_posts() ) {
+			If (bp_current_component() == 'groups') {
+				echo '<p class="widget-error">No threads yet in this group\'s forum</p></div>';
+			} else {
+				echo '<p class="widget-error">No forum threads yet in any of your groups</p></div>';
+			}
+			return;
+		}
 		
 		?>
 		
