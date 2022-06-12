@@ -5,6 +5,18 @@ defined( 'ABSPATH' ) || exit;
 
 define( 'BP_GROUPS_DEFAULT_EXTENSION', 'courtyard' );
 
+// from https://neliosoftware.com/blog/how-to-upload-additional-file-types-in-wordpress/
+
+add_filter( 'upload_mimes', 'my_myme_types', 1, 1 );
+function my_myme_types( $mime_types ) {
+  $mime_types['svg'] = 'image/svg+xml';     // Adding .svg extension
+//   $mime_types['json'] = 'application/json'; // Adding .json extension
+//   
+//   unset( $mime_types['xls'] );  // Remove .xls extension
+//   unset( $mime_types['xlsx'] ); // Remove .xlsx extension
+  
+  return $mime_types;
+}
 
 function bfc_member_dropdown( $type, $instance_id, $person, $follow_class ) {
 	$user = bp_loggedin_user_id();

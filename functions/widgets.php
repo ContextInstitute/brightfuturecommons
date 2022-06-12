@@ -918,7 +918,7 @@ class bfc_latest_activities extends WP_Widget {
 				'scope'        => 'groups',
 				'user_id'      => implode(',', $group_members),
 				'object'       => 'groups',
-				'action'       => 'activity_update,joined_group',//join( ',', $type ),
+				'action'       => 'activity_update,joined_group,bulk_add_to_group',//join( ',', $type ),
 				'primary_id'   => bp_get_current_group_id(),
 				'secondary_id' => 0,
 			);

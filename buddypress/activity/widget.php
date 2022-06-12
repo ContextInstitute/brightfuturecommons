@@ -18,10 +18,16 @@
 		
 		while ( bp_activities() ) :
 			bp_the_activity();
+			$activity_id = bp_get_activity_id();
+			
+			if ( bp_activity_get_meta($activity_id,'bp_media_ids') ) {
+				continue;
+			};
+			
 			global $bfc_dropdown_prefix;
 			$type = $bfc_dropdown_prefix . '-update';
 			$person = bp_get_activity_user_id();
-			$activity_id = bp_get_activity_id();
+
 
 		?>
 		<div class="activity-update">
