@@ -766,7 +766,8 @@ nav#object-nav li.bfc-group-name-nav{
 	color: #999;
 }
 
-.post .entry-content p {
+.post .entry-content p,
+.post .entry-content li {
 	font-family:  charter, Georgia, Cambria, 'Times New Roman', Times, serif;
 	font-size: 17px;
 	margin-bottom: 20px;
