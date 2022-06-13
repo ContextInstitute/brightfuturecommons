@@ -671,4 +671,10 @@ function bfc_activity_format_group_action_bulk_add( $action, $activity ) {
      */
     return apply_filters( 'bfc_activity_format_group_action_bulk_add', $action, $activity );
 }
+
+function bfc_members_per_page( $retval ) {
+    $retval['per_page'] = 32;
+    return $retval;
+}
+add_filter( 'bp_after_has_members_parse_args', 'bfc_members_per_page' );
 ?>
