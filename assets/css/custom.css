@@ -582,7 +582,15 @@ nav#object-nav li.bfc-group-name-nav{
 	border-top: #122B46;
     border-top-width: 1px;
     border-top-style: solid;
-    margin-bottom: -10px;
+    
+}
+
+.bfc-user-panel .bfc-after-widget {
+	margin-bottom: -10px;
+}
+
+.bfc-user-accordion .bfc-after-widget {
+	margin-bottom: 10px;
 }
 
 #bbpress-forums .bbp-reply-form.bb-modal.bb-modal-box {
@@ -959,6 +967,11 @@ nav#object-nav li.bfc-group-name-nav{
 .bb-mobile-panel-header .avatar {
 	border-radius: 20%;
 }
+
+.flex-video.widescreen, .responsive-embed.widescreen {
+	padding-bottom: 75%;
+}
+
 @media (max-width: 640px) {
 	#members-intros, #bbpress-forums.bb-content-area {
 		width: auto;
