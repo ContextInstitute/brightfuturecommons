@@ -131,9 +131,8 @@ function custom_group_tab_content() {
 ?>
 	<div class="group-home-page">
 		<h2 class="user-home-welcome">
-			<span class="user-home-welcome-welcome">Welcome to the  </span>
+			<span class="user-home-welcome-welcome">Welcome to the courtyard for </span>
 			<span class="user-home-welcome-name"><?php echo esc_html( bp_get_group_name() ); ?></span>
-			<span class="user-home-welcome-welcome"> courtyard</span>
 		</h2>
 
 		<div class="bfc-group-description"><?php bp_current_group_description();?></div>
@@ -192,7 +191,7 @@ function custom_group_tab_content() {
 			<?php $bfc_dropdown_prefix = 'ac';?>
 			<?php if ( is_active_sidebar( 'dash_left_panel' ) ) : ?>
 				<div id="bfc-dash-panel-top" class="bfc-user-panel-top widget-area" data-accordion-item>
-				<a href="#" class="accordion-title">Latest Updates</a>
+				<a href="#" class="accordion-title">Latest Group Updates</a>
 				<div class="accordion-content" data-tab-content>
 					<?php dynamic_sidebar( 'dash_left_panel' ); ?>
 				</div></div><!-- #bfc-dash-panel-le-top -->
@@ -672,6 +671,7 @@ function bfc_activity_format_group_action_bulk_add( $action, $activity ) {
     return apply_filters( 'bfc_activity_format_group_action_bulk_add', $action, $activity );
 }
 
+// from https://stackoverflow.com/questions/31558464/how-to-change-members-per-page-in-buddypress-members-directory
 function bfc_members_per_page( $retval ) {
     $retval['per_page'] = 32;
     return $retval;
