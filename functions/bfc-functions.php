@@ -20,12 +20,18 @@ function my_myme_types( $mime_types ) {
 
 function bfc_member_dropdown( $type, $instance_id, $person, $follow_class ) {
 	$user = bp_loggedin_user_id();
+	$old_user = bp_current_member_switched();
 	$output = '<div class="dropdown-pane ' . $follow_class . '" id="' . $type . '-dropdown-' . esc_attr( $instance_id ) . '" data-dropdown data-hover="true" data-hover-pane="true" data-auto-focus="false">';
 	if ( $person != $user ) {
 		$output .= '<a href="/members/' . bp_core_get_username( $user ) . '/messages/compose/?r=' . bp_core_get_username( $person ) . '">Send a message</a><br>';
 		if ( 'follow-active' == $follow_class ) {
 			$output .= bp_get_add_follow_button( $person, $user );
 		}
+		if ( is_super_admin( $user ) ) {
+			$output .= bp_get_add_switch_button( $person);
+		}
+	} elseif ( $old_user ) {
+		$output .= bp_get_add_switch_button( $old_user->ID );
 	}
 	$output .= '<a href="/members/' . bp_core_get_username( $person ) . '">Visit profile</a></div>';
 	return $output;
