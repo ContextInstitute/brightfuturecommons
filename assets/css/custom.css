@@ -15,6 +15,10 @@ body {
 	-webkit-font-smoothing:auto;
 }
 
+.buddypress .buddypress-wrap button.ges-change:hover {
+	background-color: hsl(211deg 100% 50%) !important;
+}
+
 /* Avatars */
 #groups-list .bfc-rounded  img.avatar,
 .bb-activity img.avatar{
@@ -458,7 +462,7 @@ nav#object-nav li.bfc-group-name-nav{
 
 .bp-activity-info p,
 .bfc-la-topic-excerpt {
-	font-size: 13px;
+	font-size: 14px;
 }
 
 .bsp-la-forum-title,
@@ -477,19 +481,6 @@ nav#object-nav li.bfc-group-name-nav{
 
 .bfc-user-panels h2 {
 	font-size: 26px;
-}
-#bfc-user-panels div.tribe-compatibility-container h2.tribe-events-widget-events-list__header-title {
-	font-weight: 400;
-	font-size: 26px;
-	font-family: "SF UI Display", sans-serif;
-	color: #122B46;
-}
-
-#bfc-user-panel-right .tribe-compatibility-container {
-	margin-top: 20px;
-	border-top: #122B46;
-	border-top-width: 1px;
-	border-top-style: solid;
 }
 
 .user-home-welcome{
@@ -560,7 +551,7 @@ nav#object-nav li.bfc-group-name-nav{
 .bfc-user-accordion .activity-content,
 .bfc-user-panel .activity-content {
 	/* margin-left: 46px; */	
-	font-size: 13px;
+	font-size: 14px;
 	margin-bottom: 24px;
 	/* padding-bottom: 10px; */
 	border-bottom: 1px solid #eaeaea;
@@ -970,6 +961,54 @@ nav#object-nav li.bfc-group-name-nav{
 
 .flex-video.widescreen, .responsive-embed.widescreen {
 	padding-bottom: 75%;
+}
+
+/* Events Calendar */
+
+#bfc-user-panels div.tribe-compatibility-container h2.tribe-events-widget-events-list__header-title {
+	font-weight: 400;
+	font-size: 26px;
+	font-family: "SF UI Display", sans-serif;
+	color: #122B46;
+}
+
+#bfc-user-panel-right .tribe-compatibility-container {
+	margin-top: 20px;
+	border-top: #122B46;
+	border-top-width: 1px;
+	border-top-style: solid;
+}
+
+#bfc-user-accordion div.tribe-compatibility-container h2.tribe-events-widget-events-list__header-title {
+	font-weight: 400;
+	font-size: 20px;
+	font-family: "SF UI Display", sans-serif;
+	color: #122B46;
+}
+
+#bfc-user-accordion .tribe-compatibility-container {
+	margin-top: 20px;
+	border-top: #122B46;
+	border-top-width: 1px;
+	border-top-style: solid;
+}
+
+.tribe-compatibility-container .tribe-common .tribe-common-h2,
+.tribe-compatibility-container .tribe-common .tribe-common-h7 {
+    font-family: "SF UI Display", sans-serif;
+    font-weight: 500;
+}
+
+.tribe-compatibility-container .tribe-common .tribe-common-h2 {
+	font-size: 20px;
+}
+
+.tribe-compatibility-container .tribe-common .tribe-common-h7 {
+	font-size: 14px;
+}
+
+.tribe-compatibility-container .tribe-events-widget .tribe-events-widget-events-list__event-date-tag-month {
+	margin-bottom: 0;
 }
 
 @media (max-width: 640px) {
