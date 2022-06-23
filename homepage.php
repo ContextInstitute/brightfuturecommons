@@ -47,7 +47,7 @@ get_header(); ?>
 			<ul id="bfc-user-accordion" class="bfc-user-accordion accordion" data-accordion data-allow-all-closed="true">
 				<?php if ( is_active_sidebar( 'user_left_panel' ) ) : ?>
 					<li class="accordion-item bfc-user-panel-top widget-area" data-accordion-item >
-					<a href="#" class="accordion-title">Latest Updates</a>
+					<a href="#" class="accordion-title">Messages & Updates</a>
 					<div class="accordion-content" data-tab-content>
 						<?php dynamic_sidebar( 'user_left_panel' ); ?>
 					</div></li><!-- #bfc-user-panel-le-top -->
@@ -63,7 +63,7 @@ get_header(); ?>
 
 				<?php if ( is_active_sidebar( 'user_right_panel' ) ) : ?>
 					<li class="accordion-item bfc-user-panel-bottom widget-area" data-accordion-item >
-					<a href="#" class="accordion-title">Blog Posts</a>
+					<a href="#" class="accordion-title">Blog Posts & Events</a>
 					<div class="accordion-content" data-tab-content>
 						<?php dynamic_sidebar( 'user_right_panel' ); ?>
 					</div></li><!-- #bfc-user-panel-bottom -->
