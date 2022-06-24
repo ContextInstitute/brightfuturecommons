@@ -16,6 +16,9 @@
 			<?php
 			while ( bp_nouveau_nav_items() ) :
 				bp_nouveau_nav_item();
+				if (bp_nouveau_get_nav_link_text() == 'Timeline' && !(is_super_admin( bp_loggedin_user_id()) || bp_is_item_admin()) ) {
+					continue;
+				}
 			?>
 
 				<li id="<?php bp_nouveau_nav_id(); ?>" class="<?php bp_nouveau_nav_classes(); ?>">
