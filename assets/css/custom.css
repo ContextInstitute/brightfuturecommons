@@ -201,7 +201,11 @@ nav#object-nav li.bfc-group-name-nav{
 #buddypress .bb-grid  .dropdown-pane .follow-button, 
 #buddypress .bp-list .dropdown-pane .follow-button, 
 #bfc-user-panels .dropdown-pane .follow-button, 
-#bfc-user-accordion .dropdown-pane .follow-button {
+#bfc-user-accordion .dropdown-pane .follow-button,
+#buddypress .bb-grid  .dropdown-pane .switch-button, 
+#buddypress .bp-list .dropdown-pane .switch-button, 
+#bfc-user-panels .dropdown-pane .switch-button, 
+#bfc-user-accordion .dropdown-pane .switch-button {
 	background: transparent;
 	border: 0;
 	border-radius: 0;
@@ -223,6 +227,8 @@ nav#object-nav li.bfc-group-name-nav{
 	text-align: center;
 	width: 150px;
 	padding: 10px;
+	color: #007CFF;
+	line-height: 1.2;
 }
 
 .bfc-dropdown-span {
@@ -282,11 +288,15 @@ nav#object-nav li.bfc-group-name-nav{
 #members-dir-grid.members #members-list div.list-wrap {
 	display: flex;
 	border-radius: 0px;
-	background: #fafafa;
+	background: #fff;
 	border: 0;
 	padding : 0;
 	min-height: 40px;
 	}
+
+#buddypress .members-directory-content {
+	background-color: #fff;
+}
 
 @media (max-width:767px) {
 	#members-group-list.group_members ul#members-list,
@@ -961,6 +971,27 @@ nav#object-nav li.bfc-group-name-nav{
 
 .flex-video.widescreen, .responsive-embed.widescreen {
 	padding-bottom: 75%;
+}
+
+#buddypress nav#object-nav a,
+#header-aside a.user-link,
+#site-navigation .primary-menu a {
+	font-size: 15px;
+}
+
+.bp-profile-search-widget .submit-wrapper input {
+	min-width: 0;
+}
+
+#buddypress .bp-navs ul li.selected a, 
+nav#object-nav .selected > a {
+	color: hsl(211deg 100% 50%) !important;
+}
+
+.primary-menu .current_page_item > a {
+	height: 62px;
+	border-bottom-style: solid;
+    border-bottom-width: 1px;
 }
 
 /* Events Calendar */
