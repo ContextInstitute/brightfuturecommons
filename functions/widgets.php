@@ -890,19 +890,28 @@ class bfc_latest_activities extends WP_Widget {
 		 * Globalize the activity widget arguments.
 		 * @see bp_nouveau_activity_widget_query() to override
 		 */
-
-		$followers = bp_get_following( array ('user_id' => bp_loggedin_user_id()) );
-		$followers[] = bp_loggedin_user_id();
-		$followers_and_me = implode(',', (array)$followers); 
+		
+		$myfollows = (array) bp_get_following( array('user_id' => bp_loggedin_user_id()) );
+		$group_ids = groups_get_user_groups(bp_loggedin_user_id());
+		foreach($group_ids["groups"] as $group_id) { 
+			$group_admins = groups_get_group_admins($group_id);
+			foreach($group_admins as $admin_id) {
+				$myfollows[] = (string)$admin_id->user_id;
+			}
+		}
+		$myfollows[] = bp_loggedin_user_id();
+		
+		$myfollows_and_me = implode(',', array_unique($myfollows)); 
 
 		$bp_nouveau->activity->widget_args = array(
-			'max'          => 10,
-			'scope'        => 'all',
-			'user_id'      => $followers_and_me,
+			'max'          => 30,
+			'scope'        => false,
+			'user_id'      => $myfollows_and_me,
 			'object'       => false,
 			'action'       => 'activity_update', //join( ',', $type ),
-			'primary_id'   =>  0, //bp_get_current_group_id(),
-			'secondary_id' => 0,
+			'primary_id'   => false, //bp_get_current_group_id(),
+			'secondary_id' => false,
+			'show_hidden'  => true,
 		);
 
 		If (bp_current_component() == 'groups') {

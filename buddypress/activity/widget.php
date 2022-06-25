@@ -15,12 +15,24 @@
 		<?php
 		$is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
 		$follow_class = $is_follow_active ? 'follow-active' : '';
-		
+		$user = bp_loggedin_user_id();
+		$shown_topics = 10;
+		$visible_topics = 0;
 		while ( bp_activities() ) :
 			bp_the_activity();
 			$activity_id = bp_get_activity_id();
+			$activity_item = new BP_Activity_Activity($activity_id);
+			$myfollows = (array) bp_get_following( array('user_id' => $user) );
+			$author = $activity_item->user_id;
+			if ($activity_item->component == 'activity' && !(in_array($author,$myfollows) || $author == $user)) {
+				continue;
+			}
+
+			if ($activity_item->component == 'groups' && $activity_item->hide_sitewide && !groups_is_user_member($user, $activity_item->item_id)) {
+				continue;
+			}
 			
-			if ( bp_activity_get_meta($activity_id,'bp_media_ids') ) {
+			if ( bp_activity_get_meta($activity_id,'bp_media_ids') || bp_activity_get_meta($activity_id,'bp_media_id') ) {
 				continue;
 			};
 			
@@ -64,7 +76,10 @@
 
 		</div>
 
-		<?php endwhile; ?>
+		<?php 
+		$visible_topics++;
+		if ($visible_topics == $shown_topics) {break;}
+		endwhile; ?>
 
 	</div>
 
