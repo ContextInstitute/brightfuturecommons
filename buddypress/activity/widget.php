@@ -32,10 +32,6 @@
 				continue;
 			}
 			
-			if ( bp_activity_get_meta($activity_id,'bp_media_ids') || bp_activity_get_meta($activity_id,'bp_media_id') ) {
-				continue;
-			};
-			
 			global $bfc_dropdown_prefix;
 			$type = $bfc_dropdown_prefix . '-update';
 			$person = bp_get_activity_user_id();
