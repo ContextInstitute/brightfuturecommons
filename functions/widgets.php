@@ -903,6 +903,8 @@ class bfc_latest_activities extends WP_Widget {
 		
 		$myfollows_and_me = implode(',', array_unique($myfollows)); 
 
+		// For allowed arguments, see https://www.buddyboss.com/resources/reference/functions/bp_has_activities/
+		// For meta_query, see https://developer.wordpress.org/reference/classes/wp_meta_query/
 		$bp_nouveau->activity->widget_args = array(
 			'max'          => 30,
 			'scope'        => false,
@@ -912,6 +914,7 @@ class bfc_latest_activities extends WP_Widget {
 			'primary_id'   => false, //bp_get_current_group_id(),
 			'secondary_id' => false,
 			'show_hidden'  => true,
+			'meta_query'   => array ('relation'=> 'AND', array('key'=>'bp_media_id','compare'=>'NOT EXISTS'), array('key'=>'bp_media_ids','compare'=>'NOT EXISTS')),
 		);
 
 		If (bp_current_component() == 'groups') {
@@ -930,6 +933,7 @@ class bfc_latest_activities extends WP_Widget {
 				'action'       => 'activity_update,joined_group,bulk_add_to_group',//join( ',', $type ),
 				'primary_id'   => bp_get_current_group_id(),
 				'secondary_id' => 0,
+				'meta_query'   => array ('relation'=> 'AND', array('key'=>'bp_media_id','compare'=>'NOT EXISTS'), array('key'=>'bp_media_ids','compare'=>'NOT EXISTS')),
 			);
 		}
 
