@@ -611,8 +611,10 @@ nav#object-nav li.bfc-group-name-nav{
 .mygroups #groups-list .group-members-wrap {
 	display: none;
 }
-/* #buddypress .my-groups .bp-list .action .generic-button .group-button,
-#buddypress .mygroups .bp-list .action .generic-button .group-button */
+
+#buddypress #groups-list.bp-list .list-title a {
+	color: #007cFF;
+}
 
 #buddypress #groups-list.bp-list .action {
 	display: block;
