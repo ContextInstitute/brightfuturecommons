@@ -416,7 +416,13 @@ function bfc_group_members( $group_id = false, $role = array() ) {
 
 }
 
+// used to display the latest post for a group on the group directory page
 function bfc_latest_post ($ugroup_id = 0) {
+
+	// Bail if group has no forum
+	if ( !bp_group_is_forum_enabled( groups_get_group( $ugroup_id ) ) ) {
+		return;
+	}
 
 	$topics_query = array(
 		'post_type'           => bbp_get_topic_post_type(),
