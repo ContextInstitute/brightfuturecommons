@@ -15,11 +15,6 @@ body {
 	-webkit-font-smoothing:auto;
 }
 
-.buddypress .buddypress-wrap button.ges-change:hover {
-	background-color: hsl(211deg 100% 50%) !important;
-	color: #fff;
-}
-
 /* Avatars */
 #groups-list .bfc-rounded  img.avatar,
 .bb-activity img.avatar{
@@ -609,6 +604,10 @@ nav#object-nav li.bfc-group-name-nav{
 	color: #007cFF;
 }
 
+#buddypress #groups-list.bp-list .groups-loop-buttons {
+    margin-top: 2px;
+}
+
 #buddypress #groups-list.bp-list .action {
 	display: block;
 }
@@ -624,7 +623,30 @@ body.bp-nouveau.groups:not(.single-item) .group-subscription-div {
 }
 
 #buddypress #groups-list.bp-list .action .generic-button .group-button {
-    min-width: 120px;
+	min-width: 106px;
+    padding: 0 12px;
+    min-height: 20px;
+    line-height: 24px;
+}
+
+#buddypress .bp-list .action .generic-button .accept-invite,
+#buddypress .bp-list .action .generic-button .join-group,
+#buddypress .bp-list .action .generic-button .request-membership {
+    background: hsl(211deg 100% 50%);
+    color: hsl(0deg 0% 100%);
+}
+
+/* .buddypress .buddypress-wrap button.ges-change:active,
+.buddypress .buddypress-wrap button.ges-change:focus,
+
+body #buddypress .bp-list .action .generic-button .membership-requested {
+    color: hsl(211deg 100% 50%);
+    background: hsl(0deg 0% 100%);
+} */
+
+body #buddypress .bp-list .action .generic-button .membership-requested:hover {
+	box-shadow: none;
+	color: hsl(211deg 100% 50%);
 }
 
 #groups-list.bp-list:not(.grid)  {
