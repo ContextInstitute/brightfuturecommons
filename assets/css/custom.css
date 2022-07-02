@@ -637,12 +637,12 @@ body.bp-nouveau.groups:not(.single-item) .group-subscription-div {
 }
 
 /* .buddypress .buddypress-wrap button.ges-change:active,
-.buddypress .buddypress-wrap button.ges-change:focus,
+.buddypress .buddypress-wrap button.ges-change:focus, */
 
 body #buddypress .bp-list .action .generic-button .membership-requested {
     color: hsl(211deg 100% 50%);
     background: hsl(0deg 0% 100%);
-} */
+}
 
 body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	box-shadow: none;
@@ -963,10 +963,6 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 }
 }
 
-#buddypress #dir-groups-search {
-	margin-bottom: 4px;
-}
-
 #bbpress-forums .replies-content .bbp-reply-form.bb-modal.bb-modal-box {
 	display: block !important;
 }
@@ -1084,7 +1080,31 @@ nav#object-nav .selected > a {
 	margin-bottom: 0;
 }
 
+#buddypress .tmce-active .quicktags-toolbar {
+    display: none !important;
+}
+
+#buddypress #dir-groups-search {
+	margin-bottom: 0px;
+}
+
+#buddypress .groups.group-members #group-members-search,
+#buddypress .messages-wrapper #user_messages_search {
+    background-color: #fff;
+    margin-bottom: 0;
+}
+
+@media (min-width: 800px) {
+	.bp-profile-search-widget {
+		margin-top: 93px;
+	}
+}
+
 @media (max-width: 640px) {
+
+	.content-area {
+		padding-top: 1.25rem;
+	}
 	#members-intros, #bbpress-forums.bb-content-area {
 		width: auto;
 	}
@@ -1157,6 +1177,30 @@ nav#object-nav .selected > a {
 	#buddypress #item-body .bp-profile-content .intro .profile-fields tr td.data {
 		width: auto;
 	}
+
+	#buddypress .subnav-search.groups-search {
+		margin-top: -60px;
+		width: inherit;
+	}
+
+	.directory.groups .bp-secondary-header {
+		display: none;
+	}
+
+	.directory.groups .buddypress-wrap .subnav-filters div,
+	.buddypress-wrap.bp-dir-hori-nav:not(.bp-vertical-navs) nav {
+		margin-bottom: 0;
+	}
+
+	.directory.members article.page>.entry-header {
+		margin-bottom: 0.75em;
+	}
+
+	.directory.members .buddypress-wrap .subnav-filters .component-filters, 
+	.directory.members .buddypress-wrap .subnav-filters div {
+		margin-top: 10px;
+	}
+
 }
 @media (max-width: 1200px) {
 	#bbpress-forums#bbpress-forums .bs-forums-items.bs-item-list.list-view .bfc-like-section div.action {

@@ -297,20 +297,36 @@ add_filter( 'bp_nouveau_get_members_directory_nav_items', 'bfc_followers_nav' );
 
 function bfc_followers_nav  ( $nav_items ) {
 	if ( is_user_logged_in() ) {
+		// If follow component is active and the user has no followers yet - expands on bp_nouveau_get_members_directory_nav_items() in wp-content/plugins/buddyboss-platform/bp-templates/bp-nouveau/includes/members/functions.php
 		if ( bp_is_active( 'activity' ) && bp_is_activity_follow_active() ) {
 			$counts = bp_total_follow_counts();
 
-			if ( ! empty( $counts['followers'] ) ) {
-				$nav_items['followers'] = array(
+			if ( empty( $counts['following'] ) ) {
+				$nav_items['following'] = array(
 					'component' => 'members',
-					'slug'      => 'followers', // slug is used because BP_Core_Nav requires it, but it's the scope
+					'slug'      => 'following', // slug is used because BP_Core_Nav requires it, but it's the scope
 					'li_class'  => array(),
-					'link'      => bp_loggedin_user_domain() . bp_get_follow_slug() . '/my-followers/',
-					'text'      => __( 'Followers', 'bfcommons-theme' ),
-					'count'     => $counts['followers'],
-					'position'  => 20,
+					'link'      => bp_loggedin_user_domain() . bp_get_follow_slug() . '/my-following/',
+					'text'      => __( 'Following', 'buddyboss' ),
+					'count'     => 0,
+					'position'  => 16,
 				);
 			}
+		// }
+		
+		// if ( bp_is_active( 'activity' ) && bp_is_activity_follow_active() ) {
+		// 	$counts = bp_total_follow_counts();
+			if ( empty( $counts['followers'] ) ) {$counts['followers'] = 0;}
+
+			$nav_items['followers'] = array(
+				'component' => 'members',
+				'slug'      => 'followers', // slug is used because BP_Core_Nav requires it, but it's the scope
+				'li_class'  => array(),
+				'link'      => bp_loggedin_user_domain() . bp_get_follow_slug() . '/my-followers/',
+				'text'      => __( 'Followers', 'bfcommons-theme' ),
+				'count'     => $counts['followers'],
+				'position'  => 20,
+			);
 		}
 	return $nav_items;
 	}	
