@@ -358,15 +358,6 @@ function bfc_followers_args ( $qs, $object ) {
   return $qs;
 }
 
-// function bfc_remove_bp_forum_notifications () {
-// 	if ('no' == (bp_get_user_meta(bp_loggedin_user_id(), 'notification_forums_following_reply', true ))) {
-// 		bp_update_user_meta (bp_loggedin_user_id(), 'notification_forums_following_reply', 'yes' );
-// 	}
-// 	if ('no' == (bp_get_user_meta(bp_loggedin_user_id(), 'notification_forums_following_topic', true ))) {
-// 		bp_update_user_meta (bp_loggedin_user_id(), 'notification_forums_following_topic', 'yes' );
-// 	}
-// }
-// add_action( 'bp_notification_settings', 'bfc_remove_bp_forum_notifications', 99 );
 
 function bfc_group_members( $group_id = false, $role = array() ) {
 
