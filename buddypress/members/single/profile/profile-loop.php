@@ -12,7 +12,7 @@ $edit_profile_link = trailingslashit( bp_displayed_user_domain() . bp_get_profil
 <header class="entry-header profile-loop-header profile-header flex align-items-center">
 	<h1 class="entry-title bb-profile-title">
 		<?php
-			$user_possessive = xprofile_get_field_data( 'First Name', bp_displayed_user_id() ) . "'s ";
+			$user_possessive = esc_html( xprofile_get_field_data( 'First Name', bp_displayed_user_id() ) ) . "'s ";
 			if( bp_is_my_profile() ) {$user_possessive = "My ";}
 			echo $user_possessive;
 			esc_attr_e( 'Profile', 'buddyboss-theme' ); 
