@@ -19,5 +19,9 @@ require_once(get_stylesheet_directory().'/functions/widgets.php');
 // bfcom-specific like functions
 require_once(get_stylesheet_directory().'/functions/like-functions.php');
 
+// bfcom-specific activity-action functions
+require_once(get_stylesheet_directory().'/functions/bfc-activity-actions.php');
+
+
 
 ?>
