@@ -1080,6 +1080,10 @@ nav#object-nav .selected > a {
 	margin-bottom: 0;
 }
 
+.show-support .author-post-meta {
+    display: none;
+}
+
 #buddypress .tmce-active .quicktags-toolbar {
     display: none !important;
 }
