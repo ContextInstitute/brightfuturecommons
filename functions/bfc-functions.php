@@ -571,4 +571,19 @@ function bfc_members_per_page( $retval ) {
     return $retval;
 }
 add_filter( 'bp_after_has_members_parse_args', 'bfc_members_per_page' );
+
+add_filter('bp_activity_get_visibility_levels', 'bfc_activity_visibility_levels'); 
+
+function bfc_activity_visibility_levels($allowed_visibilities){
+	unset( $allowed_visibilities['public'] );
+	return $allowed_visibilities;
+}
+
+add_filter( 'bp_before_activity_add_parse_args', 'bfc_custom_change_privacy_when_public', 100 );
+
+function bfc_custom_change_privacy_when_public( $r ) {  
+if ( 'public' === $r['privacy'] ) {    $r['privacy'] = 'loggedin';  }  
+return $r;
+}
+
 ?>
