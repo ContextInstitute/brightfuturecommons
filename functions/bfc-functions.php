@@ -586,4 +586,55 @@ if ( 'public' === $r['privacy'] ) {    $r['privacy'] = 'loggedin';  }
 return $r;
 }
 
+add_filter ('bp_nouveau_feedback_messages', 'bfc_feedback_messages');
+
+function bfc_feedback_messages($feedback_messages) {
+	if(bp_loggedin_user_id() == bp_displayed_user_id()) {
+		$user_possessive = "Your";
+	} else {
+		$user_possessive = esc_html( xprofile_get_field_data( 'First Name', bp_displayed_user_id() ) ) . "'s";
+	}
+
+	$feedback_messages['member-media-loading'] = array(
+		'type'    => 'loading',
+		'message' => sprintf( __( 'Loading %s photos. Please wait.', 'bfcommons-theme' ), $user_possessive ));
+	$feedback_messages['member-activity-loading'] = array(
+		'type'    => 'loading',
+		'message' => sprintf( __( 'Loading %s updates. Please wait.', 'bfcommons-theme' ), $user_possessive ));
+	$feedback_messages['member-blogs-loading'] = array(
+		'type'    => 'loading',
+		'message' => sprintf( __( 'Loading %s blog. Please wait.', 'bfcommons-theme' ), $user_possessive ));
+	$feedback_messages['member-friends-loading'] = array(
+		'type'    => 'loading',
+		'message' => sprintf( __( 'Loading %s friends. Please wait.', 'bfcommons-theme' ), $user_possessive ));
+	$feedback_messages['member-mutual-friends-loading'] = array(
+		'type'    => 'loading',
+		'message' => sprintf( __( 'Loading %s mutual connections. Please wait.', 'bfcommons-theme' ), $user_possessive ));
+	$feedback_messages['member-groups-loading'] = array(
+		'type'    => 'loading',
+		'message' => sprintf( __( 'Loading %s groups. Please wait.', 'bfcommons-theme' ), $user_possessive ));
+	$feedback_messages['member-media-loading'] = array(
+		'type'    => 'loading',
+		'message' => sprintf( __( 'Loading %s photos. Please wait.', 'bfcommons-theme' ), $user_possessive ));
+	$feedback_messages['member-document-loading'] = array(
+		'type'    => 'loading',
+		'message' => sprintf( __( 'Loading %s files. Please wait.', 'bfcommons-theme' ), $user_possessive ));
+	$feedback_messages['member-video-loading'] = array(
+		'type'    => 'loading',
+		'message' => sprintf( __( 'Loading %s videos. Please wait.', 'bfcommons-theme' ), $user_possessive ));
+	$feedback_messages['group-members-search-none'] = array(
+		'type'    => 'info',
+		'message' => __( 'Sorry, no one with that name found within this group.', 'bfcommons-theme' ));
+	$feedback_messages['group-requests-loading'] = array(
+		'type'    => 'loading',
+		'message' => __( 'Loading the people who requested to join the group. Please wait.', 'bfcommons-theme' ));
+	$feedback_messages['directory-members-loading'] = array(
+		'type'    => 'loading',
+		'message' => __( 'Loading people of the network. Please wait.', 'bfcommons-theme' ));
+	$feedback_messages['members-loop-none'] = array(
+		'type'    => 'info',
+		'message' => __( 'Sorry, no one was found.', 'bfcommons-theme' ));
+	return $feedback_messages;
+}
+
 ?>
