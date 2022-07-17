@@ -150,7 +150,7 @@ class bsp_Activity_Widget extends WP_Widget {
 				foreach ($bfc_user_groups['groups'] as $ugroup) {
 					$uforum_id = groups_get_groupmeta( $ugroup, $meta_key = 'forum_id', $single = true);
 
-					$uforum[] .= $uforum_id[0];
+					if (isset($uforum_id[0])) {$uforum[] .= $uforum_id[0];}
 				}
 				$settings['post_parent__in'] = $uforum;
 				

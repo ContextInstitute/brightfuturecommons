@@ -818,6 +818,7 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	margin-bottom: 20px;
 }
 
+#buddypress #item-body .settings-header a.button,
 #buddypress #item-body .profile-header a.button {
 	margin-bottom: 0px;
     margin-left: 21px;
