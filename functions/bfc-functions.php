@@ -637,4 +637,32 @@ function bfc_feedback_messages($feedback_messages) {
 	return $feedback_messages;
 }
 
+/**
+ * Checks the current page to see if current_page_parent should be removed from the blog link or added to a cpt archive pagelink
+ * 
+ * From https://gist.github.com/cr0ybot/6236d1fccf315ec5aa2af7580d3a348c
+ */
+function bfc_cpt_menu_highlight( $classes, $item, $args ) {
+	// Remove current_page_parent from Blog if not on a post
+	$cpp = array_search( 'current_page_parent', $classes );
+	if ( $cpp !== false && $item->type === 'post_type' ) {
+		$qo = get_queried_object();
+		if ( ( $qo instanceof WP_Post && $qo->post_type !== 'post' ) ||
+	 		$qo instanceof WP_Post_Type && $qo->name !== 'post' ) {
+			array_splice($classes, $cpp - 1, 1);
+		}
+	}
+
+	// Add current_page_parent for cpts
+	else {
+		$pt = get_post_type();
+		if ( $pt !== 'page' && $item->object === $pt ) {
+			$classes[] = 'current_page_parent';
+		}
+	}
+
+	return $classes;
+}
+add_filter( 'nav_menu_css_class', 'bfc_cpt_menu_highlight', 10, 3 );
+
 ?>
