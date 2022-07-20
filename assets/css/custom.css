@@ -622,11 +622,55 @@ body.bp-nouveau.groups:not(.single-item) .group-subscription-div {
     float: right;
 }
 
+
+.activity-list .activity-item .comment-item .activity-meta.action .buddyboss_edit_activity_cancel, 
+.activity-list .activity-item .comment-item .activity-meta.action .buddyboss_edit_activity_comment, 
+.activity-list .activity-item .comment-item .activity-meta.action .buddyboss_edit_activity_comment.action-save, 
+.buddypress .buddypress-wrap .comment-reply-link, 
+.buddypress .buddypress-wrap .generic-button a, 
+.buddypress .buddypress-wrap a.bp-title-button, 
+.buddypress .buddypress-wrap a.button, 
+.buddypress .buddypress-wrap button, 
+.buddypress .buddypress-wrap input[type=button], 
+.buddypress .buddypress-wrap input[type=reset], 
+.buddypress .buddypress-wrap input[type=submit], 
+.buddypress .buddypress-wrap ul.button-nav:not(.button-tabs) li a, 
+input[type=button], 
+input[type=submit]
+fieldset.bbp-form .bbp-submit-wrapper .button.submit,
+#buddypress .comment-reply-link.small, 
+#buddypress .generic-button a.small, 
+#buddypress .standard-form button.small, 
+#buddypress a.button.small, 
+#buddypress input[type=button].small, 
+#buddypress input[type=reset].small, 
+#buddypress input[type=submit].small, 
+#buddypress ul.button-nav li a, 
+#buddypress .comment-reply-link,
+#buddypress .generic-button a, 
+#buddypress .standard-form button,
+#buddypress a.button, 
+#buddypress input[type=button], 
+#buddypress input[type=reset], 
+#buddypress input[type=submit], 
+#buddypress ul.button-nav li a, 
+a.bp-title-button.small,
+#buddypress .bp-docs .buddypress-wrap #subnav a.button,
+#buddypress .standard-form button,
+#buddypress #groups-list.bp-list .action .generic-button .group-button {
+    padding: 0 12px;
+	min-height: fit-content;
+    height: 30px;
+    line-height: 24px;
+}
+
 #buddypress #groups-list.bp-list .action .generic-button .group-button {
 	min-width: 106px;
-    padding: 0 12px;
-    min-height: 20px;
-    line-height: 24px;
+}
+
+#buddypress .standard-form .mce-toolbar .mce-btn button,
+#buddypress .buddypress-wrap .mce-toolbar .mce-btn button {
+	height: 20px;
 }
 
 #buddypress .bp-list .action .generic-button .accept-invite,
@@ -1097,10 +1141,13 @@ nav#object-nav .selected > a {
 	margin-bottom: 0px;
 }
 
+#buddypress #group-document-search-form #group-document-search,
+#buddypress .group-messages-search #group_messages_search,
 #buddypress .groups.group-members #group-members-search,
 #buddypress .messages-wrapper #user_messages_search {
     background-color: #fff;
     margin-bottom: 0;
+	height: 28px;
 }
 
 @media (min-width: 800px) {
@@ -1254,4 +1301,8 @@ nav#object-nav .selected > a {
 		padding-left: 0;
 		margin-top: 4px;
 	}
+}
+
+#buddypress .standard-form #doc-content-textarea label#content-label {
+    margin-bottom: 0px;
 }

@@ -22,6 +22,8 @@ require_once(get_stylesheet_directory().'/functions/like-functions.php');
 // bfcom-specific activity-action functions
 require_once(get_stylesheet_directory().'/functions/bfc-activity-actions.php');
 
+// bfcom-specific text editor functions
+require_once(get_stylesheet_directory().'/functions/bfc-editor.php');
 
 
 ?>

@@ -56,6 +56,13 @@ function buddyboss_theme_child_scripts_styles()
 	wp_enqueue_script( 'bfc-liker-js', get_stylesheet_directory_uri().'/assets/js/like.js', array('jquery'), "true" );
 	wp_localize_script( 'bfc-liker-js', 'bfcAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
 
+	wp_dequeue_script( 'buddyboss-bbpress-reply-ajax');
+
+	wp_enqueue_style( 'bfc-editor-css',	get_stylesheet_directory_uri().'/assets/css/editor.css');
+	wp_enqueue_style( 'bfc-dashicons-css',	get_stylesheet_directory_uri().'/assets/css/dashicons.css');
+
+
+
   
 }
 add_action( 'wp_enqueue_scripts', 'buddyboss_theme_child_scripts_styles', 9999 );
