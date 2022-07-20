@@ -665,4 +665,49 @@ function bfc_cpt_menu_highlight( $classes, $item, $args ) {
 }
 add_filter( 'nav_menu_css_class', 'bfc_cpt_menu_highlight', 10, 3 );
 
+
+function bfc_trim_words( $text, $num_words = 55, $more = null ) {
+    if ( null === $more ) {
+        $more = __( '&hellip;' );
+    }
+ 
+    $original_text = $text;
+    // $text          = wp_strip_all_tags( $text );
+    $num_words     = (int) $num_words;
+ 
+    /*
+     * translators: If your word count is based on single characters (e.g. East Asian characters),
+     * enter 'characters_excluding_spaces' or 'characters_including_spaces'. Otherwise, enter 'words'.
+     * Do not translate into your own language.
+     */
+    if ( strpos( _x( 'words', 'Word count type. Do not translate!' ), 'characters' ) === 0 && preg_match( '/^utf\-?8$/i', get_option( 'blog_charset' ) ) ) {
+        $text = trim( preg_replace( "/[\n\r\t ]+/", ' ', $text ), ' ' );
+        preg_match_all( '/./u', $text, $words_array );
+        $words_array = array_slice( $words_array[0], 0, $num_words + 1 );
+        $sep         = '';
+    } else {
+        $words_array = preg_split( "/[\n\r\t ]+/", $text, $num_words + 1, PREG_SPLIT_NO_EMPTY );
+        $sep         = ' ';
+    }
+ 
+    if ( count( $words_array ) > $num_words ) {
+        array_pop( $words_array );
+        $text = implode( $sep, $words_array );
+        $text = $text . $more;
+    } else {
+        $text = implode( $sep, $words_array );
+    }
+ 
+    /**
+     * Filters the text content after words have been trimmed.
+     *
+     * @since 3.3.0
+     *
+     * @param string $text          The trimmed text.
+     * @param int    $num_words     The number of words to trim the text to. Default 55.
+     * @param string $more          An optional string to append to the end of the trimmed text, e.g. &hellip;.
+     * @param string $original_text The text before it was trimmed.
+     */
+    return apply_filters( 'bfc_trim_words', $text, $num_words, $more, $original_text );
+}
 ?>
