@@ -28,11 +28,15 @@
 			<p><?php esc_html_e( 'This discussion is marked as closed to new replies, however your posting capabilities still allow you to do so.', 'bfcommons-theme' ); ?></p>
 		</div>
 
-	<?php endif; ?>
+	<?php endif; 
+	$forum_link = esc_url( bbp_get_forum_permalink( bbp_get_topic_forum_id( bbp_get_topic_id() ) ));
+	$group_link = substr($forum_link, 0, strpos($forum_link, "forum/")) . "forum/" ;
+	$action = bbp_is_reply_edit() ? bbp_get_reply_edit_url() : $group_link ;
+	?>
 
-	<div id="new-reply-<?php bbp_topic_id(); ?>" class="bbp-reply-form <?php echo ( bbp_is_single_topic() ? 'bb-modal bb-modal-box' : '' ); ?>">
+	<div id="new-reply-<?php bbp_topic_id(); ?>" class="bbp-reply-form"> <!-- <?php echo ( bbp_is_single_topic() ? 'bb-modal bb-modal-box' : '' ); ?> -->
 
-		<form id="new-post" name="new-post" method="post" action="<?php bbp_is_reply_edit() ? bbp_reply_edit_url() : the_permalink(); ?>">
+		<form id="new-post" name="new-post" method="post" action="<?php echo $action ; ?>">
 
 			<?php do_action( 'bbp_theme_before_reply_form' ); ?>
 
@@ -52,7 +56,7 @@
 
 					<?php do_action( 'bbp_theme_before_reply_form_content' ); ?>
 
-					<?php bbp_the_content( array( 'context' => 'reply' ) ); ?>
+					<?php echo bfc_get_the_content( array( 'context' => 'reply' ) ); ?>
 
 					<?php do_action( 'bbp_theme_after_reply_form_content' ); ?>
 
@@ -65,7 +69,9 @@
 
 					<?php endif; ?>
 
-					<?php bbp_get_template_part( 'form', 'attachments' ); ?>
+					<?php 
+					// bbp_get_template_part( 'form', 'attachments' ); 
+					?>
 
 					<?php if ( bbp_allow_topic_tags() && current_user_can( 'assign_topic_tags' ) ) : ?>
 
@@ -172,12 +178,7 @@
 
 							<?php bbp_cancel_reply_to_link(); ?>
 
-							<a href="#" id="bbp-close-btn" class="js-modal-close"><?php esc_html_e( 'Cancel', 'bfcommons-theme' ); ?></a>
-
-							<button type="submit" tabindex="<?php bbp_tab_index(); ?>" id="bbp_reply_submit" name="bbp_reply_submit" class="button submit small">
-								<?php esc_html_e( 'Post', 'bfcommons-theme' ); ?>
-								<i class="bb-icon-loader animate-spin"></i>
-							</button>
+							<button type="submit" id="bbp_reply_submit" name="bbp_reply_submit" class="button submit"><?php esc_html_e( 'Submit', 'bbpress' ); ?></button>
 
 							<?php do_action( 'bbp_theme_after_reply_form_submit_button' ); ?>
 
