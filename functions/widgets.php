@@ -914,7 +914,12 @@ class bfc_latest_activities extends WP_Widget {
 			'primary_id'   => false, //bp_get_current_group_id(),
 			'secondary_id' => false,
 			'show_hidden'  => true,
-			'meta_query'   => array ('relation'=> 'AND', array('key'=>'bp_media_id','compare'=>'NOT EXISTS'), array('key'=>'bp_media_ids','compare'=>'NOT EXISTS')),
+			'meta_query'   => array ('relation'=> 'AND', 
+								array('key'=>'bp_media_id','compare'=>'NOT EXISTS'), 
+								array('key'=>'bp_media_ids','compare'=>'NOT EXISTS'),
+								array('key'=>'bp_document_id','compare'=>'NOT EXISTS'), 
+								array('key'=>'bp_document_ids','compare'=>'NOT EXISTS')
+							),
 		);
 
 		If (bp_current_component() == 'groups') {
@@ -933,8 +938,13 @@ class bfc_latest_activities extends WP_Widget {
 				'action'       => 'activity_update,joined_group,bulk_add_to_group',//join( ',', $type ),
 				'primary_id'   => bp_get_current_group_id(),
 				'secondary_id' => 0,
-				'meta_query'   => array ('relation'=> 'AND', array('key'=>'bp_media_id','compare'=>'NOT EXISTS'), array('key'=>'bp_media_ids','compare'=>'NOT EXISTS')),
-			);
+				'meta_query'   => array ('relation'=> 'AND', 
+									array('key'=>'bp_media_id','compare'=>'NOT EXISTS'), 
+									array('key'=>'bp_media_ids','compare'=>'NOT EXISTS'),
+									array('key'=>'bp_document_id','compare'=>'NOT EXISTS'), 
+									array('key'=>'bp_document_ids','compare'=>'NOT EXISTS')
+								),
+);
 		}
 
 		bp_get_template_part( 'activity/widget' );
