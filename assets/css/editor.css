@@ -130,6 +130,92 @@ div.mce-tab:focus {
 	width: auto !important;
 }
 
+@media (max-width: 640px) {
+
+	.mce-container.mce-window,
+	body > .mce-container.mce-panel,
+	.mce-reset .mce-foot,
+	.mce-reset .mce-container-body,
+	.mce-reset .mce-container-body .mce-panel,
+	.buddypress .mce-window .mce-wp-help > .mce-container-body {
+		width: 100vw !important;
+	}
+	
+	.mce-container .mce-combobox {
+		left: 110px;
+	}
+
+	.mce-container .mce-abs-layout .mce-textbox  {
+		width: calc(90vw - 110px) !important;
+	}
+
+	div[aria-label="Insert/edit image"] .mce-abs-layout .mce-textbox  {
+		width: calc(90vw - 137px) !important;
+	}
+
+	div[aria-label="Insert/edit image"] .mce-abs-layout input[aria-label="Width"] {
+		width: 88px !important;
+		left: 0px !important;
+	}
+
+	div[aria-label="Insert/edit image"] .mce-abs-layout input[aria-label="Height"] {
+		width: 88px !important;
+		left: 113px !important;
+	}
+
+	div[aria-label="Insert/edit image"] .mce-abs-layout span.mce-widget {
+		left: 102px !important;
+	}
+
+	div[aria-label="Insert/edit image"] .mce-abs-layout div.mce-checkbox {
+		left: 0px !important;
+		margin-top: 24px !important;
+	}
+
+	div[aria-label="Insert/edit image"] .mce-abs-layout div.mce-btn.mce-first {
+		left: 4px !important;
+	}
+	
+	div[aria-label="Insert/edit image"] .mce-abs-layout div.mce-btn.mce-last {
+		left: 64px !important;
+	}
+
+	div[aria-label="Insert/edit media"] .mce-abs-layout .mce-textbox  {
+		width: calc(90vw - 137px) !important;
+	}
+
+	div[aria-label="Insert/edit media"] .mce-abs-layout input[aria-label="Width"] {
+		width: 88px !important;
+		left: 0px !important;
+	}
+
+	div[aria-label="Insert/edit media"] .mce-abs-layout input[aria-label="Height"] {
+		width: 88px !important;
+		left: 113px !important;
+	}
+
+	div[aria-label="Insert/edit media"] .mce-abs-layout span.mce-widget {
+		left: 102px !important;
+	}
+
+	div[aria-label="Insert/edit media"] .mce-abs-layout div.mce-checkbox {
+		left: 0px !important;
+		margin-top: 24px !important;
+	}
+
+	div[aria-label="Insert/edit media"] .mce-abs-layout div.mce-btn.mce-first {
+		left: 4px !important;
+	}
+	
+	div[aria-label="Insert/edit media"] .mce-abs-layout div.mce-btn.mce-last {
+		left: 64px !important;
+	}
+
+	.mce-container .mce-abs-layout .mce-multiline {
+		width: 90vw !important;
+	}
+}
+
 .mce-window .wp-editor-help {
 	padding: 10px 10px 0 20px;
 }
