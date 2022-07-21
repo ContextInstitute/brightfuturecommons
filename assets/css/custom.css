@@ -669,7 +669,7 @@ a.bp-title-button.small,
 }
 
 #buddypress .standard-form .mce-toolbar .mce-btn button,
-#buddypress .buddypress-wrap .mce-toolbar .mce-btn button {
+.buddypress .buddypress-wrap .mce-toolbar .mce-btn button {
 	height: 20px;
 }
 
