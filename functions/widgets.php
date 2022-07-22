@@ -246,7 +246,7 @@ class bsp_Activity_Widget extends WP_Widget {
 
 		If (bp_current_component() == 'groups') {
 			$forum_id = bbp_get_group_forum_ids (bp_get_current_group_id());
-			$compose_link = esc_url( bbp_get_forum_permalink ($forum_id[0])); 
+			$compose_link = esc_url( bbp_get_forum_permalink ($forum_id[0])) . '#new-post';
 		?>
 		<div class='bfc-write-new'><a href="<?php echo $compose_link ?>" class= ><span class= 'bb-icon-edit' ></span></a></div>
 		<?php }
