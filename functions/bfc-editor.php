@@ -9,7 +9,7 @@ function bfc_get_the_content( $args = array() ) {
 			'before'            => '<div class="bbp-the-content-wrapper">',
 			'after'             => '</div>',
 			'wpautop'           => true,
-			'media_buttons'     => false,
+			'media_buttons'     => true,
 			'textarea_rows'     => '12',
 			'tabindex'          => bbp_get_tab_index(),
 			'tabfocus_elements' => 'bbp_topic_title,bbp_topic_tags',

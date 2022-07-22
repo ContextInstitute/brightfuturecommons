@@ -13,6 +13,121 @@ https://www.w3schools.com/css/css_rwd_mediaqueries.asp
 
 body {
 	-webkit-font-smoothing:auto;
+	font-family: "SF UI Display", sans-serif;
+	font-size: 16px;
+}
+
+p, li {
+	font-size: 16px;
+}
+
+h1, .h1 {
+	font-size: 32px;
+}
+h2, .h2 {
+	font-size: 26px;
+}
+h3, .h3 {
+	font-size: 20px;
+}
+h4, .h4 {
+	font-size: 15px;
+}
+h5, .h5 {
+	font-size: 14px;
+}
+h6, .h6  {
+	font-size: 13px;
+}
+
+/* Blog and Docs type*/
+.type-bp_doc p,
+.type-bp_doc li,
+.type-post .entry-content p,
+.type-post .entry-content li {
+	font-family:  charter, Georgia, Cambria, 'Times New Roman', Times, serif;
+	font-size: 18px;
+	margin-bottom: 22px;
+}
+
+.type-bp_docs h1,
+.type-post h1,
+.type-bp_docs .h1,
+.type-post .h1 {
+	font-size: 36px;
+}
+.type-bp_docs h2,
+.type-post h2,
+.type-bp_docs .h2,
+.type-post .h2 {
+	font-size: 29px;
+}
+.type-bp_docs h3,
+.type-post h3,
+.type-bp_docs .h3,
+.type-post .h3 {
+	font-size: 23px;
+}
+.type-bp_docs h4,
+.type-post h4,
+.type-bp_docs .h4,
+.type-post .h4 {
+	font-size: 16px;
+}
+.type-bp_docs h5,
+.type-post h5,
+.type-bp_docs .h5,
+.type-post .h5 {
+	font-size: 14px;
+}
+.type-bp_docs h6,
+.type-post h6,
+.type-bp_docs .h6,
+.type-post .h6  {
+	font-size: 13px;
+}
+
+/* Forum type */
+
+#bbpress-forums .bs-forum-content p,
+#bbpress-forums .bs-forum-content li {
+	font-family: charter, Georgia, Cambria, 'Times New Roman', Times, serif;
+	font-size: 17px;
+	line-height: 1.6;
+	flex-grow: 1;
+}
+
+.bbp-reply-content p.bfc-single-user-topic-link {
+	font-family: "SF UI Display", sans-serif;
+	font-size: 15px;
+	margin-block-end: 5px;
+}
+#bbpress-forums h1.bb-reply-topic-title {
+	font-size: 34px;
+}
+#bbpress-forums .bs-forum-content h1,
+#bbpress-forums .bs-forum-content .h1 {
+	font-size: 34px;
+}
+#bbpress-forums .bs-forum-content h2,
+#bbpress-forums .bs-forum-content .h2 {
+	font-size: 27px;
+}
+#bbpress-forums .bs-forum-content h3,
+#bbpress-forums .bs-forum-content .h3 {
+	font-size: 22px;
+}
+#bbpress-forums .bs-forum-content h4,
+#bbpress-forums .bs-forum-content .h4 {
+	font-size: 15px;
+}
+#bbpress-forums .bs-forum-content h5,
+#bbpress-forums .bs-forum-content .h5 {
+	font-size: 14px;
+}
+#bbpress-forums .bs-forum-content h6,
+#bbpress-forums .bs-forum-content .h6  {
+	font-size: 13px;
 }
 
 /* Avatars */
@@ -138,9 +253,7 @@ nav#object-nav li.bfc-group-name-nav{
 	/* margin-left: -30px; */
 	padding: 0 20px;
 }
-#bbpress-forums h1.bb-reply-topic-title {
-	font-size: 28px;
-}
+
 #bbpress-forums#bbpress-forums .bs-forums-items .bbp-reply-author .item-avatar {
 	margin: auto;
 	padding-bottom: 5px;
@@ -151,12 +264,6 @@ nav#object-nav li.bfc-group-name-nav{
 	display: flex;
 }
 
-#buddypress #bbpress-forums .bbp-reply-content.bs-forum-content {
-	font-family: charter, Georgia, Cambria, 'Times New Roman', Times, serif;
-	font-size: 17px;
-	line-height: 1.6;
-	flex-grow: 1;
-}
 .bs-forum-content .bbp-topic-revision-log, .bs-forum-content .bbp-reply-revision-log{
 	display: none;
 }
@@ -167,12 +274,6 @@ nav#object-nav li.bfc-group-name-nav{
 
 #bbpress-forums div.bbp-reply-content ul.bs-dropdown li, #bbpress-forums div.bbp-topic-content ul.bs-dropdown li {
 	list-style-type: none;
-}
-
-.bbp-reply-content p.bfc-single-user-topic-link {
-	font-family: "SF UI Display", sans-serif;
-	font-size: 15px;
-	margin-block-end: 5px;
 }
 
  #bbpress-forums#bbpress-forums .bs-forums-items.list-view .bs-dropdown-wrap .bs-dropdown-wrap-inner .bs-dropdown {
@@ -853,13 +954,6 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	line-height: 36px;
 	float: right;
 	color: #999;
-}
-
-.post .entry-content p,
-.post .entry-content li {
-	font-family:  charter, Georgia, Cambria, 'Times New Roman', Times, serif;
-	font-size: 17px;
-	margin-bottom: 20px;
 }
 
 #buddypress #item-body .settings-header a.button,
