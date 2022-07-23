@@ -1400,3 +1400,7 @@ nav#object-nav .selected > a {
 #buddypress .standard-form #doc-content-textarea label#content-label {
     margin-bottom: 0px;
 }
+
+#notifications-filter-by > option[value="bb_new_mention"] {
+	display: none;
+}

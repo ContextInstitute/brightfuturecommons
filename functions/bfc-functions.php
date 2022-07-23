@@ -677,7 +677,7 @@ function bfc_docs_editor_args( $args ) {
 		$wp_editor_args = array($args);
 
 		$wp_editor_args['quicktags'] = false;
-		$wp_editor_args['media_buttons'] = false;
+		$wp_editor_args['media_buttons'] = true;
 
 	return $wp_editor_args;
 }
