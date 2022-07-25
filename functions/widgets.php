@@ -259,7 +259,7 @@ class bsp_Activity_Widget extends WP_Widget {
 			} else {
 				$helptip .= "<p>These are the <strong>most recent forum posts</strong> from this group.</p>";
 			}
-			$helptip .= "<p>To see the full post in its thread, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name.</p>			
+			$helptip .= "<p>To see the full post in its thread, click the <span class = 'bfc-widget-actions icon-bfc-arrow-up-right'></span> symbol to the right of the sender's name.</p>			
 			<p>Once you've gone to the full post, you can also <em>like</em> it and/or add a reply.</p>			
 			<p>Clicking on the thread subject takes you to the start of the thread.</p>			
 			<p>You can create a new thread by clicking on the <span class= 'bb-icon-edit' ></span> symbol to the left of the <span class= 'bb-icon-help-circle' ></span> symbol. This takes to the page that lists all of threads. Click the <em>New discussion</em> button to create your new thread.</p>			
@@ -272,7 +272,7 @@ class bsp_Activity_Widget extends WP_Widget {
 			} else {
 				$helptip .= "<p>These are the <strong>most recent forum posts</strong> from the <strong>groups</strong> you are part of.</p>";
 			}
-			$helptip .= "<p>To see the full post in its thread, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name.</p>
+			$helptip .= "<p>To see the full post in its thread, click the <span class = 'bfc-widget-actions icon-bfc-arrow-up-right'></span> symbol to the right of the sender's name.</p>
 			<p>Once you've gone to the full post, you can also <em>like</em> it and/or add a reply.</p>			
 			<p>Clicking on the thread subject takes you to the start of the thread.</p>			
 			<p>Clicking on the group name in the lower right takes you to the group dashboard/homepage.</p>			
@@ -354,7 +354,7 @@ class bsp_Activity_Widget extends WP_Widget {
 					</div>
 					
 					<div class = "bfc-widget-actions">
-						<a href="<?php echo esc_url( bbp_get_reply_url( $reply ) ); ?>" class = "bb-icon-arrow-up-right"></a>
+						<a href="<?php echo esc_url( bbp_get_reply_url( $reply ) ); ?>" class = "icon-bfc-arrow-up-right"></a>
 					</div>
 
 
@@ -648,7 +648,7 @@ class bfc_messages_widget extends WP_Widget {
 		<?php
 
 		$helptip = "<div class='bfc-helptip'><span class= 'bb-icon-help-circle' ></span><span class='bfc-helptiptext'>";
-		$helptip .= "<p>These are your <strong>unread private messages</strong>.</p><p>To see the full message thread and reply to it, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name. This will also mark the message as read and take you to your full inbox where you can work with other messages and create new ones.</p>
+		$helptip .= "<p>These are your <strong>unread private messages</strong>.</p><p>To see the full message thread and reply to it, click the <span class = 'bfc-widget-actions icon-bfc-arrow-up-right'></span> symbol to the right of the sender's name. This will also mark the message as read and take you to your full inbox where you can work with other messages and create new ones.</p>
 		<p>You can create a new message by clicking on the <span class= 'bb-icon-edit' ></span> symbol to the left of the <span class= 'bb-icon-help-circle' ></span> symbol.</p>
 		<p>You can also access your messages via the <span class = 'bb-icon-inbox-small' style='font-size:16px;'></span> symbol at the right of the top menu.</p>
 		<p>Hover over the sender's picture for quick access to sending them a new message, following them or going to their profile.</p>
@@ -681,7 +681,7 @@ class bfc_messages_widget extends WP_Widget {
 
 					$message_count++;
 					global $bfc_dropdown_prefix;
-					$type = $bfc_dropdown_prefix . '-message';
+					$type = $bfc_dropdown_prefix . '-urmessage';
 					$instance_id = $messages_template->thread->thread_id;
 					$person = $messages_template->thread->last_sender_id;
 					?>
@@ -700,7 +700,7 @@ class bfc_messages_widget extends WP_Widget {
 								</div>
 								<div class = "bfc-widget-actions">
 									<p>
-										<a href="<?php bp_message_thread_view_link(); ?>" class = "bb-icon-arrow-up-right"></a>
+										<a href="<?php bp_message_thread_view_link(); ?>" class = "icon-bfc-arrow-up-right"></a>
 									</p>
 								</div>
 							</div>
@@ -858,7 +858,7 @@ class bfc_latest_activities extends WP_Widget {
 		$helptip = "<div class='bfc-helptip'><span class= 'bb-icon-help-circle' ></span><span class='bfc-helptiptext'>";
 		If (bp_current_component() == 'groups') {
 			$helptip .= "<p>These are <strong>update messages</strong> from and for this group.</strong></p>
-			<p>To see the full message plus any comments, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name.</p>		
+			<p>To see the full message plus any comments, click the <span class = 'bfc-widget-actions icon-bfc-arrow-up-right'></span> symbol to the right of the sender's name.</p>		
 			<p>Once you've gone to the full message, you can also <em>like</em> it and/or add your comment.</p>
 			<p>You can create a new update by clicking on the <span class= 'bb-icon-edit' ></span> symbol to the left of the <span class= 'bb-icon-help-circle' ></span> symbol.</p>					
 			<p>You can access the group's full activity feed in its <a href='";
@@ -868,7 +868,7 @@ class bfc_latest_activities extends WP_Widget {
 			<p>Clicking on the person's name also takes you to their profile.</p>";
 		} else {
 			$helptip .= "<p>These are <strong>update messages</strong> from <strong>people you are following, groups you are part of and the one's you've sent.</strong></p>
-			<p>To see the full message plus any comments, click the <span class = 'bfc-widget-actions bb-icon-arrow-up-right'></span> symbol to the right of the sender's name.</p>		
+			<p>To see the full message plus any comments, click the <span class = 'bfc-widget-actions icon-bfc-arrow-up-right'></span> symbol to the right of the sender's name.</p>		
 			<p>Once you've gone to the full message, you can also <em>like</em> it and/or add your comment.</p>			
 			<p>You can create a new update by clicking on the <span class= 'bb-icon-edit' ></span> symbol to the left of the <span class= 'bb-icon-help-circle' ></span> symbol.</p>
 			<p>If it's an update from a group, clicking on the group name take you to the group's home page.</p>		

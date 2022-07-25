@@ -44,7 +44,7 @@ function buddyboss_theme_child_scripts_styles()
 	wp_enqueue_script( 'foundation-js', get_stylesheet_directory_uri() . '/foundation-sites/dist/js/foundation.min.js', array('jquery'), "true" );
 
 	// Register Foundation styles
-	wp_enqueue_style( 'foundation-css', get_stylesheet_directory_uri() . '/foundation-sites/dist/css/foundation.min.css', array(), "false", 'all' );
+	// wp_enqueue_style( 'foundation-css', get_stylesheet_directory_uri() . '/foundation-sites/dist/css/foundation.min.css', array(), "false", 'all' );
 
 	// Styles
 	wp_enqueue_style( 'buddyboss-child-css', get_stylesheet_directory_uri().'/assets/css/custom.css', '', '1.0.0' );
@@ -60,6 +60,7 @@ function buddyboss_theme_child_scripts_styles()
 
 	wp_enqueue_style( 'bfc-editor-css',	get_stylesheet_directory_uri().'/assets/css/editor.css');
 	wp_enqueue_style( 'bfc-dashicons-css',	get_stylesheet_directory_uri().'/assets/css/dashicons.css');
+	wp_enqueue_style( 'bfc-icons-css',	get_stylesheet_directory_uri().'/assets/icons/bfc-icons.css');
 
 
 
