@@ -1527,6 +1527,10 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	display: none;
 }
 
+.sub-menu-inner .has-icon .icon-added span {
+	font-family: "SF UI Text";
+}
+
 /* Messages */
 
 .bp-messages-content #bp-message-thread-list li {
