@@ -52,7 +52,7 @@
 				</div>
 				<div class = "bfc-widget-actions">
 					<!-- <p> -->
-						<a href="<?php echo bp_activity_get_permalink( $activity_id ); ?>" class = "bb-icon-arrow-up-right"></a>
+						<a href="<?php echo bp_activity_get_permalink( $activity_id ); ?>" class = "icon-bfc-arrow-up-right"></a>
 					<!-- </p> -->
 				</div>
 
