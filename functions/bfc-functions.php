@@ -146,8 +146,8 @@ function custom_group_tab_content() {
 			$group_admins = groups_get_group_admins( bp_get_current_group_id() );
 			
 			$ga_count = 0;
-			(1 < count( $group_admins )) ? $olabel = "Stewards: " : $olabel =  "Steward: "; 
-			echo $olabel;
+			$olabel = " - group ";
+			(1 < count( $group_admins )) ? $olabel .= "stewards" : $olabel .=  "steward"; 
 			$is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
 			$follow_class = $is_follow_active ? 'follow-active' : '';
 			foreach ($group_admins as $admin) {
@@ -165,6 +165,7 @@ function custom_group_tab_content() {
 				$person = $instance_id;
 				echo bfc_member_dropdown( $type, $instance_id, $person, $follow_class );
 			}
+			echo $olabel;
 			?>
 		</div>
 		
@@ -726,4 +727,63 @@ function bfc_trim_words( $text, $num_words = 55, $more = null ) {
      */
     return apply_filters( 'bfc_trim_words', $text, $num_words, $more, $original_text );
 }
+
+/**
+ * Simple helper function for make menu item objects
+ * See https://www.daggerhartlab.com/dynamically-add-item-to-wordpress-menus/
+ * @param $title      - menu item title
+ * @param $url        - menu item url
+ * @param $order      - where the item should appear in the menu
+ * @param int $parent - the item's parent item
+ * @return \stdClass
+ */ 
+function _custom_nav_menu_item( $title, $url, $order, $parent = 0 ){
+	$item = new stdClass();
+	$item->ID = 1000000 + $order + $parent;
+	$item->db_id = $item->ID;
+	$item->title = $title;
+	$item->url = $url;
+	$item->menu_order = $order;
+	$item->menu_item_parent = $parent;
+	$item->type = '';
+	$item->object = '';
+	$item->object_id = '';
+	$item->classes = array();
+	$item->target = '';
+	$item->attr_title = '';
+	$item->description = '';
+	$item->xfn = '';
+	$item->status = '';
+	return $item;
+  }
+
+add_filter( 'wp_get_nav_menu_items', 'bfc_mygroups_nav_menu_items', 20, 2 );
+function bfc_mygroups_nav_menu_items( $items, $menu ) {
+
+	if ( $menu->slug == "bfcom-main-menu" && bp_loggedin_user_id()) {
+		foreach ($items as $item) {
+			if ($item->title == "Groups") {
+				$mygroups = groups_get_user_groups(bp_loggedin_user_id());
+				$group_ids = (array)$mygroups['groups'];
+				$order = 1100;
+				foreach ($group_ids as $group_id) {
+					$order++;
+					$group_obj = groups_get_group( $group_id );
+					$items[] =  _custom_nav_menu_item($group_obj->name, bp_get_group_permalink( $group_obj ), $order, $item->ID );
+				}
+			}
+		}
+	}
+  return $items;
+}
+
+add_filter('nav_menu_css_class', 'bp_docs_is_parent', 10 , 2);
+
+function bp_docs_is_parent( $classes, $item) {
+	if (bp_docs_is_bp_docs_page() && $item->title == 'Docs' && bp_current_component() != 'groups') {
+		$classes[] = 'current_page_parent';
+	}
+	return $classes;
+}
+
 ?>
