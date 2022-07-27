@@ -1101,6 +1101,10 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	line-height: 18px;
 }
 
+#buddypress .bs-forum-content .post-like-meta .generic-button .bfc-post-like:hover {
+	background-color: #fff;
+}
+
 .post-like-meta > .generic-button > .bfc-post-like > .bfc-post-like-text {
 	color: rgb(127, 134, 143);
 	font-family: "SF UI Text", sans-serif;
@@ -1118,7 +1122,7 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 }
 
 .post-like-meta > .generic-button > .bfc-post-like:before {
-	content: "\e815";
+	content: "\ef41";
 	color: rgb(0, 124, 255);
 	display: inline-block;
 	font-family: bb-icons;
