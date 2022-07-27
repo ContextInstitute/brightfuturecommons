@@ -146,8 +146,8 @@ function custom_group_tab_content() {
 			$group_admins = groups_get_group_admins( bp_get_current_group_id() );
 			
 			$ga_count = 0;
-			(1 < count( $group_admins )) ? $olabel = "Stewards: " : $olabel =  "Steward: "; 
-			echo $olabel;
+			$olabel = " - group ";
+			(1 < count( $group_admins )) ? $olabel .= "stewards" : $olabel .=  "steward"; 
 			$is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
 			$follow_class = $is_follow_active ? 'follow-active' : '';
 			foreach ($group_admins as $admin) {
@@ -165,6 +165,7 @@ function custom_group_tab_content() {
 				$person = $instance_id;
 				echo bfc_member_dropdown( $type, $instance_id, $person, $follow_class );
 			}
+			echo $olabel;
 			?>
 		</div>
 		
