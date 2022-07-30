@@ -18,7 +18,6 @@ $user = bp_loggedin_user_id();
 global $bfc_dropdown_prefix;
 $type = $bfc_dropdown_prefix . '-blog';
 $person = get_the_author_meta( 'ID' );
-$post_id = get_the_ID();
 
 ?>
 <div class="entry-meta">
