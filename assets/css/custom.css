@@ -301,7 +301,7 @@ nav#object-nav li.bfc-group-name-nav{
 
 /* dropdown pane */
 
-.site-main .type-post .dropdown-pane .generic-button,
+.single-post .site-main .type-post .dropdown-pane .generic-button,
 #buddypress .bb-grid  .dropdown-pane .generic-button, 
 #buddypress .bp-list  .dropdown-pane .generic-button, 
 #bfc-user-panels .dropdown-pane .generic-button, 
@@ -309,8 +309,8 @@ nav#object-nav li.bfc-group-name-nav{
 	margin: 0;
 }
 
-.site-main .type-post .dropdown-pane .follow-button,
-.site-main .type-post .dropdown-pane .switch-button,
+.single-post .site-main .type-post .dropdown-pane .follow-button,
+.single-post .site-main .type-post .dropdown-pane .switch-button,
 #buddypress .bb-grid  .dropdown-pane .follow-button, 
 #buddypress .bp-list .dropdown-pane .follow-button, 
 #bfc-user-panels .dropdown-pane .follow-button, 
@@ -331,7 +331,7 @@ nav#object-nav li.bfc-group-name-nav{
 	cursor: pointer;
 }
 		
-.site-main .type-post .dropdown-pane,
+.single-post .site-main .type-post .dropdown-pane,
 #buddypress .bb-grid .dropdown-pane, 
 #buddypress .bp-list .dropdown-pane, 
 #bfc-user-panels .dropdown-pane, 
