@@ -118,7 +118,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 
 						<div class="toggle-content">
 							<table class="toggle-table" id="toggle-table-settings">
-								<?php bp_docs_doc_settings_markup($doc_id, $group_id ) ?>
+								<?php bp_docs_doc_settings_markup( $doc_id, $group_id ) ?>
 							</table>
 						</div>
 					</div>

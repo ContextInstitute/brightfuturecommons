@@ -795,7 +795,7 @@ add_filter( 'bp_docs_get_access_options', 'bfc_remove_anyone_access',12,1 );
 
 function bfc_remove_anyone_access ($options) {
 	unset($options[10]);
-	$options[20]['default'] = 1;
+	if (isset ($options[20])) {$options[20]['default'] = 1;}
 	return $options;
 }
 
