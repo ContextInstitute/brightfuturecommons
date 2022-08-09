@@ -61,6 +61,7 @@ function buddyboss_theme_child_scripts_styles()
 	wp_enqueue_style( 'bfc-editor-css',	get_stylesheet_directory_uri().'/assets/css/editor.css');
 	wp_enqueue_style( 'bfc-dashicons-css',	get_stylesheet_directory_uri().'/assets/css/dashicons.css');
 	wp_enqueue_style( 'bfc-icons-css',	get_stylesheet_directory_uri().'/assets/icons/bfc-icons.css');
+	wp_enqueue_style( 'bfc-fonts-css',	get_stylesheet_directory_uri().'/assets/fonts/bfc-fonts.css');
 
 
 
