@@ -11,6 +11,10 @@ https://www.w3schools.com/css/css_rwd_mediaqueries.asp
 
 /* Global */
 
+html {
+	scroll-padding-top: 90px;
+}
+
 body {
 	-webkit-font-smoothing:auto;
 	font-family: "SF UI Display", sans-serif;
@@ -59,48 +63,72 @@ h6, .h6  {
 /* Blog and Docs type*/
 .type-bp_doc p,
 .type-bp_doc li,
-.type-post .entry-content p,
-.type-post .entry-content li {
+.single-post .type-post .entry-content p,
+.single-post .type-post .entry-content li {
 	font-family:  charter, Georgia, Cambria, 'Times New Roman', Times, serif;
-	font-size: 18px;
+	font-size: clamp(14px, 9.5px + 1.2500vw, 20px);
+	line-height: clamp(1.5rem, 1.1250rem + 1.6667vw, 2rem);
 	margin-bottom: 22px;
 }
-
+.type-bp_docs h1.entry-title,
+.type-post h1.entry-title,
 .type-bp_docs h1,
 .type-post h1,
 .type-bp_docs .h1,
 .type-post .h1 {
-	font-size: 36px;
+	font-size: clamp(29px, 20.0000px + 2.5000vw, 41px);
+	line-height: clamp(39px, 29.2500px + 2.7083vw, 52px);
 }
 .type-bp_docs h2,
 .type-post h2,
 .type-bp_docs .h2,
 .type-post .h2 {
-	font-size: 29px;
+	font-size: clamp(23px, 16.2500px + 1.8750vw, 32px);
+	line-height: clamp(32px, 24.5000px + 2.0833vw, 42px);
 }
 .type-bp_docs h3,
 .type-post h3,
 .type-bp_docs .h3,
 .type-post .h3 {
-	font-size: 23px;
+	font-size: clamp(18px, 12.7500px + 1.4583vw, 25px);
+	line-height: clamp(27px, 23.2500px + 1.0417vw, 32px);
 }
 .type-bp_docs h4,
 .type-post h4,
 .type-bp_docs .h4,
 .type-post .h4 {
-	font-size: 16px;
+	font-size: clamp(13px, 10.7500px + 0.6250vw, 16px);
+	line-height: 28px;
 }
 .type-bp_docs h5,
 .type-post h5,
 .type-bp_docs .h5,
 .type-post .h5 {
-	font-size: 14px;
+	font-size: clamp(12px, 10.5000px + 0.4167vw, 14px);
 }
 .type-bp_docs h6,
 .type-post h6,
 .type-bp_docs .h6,
 .type-post .h6  {
-	font-size: 13px;
+	font-size: clamp(11px, 9.5000px + 0.4167vw, 13px);
+}
+
+/* Blog and Doc layout */
+
+.single-post:not(.has-sidebar) .site-content-grid {
+	margin-top: 40px;
+	padding-left: 60px;
+    padding-right: 60px;
+    background-color: hsl(0deg 0% 100%);
+    border: 1px solid hsl(216, 12%, 92%);
+}
+
+@media (max-width: 840px) {
+	.single-post:not(.has-sidebar) .site-content-grid {
+		margin-top: 20px;
+		padding-left: 3px;
+		padding-right: 3px;
+	}
 }
 
 /* Forum type */
@@ -108,8 +136,8 @@ h6, .h6  {
 #bbpress-forums .bs-forum-content p,
 #bbpress-forums .bs-forum-content li {
 	font-family: charter, Georgia, Cambria, 'Times New Roman', Times, serif;
-	font-size: 17px;
-	line-height: 1.6;
+	font-size: 18px;
+	line-height: 30px;
 	flex-grow: 1;
 }
 
@@ -118,20 +146,22 @@ h6, .h6  {
 	font-size: 15px;
 	margin-block-end: 5px;
 }
-#bbpress-forums h1.bb-reply-topic-title {
-	font-size: 34px;
-}
+
+#bbpress-forums h1.bb-reply-topic-title,
 #bbpress-forums .bs-forum-content h1,
 #bbpress-forums .bs-forum-content .h1 {
-	font-size: 34px;
+	font-size: 36px;
+	line-height: 57px;
 }
 #bbpress-forums .bs-forum-content h2,
 #bbpress-forums .bs-forum-content .h2 {
-	font-size: 27px;
+	font-size: 29px;
+	line-height: 46px;
 }
 #bbpress-forums .bs-forum-content h3,
 #bbpress-forums .bs-forum-content .h3 {
-	font-size: 22px;
+	font-size: 23px;
+	line-height: 37px;
 }
 #bbpress-forums .bs-forum-content h4,
 #bbpress-forums .bs-forum-content .h4 {
@@ -910,6 +940,7 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 .my-groups #groups-list .bfc-group-latest-post,
 .mygroups #groups-list .bfc-group-latest-post {
 	flex-grow: 1;
+	margin: 0 12px;
 }
 
 #buddypress #groups-list .item-block {
@@ -918,7 +949,7 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 }
 
 #buddypress #groups-list .groups-loop-buttons {
-	min-width: 150px;
+	min-width: 202px;
 	align-self: unset;
 }
 
