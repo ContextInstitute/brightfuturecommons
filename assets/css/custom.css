@@ -61,6 +61,17 @@ h6, .h6  {
 }
 
 /* Blog and Docs type*/
+.single-item.bp-docs .doc-content,
+.type-bp_doc {
+	letter-spacing: -.24px;
+}
+
+.bp-docs h1.entry-title {
+	letter-spacing: -.48px;
+}
+
+.single-item.bp-docs .doc-content p,
+.single-item.bp-docs .doc-content li,
 .type-bp_doc p,
 .type-bp_doc li,
 .single-post .type-post .entry-content p,
@@ -70,43 +81,43 @@ h6, .h6  {
 	line-height: clamp(1.5rem, 1.1250rem + 1.6667vw, 2rem);
 	margin-bottom: 22px;
 }
-.type-bp_docs h1.entry-title,
+.bp-docs h1.entry-title,
 .type-post h1.entry-title,
-.type-bp_docs h1,
+.bp-docs h1,
 .type-post h1,
 .type-bp_docs .h1,
 .type-post .h1 {
 	font-size: clamp(29px, 20.0000px + 2.5000vw, 41px);
 	line-height: clamp(39px, 29.2500px + 2.7083vw, 52px);
 }
-.type-bp_docs h2,
+.tbp-docs h2,
 .type-post h2,
 .type-bp_docs .h2,
 .type-post .h2 {
 	font-size: clamp(23px, 16.2500px + 1.8750vw, 32px);
 	line-height: clamp(32px, 24.5000px + 2.0833vw, 42px);
 }
-.type-bp_docs h3,
+.bp-docs h3,
 .type-post h3,
 .type-bp_docs .h3,
 .type-post .h3 {
 	font-size: clamp(18px, 12.7500px + 1.4583vw, 25px);
 	line-height: clamp(27px, 23.2500px + 1.0417vw, 32px);
 }
-.type-bp_docs h4,
+.bp-docs h4,
 .type-post h4,
 .type-bp_docs .h4,
 .type-post .h4 {
 	font-size: clamp(13px, 10.7500px + 0.6250vw, 16px);
 	line-height: 28px;
 }
-.type-bp_docs h5,
+.bp-docs h5,
 .type-post h5,
 .type-bp_docs .h5,
 .type-post .h5 {
 	font-size: clamp(12px, 10.5000px + 0.4167vw, 14px);
 }
-.type-bp_docs h6,
+.bp-docs h6,
 .type-post h6,
 .type-bp_docs .h6,
 .type-post .h6  {
@@ -115,12 +126,55 @@ h6, .h6  {
 
 /* Blog and Doc layout */
 
+.single.single-bp_doc .site-content-grid,
+.single-item.bp-docs .bp-docs-container,
 .single-post:not(.has-sidebar) .site-content-grid {
 	margin-top: 40px;
 	padding-left: 60px;
     padding-right: 60px;
     background-color: hsl(0deg 0% 100%);
     border: 1px solid hsl(216, 12%, 92%);
+}
+.single.single-bp_doc .site-content-grid,
+.single-item.bp-docs .bp-docs-container {
+	margin: 40px auto;
+	max-width: 800px;
+}
+
+.groups.bp-docs .bp-docs-container {
+	margin: 20px auto;
+	padding-top: 30px;
+}
+
+.bp-docs h1.entry-title,
+.single-item.bp-docs .doc-content {
+	padding-left: 10px;
+    padding-right: 10px;
+}
+
+.bp-docs .doc-content li {
+	margin-left: 0;
+}
+
+.single.single-bp_doc .site-content-grid .entry-header {
+	display: none;
+}
+
+.site-content-grid .doc-tabs ul {
+	float: right;
+	font-size: clamp(14px, 9.5px + 1.2500vw, 20px);;
+}
+.site-content-grid .doc-tabs li {
+	margin: 0;
+}
+
+.site-content-grid .doc-tabs li a {
+	background: none;
+}
+
+.site-content-grid .doc-tabs li.current a {
+	color: #007CFF;
+	background: none;
 }
 
 @media (max-width: 840px) {
