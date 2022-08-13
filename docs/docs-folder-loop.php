@@ -2,7 +2,7 @@
 <table class="doctable" data-folder-id="<?php echo $current_folder_id; ?>">
 <tbody>
 <?php $has_folders = false; ?>
-<?php if ( bp_docs_enable_folders_for_current_context() ) : ?>
+<?php if ( true ) : ?>
 	<?php if ( bp_docs_include_folders_in_loop_view() ) : ?>
 		<?php foreach ( bp_docs_get_folders() as $folder ) : ?>
 			<?php $has_folders  = true; ?>

@@ -137,8 +137,8 @@ function custom_group_tab_content() {
 ?>
 	<div class="group-home-page">
 		<h2 class="user-home-welcome">
-			<span class="user-home-welcome-welcome">Welcome to the courtyard for </span>
-			<span class="user-home-welcome-name"><?php echo esc_html( bp_get_group_name() ); ?></span>
+			<span class="user-home-welcome-welcome">Welcome to the </span>
+			<span class="user-home-welcome-name"><?php echo esc_html( bp_get_group_name() ); ?>'s dashboard</span>
 		</h2>
 
 		<div class="bfc-group-description"><?php bp_current_group_description();?></div>
@@ -764,39 +764,11 @@ function bfc_mygroups_nav_menu_items( $items, $menu ) {
   return $items;
 }
 
-add_filter('nav_menu_css_class', 'bp_docs_is_parent', 10 , 2);
-
-function bp_docs_is_parent( $classes, $item) {
-	if (bp_docs_is_bp_docs_page() && $item->title == 'Docs' && bp_current_component() != 'groups') {
-		$classes[] = 'current_page_parent';
+function bfc_remove_nav_item() {
+	if (bp_current_component() == 'groups') {
+		bp_core_remove_subnav_item( bp_get_current_group_slug(), 'albums' );
 	}
-	return $classes;
 }
-
-//  BP Docs
-
-add_filter( 'bp_docs_allow_comment_section', '__return_true', 12 ); 
-// add_filter( 'bp_docs_do_theme_compat', '__return_false', 12 );
-
-add_filter('bp_docs_wp_editor_args', 'bfc_docs_editor_args',10,1);
-
-function bfc_docs_editor_args( $args ) {
-		$wp_editor_args = array($args);
-
-		$wp_editor_args['quicktags'] = false;
-		$wp_editor_args['media_buttons'] = true;
-
-	return $wp_editor_args;
-}
-
-// add_filter('bp_docs_groups_enable_nav_item', '__return_true', 12 );
-
-add_filter( 'bp_docs_get_access_options', 'bfc_remove_anyone_access',12,1 );
-
-function bfc_remove_anyone_access ($options) {
-	unset($options[10]);
-	if (isset ($options[20])) {$options[20]['default'] = 1;}
-	return $options;
-}
+add_action( 'bp_setup_nav', 'bfc_remove_nav_item' );
 
 ?>

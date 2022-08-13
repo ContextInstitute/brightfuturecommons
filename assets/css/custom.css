@@ -22,10 +22,7 @@ body {
 	background-color: #fdfcf7;
 }
 
-/* blockquote, dd, div, dl, dt, form, h1, h2, h3, h4, h5, h6, li, ol, p, pre, td, th, ul {
-    margin: 0;
-    padding: 0;
-} */
+
 
 p, li, div {
 	color: #243242;
@@ -60,6 +57,10 @@ h6, .h6  {
 	font-size: 13px;
 }
 
+body.buddypress article.page>.entry-header .entry-title {
+    font-size: 36px;
+}
+
 /* Blog and Docs type*/
 .single-item.bp-docs .doc-content,
 .type-bp_doc {
@@ -72,16 +73,22 @@ h6, .h6  {
 
 .single-item.bp-docs .doc-content p,
 .single-item.bp-docs .doc-content li,
-.type-bp_doc p,
-.type-bp_doc li,
+.single-item.bp-docs .doc-content div,
+.single-bp_doc .type-bp_doc p,
+.single-bp_doc .type-bp_doc li,
+.single-bp_doc .type-bp_doc div,
 .single-post .type-post .entry-content p,
-.single-post .type-post .entry-content li {
+.single-post .type-post .entry-content li,
+.single-post .type-post .entry-content div {
 	font-family:  charter, Georgia, Cambria, 'Times New Roman', Times, serif;
 	font-size: clamp(14px, 9.5px + 1.2500vw, 20px);
 	line-height: clamp(1.5rem, 1.1250rem + 1.6667vw, 2rem);
 	margin-bottom: 22px;
 }
+
+.bp-docs h1.directory-title
 .bp-docs h1.entry-title,
+.single .bp-docs h1.entry-title,
 .type-post h1.entry-title,
 .bp-docs h1,
 .type-post h1,
@@ -124,10 +131,11 @@ h6, .h6  {
 	font-size: clamp(11px, 9.5000px + 0.4167vw, 13px);
 }
 
-/* Blog and Doc layout */
+/* Single Blog and Doc layouts */
 
 .single.single-bp_doc .site-content-grid,
-.single-item.bp-docs .bp-docs-container,
+.bp-docs-create .bp-docs-single,
+.single-item.bp-docs .bp-docs-container.bp-docs-single,
 .single-post:not(.has-sidebar) .site-content-grid {
 	margin-top: 40px;
 	padding-left: 60px;
@@ -136,21 +144,24 @@ h6, .h6  {
     border: 1px solid hsl(216, 12%, 92%);
 }
 .single.single-bp_doc .site-content-grid,
-.single-item.bp-docs .bp-docs-container {
+.bp-docs-create .bp-docs-single,
+.single-item.bp-docs .bp-docs-single {
 	margin: 40px auto;
 	max-width: 800px;
 }
 
-.groups.bp-docs .bp-docs-container {
+.bp-docs-create .bp-docs-single,
+.groups.bp-docs .bp-docs-container.bp-docs-single {
 	margin: 20px auto;
 	padding-top: 30px;
+	padding-left: 70px;
+    padding-right: 70px;
 }
 
-.bp-docs h1.entry-title,
-.single-item.bp-docs .doc-content {
+/* .single-item.bp-docs .doc-content {
 	padding-left: 10px;
     padding-right: 10px;
-}
+} */
 
 .bp-docs .doc-content li {
 	margin-left: 0;
@@ -161,6 +172,7 @@ h6, .h6  {
 }
 
 .site-content-grid .doc-tabs ul {
+	margin: 0;
 	float: right;
 	font-size: clamp(14px, 9.5px + 1.2500vw, 20px);;
 }
@@ -183,6 +195,200 @@ h6, .h6  {
 		padding-left: 3px;
 		padding-right: 3px;
 	}
+}
+
+/* Doc directory layout and single doc header*/
+
+
+.directory.bp-docs .content-area {
+	padding-top: 0;
+	margin-top: -10px;
+}
+
+.bp-docs-create .content-area {
+	padding-top: 6px;
+}
+
+.bp-docs-create .entry-title,
+.directory.bp-docs .entry-title {
+	display: none;
+}
+
+.bp-docs-directory .list-wrap,
+.bp-docs-directory .item {
+	display: flex;
+	flex-grow: 1;
+	flex-flow: row;
+}
+
+@media (max-width: 640px) {
+	
+	.bp-docs-directory .item {
+		flex-flow: column;
+	}
+	.bp-docs-directory .meta-block {
+		align-self: center;
+	}
+
+	.bp-docs-directory .author-block {
+		align-self: self-end;
+	}
+}
+
+.bp-docs-directory ul {
+	margin: 0;
+}
+
+.bp-docs-directory li {
+	list-style: none;
+	flex-grow: 1;
+	margin: 0;
+}
+
+.bp-docs-directory .list-wrap {
+	padding: 15px 20px;
+	background-color: var(--bb-content-background-color);
+    border: 1px solid var(--bb-content-border-color);
+	margin: 0 0 -1px;
+    overflow: visible;
+    position: relative;
+    -webkit-transition: box-shadow linear .2s;
+    transition: box-shadow linear .2s;
+}
+
+.bp-docs-directory .list-wrap:hover {
+	box-shadow: 0 3px 24px 0 rgb(18 43 70 / 8%);
+    position: relative;
+    z-index: 1;
+}
+
+.bp-docs-directory .list-wrap .item li,
+.bp-docs-directory .list-wrap .item p {
+	font-family: "SF UI Display", sans-serif;
+}
+
+
+.title-block .row-actions {
+	visibility: visible;
+	padding: 0;
+}
+
+.title-block .row-actions a {
+	font-size: 20px;
+	padding-right: 7px;
+	line-height: 24px;
+}
+
+.bp-docs-directory .title-block {
+	flex: 1.19;
+}
+
+.bp-docs-directory .title-block>a {
+	font-size: 20px;
+	letter-spacing: -0.24px;
+}
+
+.bp-docs-directory .folder-block {
+	font-size: 15px;
+}
+
+.bp-docs-directory .meta-block {
+    flex: 1;
+	font-size: 15px;
+	padding: 0 15px;
+}
+
+.bp-docs-directory .author-block {
+	flex: .6;
+}
+
+.bp-docs-single #bp-docs-single-doc-header,
+.bp-docs-directory .docs-info-header {
+	display: flex;
+	flex-flow: row;
+	background: hsl(0deg 0% 100%);
+    border: solid 1px hsl(0deg 0% 93%);
+}
+
+.bp-docs-single #bp-docs-single-doc-header {
+	overflow: visible;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+#bp-docs-single-doc-header .author-block,
+#bp-docs-single-doc-header .meta-block,
+#bp-docs-single-doc-header .meta-block-right,
+#bp-docs-single-doc-header .doc-tabs,
+.bp-docs-directory .docs-info-header .currently-viewing,
+.bp-docs-directory .docs-info-header .docs-filters,
+.bp-docs-directory .docs-info-header .manage-folders-link {
+	flex-grow: 1;
+	min-width: 50px;
+	font-size: 14px;
+}
+
+.bp-docs-directory .docs-info-header .currently-viewing {
+	flex-basis: min-content;
+}
+
+#bp-docs-single-doc-header .meta-block {
+	text-align: center;
+    line-height: 40px;
+}
+
+#bp-docs-single-doc-header .meta-block-right {
+	text-align: right;
+	line-height: 40px;
+}
+
+.bp-docs-directory .docs-info-header .docs-filters {
+	min-width: 196px;
+	padding-left: 26px;
+}
+
+@media (max-width: 640px) {
+
+	#bp-docs-single-doc-header,
+	.bp-docs-directory .docs-info-header {
+		flex-flow: column;
+	}
+	.bp-docs-directory .docs-info-header .docs-filters {
+		align-self: center;
+	}
+
+	.bp-docs-directory .docs-info-header .manage-folders-link {
+		align-self: self-end;
+	}
+}
+
+.bp-docs-directory .docs-info-header .docs-filters .docs-filter-section,
+.bp-docs-directory .docs-info-header .docs-filters>p {
+	font-size: 14px;
+}
+
+@media screen and (min-width:71em){
+	.entry-content #docs-filter-section-tags ul#tags-list{
+		-moz-column-count:4;
+		-moz-column-gap:5%;
+		-webkit-column-count:4;
+		-webkit-column-gap:5%;
+		column-count:4;
+		column-gap:5%;
+	}
+}
+
+.bp-docs-directory .manage-folders-link>a {
+	float: right;
+	text-align: right;
+}
+
+/* .bp-docs-directory .docs-filters>p {
+	text-align: right;
+} */
+
+.groups .bp-docs-directory .docs-filters>p {
+	text-align: center;
 }
 
 /* Forum type */
@@ -763,12 +969,12 @@ nav#object-nav li.bfc-group-name-nav{
 }
 
 .bfc-user-panels h2 {
-	font-size: 26px;
+	font-size: 29px;
 }
 
 .user-home-welcome{
 	margin-top: 20px;
-	font-size: 34px;
+	font-size: 36px;
 	line-height: 32px;
 	-webkit-font-smoothing: auto;
 	margin-bottom: 8px;
@@ -780,7 +986,7 @@ nav#object-nav li.bfc-group-name-nav{
 
 .user-home-welcome-tagline{
 	color: #4D5C6D;
-    font-size: 22px;
+    font-size: 23px;
     line-height: 24px;
 	margin-bottom: 30px;
 }
@@ -1019,6 +1225,8 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	width: 220px;
 }
 
+#bp-docs-single-doc-header .author-block img,
+.bp-docs-directory .author-block img,
 .other-groups #groups-list .bs-group-members img {
 	border-radius: 20%;
 	width: 40px;
@@ -1037,6 +1245,8 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
     line-height: 36px;
 }
 
+#bp-docs-single-doc-header .author-block .bfc-tooltip,
+.bp-docs-directory .author-block .bfc-tooltip,
 .other-groups #groups-list .bs-group-members .bfc-tooltip, .bfc-helptip {
 	position: relative;
 	display: inline-block;
@@ -1046,6 +1256,8 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	width: 36px;
 }
 
+#bp-docs-single-doc-header .author-block .bfc-tooltiptext,
+.bp-docs-directory .author-block .bfc-tooltiptext,
 .other-groups #groups-list .bs-group-members .bfc-tooltiptext {
 	visibility: hidden;
 	width: 120px;
@@ -1096,6 +1308,8 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	width: 320px;
 }
 
+#bp-docs-single-doc-header .author-block .bfc-tooltiptext::after,
+.bp-docs-directory .author-block .bfc-tooltiptext::after,
 .other-groups #groups-list .bs-group-members .bfc-tooltiptext::after {
 	content: "";
 	position: absolute;
@@ -1118,7 +1332,10 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	border-color: transparent transparent #555 transparent;  
 }
 
-.other-groups #groups-list .bs-group-members .bfc-tooltip:hover .bfc-tooltiptext, .bfc-helptip:hover .bfc-helptiptext {
+#bp-docs-single-doc-header .author-block .bfc-tooltip:hover .bfc-tooltiptext,
+.bp-docs-directory .author-block .bfc-tooltip:hover .bfc-tooltiptext,
+.other-groups #groups-list .bs-group-members .bfc-tooltip:hover .bfc-tooltiptext,
+ .bfc-helptip:hover .bfc-helptiptext {
 	visibility: visible;
 	opacity: 1;
 }
@@ -1127,6 +1344,8 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	z-index: 999;
 }
 
+#bp-docs-single-doc-header .author-block .bfc-tooltiptext>a,
+.bp-docs-directory .author-block .bfc-tooltiptext>a,
 .other-groups #groups-list .bs-group-members .bfc-tooltiptext>a {
 	color: rgb(218, 208, 255)
 }

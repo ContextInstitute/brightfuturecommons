@@ -1,10 +1,11 @@
 <?php
+
 $bp_docs_do_theme_compat = is_buddypress() && bp_docs_do_theme_compat( 'docs-loop.php' );
 if ( ! $bp_docs_do_theme_compat ) : ?>
 <div id="buddypress">
 <?php endif; ?>
-
-<div class="<?php bp_docs_container_class(); ?>">
+<!-- docs-loop start -->
+<div class="<?php bp_docs_container_class(); ?> bp-docs-directory">
 
 <?php include( apply_filters( 'bp_docs_header_template', bp_docs_locate_template( 'docs-header.php' ) ) ) ?>
 
@@ -12,15 +13,21 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 	<?php bp_docs_locate_template( 'manage-folders.php', true ); ?>
 <?php else : ?>
 
-	<?php $breadcrumb = bp_docs_get_directory_breadcrumb(); ?>
-	<?php if ( $breadcrumb ) : ?>
-		<h2 class="directory-title">
-			<?php echo $breadcrumb; ?>
-		</h2>
-	<?php endif; ?>
+	<?php $directory_title = (bp_docs_get_directory_breadcrumb()) ? bp_docs_get_directory_breadcrumb() : 'Docs Directory'; ?>
+	<!-- <?php if ( $directory_title ) : ?> -->
+		<h1 class="directory-title">
+			<?php echo $directory_title; ?>
+		</h1>
+	<!-- <?php endif; ?> -->
 
 	<div class="docs-info-header">
-		<?php bp_docs_info_header() ?>
+		<?php echo bfc_docs_get_info_header() ?>
+
+		<?php if ( bp_current_component() == 'groups' && current_user_can( 'bp_docs_manage_folders' ) ) : ?>
+			<div class="folder-action-links manage-folders-link">
+				<a href="<?php bp_docs_manage_folders_url() ?>"><?php _e( 'Manage Folders', 'buddypress-docs' ) ?></a>
+			</div>
+		<?php endif ?>
 	</div>
 
 	<?php if ( bp_docs_enable_folders_for_current_context() ) : ?>
@@ -38,37 +45,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 		</div>
 	<?php endif; ?>
 
-	<table class="doctable" data-folder-id="0">
-
-	<thead>
-		<tr valign="bottom">
-			<?php if ( bp_docs_enable_attachments() ) : ?>
-				<th scope="column" class="attachment-clip-cell">&nbsp;<span class="screen-reader-text"><?php esc_html_e( 'Has attachment', 'buddypress-docs' ); ?></span></th>
-			<?php endif ?>
-
-			<th scope="column" class="title-cell<?php bp_docs_is_current_orderby_class( 'title' ) ?>">
-				<a href="<?php bp_docs_order_by_link( 'title' ) ?>"><?php _e( 'Title', 'buddypress-docs' ); ?></a>
-			</th>
-
-			<?php if ( ! bp_docs_is_started_by() ) : ?>
-				<th scope="column" class="author-cell<?php bp_docs_is_current_orderby_class( 'author' ) ?>">
-					<a href="<?php bp_docs_order_by_link( 'author' ) ?>"><?php _e( 'Author', 'buddypress-docs' ); ?></a>
-				</th>
-			<?php endif; ?>
-
-			<th scope="column" class="created-date-cell<?php bp_docs_is_current_orderby_class( 'created' ) ?>">
-				<a href="<?php bp_docs_order_by_link( 'created' ) ?>"><?php _e( 'Created', 'buddypress-docs' ); ?></a>
-			</th>
-
-			<th scope="column" class="edited-date-cell<?php bp_docs_is_current_orderby_class( 'modified' ) ?>">
-				<a href="<?php bp_docs_order_by_link( 'modified' ) ?>"><?php _e( 'Last Edited', 'buddypress-docs' ); ?></a>
-			</th>
-
-			<?php do_action( 'bp_docs_loop_additional_th' ) ?>
-		</tr>
-        </thead>
-
-        <tbody>
+	<div class="doctable" data-folder-id="0">
     <?php $has_folders = false; ?>
 	<?php if ( bp_docs_enable_folders_for_current_context() ) : ?>
 		<?php /* The '..' row */ ?>
@@ -80,10 +57,6 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 						<?php bp_docs_attachment_icon() ?>
 					</td>
 				<?php endif ?>
-
-				<td class="folder-row-name" colspan=10>
-					<a href="<?php echo esc_url( bp_docs_get_parent_folder_url() ) ?>" class="up-one-folder"><?php bp_docs_genericon( 'category', 0 ); ?><span class="screen-reader-text"><?php _e( 'Go up one folder', 'buddypress-docs' ) ?></span><?php _ex( '..', 'up one folder', 'buddypress-docs' ) ?></a>
-				</td>
 			</tr>
 		<?php endif ?>
 
@@ -111,77 +84,48 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 
 	<?php $has_docs = false ?>
 	<?php if ( bp_docs_has_docs( array( 'update_attachment_cache' => true ) ) ) : ?>
-		<?php $has_docs = true ?>
-		<?php while ( bp_docs_has_docs() ) : bp_docs_the_doc() ?>
-			<tr<?php bp_docs_doc_row_classes(); ?> data-doc-id="<?php echo get_the_ID() ?>">
-				<?php if ( bp_docs_enable_attachments() ) : ?>
-					<td class="attachment-clip-cell">
-						<?php bp_docs_attachment_icon() ?>
-					</td>
-				<?php endif ?>
-
-				<td class="title-cell">
-					<?php bp_docs_genericon( 'document' ); ?><a href="<?php bp_docs_doc_link() ?>"><?php the_title() ?></a> <?php bp_docs_doc_trash_notice(); ?>
-
-					<?php if ( bp_docs_get_excerpt_length() ) : ?>
-						<div class="doc-excerpt">
-							<?php the_excerpt() ?>
+    <?php $has_docs = true ?>
+    <ul class="docs-list">
+    <?php while ( bp_docs_has_docs() ) : bp_docs_the_doc() ?>
+        <li <?php bp_docs_doc_row_classes(); ?> data-doc-id="<?php echo get_the_ID() ?>">
+            <div class="list-wrap">
+                <div class="item">
+                    <div class="title-block">
+                        <a href="<?php bp_docs_doc_link() ?>"><?php the_title() ?></a> <?php bp_docs_doc_trash_notice(); ?>
+                        <div class="row-actions">
+                            <?php bfc_docs_action_links() ?>
+                        </div>
+						<div class="folder-block">
+							<p><?php echo bfc_docs_location(); ?></p>
 						</div>
-					<?php endif ?>
+                    </div>
+                    <div class="meta-block">
+						<p>Last edit: <?php echo get_the_modified_date() ?></p>
+						<p><?php bfc_show_terms(); ?></p>
+						<?php if( bp_current_component() == 'groups') : ?>
+							<p><?php bfc_show_parent(); ?></p>
+						<?php endif ?>
+                    </div>
+                    <div class="author-block">
+						<?php bfc_doc_authors( get_the_ID() ); ?>
+                    </div>
+                </div>
+            </div>
+        </li>
+    <?php endwhile ?>
+    </ul>
+<?php endif ?>
 
-					<?php do_action( 'bp_docs_loop_after_doc_excerpt' ) ?>
 
-					<div class="row-actions">
-						<?php bp_docs_doc_action_links() ?>
-					</div>
-
-					<div class="bp-docs-attachment-drawer" id="bp-docs-attachment-drawer-<?php echo get_the_ID() ?>">
-						<?php bp_docs_doc_attachment_drawer() ?>
-					</div>
-				</td>
-
-				<?php if ( ! bp_docs_is_started_by() ) : ?>
-					<td class="author-cell">
-						<a href="<?php echo bp_core_get_user_domain( get_the_author_meta( 'ID' ) ) ?>" title="<?php echo bp_core_get_user_displayname( get_the_author_meta( 'ID' ) ) ?>"><?php echo bp_core_get_user_displayname( get_the_author_meta( 'ID' ) ) ?></a>
-					</td>
-				<?php endif; ?>
-
-				<td class="date-cell created-date-cell">
-					<?php echo get_the_date() ?>
-				</td>
-
-				<td class="date-cell edited-date-cell">
-					<?php echo get_the_modified_date() ?>
-				</td>
-
-				<?php do_action( 'bp_docs_loop_additional_td' ) ?>
-				<?php wp_nonce_field( 'bp-docs-folder-drop-' . get_the_ID(), 'bp-docs-folder-drop-nonce-' . get_the_ID(), false, true ); ?>
-			</tr>
-		<?php endwhile ?>
-	<?php endif ?>
 		<?php // Add the "no docs" message as the last row, for easy toggling. ?>
-		<tr class="no-docs-row<?php if ( $has_docs || $has_folders ) { echo ' hide'; } ?>">
-			<?php if ( bp_docs_enable_attachments() ) : ?>
-				<td class="attachment-clip-cell"></td>
-			<?php endif ?>
-
-			<td class="title-cell">
-				<?php if ( bp_docs_current_user_can_create_in_context() ) : ?>
-					<p class="no-docs"><?php printf( __( 'There are no docs for this view. Why not <a href="%s">create one</a>?', 'buddypress-docs' ), bp_docs_get_create_link() ); ?>
-				<?php else : ?>
-					<p class="no-docs"><?php _e( 'There are no docs for this view.', 'buddypress-docs' ); ?></p>
-				<?php endif; ?>
-			</td>
-
-			<?php if ( ! bp_docs_is_started_by() ) : ?>
-				<td class="author-cell"></td>
+		<div class="no-docs-row<?php if ( $has_docs || $has_folders ) { echo ' hide'; } ?>">
+			<?php if ( bp_docs_current_user_can_create_in_context() ) : ?>
+				<p class="no-docs"><?php printf( __( 'There are no docs for this view. Why not <a href="%s">create one</a>?', 'buddypress-docs' ), bp_docs_get_create_link() ); ?>
+			<?php else : ?>
+				<p class="no-docs"><?php _e( 'There are no docs for this view.', 'buddypress-docs' ); ?></p>
 			<?php endif; ?>
-
-			<td class="date-cell created-date-cell"></td>
-			<td class="date-cell edited-date-cell"></td>
-		</tr>
-	</tbody>
-	</table>
+		</div>
+	</div>
 
 	<?php if ( $has_docs ) : ?>
 		<div id="bp-docs-pagination">
@@ -201,3 +145,4 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 <?php if ( ! $bp_docs_do_theme_compat ) : ?>
 </div><!-- /#buddypress -->
 <?php endif; ?>
+<!-- docs-loop end -->
