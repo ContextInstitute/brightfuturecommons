@@ -7,6 +7,39 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 <!-- docs-loop start -->
 <div class="<?php bp_docs_container_class(); ?> bp-docs-directory">
 
+<?php if (bfc_doc_has_tag ('help') || 'help' == urldecode( $_GET['bpd_tag'] )) : ?>
+
+	<h1 class="directory-title">
+		<?php echo 'Commons Help'; ?>
+	</h1>
+
+	<?php $has_docs = false ?>
+	<?php if ( bp_docs_has_docs( array( 'orderby' => 'title', 'order' => 'ASC' ) ) ) : ?>
+    <?php $has_docs = true ?>
+    <ul class="docs-list">
+    <?php while ( bp_docs_has_docs() ) : bp_docs_the_doc() ?>
+        <li <?php bp_docs_doc_row_classes(); ?> data-doc-id="<?php echo get_the_ID() ?>">
+            <div class="list-wrap">
+                <div class="item">
+                    <div class="title-block">
+                        <a href="<?php bp_docs_doc_link() ?>"><?php the_title() ?></a> <?php bp_docs_doc_trash_notice(); ?>
+                    </div>
+                    <div class="meta-block">
+						<p>Latest edit: <?php echo get_the_modified_date() ?></p>
+                    </div>
+                    <div class="author-block">
+						<?php bfc_doc_authors( get_the_ID() ); ?>
+                    </div>
+                </div>
+            </div>
+        </li>
+    <?php endwhile ?>
+    </ul>
+	<?php endif ?>
+
+<?php else : ?>
+
+
 <?php include( apply_filters( 'bp_docs_header_template', bp_docs_locate_template( 'docs-header.php' ) ) ) ?>
 
 <?php if ( current_user_can( 'bp_docs_manage_folders' ) && bp_docs_is_folder_manage_view() ) : ?>
@@ -114,7 +147,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
         </li>
     <?php endwhile ?>
     </ul>
-<?php endif ?>
+	<?php endif ?>
 
 
 		<?php // Add the "no docs" message as the last row, for easy toggling. ?>
@@ -138,6 +171,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 			</div>
 		</div>
 	<?php endif; ?>
+<?php endif; ?>
 <?php endif; ?>
 <?php bp_docs_ajax_value_inputs(); ?>
 </div><!-- /.bp-docs -->
