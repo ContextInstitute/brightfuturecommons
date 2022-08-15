@@ -23,6 +23,13 @@
 		</div><!-- #bfc-dash-panel-left -->
 	<?php endif; ?>
 
+	<div id="bfc-dash-panels" class="bfc-dash-panels">
+	<?php if ( is_active_sidebar( 'dash_center_panel' ) ) : ?>
+		<div id="bfc-dash-panel-center" class="bfc-dash-panel-center widget-area">
+			<?php dynamic_sidebar( 'dash_center_panel' ); ?>
+		</div><!-- #bfc-dash-panel-center -->
+	<?php endif; ?>
+
 	<?php if ( is_active_sidebar( 'dash_right_panel' ) ) : ?>
 		<div id="bfc-dash-panel-right" class="bfc-dash-panel-right widget-area">
 			<?php dynamic_sidebar( 'dash_right_panel' ); ?>
@@ -37,6 +44,14 @@
 		<div class="accordion-content" data-tab-content>
 			<?php dynamic_sidebar( 'dash_left_panel' ); ?>
 		</div></div><!-- #bfc-dash-panel-top -->
+	<?php endif; ?>
+
+	<?php if ( is_active_sidebar( 'dash_center_panel' ) ) : ?>
+		<div id="bfc-dash-panel-middle" class="bfc-dash-panel-middle widget-area accordion-item" data-accordion-item>
+		<a href="#" class="accordion-title">Latest Updates</a>
+		<div class="accordion-content" data-tab-content>
+			<?php dynamic_sidebar( 'dash_center_panel' ); ?>
+		</div></div><!-- #bfc-dash-panel-middle -->
 	<?php endif; ?>
 
 	<?php if ( is_active_sidebar( 'dash_right_panel' ) ) : ?>

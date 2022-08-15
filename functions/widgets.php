@@ -46,6 +46,15 @@ function bfc_sidebars_init() {
 	) );
 
 	register_sidebar( array(
+		'name'          => 'Group Dash Center Panel',
+		'id'            => 'dash_center_panel',
+		'before_widget' => '<div>',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="rounded">',
+		'after_title'   => '</h2>',
+	) );
+
+	register_sidebar( array(
 		'name'          => 'Group Dash Right Panel',
 		'id'            => 'dash_right_panel',
 		'before_widget' => '<div>',
@@ -74,11 +83,15 @@ function register_la_widget() {
 }
 add_action('widgets_init', 'register_la_widget');
 
-
 function bfc_register_latest_activities_widget() {
 	register_widget( 'bfc_latest_activities' );
 }
 add_action('widgets_init', 'bfc_register_latest_activities_widget');
+
+function bfc_register_latest_docs_widget() {
+	register_widget( 'bfc_latest_docs_widget' );
+}
+add_action('widgets_init', 'bfc_register_latest_docs_widget');
 
 //latest activity forum widget
 class bsp_Activity_Widget extends WP_Widget {
@@ -1031,3 +1044,136 @@ class bfc_latest_activities extends WP_Widget {
 	}
 } // Class bfc_latest_activities ends here
 
+// Latest docs widget 
+class bfc_latest_docs_widget extends WP_Widget {
+ 
+	// The construct part  
+	function __construct() {
+		parent::__construct(
+			
+		// Base ID of your widget
+		'bfc_latest_docs_widget', 
+			
+		// Widget name will appear in UI
+		__('(BFC) Latest Docs', 'bfc_latest_docs_widget_domain'), 
+			
+		// Widget description
+		array( 'description' => __( 'For displaying the latest accessible docs', 'bfc_latest_docs_widget_domain' ), ) 
+		);
+	}
+	  
+	// Creating widget front-end
+	public function widget( $args, $instance ) {
+		global $messages_template;
+
+		// $is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
+		// $follow_class = $is_follow_active ? 'follow-active' : '';
+
+		$title = apply_filters( 'widget_title', $instance['title'] );
+		$count = 6;
+		$group_id = null;
+
+		If (bp_current_component() == 'groups') {
+			// $title = "Latest Group Docs";
+			$count = 10;
+			$group_id = bp_get_current_group_id();
+		}
+  
+		// before and after widget arguments are defined by themes
+		echo $args['before_widget'];
+		echo "<div class='bfc-widget-head'>";
+
+		if ( ! empty( $title ) )
+		echo $args['before_title'] . $title . $args['after_title'] . '</div>';
+
+		// $helptip = "<div class='bfc-helptip'><span class= 'bb-icon-help-circle' ></span><span class='bfc-helptiptext'>";
+		// $helptip .= "<p>These are your <strong>unread private messages</strong>.</p><p>To see the full message thread and reply to it, click the <span class = 'bfc-widget-actions icon-bfc-arrow-up-right'></span> symbol to the right of the sender's name. This will also mark the message as read and take you to your full inbox where you can work with other messages and create new ones.</p>
+		// <p>You can create a new message by clicking on the <span class= 'bb-icon-edit' ></span> symbol to the left of the <span class= 'bb-icon-help-circle' ></span> symbol.</p>
+		// <p>You can also access your messages via the <span class = 'bb-icon-inbox-small' style='font-size:16px;'></span> symbol at the right of the top menu.</p>
+		// <p>Hover over the sender's picture for quick access to sending them a new message, following them or going to their profile.</p>
+		// <p>Clicking on the sender's name also takes you to their profile.</p>";
+		// $helptip .= "</span></div></div>";
+		// echo $helptip;
+		
+		// This is where you run the code and display the output
+		echo '<ul class="bfc-ld-ul">';
+
+		$qargs = array(
+			// 'after_widget' => '<div class="bfc-after-widget"></div>',
+			// 'doc_id'         => array(),      // Array or comma-separated string
+			// 'doc_slug'       => $d_doc_slug,  // String (post_name/slug)
+			'group_id'       => $group_id,  // Array or comma-separated string
+			// 'parent_id'      => $d_parent_id, // int
+			// 'folder_id'      => $d_folder_id, // array or comma-separated string
+			// 'author_id'      => $d_author_id, // Array or comma-separated string
+			// 'edited_by_id'   => $d_edited_by_id, // Array or comma-separated string
+			// 'tags'           => $d_tags,      // Array or comma-separated string
+			// 'order'          => $d_order,        // ASC or DESC
+			// 'orderby'        => $d_orderby,   // 'modified', 'title', 'author', 'created'
+			// 'paged'	         => $d_paged,
+			'posts_per_page' => $count,
+			// 'search_terms'   => $d_search_terms,
+			'update_attachment_cache' => false,
+
+		);
+
+		$message_count = 0;
+		
+		if (bp_docs_has_docs($qargs)) {
+			while ( bp_docs_has_docs() ) {
+				bp_docs_the_doc();
+                $message_count++;
+                // global $bfc_dropdown_prefix;
+                // $type = $bfc_dropdown_prefix . '-urmessage';
+                // $instance_id = $messages_template->thread->thread_id;
+                // $person = $messages_template->thread->last_sender_id;
+                ?>
+                <li class="bfc-doc-list item-list">
+                    <div class="bfc-doc-widget-title">
+                        <a href="<?php bp_docs_doc_link() ?>"><?php the_title() ?></a>
+                    </div>
+                    <div class = "bfc-doc-widget-meta">
+						<?php echo get_the_modified_date() ?>
+                    </div>
+					<div class="bfc-doc-widget-location">
+						<p><?php echo bfc_docs_location(); ?></p>
+					</div>
+                </li>
+				<?php 
+			}					
+		}
+		if ($message_count == 0) {
+			echo "<p class='bfc-no-unread'>You have no docs to view.</p>";
+		}
+		echo $args['after_widget']; ?>
+		</div>
+	<?php }
+			  
+	// Creating widget Backend 
+	public function form( $instance ) {
+		if ( isset( $instance[ 'title' ] ) ) {
+			$title = $instance[ 'title' ];
+		}
+		else {
+			$title = __( 'New title', 'bfc_latest_docs_widget_domain' );
+		}
+		?>
+		<!-- Widget admin form -->
+		<p>
+		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
+		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+		</p>
+		<?php			
+	}
+		  
+	// Updating widget replacing old instances with new
+	public function update( $new_instance, $old_instance ) {
+		$instance = array();
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		return $instance;
+	}
+	 
+	
+} // Class bfc_latest_docs_widget ends here
+
+?>

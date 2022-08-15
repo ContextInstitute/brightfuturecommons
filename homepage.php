@@ -59,7 +59,7 @@ get_header(); ?>
 
 			<?php if ( is_active_sidebar( 'user_right_panel' ) ) : ?>
 				<li class="accordion-item bfc-user-panel-bottom widget-area" data-accordion-item >
-				<a href="#" class="accordion-title">Blog Posts & Events</a>
+				<a href="#" class="accordion-title">Blog Posts, Events & Docs</a>
 				<div class="accordion-content" data-tab-content>
 					<?php dynamic_sidebar( 'user_right_panel' ); ?>
 				</div></li><!-- #bfc-user-panel-bottom -->
