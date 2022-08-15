@@ -1367,6 +1367,13 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	display: flex;
 }
 
+#bfc-user-panel-right .bfc-widget-head {
+	padding-top: 4px;
+	border-top: #122B46;
+	border-top-width: 1px;
+	border-top-style: solid;
+}
+
 .bfc-widget-head h2, .buddypress .buddypress-wrap .bfc-widget-head h2 {
 	flex-grow: 1;
 	margin-bottom: 8px;
@@ -1622,7 +1629,7 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 
 #bfc-user-panels div.tribe-compatibility-container h2.tribe-events-widget-events-list__header-title {
 	font-weight: 400;
-	font-size: 26px;
+	font-size: 29px;
 	font-family: "SF UI Display", sans-serif;
 	color: #122B46;
 }
