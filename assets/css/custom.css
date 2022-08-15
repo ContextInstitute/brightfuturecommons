@@ -86,6 +86,11 @@ body.buddypress article.page>.entry-header .entry-title {
 	margin-bottom: 22px;
 }
 
+.single-item.bp-docs.bp-docs-create .doc-content .wp-editor-container div,
+.single-item.bp-docs.bp-docs-edit .doc-content .wp-editor-container div {
+	margin-bottom: 0px;
+}
+
 .bp-docs h1.directory-title
 .bp-docs h1.entry-title,
 .single .bp-docs h1.entry-title,
@@ -157,11 +162,6 @@ body.buddypress article.page>.entry-header .entry-title {
 	padding-left: 70px;
     padding-right: 70px;
 }
-
-/* .single-item.bp-docs .doc-content {
-	padding-left: 10px;
-    padding-right: 10px;
-} */
 
 .bp-docs .doc-content li {
 	margin-left: 0;
@@ -344,7 +344,7 @@ body.buddypress article.page>.entry-header .entry-title {
 
 .bp-docs-directory .docs-info-header .docs-filters {
 	min-width: 196px;
-	padding-left: 26px;
+	flex-grow: 1.16;
 }
 
 @media (max-width: 640px) {
@@ -389,6 +389,19 @@ body.buddypress article.page>.entry-header .entry-title {
 
 .groups .bp-docs-directory .docs-filters>p {
 	text-align: center;
+}
+
+/* Docs widget */
+
+.bfc-doc-widget-meta {
+	font-size: 13px;
+	margin-bottom: 8px;
+}
+
+.bfc-doc-widget-location {
+	font-size: 13px;
+	margin-top: -7px;
+	margin-bottom: 8px;
 }
 
 /* Forum type */
@@ -871,8 +884,8 @@ nav#object-nav li.bfc-group-name-nav{
 }
 
 .group-home-page .bfc-user-panels {
-	grid-template-columns: 1fr 1fr;
-	grid-template-areas: 'LeftPanel RightPanel';
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-areas: 'LeftPanel CenterPanel RightPanel';
 }
 
 #bfc-user-panels .bfc-user-panel{

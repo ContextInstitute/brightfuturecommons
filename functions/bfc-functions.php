@@ -206,7 +206,7 @@ function custom_group_tab_content() {
 			<?php endif; ?>
 			<?php if ( is_active_sidebar( 'dash_center_panel' ) ) : ?>
 				<div id="bfc-dash-panel-middle" class="bfc-user-panel-middle widget-area" data-accordion-item>
-				<a href="#" class="accordion-title">Forum Posts</a>
+				<a href="#" class="accordion-title">Latest Forum Posts</a>
 				<div class="accordion-content" data-tab-content>
 					<?php dynamic_sidebar( 'dash_center_panel' ); ?>
 				</div></div><!-- #bfc-dash-panel-middle -->
@@ -214,7 +214,7 @@ function custom_group_tab_content() {
 
 			<?php if ( is_active_sidebar( 'dash_right_panel' ) ) : ?>
 				<div id="bfc-dash-panel-bottom" class="bfc-user-panel-bottom widget-area" data-accordion-item>
-				<a href="#" class="accordion-title">Forum Posts</a>
+				<a href="#" class="accordion-title">Latest Group Docs</a>
 				<div class="accordion-content" data-tab-content>
 					<?php dynamic_sidebar( 'dash_right_panel' ); ?>
 				</div></div><!-- #bfc-dash-panel-bottom -->
