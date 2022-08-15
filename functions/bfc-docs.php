@@ -3,7 +3,16 @@
 add_filter('nav_menu_css_class', 'bp_docs_is_parent', 10 , 2);
 
 function bp_docs_is_parent( $classes, $item) {
-	if (bp_docs_is_bp_docs_page() && $item->title == 'Docs' && bp_current_component() != 'groups') {
+	if (bp_docs_is_bp_docs_page() && $item->title == 'Docs' && bp_current_component() != 'groups' && !(bfc_doc_has_tag ('help') || 'help' == urldecode( $_GET['bpd_tag'] ))) {
+		$classes[] = 'current_page_parent';
+	}
+	return $classes;
+}
+
+add_filter('nav_menu_css_class', 'bp_docs_help_is_parent', 10 , 2);
+
+function bp_docs_help_is_parent( $classes, $item) {
+	if (bp_docs_is_bp_docs_page() && $item->title == 'Help' && bp_current_component() != 'groups' && (bfc_doc_has_tag ('help') || 'help' == urldecode( $_GET['bpd_tag'] ))) {
 		$classes[] = 'current_page_parent';
 	}
 	return $classes;
@@ -63,6 +72,22 @@ function bfc_docs_get_authors($post_id) {
 	return $post_author_id;
 }
 
+function bfc_doc_has_tag ($tag_name) {
+	global $bp;
+
+    $taxonomies = (array)$bp->bp_docs->docs_tag_tax_name;
+	$has_tag = false;
+    foreach ( $taxonomies as $tax_name ) {
+        $html    = '';
+        $tagtext = array();
+        $tags 	 = wp_get_post_terms( get_the_ID(), $tax_name );
+
+		foreach ( $tags as $tag ) {
+            if ( $tag_name == $tag->name ) {$has_tag = true;}
+        }
+	}
+	return $has_tag;
+}
 
 function bfc_show_terms() {
     global $bp;
@@ -507,48 +532,45 @@ function bfc_docs_list_post_revisions( $post_id = 0, $args = null ) {
 			$title = sprintf( $titlef, $date, $name );
 			$rows .= "\t<li>$title</li>\n";
 		}
-	}
+	} ?>
 
-?>
+	<form action="" method="get">
 
-<form action="" method="get">
-
-<div class="tablenav">
-	<div class="alignleft">
-		<input type="submit" class="button-secondary" value="<?php esc_attr_e( 'Compare Revisions', 'buddypress-docs' ); ?>" />
-		<input type="hidden" name="action" value="diff" />
-		<input type="hidden" name="post_type" value="<?php echo esc_attr($post->post_type); ?>" />
+	<div class="tablenav">
+		<div class="alignleft">
+			<input type="submit" class="button-secondary" value="<?php esc_attr_e( 'Compare Revisions', 'buddypress-docs' ); ?>" />
+			<input type="hidden" name="action" value="diff" />
+			<input type="hidden" name="post_type" value="<?php echo esc_attr($post->post_type); ?>" />
+		</div>
 	</div>
-</div>
 
-<br class="clear" />
+	<br class="clear" />
 
-<table class="widefat post-revisions" cellspacing="0" id="post-revisions">
-	<col />
-	<col />
-	<col style="width: 33%" />
-	<col style="width: 33%" />
-	<col style="width: 33%" />
-<thead>
-<tr>
-	<th scope="col"><?php /* translators: column name in revisons */ _e( 'Old', 'buddypress-docs' ); ?></th>
-	<th scope="col"><?php /* translators: column name in revisons */ _e( 'New', 'buddypress-docs' ); ?></th>
-	<th scope="col"><?php /* translators: column name in revisons */ _e( 'Date Created', 'buddypress-docs' ); ?></th>
-	<th scope="col"><?php _e( 'Author', 'buddypress-docs' ); ?></th>
-	<th scope="col" class="action-links"><?php _e( 'Actions', 'buddypress-docs' ); ?></th>
-</tr>
-</thead>
-<tbody>
+	<table class="widefat post-revisions" cellspacing="0" id="post-revisions">
+		<col />
+		<col />
+		<col style="width: 33%" />
+		<col style="width: 33%" />
+		<col style="width: 33%" />
+	<thead>
+	<tr>
+		<th scope="col"><?php /* translators: column name in revisons */ _e( 'Old', 'buddypress-docs' ); ?></th>
+		<th scope="col"><?php /* translators: column name in revisons */ _e( 'New', 'buddypress-docs' ); ?></th>
+		<th scope="col"><?php /* translators: column name in revisons */ _e( 'Date Created', 'buddypress-docs' ); ?></th>
+		<th scope="col"><?php _e( 'Author', 'buddypress-docs' ); ?></th>
+		<th scope="col" class="action-links"><?php _e( 'Actions', 'buddypress-docs' ); ?></th>
+	</tr>
+	</thead>
+	<tbody>
 
-<?php echo $rows; ?>
+	<?php echo $rows; ?>
 
-</tbody>
-</table>
+	</tbody>
+	</table>
 
-</form>
+	</form>
 
 <?php
 
 }
 ?>
-

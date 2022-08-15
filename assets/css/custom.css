@@ -83,7 +83,21 @@ body.buddypress article.page>.entry-header .entry-title {
 	font-family:  charter, Georgia, Cambria, 'Times New Roman', Times, serif;
 	font-size: clamp(14px, 9.5px + 1.2500vw, 20px);
 	line-height: clamp(1.5rem, 1.1250rem + 1.6667vw, 2rem);
+}
+
+.single-item.bp-docs .doc-content p,
+.single-item.bp-docs .doc-content div,
+.single-bp_doc .type-bp_doc p,
+.single-bp_doc .type-bp_doc div,
+.single-post .type-post .entry-content p,
+.single-post .type-post .entry-content div {
 	margin-bottom: 22px;
+}
+
+.single-item.bp-docs .doc-content li,
+.single-bp_doc .type-bp_doc li,
+.single-post .type-post .entry-content li {
+	margin-bottom: 6px;
 }
 
 .single-item.bp-docs.bp-docs-create .doc-content .wp-editor-container div,
@@ -314,6 +328,10 @@ body.buddypress article.page>.entry-header .entry-title {
 	overflow: visible;
     padding: 10px;
     margin-bottom: 20px;
+}
+
+.bp-docs-single #bp-docs-single-doc-header div {
+	margin: 0px;
 }
 
 #bp-docs-single-doc-header .author-block,
