@@ -224,6 +224,15 @@ function bfc_docs_add_single_doc_class ($classes) {
 	return $classes;
 }
 
+add_filter('bp_docs_tax_query','bfc_remove_help_docs');
+
+function bfc_remove_help_docs ($query) {
+	if (bp_docs_is_global_directory() && 'help' != urldecode( $_GET['bpd_tag'] )) {
+		$query[] = array ('taxonomy' => 'bp_docs_tag', 'field'    => 'slug', 'terms'    => 'help ', 'operator' => 'NOT IN');
+	}
+	return $query;
+}
+
 function bfc_docs_action_links () {
     
     $can_edit = current_user_can( 'bp_docs_edit', get_the_ID() );
