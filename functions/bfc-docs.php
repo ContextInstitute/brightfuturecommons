@@ -3,7 +3,7 @@
 add_filter('nav_menu_css_class', 'bp_docs_is_parent', 10 , 2);
 
 function bp_docs_is_parent( $classes, $item) {
-	if (bp_docs_is_bp_docs_page() && $item->title == 'Docs' && bp_current_component() != 'groups' && !(bfc_doc_has_tag ('help') || 'help' == urldecode( $_GET['bpd_tag'] ))) {
+	if (bp_docs_is_bp_docs_page() && $item->title == 'Docs' && bp_current_component() != 'groups' && !(bfc_doc_has_tag ('bfcom-help') || 'bfcom-help' == urldecode( $_GET['bpd_tag'] ))) {
 		$classes[] = 'current_page_parent';
 	}
 	return $classes;
@@ -12,7 +12,7 @@ function bp_docs_is_parent( $classes, $item) {
 add_filter('nav_menu_css_class', 'bp_docs_help_is_parent', 10 , 2);
 
 function bp_docs_help_is_parent( $classes, $item) {
-	if (bp_docs_is_bp_docs_page() && $item->title == 'Help' && bp_current_component() != 'groups' && (bfc_doc_has_tag ('help') || 'help' == urldecode( $_GET['bpd_tag'] ))) {
+	if (bp_docs_is_bp_docs_page() && $item->title == 'Help' && bp_current_component() != 'groups' && (bfc_doc_has_tag ('bfcom-help') || 'bfcom-help' == urldecode( $_GET['bpd_tag'] ))) {
 		$classes[] = 'current_page_parent';
 	}
 	return $classes;
@@ -227,8 +227,8 @@ function bfc_docs_add_single_doc_class ($classes) {
 add_filter('bp_docs_tax_query','bfc_remove_help_docs');
 
 function bfc_remove_help_docs ($query) {
-	if (bp_docs_is_global_directory() && 'help' != urldecode( $_GET['bpd_tag'] )) {
-		$query[] = array ('taxonomy' => 'bp_docs_tag', 'field'    => 'slug', 'terms'    => 'help ', 'operator' => 'NOT IN');
+	if (bp_docs_is_global_directory() && 'bfcom-help' != urldecode( $_GET['bpd_tag'] )) {
+		$query[] = array ('taxonomy' => 'bp_docs_tag', 'field'    => 'slug', 'terms'    => 'bfcom-help', 'operator' => 'NOT IN');
 	}
 	return $query;
 }
