@@ -204,10 +204,18 @@ body.buddypress article.page>.entry-header .entry-title {
 }
 
 @media (max-width: 840px) {
+	
 	.single-post:not(.has-sidebar) .site-content-grid {
 		margin-top: 20px;
 		padding-left: 3px;
 		padding-right: 3px;
+	}
+
+	.bp-docs-create .bp-docs-single,
+	.groups.bp-docs .bp-docs-container.bp-docs-single {
+		margin-top: 20px;
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 }
 
@@ -367,7 +375,7 @@ body.buddypress article.page>.entry-header .entry-title {
 
 @media (max-width: 640px) {
 
-	#bp-docs-single-doc-header,
+	.bp-docs-single #bp-docs-single-doc-header,
 	.bp-docs-directory .docs-info-header {
 		flex-flow: column;
 	}

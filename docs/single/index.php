@@ -56,3 +56,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 <?php if ( ! $bp_docs_do_theme_compat ) : ?>
 </div><!-- /#buddypress -->
 <?php endif; ?>
+
+<script>
+	jQuery(document).foundation();
+</script>

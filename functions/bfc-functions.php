@@ -511,12 +511,20 @@ function bfc_latest_post ($ugroup_id = 0) {
     wp_reset_postdata();
 }
 
-function bfc_rename_group_navs ($link_text,$nav_item,$displayed_nav){
-	if (('Forum Threads' == $link_text || 'Discussions' == $link_text) && 'groups'== $displayed_nav) {$link_text = 'Forum';}
-	return $link_text;
+function bfc_rename_forum_nav ($link_text,$nav_item,$displayed_nav){
+	if (('Forum Threads' == $link_text || 'Discussions' == $link_text) && 'groups'== $displayed_nav) {
+		$link_text = 'Forum';
+		return $link_text;
+	} elseif ('Email Options' == $link_text && 'groups'== $displayed_nav && strpos( $nav_item->parent_slug,'manage')) {
+		$link_text = 'Admin Emails';
+		return $link_text;
+	} else {
+		return $link_text;
+	}
 }
 
-add_filter( 'bp_nouveau_get_nav_link_text', 'bfc_rename_group_navs',10,3);
+add_filter( 'bp_nouveau_get_nav_link_text', 'bfc_rename_forum_nav',10,3);
+
 
 /**
  * Output the state buttons in the Activity Update widget.

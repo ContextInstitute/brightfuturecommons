@@ -172,7 +172,6 @@ function bfc_doc_authors( $post_id = false ) {
 		}
 	}
 
-
 	$post = get_post($post_id);
 
 	if ( ! in_array($post->post_author, $post_author_ids)) {
@@ -183,6 +182,8 @@ function bfc_doc_authors( $post_id = false ) {
 	// $post_author_ids = array_reverse($post_author_ids);
 
     if ( ! empty( $post_author_ids ) ) {
+		$is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
+		$follow_class = $is_follow_active ? 'follow-active' : '';		
 		foreach ( $post_author_ids as $author_id ) {
 			$avatar = bp_core_fetch_avatar(
 				array(
@@ -196,15 +197,18 @@ function bfc_doc_authors( $post_id = false ) {
 			$uname = esc_attr( bp_core_get_user_displayname( $author_id ) );
 			?>
 			<div class="bfc-tooltip">
-				<img src="<?php echo $avatar; ?>"
-				 alt="<?php echo $uname; ?>" class=".bfc-rounded"/>
-				<span class="bfc-tooltiptext"><a href="/members/<?php echo bp_core_get_username( $author_id );?>"><?php echo $uname; ?></a></span>
-			</div>
+				<span class="bfc-dropdown-span" data-toggle="doc-dropdown-<?php echo esc_attr( $author_id ); ?>"><img src="<?php echo $avatar; ?>" alt="<?php echo $uname; ?>" class=".bfc-rounded"/></span>
 			<?php
-		}
-		?>
+			if (bp_docs_is_single_doc()) {
+			$type = 'doc';
+			$instance_id = $author_id;
+			$person = $instance_id;
+			echo bfc_member_dropdown( $type, $instance_id, $person, $follow_class );
+			} ?>
+			<span class="bfc-tooltiptext"><a href="/members/<?php echo bp_core_get_username( $author_id );?>"><?php echo $uname; ?></a></span>
 
-		<?php
+			</div>
+		<?php }
 	}
 }
 
