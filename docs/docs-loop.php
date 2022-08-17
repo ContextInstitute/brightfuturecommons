@@ -1,5 +1,7 @@
 <?php
 
+$help_group_id = BP_Groups_Group::get_id_from_slug( 'bfcom-documentation' );
+
 $bp_docs_do_theme_compat = is_buddypress() && bp_docs_do_theme_compat( 'docs-loop.php' );
 if ( ! $bp_docs_do_theme_compat ) : ?>
 <div id="buddypress">
@@ -7,14 +9,14 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 <!-- docs-loop start -->
 <div class="<?php bp_docs_container_class(); ?> bp-docs-directory">
 
-<?php if ('help' == urldecode( $_GET['bpd_tag'] )) : ?>
+<?php if ('bfcom-help' == urldecode( $_GET['bpd_tag'] )) : ?>
 
 	<h1 class="directory-title">
 		<?php echo 'Commons Help'; ?>
 	</h1>
 
 	<?php $has_docs = false ?>
-	<?php if ( bp_docs_has_docs( array( 'orderby' => 'title', 'order' => 'ASC' ) ) ) : ?>
+	<?php if ( bp_docs_has_docs( array( 'orderby' => 'title', 'order' => 'ASC', 'group_id' =>  $help_group_id) ) ) : ?>
 		<?php $has_docs = true ?>
 		<ul class="docs-list">
 		<?php while ( bp_docs_has_docs() ) : bp_docs_the_doc() ?>
@@ -113,7 +115,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 		<?php endif; /* bp_docs_enable_folders_for_current_context() */ ?>
 
 		<?php $has_docs = false ?>
-		<?php if ( bp_docs_has_docs( array( 'update_attachment_cache' => true, 'tag__not_in' => array(77)) ) ) : ?>
+		<?php if ( bp_docs_has_docs( array( 'update_attachment_cache' => true ) ) ) : ?>
 			<?php $has_docs = true ?>
 			<ul class="docs-list">
 			<?php while ( bp_docs_has_docs() ) : bp_docs_the_doc() ?>
