@@ -93,14 +93,14 @@
 						<span class="bs-voices-wrap bs-replied">
 						<a href="<?php echo esc_url( bbp_get_reply_url(bbp_get_topic_last_active_id())); ?>">
 						<?php echo bbp_get_topic_last_active_time( $topic_id );?>
-						<span class = "bfc-forumlist bb-icon-arrow-up-right"></span></a></span>
+						<span class = "bfc-forumlist icon-bfc-arrow-up-right"></span></a></span>
 
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<?php
+		<!-- <?php
 		if ( ! empty( bbp_get_topic_forum_title() ) ) {
 
 			$group_ids   = bbp_get_forum_group_ids( bbp_get_topic_forum_id() );
@@ -123,6 +123,6 @@
 					?>
 				</span>
 			</div>
-		<?php } ?>
+		<?php } ?> -->
 	</div>
 </li>
