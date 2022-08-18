@@ -639,6 +639,7 @@ nav#object-nav li.bfc-group-name-nav{
 	margin: 0;
 }
 
+#buddypress .dropdown-pane .follow-button button.outline.not_following,
 .blog .site-main .type-post .dropdown-pane .follow-button,
 .blog .site-main .type-post .dropdown-pane .switch-button,
 .single-post .site-main .type-post .dropdown-pane .follow-button,
@@ -1152,6 +1153,10 @@ body.bp-nouveau.groups:not(.single-item) .group-subscription-div {
     float: right;
 }
 
+body #bbpress-forums .bp-list .action .generic-button a, 
+body #buddypress .bp-list .action .generic-button a {
+	color: var(--bb-primary-button-text-regular);
+}
 
 .activity-list .activity-item .comment-item .activity-meta.action .buddyboss_edit_activity_cancel, 
 .activity-list .activity-item .comment-item .activity-meta.action .buddyboss_edit_activity_comment, 

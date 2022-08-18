@@ -40,7 +40,7 @@
 		}
 
 		if ( ( ! is_active_sidebar( 'forums' ) || bp_is_groups_component() ) && bbp_is_single_forum() && ! bbp_is_forum_category() && ( bbp_current_user_can_access_create_topic_form() || bbp_current_user_can_access_anonymous_user_form() ) ) { ?>
-			<?php bbp_forum_subscription_link(); ?>
+			<!-- <?php bbp_forum_subscription_link(); ?> -->
 
             <div class="bbp_before_forum_new_post">
             <a href="#new-post" class="button full btn-new-topic"><i

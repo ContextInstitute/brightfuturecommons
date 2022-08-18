@@ -148,7 +148,7 @@ function bfc_docs_display_folder_meta() {
 	echo sprintf(
 		'<p class="folder-meta" data-folder-id="%d">%s<a href="%s">%s</a>',
 		esc_attr( $folder_id ),
-		bp_docs_get_genericon( 'category', $folder_id ),
+		bfc_docs_folder_icon (), // bp_docs_get_genericon( 'category', $folder_id ),
 		esc_url( bp_docs_get_folder_url( $folder_id ) ),
 		esc_attr( $folder->post_title )
 	);
@@ -329,7 +329,7 @@ function bfc_docs_location ( $args = array() ){
 			$crumbs[] = sprintf(
 				'<span class="bp-docs-folder-breadcrumb" id="bp-docs-folder-breadcrumb-%s">%s<a href="%s">%s</a></span>',
 				$d['id'],
-				bp_docs_get_genericon( 'category', $d['id'] ),
+				bfc_docs_folder_icon (), // bp_docs_get_genericon( 'category', $d['id'] ),
 				esc_url( bp_docs_get_folder_url( $d['id'] ) ),
 				esc_html( $d['name'] )
 			);
@@ -337,7 +337,7 @@ function bfc_docs_location ( $args = array() ){
 			$crumbs[] = sprintf(
 				'<span class="bp-docs-folder-breadcrumb" id="bp-docs-folder-breadcrumb-%s">%s%s</span>',
 				$d['id'],
-				bp_docs_get_genericon( 'category', $d['id'] ),
+				bfc_docs_folder_icon (), // bp_docs_get_genericon( 'category', $d['id'] ),
 				esc_html( $d['name'] )
 			);
 
@@ -585,5 +585,10 @@ function bfc_docs_list_post_revisions( $post_id = 0, $args = null ) {
 
 <?php
 
+}
+
+function bfc_docs_folder_icon (){
+	$icon_markup = '<i class="bb-icon-folder-open bb-icon-l" style="font-size: 20px; line-height: 20px;" ></i>';
+	return $icon_markup;
 }
 ?>
