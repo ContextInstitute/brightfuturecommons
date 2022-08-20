@@ -1460,8 +1460,11 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	line-height: 18px;
 }
 
-#buddypress .bs-forum-content .post-like-meta .generic-button .bfc-post-like:hover {
+#buddypress .bs-forum-content .post-like-meta .generic-button .bfc-post-like.button:active,
+#buddypress .bs-forum-content .post-like-meta .generic-button .bfc-post-like.button:focus,
+#buddypress .bs-forum-content .post-like-meta .generic-button .bfc-post-like.button:hover {
 	background-color: #fff;
+	border-color: #fff;
 }
 
 .post-like-meta > .generic-button > .bfc-post-like > .bfc-post-like-text {
