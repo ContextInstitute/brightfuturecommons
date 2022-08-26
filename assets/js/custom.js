@@ -17,4 +17,10 @@ jQuery( document ).ready( function() {// Remove empty P tags created by WP insid
 
 	jQuery( '#buddypress .bp-wrap, #content .bfc-user-panels' ).on( 'click', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonAction );
 	jQuery( '#buddypress .bp-wrap, #content .bfc-user-panels' ).on( 'blur', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonRevert );
+	jQuery( '#buddypress .bp-wrap, #content .bfc-user-panels' ).on( 'mouseover', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonHover );
+	jQuery( '#buddypress .bp-wrap, #content .bfc-user-panels' ).on( 'mouseout', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonHoverout );
+	jQuery( '.bp-nouveau .type-post' ).on( 'click', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonAction );
+	jQuery( '.bp-nouveau .type-post' ).on( 'blur', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonRevert );
+	jQuery( '.bp-nouveau .type-post' ).on( 'mouseover', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonHover );
+	jQuery( '.bp-nouveau .type-post' ).on( 'mouseout', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonHoverout );
 } );
