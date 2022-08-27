@@ -23,4 +23,8 @@ jQuery( document ).ready( function() {// Remove empty P tags created by WP insid
 	jQuery( '.bp-nouveau .type-post' ).on( 'blur', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonRevert );
 	jQuery( '.bp-nouveau .type-post' ).on( 'mouseover', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonHover );
 	jQuery( '.bp-nouveau .type-post' ).on( 'mouseout', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonHoverout );
+	jQuery( '#bp-docs-single-doc-header .author-block' ).on( 'click', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonAction );
+	jQuery( '#bp-docs-single-doc-header .author-block' ).on( 'blur', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonRevert );
+	jQuery( '#bp-docs-single-doc-header .author-block' ).on( 'mouseover', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonHover );
+	jQuery( '#bp-docs-single-doc-header .author-block' ).on( 'mouseout', '[data-bp-btn-action]', bp.Nouveau, bp.Nouveau.buttonHoverout );
 } );
