@@ -195,18 +195,20 @@ function bfc_doc_authors( $post_id = false ) {
 				)
 			);
 			$uname = esc_attr( bp_core_get_user_displayname( $author_id ) );
-			?>
-			<div class="bfc-tooltip">
-				<span class="bfc-dropdown-span" data-toggle="doc-dropdown-<?php echo esc_attr( $author_id ); ?>"><img src="<?php echo $avatar; ?>" alt="<?php echo $uname; ?>" class=".bfc-rounded"/></span>
-			<?php
-			if (bp_docs_is_single_doc()) {
 			$type = 'doc';
 			$instance_id = $author_id;
 			$person = $instance_id;
-			echo bfc_member_dropdown( $type, $instance_id, $person, $follow_class );
-			} ?>
-			<span class="bfc-tooltiptext"><a href="/members/<?php echo bp_core_get_username( $author_id );?>"><?php echo $uname; ?></a></span>
+			?>
+			<div data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members">
+				<div class="bfc-tooltip">
+					<span class="bfc-dropdown-span" data-toggle="doc-dropdown-<?php echo esc_attr( $author_id ); ?>"><img src="<?php echo $avatar; ?>" alt="<?php echo $uname; ?>" class=".bfc-rounded"/></span>
+				<?php
+				if (bp_docs_is_single_doc()) {
+				echo bfc_member_dropdown( $type, $instance_id, $person, $follow_class );
+				} ?>
+				<span class="bfc-tooltiptext"><a href="/members/<?php echo bp_core_get_username( $author_id );?>"><?php echo $uname; ?></a></span>
 
+				</div>
 			</div>
 		<?php }
 	}
