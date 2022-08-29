@@ -15,8 +15,7 @@ $author_link = esc_url( $author_link );
 $is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
 $follow_class = $is_follow_active ? 'follow-active' : '';
 $user = bp_loggedin_user_id();
-global $bfc_dropdown_prefix;
-$type = $bfc_dropdown_prefix . '-blog';
+$type = 'blog';
 $person = get_the_author_meta( 'ID' );
 $post_id = get_the_ID();
 

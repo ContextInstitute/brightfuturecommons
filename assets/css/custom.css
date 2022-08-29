@@ -348,6 +348,22 @@ body.buddypress article.page>.entry-header .entry-title {
 	margin: 0px;
 }
 
+.bp-docs-single .commentlist {
+	margin: 0;
+	list-style-type: none;
+}
+
+.bp-docs-single .comment-footer {
+	float: right;
+}
+
+#buddypress .bp-docs-single .comment-footer a.comment-reply-link {
+	color: hsl(211deg 21% 45%);
+	background-color: hsl(0deg 0% 100%);
+	border-color: hsl(0deg 0% 100%);
+	line-height: 28px;
+}
+
 #bp-docs-single-doc-header .author-block,
 #bp-docs-single-doc-header .meta-block,
 #bp-docs-single-doc-header .meta-block-right,
