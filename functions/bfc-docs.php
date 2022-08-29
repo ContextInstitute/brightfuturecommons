@@ -199,7 +199,7 @@ function bfc_doc_authors( $post_id = false ) {
 			$instance_id = $author_id;
 			$person = $instance_id;
 			?>
-			<div data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members">
+			<span data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members">
 				<div class="bfc-tooltip">
 					<span class="bfc-dropdown-span" data-toggle="doc-dropdown-<?php echo esc_attr( $author_id ); ?>"><img src="<?php echo $avatar; ?>" alt="<?php echo $uname; ?>" class=".bfc-rounded"/></span>
 				<?php
@@ -209,7 +209,7 @@ function bfc_doc_authors( $post_id = false ) {
 				<span class="bfc-tooltiptext"><a href="/members/<?php echo bp_core_get_username( $author_id );?>"><?php echo $uname; ?></a></span>
 
 				</div>
-			</div>
+			</span>
 		<?php }
 	}
 }
