@@ -104,7 +104,7 @@ function bfc_show_terms() {
         }
 
         if ( ! empty( $tagtext ) ) {
-            $html = '<p>' . sprintf( __( 'Tags: %s', 'buddypress-docs' ), implode( ', ', $tagtext ) ) . '</p>';
+            $html = '<p>' . sprintf( __( 'Tags: %s', 'bfcommons-theme' ), implode( ', ', $tagtext ) ) . '</p>';
         }
 
         echo apply_filters( 'bp_docs_taxonomy_show_terms', $html, $tagtext );
@@ -123,7 +123,7 @@ function bfc_show_parent() {
             $parent_url = bp_docs_get_doc_link( $parent->ID );
             $parent_title = $parent->post_title;
 
-            $html = "<p>" . __( 'Parent: ', 'buddypress-docs' ) . "<a href=\"$parent_url\" title=\"$parent_title\">$parent_title</a></p>";
+            $html = "<p>" . __( 'Parent: ', 'bfcommons-theme' ) . "<a href=\"$parent_url\" title=\"$parent_title\">$parent_title</a></p>";
         }
     }
 
@@ -248,18 +248,18 @@ function bfc_docs_action_links () {
     // if ( $can_edit || $can_view_history || $can_manage_trash) {
         $links = array();
 
-        $links[] = '<a href="' . bp_docs_get_doc_link() . '" class="bb-icon-book-open bb-icon-l" title="' . __( "Read", "buddypress-docs" ) . '"></a>';
+        $links[] = '<a href="' . bp_docs_get_doc_link() . '" class="bb-icon-book-open bb-icon-l" title="' . __( "Read", "bfcommons-theme" ) . '"></a>';
     
         if ( $can_edit ) {
-            $links[] = '<a href="' . bp_docs_get_doc_edit_link() . '" class="bb-icon-edit-square bb-icon-l" title="' . __( 'Edit', 'buddypress-docs' ) . '"></a>';
+            $links[] = '<a href="' . bp_docs_get_doc_edit_link() . '" class="bb-icon-edit-square bb-icon-l" title="' . __( 'Edit', 'bfcommons-theme' ) . '"></a>';
         }
     
         if ( $can_view_history ) {
-            $links[] = '<a href="' . bp_docs_get_doc_link() . BP_DOCS_HISTORY_SLUG . '" class="bb-icon-clock bb-icon-l" title="' . __( 'History', 'buddypress-docs' ) . '"></a>';
+            $links[] = '<a href="' . bp_docs_get_doc_link() . BP_DOCS_HISTORY_SLUG . '" class="bb-icon-clock bb-icon-l" title="' . __( 'History', 'bfcommons-theme' ) . '"></a>';
         }
     
         if ( $can_manage_trash ) {
-            $links[] = '<a href="' . bp_docs_get_remove_from_trash_link( get_the_ID() ) . '" class="bb-icon-trash-restore bb-icon-l delete confirm" title="' . __( 'Untrash', 'buddypress-docs' ) . '"></a>';
+            $links[] = '<a href="' . bp_docs_get_remove_from_trash_link( get_the_ID() ) . '" class="bb-icon-trash-restore bb-icon-l delete confirm" title="' . __( 'Untrash', 'bfcommons-theme' ) . '"></a>';
         }
     
         $links = apply_filters( 'bfc_docs_action_links', $links, get_the_ID() );
@@ -376,11 +376,11 @@ function bfc_docs_location ( $args = array() ){
 					'<a href="%s">%s</a>',
 					bp_get_group_permalink( $group ) . bp_docs_get_slug() . '/',
 					/* translators: group name */
-					sprintf( esc_html__( '%s&#8217;s Docs', 'buddypress-docs' ), esc_html( $group->name ) )
+					sprintf( esc_html__( '%s&#8217;s Docs', 'bfcommons-theme' ), esc_html( $group->name ) )
 				),
 			);
 		} else {
-			$group_crumbs = array(sprintf( esc_html__( '%s&#8217;s Docs', 'buddypress-docs' ), esc_html( $group->name ) ));    
+			$group_crumbs = array(sprintf( esc_html__( '%s&#8217;s Docs', 'bfcommons-theme' ), esc_html( $group->name ) ));    
 		}
 	
 		$crumbs = array_merge( $group_crumbs, $crumbs );
@@ -414,7 +414,7 @@ function bfc_docs_location ( $args = array() ){
 
 		// Set the message based on the current filters
 		if ( empty( $filters ) ) {
-			$message = __( 'You are viewing the unfiltered list.', 'buddypress-docs' );
+			$message = __( 'You are viewing the unfiltered list.', 'bfcommons-theme' );
 		} else {
 			$message = array();
 
@@ -434,7 +434,7 @@ function bfc_docs_location ( $args = array() ){
 			$view_all_url = remove_query_arg( 'p', $view_all_url );
 			$view_all_url = preg_replace( '|page/[0-9]+/|', '', $view_all_url );
 
-			$message .= '<br>' . sprintf( __( '<strong><a href="%s" title="View All Docs">View the unfiltered list</a></strong>', 'buddypress-docs' ), $view_all_url );
+			$message .= '<br>' . sprintf( __( '<strong><a href="%s" title="View All Docs">View the unfiltered list</a></strong>', 'bfcommons-theme' ), $view_all_url );
 		}
 
 		?>
@@ -444,7 +444,7 @@ function bfc_docs_location ( $args = array() ){
 		<?php if ( $filter_titles = bp_docs_filter_titles() ) : ?>
 			<div class="docs-filters">
 				<p id="docs-filter-meta">
-					<?php printf( __( 'Filter by: %s', 'buddypress-docs' ), $filter_titles ) ?>
+					<?php printf( __( 'Filter by: %s', 'bfcommons-theme' ), $filter_titles ) ?>
 				</p>
 
 				<div id="docs-filter-sections">
@@ -505,7 +505,7 @@ function bfc_docs_list_post_revisions( $post_id = 0, $args = null ) {
 	$revisions[] = $post;
 
 	/* translators: post revision: 1: when, 2: author name */
-	$titlef = _x( '%1$s by %2$s', 'post revision', 'buddypress-docs' );
+	$titlef = _x( '%1$s by %2$s', 'post revision', 'bfcommons-theme' );
 
 	if ( $parent )
 		array_unshift( $revisions, $post );
@@ -532,13 +532,13 @@ function bfc_docs_list_post_revisions( $post_id = 0, $args = null ) {
 			$class = $class ? '' : " class='alternate'";
 
 			if ( $post->ID != $revision->ID && $can_edit_post )
-				$actions = '<a class="confirm" href="' . wp_nonce_url( add_query_arg( array( 'revision' => $revision->ID, 'action' => 'restore' ), $base_url ), "restore-post_$post->ID|$revision->ID" ) . '">' . __( 'Restore', 'buddypress-docs' ) . '</a>';
+				$actions = '<a class="confirm" href="' . wp_nonce_url( add_query_arg( array( 'revision' => $revision->ID, 'action' => 'restore' ), $base_url ), "restore-post_$post->ID|$revision->ID" ) . '">' . __( 'Restore', 'bfcommons-theme' ) . '</a>';
 			else
 				$actions = '';
 
 			$rows .= "<tr$class>\n";
-			$rows .= "\t<th style='white-space:nowrap;text-align:center' scope='row'><input type='radio' name='left' value='$revision->ID'$left_checked id='left-$revision->ID' /><label class='screen-reader-text' for='left-$revision->ID'>" . __( 'Old', 'buddypress-docs' ) . "</label></th>\n";
-			$rows .= "\t<th style='white-space:nowrap;text-align:center' scope='row'><input type='radio' name='right' value='$revision->ID'$right_checked id='right-$revision->ID' /><label class='screen-reader-text' for='right-$revision->ID'>" . __( 'New', 'buddypress-docs' ) . "</label></th>\n";
+			$rows .= "\t<th style='white-space:nowrap;text-align:center' scope='row'><input type='radio' name='left' value='$revision->ID'$left_checked id='left-$revision->ID' /><label class='screen-reader-text' for='left-$revision->ID'>" . __( 'Old', 'bfcommons-theme' ) . "</label></th>\n";
+			$rows .= "\t<th style='white-space:nowrap;text-align:center' scope='row'><input type='radio' name='right' value='$revision->ID'$right_checked id='right-$revision->ID' /><label class='screen-reader-text' for='right-$revision->ID'>" . __( 'New', 'bfcommons-theme' ) . "</label></th>\n";
 			$rows .= "\t<td>$date</td>\n";
 			$rows .= "\t<td>$name</td>\n";
 			$rows .= "\t<td class='action-links'>$actions</td>\n";
@@ -553,7 +553,7 @@ function bfc_docs_list_post_revisions( $post_id = 0, $args = null ) {
 
 	<div class="tablenav">
 		<div class="alignleft">
-			<input type="submit" class="button-secondary" value="<?php esc_attr_e( 'Compare Revisions', 'buddypress-docs' ); ?>" />
+			<input type="submit" class="button-secondary" value="<?php esc_attr_e( 'Compare Revisions', 'bfcommons-theme' ); ?>" />
 			<input type="hidden" name="action" value="diff" />
 			<input type="hidden" name="post_type" value="<?php echo esc_attr($post->post_type); ?>" />
 		</div>
@@ -569,11 +569,11 @@ function bfc_docs_list_post_revisions( $post_id = 0, $args = null ) {
 		<col style="width: 33%" />
 	<thead>
 	<tr>
-		<th scope="col"><?php /* translators: column name in revisons */ _e( 'Old', 'buddypress-docs' ); ?></th>
-		<th scope="col"><?php /* translators: column name in revisons */ _e( 'New', 'buddypress-docs' ); ?></th>
-		<th scope="col"><?php /* translators: column name in revisons */ _e( 'Date Created', 'buddypress-docs' ); ?></th>
-		<th scope="col"><?php _e( 'Author', 'buddypress-docs' ); ?></th>
-		<th scope="col" class="action-links"><?php _e( 'Actions', 'buddypress-docs' ); ?></th>
+		<th scope="col"><?php /* translators: column name in revisons */ _e( 'Old', 'bfcommons-theme' ); ?></th>
+		<th scope="col"><?php /* translators: column name in revisons */ _e( 'New', 'bfcommons-theme' ); ?></th>
+		<th scope="col"><?php /* translators: column name in revisons */ _e( 'Date Created', 'bfcommons-theme' ); ?></th>
+		<th scope="col"><?php _e( 'Author', 'bfcommons-theme' ); ?></th>
+		<th scope="col" class="action-links"><?php _e( 'Actions', 'bfcommons-theme' ); ?></th>
 	</tr>
 	</thead>
 	<tbody>
@@ -592,5 +592,60 @@ function bfc_docs_list_post_revisions( $post_id = 0, $args = null ) {
 function bfc_docs_folder_icon (){
 	$icon_markup = '<i class="bb-icon-folder-open bb-icon-l" style="font-size: 20px; line-height: 20px;" ></i>';
 	return $icon_markup;
+}
+
+if (class_exists('Simple_Comment_Editing')) {
+	add_filter( 'sce_unlimited_editing', '__return_true', 12 );
+
+	add_filter( 'sce_can_edit_cookie_bypass', '__return_true', 12 );
+
+	add_filter( 'sce_text_edit', 'bfc_sce_text_edit', 12 );
+
+	function bfc_sce_text_edit() {
+		return __( 'Edit', 'bfcommons-theme');
+	}
+
+	add_filter( 'sce_can_edit', 'bfc_docs_sce_can_edit', 12, 2 );
+
+	function bfc_docs_sce_can_edit ($value, $comment) {
+		$value = bfc_docs_sce_can_edit_comment ($comment);
+		return $value;
+		// return true;
+	}
+
+	function bfc_docs_sce_add_reply_link ( $comment_text, $comment, $args){
+		$args['reply_text'] = __( 'Reply to this comment' );
+		$post_id = absint( $comment->comment_post_ID );
+		$reply_link = '</a>' . get_comment_reply_link( $args, $comment, $post_id) . '</div>';
+		$retval = str_replace('</a></div>', $reply_link, $comment_text );
+		return $retval;
+	}
+
+	add_filter( 'sce_content', 'bfc_sce_widen_textarea');
+
+	function bfc_sce_widen_textarea ($sce_content) {
+		return str_replace('cols="45"', 'cols="59"', $sce_content );
+	}
+
+}
+
+function bfc_docs_sce_can_edit_comment ($comment) {
+
+	$sce_retval = false;
+	if (bp_docs_is_single_doc()) {
+		$current_user_can_edit = current_user_can( 'bp_docs_edit' );
+		$comment_user_id = $comment->user_id;
+		if ($current_user_can_edit || $comment_user_id == bp_loggedin_user_id()) {
+			$sce_retval = true;
+		}
+	} else {
+		$post_author_id = get_post_field ('post_author', $comment->comment_post_ID);
+		$comment_user_id = $comment->user_id;
+		$loggin_user = bp_loggedin_user_id();
+		if ($post_author_id == $loggin_user || $comment_user_id == $loggin_user) {
+			$sce_retval = true;
+		}
+	}
+	return $sce_retval;
 }
 ?>

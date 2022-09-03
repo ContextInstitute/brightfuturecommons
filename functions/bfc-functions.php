@@ -779,4 +779,104 @@ function bfc_remove_nav_item() {
 }
 add_action( 'bp_setup_nav', 'bfc_remove_nav_item' );
 
+if ( ! function_exists( 'bfc_comment' ) ) {
+
+	function bfc_comment( $comment, $args, $depth ) {
+		// phpcs:ignore WordPress.PHP.StrictComparisons.LooseComparison
+		if ( 'div' == $args['style'] ) {
+			$tag       = 'div';
+			$add_below = 'comment';
+		} else {
+			$tag       = 'li';
+			$add_below = 'div-comment';
+		}
+		?>
+
+		<<?php echo esc_attr( $tag ); ?> <?php comment_class( $args['has_children'] ? 'parent' : '', $comment ); ?> id="comment-<?php comment_ID(); ?>">
+
+	<article id="div-comment-<?php comment_ID(); ?>" class="comment-body">
+
+			<?php
+			if ( 0 != $args['avatar_size'] ) {
+				$user_link = function_exists( 'bp_core_get_user_domain' ) ? bp_core_get_user_domain( $comment->user_id ) : get_comment_author_url( $comment );
+				?>
+				<div class="comment-author vcard">
+					<a href="<?php echo esc_url( $user_link ); ?>">
+						<?php echo get_avatar( $comment, $args['avatar_size'] ); ?>
+					</a>
+				</div>
+			<?php } ?>
+
+		<div class="comment-content-wrap">
+			<div class="comment-meta comment-metadata">
+				<?php
+				printf(
+					/* translators: %s: Author related metas. */
+					__( '%s', 'buddyboss-theme' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.WP.I18n.NoEmptyStrings
+					sprintf(
+						'<cite class="fn comment-author">%s</cite>',
+						get_comment_author_link( $comment )
+					)
+				);
+				?>
+				<a class="comment-date" href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
+					<?php
+					printf(
+						/* translators: %s: Author comment date. */
+						__( '%1$s', 'buddyboss-theme' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.WP.I18n.NoEmptyStrings
+						get_comment_date( '', $comment ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.WP.I18n.NoEmptyStrings
+						get_comment_time() // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.WP.I18n.NoEmptyStrings
+					);
+					?>
+				</a>
+			</div>
+
+			<?php if ( '0' == $comment->comment_approved ) { ?>
+				<p>
+					<em class="comment-awaiting-moderation"><?php esc_html_e( 'Your comment is awaiting moderation.', 'buddyboss-theme' ); ?></em>
+				</p>
+			<?php } ?>
+
+			<div class="comment-text">
+				<?php
+				comment_text(
+					$comment,
+					array_merge(
+						$args,
+						array(
+							'add_below' => $add_below,
+							'depth'     => $depth,
+							'max_depth' => $args['max_depth'],
+						)
+					)
+				);
+				?>
+			</div>
+
+			<?php if ( !class_exists('Simple_Comment_Editing') || (class_exists('Simple_Comment_Editing') && !bfc_docs_sce_can_edit_comment ($comment) )) : ?>
+			<footer class="comment-footer">
+				<?php 
+				if (current_user_can ('edit_others_posts')) {
+					edit_comment_link( __( 'Admin Edit', 'buddyboss-theme' ), '', '' );
+				}
+				comment_reply_link(
+					array_merge(
+						$args,
+						array(
+							'reply_text'    => __( 'Reply to this comment' ),
+							'add_below' => $add_below,
+							'depth'     => $depth,
+							'max_depth' => $args['max_depth'],
+							'before'    => '',
+							'after'     => '',
+						)
+					)
+				);
+				?>
+			</footer>
+			<?php endif; ?>
+		</div>		</article>
+		<?php
+	}
+}
 ?>
