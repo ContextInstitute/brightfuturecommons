@@ -10,6 +10,11 @@ if ( ! bp_docs_is_doc_read() ) {
 	return;
 }
 
+if (class_exists('Simple_Comment_Editing')) {
+	add_filter( 'comment_excerpt', 'bfc_docs_sce_add_reply_link' , 1002, 3 );
+	add_filter( 'comment_text', 'bfc_docs_sce_add_reply_link' , 1002, 3 );
+}
+
 $num_comments = 0;
 $num_trackbacks = 0;
 foreach ( (array)$comments as $comment ) {
@@ -24,7 +29,7 @@ foreach ( (array)$comments as $comment ) {
 <?php if ( current_user_can( 'bp_docs_read_comments' ) ) : ?>
 	<div id="comments" class="comments-area">
 		<h3>
-			<?php printf( __( 'Discussion (%d)', 'buddypress-docs' ), $num_comments ) ?>
+			<?php printf( __( 'Discussion (%d)', 'bfcommons-theme' ), $num_comments ) ?>
 		</h3>
 
 		<?php do_action( 'bp_before_blog_comment_list' ) ?>
@@ -34,7 +39,7 @@ foreach ( (array)$comments as $comment ) {
 
 		// You can start editing here -- including this comment!
 		$args = array(
-			'comment_field'      => '<p class="comment-form-comment"><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="' . __( 'Write a response...', 'buddyboss-theme' ) . '"></textarea></p>',
+			'comment_field'      => '<p class="comment-form-comment"><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="' . __( 'Comment on this doc...', 'buddyboss-theme' ) . '"></textarea></p>',
 			'title_reply'        => '',
 
 			/*
@@ -57,7 +62,7 @@ foreach ( (array)$comments as $comment ) {
 				<?php
 				wp_list_comments(
 					array(
-						'callback'    => 'buddyboss_comment',
+						'callback'    => 'bfc_comment',
 						'style'       => 'ol',
 						'short_ping'  => true,
 						'avatar_size' => 80,
@@ -77,7 +82,7 @@ foreach ( (array)$comments as $comment ) {
 		<?php else : ?>
 
 			<p class="comments-closed comments-empty">
-				<?php _e( 'There are no comments for this doc yet.', 'buddypress-docs' ) ?>
+				<?php _e( 'There are no comments for this doc yet.', 'bfcommons-theme' ) ?>
 			</p>
 
 		<?php endif ?>
@@ -86,7 +91,7 @@ foreach ( (array)$comments as $comment ) {
 			<?php comment_form( $args ) ?>
 		<?php else : ?>
 			<p class="comments-closed comment-posting-disabled">
-				<?php _e( 'Comment posting has been disabled on this doc.', 'buddypress-docs' ) ?>
+				<?php _e( 'Comment posting has been disabled on this doc.', 'bfcommons-theme' ) ?>
 			</p>
 		<?php endif; ?>
 
@@ -109,7 +114,14 @@ foreach ( (array)$comments as $comment ) {
 
 <?php else : ?>
 	<p class="comments-closed comment-display-disabled">
-		<?php _e( 'Comment display has been disabled on this doc.', 'buddypress-docs' ) ?>
+		<?php _e( 'Comment display has been disabled on this doc.', 'bfcommons-theme' ) ?>
 	</p>
 
-<?php endif; ?>
+<?php endif; 
+
+if (class_exists('Simple_Comment_Editing')) {
+	remove_filter( 'comment_excerpt', 'bfc_docs_sce_add_reply_link' , 1002 );
+	remove_filter( 'comment_text', 'bfc_docs_sce_add_reply_link' , 1002 );
+}
+
+?>

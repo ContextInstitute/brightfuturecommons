@@ -80,9 +80,9 @@ body.buddypress article.page>.entry-header .entry-title {
 .single-item.bp-docs .doc-content p,
 .single-item.bp-docs .doc-content li,
 .single-item.bp-docs .doc-content div,
-.single-bp_doc .type-bp_doc p,
-.single-bp_doc .type-bp_doc li,
-.single-bp_doc .type-bp_doc div,
+.single-bp_doc .type-bp_doc .doc-content p,
+.single-bp_doc .type-bp_doc .doc-content li,
+.single-bp_doc .type-bp_doc .doc-content div,
 .single-post .type-post .entry-content p,
 .single-post .type-post .entry-content li,
 .single-post .type-post .entry-content div {
@@ -353,15 +353,46 @@ body.buddypress article.page>.entry-header .entry-title {
 	list-style-type: none;
 }
 
-.bp-docs-single .comment-footer {
+.single-post .sce-edit-button,
+.single-post .comment-footer,
+#buddypress .sce-edit-button,
+#buddypress .comment-footer {
 	float: right;
+	clear: both;
 }
-
-#buddypress .bp-docs-single .comment-footer a.comment-reply-link {
-	color: hsl(211deg 21% 45%);
+.single-post .sce-edit-comment a.comment-reply-link,
+.single-post .comment-footer a.comment-reply-link,
+#buddypress .sce-edit-comment a.comment-reply-link,
+#buddypress .comment-footer a.comment-reply-link {
 	background-color: hsl(0deg 0% 100%);
 	border-color: hsl(0deg 0% 100%);
+	color: hsl(211deg 21% 45%);
 	line-height: 28px;
+}
+
+
+.single-post .sce-edit-comment a.sce-edit-button-main,
+.single-post .sce-edit-comment a.comment-reply-link,
+.single-post .comment-footer a.comment-edit-link,
+.single-post .comment-footer a.comment-reply-link,
+#buddypress .sce-edit-comment a.sce-edit-button-main,
+#buddypress .sce-edit-comment a.comment-reply-link,
+#buddypress .comment-footer a.comment-edit-link {
+	font-size: 15px;
+	font-weight: 500;
+	line-height: 28px;
+	padding: 0 12px;
+	margin-right: 20px;
+	color: hsl(211deg 21% 45%);
+}
+
+.sce-edit-comment.regular .sce-comment-edit-buttons button {
+	padding: 0 10px;
+}
+.sce-edit-comment.regular .sce-comment-edit-buttons .sce-comment-save,
+.sce-edit-comment.regular .sce-comment-edit-buttons .sce-comment-cancel,
+.sce-edit-comment.regular .sce-comment-edit-buttons .sce-comment-delete {
+	font-size: 15px;
 }
 
 #bp-docs-single-doc-header .author-block,
@@ -1203,6 +1234,8 @@ body #buddypress .bp-list .action .generic-button a {
 .activity-list .activity-item .comment-item .activity-meta.action .buddyboss_edit_activity_cancel, 
 .activity-list .activity-item .comment-item .activity-meta.action .buddyboss_edit_activity_comment, 
 .activity-list .activity-item .comment-item .activity-meta.action .buddyboss_edit_activity_comment.action-save, 
+.sce-edit-comment a.comment-reply-link,
+.comment-footer a.comment-reply-link,
 .buddypress .buddypress-wrap .comment-reply-link, 
 .buddypress .buddypress-wrap .generic-button a, 
 .buddypress .buddypress-wrap a.bp-title-button, 
@@ -1239,6 +1272,15 @@ a.bp-title-button.small,
 	min-height: fit-content;
     height: 30px;
     line-height: 24px;
+}
+
+.single-post .sce-edit-comment a.comment-reply-link,
+#buddypress .sce-edit-comment a.comment-reply-link {
+	line-height: 26px;
+}
+
+.single-post .comment-footer a.comment-reply-link {
+	line-height: 30px;
 }
 
 #buddypress #groups-list.bp-list .action .generic-button .group-button {
