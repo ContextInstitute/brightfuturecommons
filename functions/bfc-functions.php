@@ -772,13 +772,6 @@ function bfc_mygroups_nav_menu_items( $items, $menu ) {
   return $items;
 }
 
-function bfc_remove_nav_item() {
-	if (bp_current_component() == 'groups') {
-		bp_core_remove_subnav_item( bp_get_current_group_slug(), 'albums' );
-	}
-}
-add_action( 'bp_setup_nav', 'bfc_remove_nav_item' );
-
 if ( ! function_exists( 'bfc_comment' ) ) {
 
 	function bfc_comment( $comment, $args, $depth ) {
@@ -879,4 +872,15 @@ if ( ! function_exists( 'bfc_comment' ) ) {
 		<?php
 	}
 }
+
+add_filter('bp_nouveau_get_classes', 'bfc_photos_is_parent', 10 , 3);
+
+function bfc_photos_is_parent( $class_list, $classes, $item) {
+	if ('albums' == bp_current_action() && 'photos' == $item->slug && bp_current_component() == 'groups') {
+		$classes[] = 'current';
+		$classes[] = 'selected';
+	}
+	return join( ' ', $classes );
+}
+
 ?>

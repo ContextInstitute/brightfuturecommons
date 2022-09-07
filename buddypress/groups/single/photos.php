@@ -8,11 +8,13 @@
  * @version 1.0.0
  */
 
-global $bp;
+$bp_nouveau = bp_nouveau();
 ?>
 
 <div class="bb-media-container group-media">
 	<?php
+
+	bp_get_template_part( 'groups/single/parts/photos-subnav' ); 
 	bp_get_template_part( 'media/theatre' );
 	if ( bp_is_profile_video_support_enabled() ) {
 		bp_get_template_part( 'video/theatre' );
@@ -58,6 +60,16 @@ global $bp;
 			bp_nouveau_group_hook( 'after', 'media_content' );
 
 			break;
+
+		// Home/Media/Albums.
+		case 'albums':
+			if ( ! bp_is_single_album() ) {
+				bp_get_template_part( 'media/albums' );
+			} else {
+				bp_get_template_part( 'media/single-album' );
+			}
+			break;
+	
 
 		// Any other.
 		default:
