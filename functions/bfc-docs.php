@@ -648,4 +648,89 @@ function bfc_docs_sce_can_edit_comment ($comment) {
 	}
 	return $sce_retval;
 }
+add_action('wp_head', 'bfc_setup_doc_folders');
+
+function bfc_setup_doc_folders () {
+	remove_action ( 'bp_docs_before_tags_meta_box', 'bp_docs_folders_meta_box' );
+	add_action( 'bp_docs_before_tags_meta_box', 'bfc_docs_folders_meta_box', 12 );
+}
+
+/**
+ * Add the meta box to the edit page.
+ *
+ * @since 1.9
+ */
+function bfc_docs_folders_meta_box() {
+
+	$doc_id = get_the_ID();
+	$associated_group_id = bp_is_active( 'groups' ) ? bp_docs_get_associated_group_id( $doc_id ) : 0;
+
+	if ( ! $associated_group_id && isset( $_GET['group'] ) ) {
+		$group_id = BP_Groups_Group::get_id_from_slug( urldecode( $_GET['group'] ) );
+		if ( current_user_can( 'bp_docs_associate_with_group', $group_id ) ) {
+			$associated_group_id = $group_id;
+		}
+	}
+
+	if (! $associated_group_id && bp_docs_is_doc_create()) {
+		$associated_group_id = bp_get_current_group_id();
+	}
+
+	// On the Create screen, respect the 'folder' $_GET param
+	if ( bp_docs_is_doc_create() ) {
+		$folder_id = bp_docs_get_current_folder_id();
+	} else {
+		$folder_id = bp_docs_get_doc_folder( $doc_id );
+	}
+
+	?>
+
+	<div id="doc-folders" class="doc-meta-box bfc-folders">
+		<div class="toggleable <?php bp_docs_toggleable_open_or_closed_class( 'folders-meta-box' ) ?>">
+			<p id="folders-toggle-edit" class="toggle-switch">
+				<span class="hide-if-js toggle-link-no-js"><?php _e( 'Folders', 'buddypress-docs' ) ?></span>
+				<a class="hide-if-no-js toggle-link" id="folders-toggle-link" href="#"><span class="show-pane plus-or-minus"></span><span class="toggle-title"><?php _e( 'Folders', 'buddypress-docs' ) ?></span></a>
+			</p>
+
+			<div class="toggle-content">
+				<table class="toggle-table" id="toggle-table-folders">
+					<tr>
+						<td class="desc-column">
+							<label for="bp_docs_tag"><?php _e( 'Select a folder for this Doc.', 'buddypress-docs' ) ?></label>
+						</td>
+
+						<td>
+							<div class="existing-or-new-selector">
+								<input type="radio" name="existing-or-new-folder" id="use-existing-folder" value="existing" checked="checked" />
+								<label for="use-existing-folder" class="radio-label"><?php _e( 'Use an existing folder', 'buddypress-docs' ) ?></label><br />
+								<div class="selector-content">
+									<?php bp_docs_folder_selector( array(
+										'name'     => 'bp-docs-folder',
+										'id'       => 'bp-docs-folder',
+										'group_id' => $associated_group_id,
+										'selected' => $folder_id,
+									) ) ?>
+								</div>
+							</div>
+
+							<div class="existing-or-new-selector" id="new-folder-block">
+								<input type="radio" name="existing-or-new-folder" id="create-new-folder" value="new" />
+								<label for="create-new-folder" class="radio-label"><?php _e( 'Create a new folder', 'buddypress-docs' ) ?></label>
+								<div class="selector-content">
+
+									<?php bp_docs_create_new_folder_markup( array(
+										'group_id' => $associated_group_id,
+										'selected' => $associated_group_id,
+									) ) ?>
+								</div><!-- .selector-content -->
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<?php
+}
 ?>
