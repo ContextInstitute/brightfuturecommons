@@ -37,7 +37,7 @@ if (class_exists('Simple_Comment_Editing')) {
 
 	// You can start editing here -- including this comment!
 	$args = array(
-		'comment_field'      => '<p class="comment-form-comment"><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="' . __( 'Comment on this blog post...', 'bfcommons-theme' ) . '"></textarea></p>',
+		'comment_field'      => '<p class="comment-form-comment"><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="' . __( 'Add your comments ...', 'bfcommons-theme' ) . '"></textarea></p>',
 		'title_reply'        => '',
 
 		/*

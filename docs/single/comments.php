@@ -39,7 +39,7 @@ foreach ( (array)$comments as $comment ) {
 
 		// You can start editing here -- including this comment!
 		$args = array(
-			'comment_field'      => '<p class="comment-form-comment"><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="' . __( 'Comment on this doc...', 'buddyboss-theme' ) . '"></textarea></p>',
+			'comment_field'      => '<p class="comment-form-comment"><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="' . __( 'Add your comment ...', 'buddyboss-theme' ) . '"></textarea></p>',
 			'title_reply'        => '',
 
 			/*

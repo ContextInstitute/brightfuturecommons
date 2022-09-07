@@ -643,6 +643,10 @@ nav#object-nav li.bfc-group-name-nav{
 	padding:11px 30px 11px 0;
 	}
 
+.groups-nav #albums-groups-li {
+	display: none;
+}
+
 
 /* Forums and Group Member Intros*/
 
