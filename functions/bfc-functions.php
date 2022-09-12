@@ -783,6 +783,13 @@ if ( ! function_exists( 'bfc_comment' ) ) {
 			$tag       = 'li';
 			$add_below = 'div-comment';
 		}
+		$is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
+		$follow_class = $is_follow_active ? 'follow-active' : '';
+		$user = bp_loggedin_user_id();
+		$type = 'comment';
+		$person = $comment->user_id;
+		$post_id = get_comment_ID();
+
 		?>
 
 		<<?php echo esc_attr( $tag ); ?> <?php comment_class( $args['has_children'] ? 'parent' : '', $comment ); ?> id="comment-<?php comment_ID(); ?>">
@@ -793,10 +800,11 @@ if ( ! function_exists( 'bfc_comment' ) ) {
 			if ( 0 != $args['avatar_size'] ) {
 				$user_link = function_exists( 'bp_core_get_user_domain' ) ? bp_core_get_user_domain( $comment->user_id ) : get_comment_author_url( $comment );
 				?>
-				<div class="comment-author vcard">
-					<a href="<?php echo esc_url( $user_link ); ?>">
+				<div class="comment-author vcard data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members"">
+					<span class="bfc-la-topic-author-avatar topic-author bfc-dropdown-span" data-toggle="<?php echo $type . '-dropdown-' . esc_attr( $post_id ); ?>">
 						<?php echo get_avatar( $comment, $args['avatar_size'] ); ?>
-					</a>
+					</span>
+					<?php echo bfc_member_dropdown( $type, $post_id, $person, $follow_class );?>
 				</div>
 			<?php } ?>
 
