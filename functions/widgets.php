@@ -344,8 +344,8 @@ class bsp_Activity_Widget extends WP_Widget {
 				if($hide_own_posts && $person == bp_loggedin_user_id()) {continue;}
 				?>
 
-				<li class="bfc-la-li" data-bp-item-id="<?php echo $author_id; ?>" data-bp-item-component="members">
-				<div class = "update-item">
+				<li class="bfc-la-li">
+				<div class = "update-item" data-bp-item-id="<?php echo $author_id; ?>" data-bp-item-component="members">
 					<span class="bfc-la-topic-author-avatar topic-author bfc-dropdown-span" data-toggle="<?php echo $type . '-dropdown-' . esc_attr( $post_id ); ?>"><?php bbp_reply_author_avatar( $post_id,  $size = 40 ); ?></span>
 					<?php echo bfc_member_dropdown( $type, $post_id, $person, $follow_class );?>
 					<div class="bfc-forum-links">

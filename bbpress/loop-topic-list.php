@@ -10,7 +10,7 @@
 				$person = bbp_get_topic_author_id();
 				$topic_id = bbp_get_topic_id();
 				?>
-				<div class="bfc-la-topic-author-avatar topic-author">
+				<div class="bfc-la-topic-author-avatar topic-author" data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members">
 					<span class="bfc-dropdown-span" data-toggle="<?php echo $type . '-dropdown-' . esc_attr( $topic_id ); ?>"><?php bbp_topic_author_avatar( $topic_id,  $size = 40 ); ?></span><br>
 					<?php echo bfc_member_dropdown( $type, $topic_id, $person, $follow_class );?>
 				</div>
