@@ -1291,11 +1291,6 @@ a.bp-title-button.small,
 	min-width: 106px;
 }
 
-#buddypress .standard-form .mce-toolbar .mce-btn button,
-.buddypress .buddypress-wrap .mce-toolbar .mce-btn button {
-	height: 20px;
-}
-
 body #buddypress .bp-list .action .generic-button button.join-group,
 body #buddypress .bp-list .action .generic-button button.accept-invite,
 body #buddypress .bp-list .action .generic-button button.request-membership {

@@ -329,6 +329,27 @@ div.mce-tab {
 }
 
 /* TinyMCE toolbars */
+
+#buddypress #profile-edit-form .wp-editor-container button,
+#buddypress .standard-form .mce-toolbar .mce-btn button,
+.buddypress .buddypress-wrap .mce-toolbar .mce-btn button {
+	height: 20px;
+	padding: inherit;
+}
+
+#buddypress #profile-edit-form .wp-editor-container .mce-toolbar div,
+.single-item.bp-docs .doc-content .mce-toolbar div {
+	font-size: 14px;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	line-height: normal;
+}
+
+#buddypress #profile-edit-form .wp-editor-container .mce-toolbar .mce-btn-group div.mce-btn,
+.single-item.bp-docs .doc-content .mce-toolbar .mce-btn-group div.mce-btn {
+	margin-bottom: 2px;
+}
+
+
 div.mce-toolbar-grp {
 	border-bottom: 1px solid #dcdcde;
 	background: #f6f7f7;
@@ -1966,4 +1987,16 @@ html:lang(he-il) .rtl .quicktags-toolbar input {
 .mce-edit-area > iframe {
 	height: 240px;
 	resize: vertical;
+}
+
+/* BFC Custom forum editor */
+
+.doc-content .mce-btn[aria-label="Tab Indent"],
+.editfield.field_type_textarea .mce-i-drawit,
+.editfield.field_type_textarea .mce-colorbutton,
+.editfield.field_type_textarea .mce-menubtn[aria-label="Table"],
+#buddypress #bbpress-forums .mce-i-drawit,
+#buddypress #bbpress-forums .mce-colorbutton,
+#buddypress #bbpress-forums .mce-menubtn[aria-label="Table"] {
+	display: none;
 }
