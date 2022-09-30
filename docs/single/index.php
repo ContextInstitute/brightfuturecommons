@@ -1,12 +1,10 @@
 <?php
 $bp_docs_do_theme_compat = is_buddypress() && bp_docs_do_theme_compat( 'single/index.php' );
 if ( ! $bp_docs_do_theme_compat ) : ?>
-<!-- single/index start-->
 <div id="buddypress">
 <?php endif; ?>
 
 <div class="<?php bp_docs_container_class(); ?>">
-
 	<?php if ( ! did_action( 'template_notices' ) ) : ?>
 		<?php do_action( 'template_notices' ) ?>
 	<?php endif ?>
@@ -51,7 +49,6 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 		<?php comments_template( '/docs/single/comments.php' ) ?>
 	<?php endif ?>
 </div><!-- .bp-docs -->
-<!-- single/index end-->
 
 <?php if ( ! $bp_docs_do_theme_compat ) : ?>
 </div><!-- /#buddypress -->

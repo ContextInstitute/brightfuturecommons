@@ -20,9 +20,9 @@ $person = get_the_author_meta( 'ID' );
 $post_id = get_the_ID();
 
 ?>
-<div class="entry-meta" data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members">
+<div class="entry-meta">
 	<div class="bb-user-avatar-wrap">
-		<div class="avatar-wrap">
+		<div class="avatar-wrap" data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members">
 			<span class="bfc-la-topic-author-avatar topic-author bfc-dropdown-span" data-toggle="<?php echo $type . '-dropdown-' . esc_attr( $post_id ); ?>">
 				<?php echo get_avatar( get_the_author_meta( 'ID' ), 80 ); ?>
 			</span>

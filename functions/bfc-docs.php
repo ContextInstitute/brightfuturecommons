@@ -3,7 +3,11 @@
 add_filter('nav_menu_css_class', 'bp_docs_is_parent', 10 , 2);
 
 function bp_docs_is_parent( $classes, $item) {
-	if (bp_docs_is_bp_docs_page() && $item->title == 'Docs' && bp_current_component() != 'groups' && !(bfc_doc_has_tag ('bfcom-help') || 'bfcom-help' == urldecode( $_GET['bpd_tag'] ))) {
+	$docs_page = bp_docs_is_bp_docs_page();
+	$item_title = $item->title;
+	$is_user_page = bp_is_user();
+	$cur_comp = bp_current_component();
+	if (bp_docs_is_bp_docs_page() && $item->title == 'Docs' && !bp_is_user() && bp_current_component() != 'groups' && !(bfc_doc_has_tag ('bfcom-help') || 'bfcom-help' == urldecode( $_GET['bpd_tag'] ))) {
 		$classes[] = 'current_page_parent';
 	}
 	return $classes;
@@ -199,17 +203,14 @@ function bfc_doc_authors( $post_id = false ) {
 			$instance_id = $author_id;
 			$person = $instance_id;
 			?>
-			<span data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members">
-				<div class="bfc-tooltip">
-					<span class="bfc-dropdown-span" data-toggle="doc-dropdown-<?php echo esc_attr( $author_id ); ?>"><img src="<?php echo $avatar; ?>" alt="<?php echo $uname; ?>" class=".bfc-rounded"/></span>
+			<div class="bfc-tooltip" data-bp-item-id="<?php echo $person; ?>" data-bp-item-component="members">
+				<span class="bfc-dropdown-span" data-toggle="doc-dropdown-<?php echo esc_attr( $author_id ); ?>"><img src="<?php echo $avatar; ?>" alt="<?php echo $uname; ?>" class=".bfc-rounded"/></span>
 				<?php
 				if (bp_docs_is_single_doc()) {
 				echo bfc_member_dropdown( $type, $instance_id, $person, $follow_class );
 				} ?>
 				<span class="bfc-tooltiptext"><a href="/members/<?php echo bp_core_get_username( $author_id );?>"><?php echo $uname; ?></a></span>
-
-				</div>
-			</span>
+			</div>
 		<?php }
 	}
 }
@@ -608,7 +609,7 @@ if (class_exists('Simple_Comment_Editing')) {
 	add_filter( 'sce_can_edit', 'bfc_docs_sce_can_edit', 12, 2 );
 
 	function bfc_docs_sce_can_edit ($value, $comment) {
-		$value = bfc_docs_sce_can_edit_comment ($comment);
+		$value = bfc_docs_can_edit_comment ($comment);
 		return $value;
 		// return true;
 	}
@@ -629,24 +630,24 @@ if (class_exists('Simple_Comment_Editing')) {
 
 }
 
-function bfc_docs_sce_can_edit_comment ($comment) {
+function bfc_docs_can_edit_comment ($comment) {
 
-	$sce_retval = false;
+	$retval = false;
 	if (bp_docs_is_single_doc()) {
 		$current_user_can_edit = current_user_can( 'bp_docs_edit' );
 		$comment_user_id = $comment->user_id;
 		if ($current_user_can_edit || $comment_user_id == bp_loggedin_user_id()) {
-			$sce_retval = true;
+			$retval = true;
 		}
 	} else {
 		$post_author_id = get_post_field ('post_author', $comment->comment_post_ID);
 		$comment_user_id = $comment->user_id;
 		$loggin_user = bp_loggedin_user_id();
 		if ($post_author_id == $loggin_user || $comment_user_id == $loggin_user) {
-			$sce_retval = true;
+			$retval = true;
 		}
 	}
-	return $sce_retval;
+	return $retval;
 }
 add_action('wp_head', 'bfc_setup_doc_folders');
 

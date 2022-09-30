@@ -1,8 +1,12 @@
 <?php
+global $post;
+
 $doc_id = 0;
 $current_doc = bp_docs_get_current_doc();
 if ( $current_doc ) {
 	$doc_id = $current_doc->ID;
+} elseif ($post) {
+	$doc_id = $post->ID;
 }
 
 $group_id = 0;
@@ -202,7 +206,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 
 			<?php if ( bp_docs_is_existing_doc() ) : ?>
 				<?php if ( current_user_can( 'bp_docs_manage', $doc_id ) ) : ?>
-					<?php bp_docs_delete_doc_button() ?>
+					<?php bp_docs_delete_doc_button($doc_id) ?>
 				<?php endif ?>
 			<?php endif ?>
 		</div>
