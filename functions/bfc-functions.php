@@ -854,7 +854,7 @@ if ( ! function_exists( 'bfc_comment' ) ) {
 				?>
 			</div>
 
-			<?php if ( !class_exists('Simple_Comment_Editing') || (class_exists('Simple_Comment_Editing') && !bfc_docs_sce_can_edit_comment ($comment) )) : ?>
+			<?php if ( !class_exists('Simple_Comment_Editing') || (class_exists('Simple_Comment_Editing') && !bfc_docs_can_edit_comment ($comment) )) : ?>
 			<footer class="comment-footer">
 				<?php 
 				if (current_user_can ('edit_others_posts')) {

@@ -90,4 +90,25 @@ function bfc_get_the_content( $args = array() ) {
 
 		return apply_filters( 'bfc_get_the_content', $output, $args, $post_content );
 }
+
+add_filter( 'bp_xprofile_field_type_textarea_editor_args', 'bfc_profile_textarea_editor');
+
+function bfc_profile_textarea_editor($editor_args) {
+	$bfc_args = array (
+		'context'           => 'profile',
+		// 'before'            => '<div class="bbp-the-content-wrapper">',
+		// 'after'             => '</div>',
+		'wpautop'           => true,
+		'media_buttons'     => true,
+		'textarea_rows'     => '12',
+		// 'tabindex'          => bbp_get_tab_index(),
+		// 'tabfocus_elements' => 'bbp_topic_title,bbp_topic_tags',
+		// 'editor_class'      => 'bbp-the-content',
+		'tinymce'           => true,
+		'teeny'             => false,
+		'quicktags'         => false,
+		'dfw'               => false,
+		);
+	return bbp_parse_args ($bfc_args,$editor_args);
+}
 ?>
