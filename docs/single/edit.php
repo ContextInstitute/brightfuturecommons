@@ -5,7 +5,7 @@ $doc_id = 0;
 $current_doc = bp_docs_get_current_doc();
 if ( $current_doc ) {
 	$doc_id = $current_doc->ID;
-} elseif ($post) {
+} elseif (bp_docs_is_existing_doc() && $post) {
 	$doc_id = $post->ID;
 }
 
