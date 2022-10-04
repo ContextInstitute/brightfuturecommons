@@ -471,6 +471,47 @@ body.buddypress article.page>.entry-header .entry-title {
 	text-align: center;
 }
 
+.bp-docs-directory .folder-action-links {
+	display: none;
+}
+
+.bp-docs .media-router .media-menu-item {
+	color: #007CFF;
+}
+
+.bp-docs .media-router .media-menu-item.active {
+	color: #1d2327;
+}
+
+.doc-content table.bfc-diff,
+.doc-content table.diff {
+	table-layout: fixed;
+	margin: 28px 0 0 0;
+	background-color: #fff;
+}
+
+.doc-content table.bfc-diff col.th {
+	width: 5px;
+}
+
+.doc-content table th {
+	vertical-align: top;
+}
+
+.doc-content table.bfc-diff {
+	max-width: 180%;
+    width: 180%;
+    margin-left: -40%;
+}
+
+.doc-content table.post-revisions {
+	table-layout: auto;
+}
+
+.doc-content table #revision-field-post_excerpt {
+	display: none;
+}
+
 /* Docs widget */
 
 .bfc-doc-widget-meta {

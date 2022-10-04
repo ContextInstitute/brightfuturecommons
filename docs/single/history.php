@@ -21,7 +21,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 
 		<?php endif ?>
 
-		<table class="form-table ie-fixed">
+		<table class="form-table ie-fixed<?php if ( 'diff' == bp_docs_history_action() ) {echo ' bfc-diff';} ?>">
 			<col class="th" />
 
 			<?php if ( 'diff' == bp_docs_history_action() ) : ?>
