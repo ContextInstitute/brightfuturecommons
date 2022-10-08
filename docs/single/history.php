@@ -15,9 +15,11 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 
 		<?php if ( bp_docs_history_is_latest() ) : ?>
 
-			<p><?php _e( "Click on a revision date from the list below to view that revision.", 'buddypress-docs' ) ?></p>
+			<p><?php _e( "The first item on the list below is the current version, included so it can be compared to.", 'buddypress-docs' ) ?></p>
 
-			<p><?php _e( "Alternatively, you can compare two revisions by selecting them in the 'Old' and 'New' columns, and clicking 'Compare Revisions'.", 'buddypress-docs' ) ?></p>
+			<p><?php _e( "You can compare two revisions by selecting them in the 'Old' and 'New' columns, and clicking 'Compare Revisions'.", 'buddypress-docs' ) ?></p>
+
+			<p><?php _e( "Alternatively, you can click on the 'Date Created' for any earlier item to view that revision by itself.", 'buddypress-docs' ) ?></p>
 
 		<?php endif ?>
 
@@ -67,7 +69,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 
 		<br class="clear" />
 
-		<?php bp_docs_list_post_revisions( get_the_ID() ) ?>
+		<?php bp_docs_list_post_revisions( get_the_ID(), array( 'parent' => true )) ?>
 
 		</div>
 	<?php else : ?>
