@@ -122,7 +122,7 @@ body.buddypress article.page>.entry-header .entry-title {
 	font-size: clamp(29px, 20.0000px + 2.5000vw, 41px);
 	line-height: clamp(39px, 29.2500px + 2.7083vw, 52px);
 }
-.tbp-docs h2,
+.bp-docs h2,
 .type-post h2,
 .type-bp_docs .h2,
 .type-post .h2 {
