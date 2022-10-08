@@ -35,7 +35,7 @@
 		<?php if ( $can_edit || $can_view_history || $can_manage_trash) : ?>
 
 			<div class="meta-block">
-				Last edit: <?php echo get_the_modified_date() ?>
+				Last edit: <?php echo bfc_nice_date (get_post_modified_time('U', true))?>
 			</div>
 
 			<div class="doc-tabs">
