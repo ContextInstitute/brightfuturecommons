@@ -38,7 +38,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 				<tr id="revision">
 					<th scope="row"></th>
 					<th scope="col" class="th-full">
-						<span class="alignleft"><?php printf( __( 'You are currently viewing a revision titled "%1$s", saved on %2$s by %3$s', 'buddypress-docs' ), bp_docs_history_post_revision_field( false, 'post_title' ), bp_format_time( strtotime( bp_docs_history_post_revision_field( false, 'post_date' ) ) ), bp_core_get_userlink( bp_docs_history_post_revision_field( false, 'post_author' ) ) ); ?></span>
+						<span class="alignleft"><?php printf( __( 'You are currently viewing a revision titled "%1$s", saved %2$s by %3$s', 'buddypress-docs' ), bp_docs_history_post_revision_field( false, 'post_title' ), bfc_nice_date( strtotime( bp_docs_history_post_revision_field( false, 'post_date' ) ) ), bp_core_get_userlink( bp_docs_history_post_revision_field( false, 'post_author' ) ) ); ?></span>
 					</th>
 				</tr>
 			<?php endif ?>
