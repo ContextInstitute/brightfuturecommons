@@ -133,7 +133,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 								</div>
 							</div>
 							<div class="meta-block">
-								<p>Latest edit: <?php echo get_the_modified_date() ?></p>
+								<p>Last edit: <?php echo bfc_nice_date (get_post_modified_time('U', true)) ?></p>
 								<p><?php bfc_show_terms(); ?></p>
 								<?php if( bp_current_component() == 'groups') : ?>
 									<p><?php bfc_show_parent(); ?></p>

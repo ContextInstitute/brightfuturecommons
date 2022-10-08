@@ -1133,7 +1133,7 @@ class bfc_latest_docs_widget extends WP_Widget {
                         <a href="<?php bp_docs_doc_link() ?>"><?php the_title() ?></a>
                     </div>
                     <div class = "bfc-doc-widget-meta">
-						<?php echo get_the_modified_date() ?>
+						<?php echo bfc_nice_date (get_post_modified_time('U', true)) ?>
                     </div>
 					<div class="bfc-doc-widget-location">
 						<p><?php echo bfc_docs_location(); ?></p>
