@@ -483,6 +483,7 @@ body.buddypress article.page>.entry-header .entry-title {
 	color: #1d2327;
 }
 
+.doc-content table.bfc-revision,
 .doc-content table.bfc-diff,
 .doc-content table.diff {
 	table-layout: fixed;
@@ -490,18 +491,25 @@ body.buddypress article.page>.entry-header .entry-title {
 	background-color: #fff;
 }
 
+.doc-content table.bfc-revision col.th,
 .doc-content table.bfc-diff col.th {
 	width: 5px;
 }
 
 .doc-content table th {
 	vertical-align: top;
+	white-space: nowrap;
 }
 
 .doc-content table.bfc-diff {
 	max-width: 180%;
     width: 180%;
     margin-left: -40%;
+}
+
+.doc-content table.bfc-diff .pre,
+.doc-content table.bfc-revision .pre {
+	margin-top: 28px;
 }
 
 .doc-content table.post-revisions {
