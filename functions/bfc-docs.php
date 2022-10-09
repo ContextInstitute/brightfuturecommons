@@ -488,8 +488,6 @@ function bfc_docs_list_post_revisions( $post_id = 0, $args = null ) {
 
 	extract( wp_parse_args( $args, $defaults ), EXTR_SKIP );
 
-	$revisions = array();
-
 	switch ( $type ) {
 		case 'autosave' :
 			if ( !$autosave = wp_get_post_autosave( $post->ID ) )
@@ -499,14 +497,13 @@ function bfc_docs_list_post_revisions( $post_id = 0, $args = null ) {
 		case 'revision' : // just revisions - remove autosave later
 		case 'all' :
 		default :
-			$revisions = wp_get_post_revisions( $post->ID );
+			if ( !$revisions = wp_get_post_revisions( $post->ID ) )
+				return;
 			break;
 	}
 
-	$revisions[] = $post;
-
 	/* translators: post revision: 1: when, 2: author name */
-	$titlef = _x( '%1$s by %2$s', 'post revision', 'bfcommons-theme' );
+	$titlef = _x( '%1$s by %2$s', 'post revision', 'buddypress-docs' );
 
 	if ( $parent )
 		array_unshift( $revisions, $post );
@@ -520,26 +517,37 @@ function bfc_docs_list_post_revisions( $post_id = 0, $args = null ) {
 
 		$base_url = trailingslashit( get_permalink() . BP_DOCS_HISTORY_SLUG );
 
-		$date = '<a href="' . add_query_arg( 'revision', $revision->ID ) . '">' . bp_format_time( strtotime( $revision->post_date ), false, false /* don't double localize time */ ) . '</a>';
+		if ( $post->ID == $revision->ID ) {
+			$date = bfc_nice_date( strtotime( $post->post_modified_gmt ) );
+			$hide_left = " style='display: none;'";
+		} else {
+			$date = '<a href="' . add_query_arg( 'revision', $revision->ID ) . '">' . bfc_nice_date( strtotime( $revision->post_date ) ) . '</a>';
+			$hide_left = '';
+		}
+		// $date = '<a href="' . add_query_arg( 'revision', $revision->ID ) . '">' . bp_format_time( strtotime( $revision->post_date ), false, false /* don't double localize time */ ) . '</a>';
 		$name = bp_core_get_userlink( $revision->post_author );
 
 		if ( 'form-table' == $format ) {
-			if ( $left )
+			if ( $left && $post->ID != $revision->ID )
 				$left_checked = $left == $revision->ID ? ' checked="checked"' : '';
 			else
 				$left_checked = $right_checked ? ' checked="checked"' : ''; // [sic] (the next one)
 			$right_checked = $right == $revision->ID ? ' checked="checked"' : '';
 
+			if ('diff' != bp_docs_history_action() && !bp_docs_history_is_latest()) {
+				$left_checked = $right_checked = '';
+			}	
+
 			$class = $class ? '' : " class='alternate'";
 
 			if ( $post->ID != $revision->ID && $can_edit_post )
-				$actions = '<a class="confirm" href="' . wp_nonce_url( add_query_arg( array( 'revision' => $revision->ID, 'action' => 'restore' ), $base_url ), "restore-post_$post->ID|$revision->ID" ) . '">' . __( 'Restore', 'bfcommons-theme' ) . '</a>';
+				$actions = '<a class="confirm" href="' . wp_nonce_url( add_query_arg( array( 'revision' => $revision->ID, 'action' => 'restore' ), $base_url ), "restore-post_$post->ID|$revision->ID" ) . '">' . __( 'Restore', 'buddypress-docs' ) . '</a>';
 			else
 				$actions = '';
 
 			$rows .= "<tr$class>\n";
-			$rows .= "\t<th style='white-space:nowrap;text-align:center' scope='row'><input type='radio' name='left' value='$revision->ID'$left_checked id='left-$revision->ID' /><label class='screen-reader-text' for='left-$revision->ID'>" . __( 'Old', 'bfcommons-theme' ) . "</label></th>\n";
-			$rows .= "\t<th style='white-space:nowrap;text-align:center' scope='row'><input type='radio' name='right' value='$revision->ID'$right_checked id='right-$revision->ID' /><label class='screen-reader-text' for='right-$revision->ID'>" . __( 'New', 'bfcommons-theme' ) . "</label></th>\n";
+			$rows .= "\t<th style='white-space:nowrap;text-align:center' scope='row'><input type='radio' name='left' value='$revision->ID'$left_checked id='left-$revision->ID'$hide_left /><label class='screen-reader-text' for='left-$revision->ID'>" . __( 'Old', 'buddypress-docs' ) . "</label></th>\n";
+			$rows .= "\t<th style='white-space:nowrap;text-align:center' scope='row'><input type='radio' name='right' value='$revision->ID'$right_checked id='right-$revision->ID' /><label class='screen-reader-text' for='right-$revision->ID'>" . __( 'New', 'buddypress-docs' ) . "</label></th>\n";
 			$rows .= "\t<td>$date</td>\n";
 			$rows .= "\t<td>$name</td>\n";
 			$rows .= "\t<td class='action-links'>$actions</td>\n";
@@ -548,43 +556,45 @@ function bfc_docs_list_post_revisions( $post_id = 0, $args = null ) {
 			$title = sprintf( $titlef, $date, $name );
 			$rows .= "\t<li>$title</li>\n";
 		}
-	} ?>
+	}
 
-	<form action="" method="get">
+?>
 
-	<div class="tablenav">
-		<div class="alignleft">
-			<input type="submit" class="button-secondary" value="<?php esc_attr_e( 'Compare Revisions', 'bfcommons-theme' ); ?>" />
-			<input type="hidden" name="action" value="diff" />
-			<input type="hidden" name="post_type" value="<?php echo esc_attr($post->post_type); ?>" />
-		</div>
+<form action="" method="get">
+
+<div class="tablenav">
+	<div class="alignleft">
+		<input type="submit" class="button-secondary" value="<?php esc_attr_e( 'Compare Revisions', 'buddypress-docs' ); ?>" />
+		<input type="hidden" name="action" value="diff" />
+		<input type="hidden" name="post_type" value="<?php echo esc_attr($post->post_type); ?>" />
 	</div>
+</div>
 
-	<br class="clear" />
+<br class="clear" />
 
-	<table class="widefat post-revisions" cellspacing="0" id="post-revisions">
-		<col />
-		<col />
-		<col style="width: 33%" />
-		<col style="width: 33%" />
-		<col style="width: 33%" />
-	<thead>
-	<tr>
-		<th scope="col"><?php /* translators: column name in revisons */ _e( 'Old', 'bfcommons-theme' ); ?></th>
-		<th scope="col"><?php /* translators: column name in revisons */ _e( 'New', 'bfcommons-theme' ); ?></th>
-		<th scope="col"><?php /* translators: column name in revisons */ _e( 'Date Created', 'bfcommons-theme' ); ?></th>
-		<th scope="col"><?php _e( 'Author', 'bfcommons-theme' ); ?></th>
-		<th scope="col" class="action-links"><?php _e( 'Actions', 'bfcommons-theme' ); ?></th>
-	</tr>
-	</thead>
-	<tbody>
+<table class="widefat post-revisions" cellspacing="0" id="post-revisions">
+	<col />
+	<col />
+	<col style="width: 33%" />
+	<col style="width: 33%" />
+	<col style="width: 33%" />
+<thead>
+<tr>
+	<th scope="col"><?php /* translators: column name in revisons */ _e( 'Old', 'buddypress-docs' ); ?></th>
+	<th scope="col"><?php /* translators: column name in revisons */ _e( 'New', 'buddypress-docs' ); ?></th>
+	<th scope="col"><?php /* translators: column name in revisons */ _e( 'Date Created', 'buddypress-docs' ); ?></th>
+	<th scope="col"><?php _e( 'Author', 'buddypress-docs' ); ?></th>
+	<th scope="col" class="action-links"><?php _e( 'Actions', 'buddypress-docs' ); ?></th>
+</tr>
+</thead>
+<tbody>
 
-	<?php echo $rows; ?>
+<?php echo $rows; ?>
 
-	</tbody>
-	</table>
+</tbody>
+</table>
 
-	</form>
+</form>
 
 <?php
 
@@ -733,5 +743,19 @@ function bfc_docs_folders_meta_box() {
 	</div>
 
 	<?php
+}
+
+function bfc_docs_get_the_content($post_id) {
+	if ( function_exists( 'bp_restore_all_filters' ) ) {
+		bp_restore_all_filters( 'the_content' );
+	}
+
+	$content = apply_filters( 'the_content', get_post_field('post_content', $post_id ) );
+
+	if ( function_exists( 'bp_remove_all_filters' ) ) {
+		bp_remove_all_filters( 'the_content' );
+	}
+
+	return $content;
 }
 ?>

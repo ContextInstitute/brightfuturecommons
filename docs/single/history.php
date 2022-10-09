@@ -21,9 +21,17 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 
 			<p><?php _e( "Alternatively, you can click on the 'Date Created' for any earlier item to view that revision by itself.", 'buddypress-docs' ) ?></p>
 
-		<?php endif ?>
+		<?php endif;
 
-		<table class="form-table ie-fixed<?php if ( 'diff' == bp_docs_history_action() ) {echo ' bfc-diff';} ?>">
+		 
+		if ( 'diff' == bp_docs_history_action() ) {
+			$bfc_history_class = ' bfc-diff';
+		}elseif ( !bp_docs_history_is_latest() ) {
+			$bfc_history_class = ' bfc-revision';
+		}
+		?>
+
+		<table class="form-table ie-fixed<?php echo $bfc_history_class; ?>">
 			<col class="th" />
 
 			<?php if ( 'diff' == bp_docs_history_action() ) : ?>
@@ -38,7 +46,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 				<tr id="revision">
 					<th scope="row"></th>
 					<th scope="col" class="th-full">
-						<span class="alignleft"><?php printf( __( 'You are currently viewing a revision titled "%1$s", saved %2$s by %3$s', 'buddypress-docs' ), bp_docs_history_post_revision_field( false, 'post_title' ), bfc_nice_date( strtotime( bp_docs_history_post_revision_field( false, 'post_date' ) ) ), bp_core_get_userlink( bp_docs_history_post_revision_field( false, 'post_author' ) ) ); ?></span>
+						<span class="alignleft"><?php printf( __( 'You are currently viewing a revision saved %1$s by %2$s', 'buddypress-docs' ), bfc_nice_date( strtotime( bp_docs_history_post_revision_field( false, 'post_date' ) ) ), bp_core_get_userlink( bp_docs_history_post_revision_field( false, 'post_author' ) ) ); ?></span>
 					</th>
 				</tr>
 			<?php endif ?>
@@ -47,13 +55,25 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 				<?php if ( 'diff' == bp_docs_history_action() ) : ?>
 					<tr id="revision-field-<?php echo $field; ?>">
 						<th scope="row"><?php echo esc_html( $field_title ); ?></th>
-						<td><div class="pre"><?php echo wp_text_diff( bp_docs_history_post_revision_field( 'left', $field ), bp_docs_history_post_revision_field( 'right', $field ) ) ?></div></td>
+						<?php if (!bp_docs_history_revisions_are_identical()) :
+						$diff_text = wp_text_diff( bp_docs_history_post_revision_field( 'left', $field ), bp_docs_history_post_revision_field( 'right', $field ) );
+						$diff_text = ($diff_text) ? $diff_text : '(These revisions are identical in ' . strtolower ($field_title) . '.)';
+						?>
+						<td><div class="pre"><?php echo $diff_text ?></div></td>
+						<?php endif ?>
 					</tr>
 				<?php elseif ( !bp_docs_history_is_latest() ) : ?>
-					<tr id="revision-field-<?php echo $field; ?>">
-						<th scope="row"><?php echo esc_html( $field_title ); ?></th>
-						<td><div class="pre"><?php echo bp_docs_history_post_revision_field( false, $field ) ?></div></td>
-					</tr>
+					<?php if ( $field == 'post_content' ) : ?>
+						<tr id="revision-field-<?php echo $field; ?>">
+							<th scope="row"><?php echo 'Revision ' . esc_html( $field_title ); ?></th>
+							<td><div class="pre"><?php echo bfc_docs_get_the_content( $_GET["revision"]); ?></div></td>
+						</tr>
+					<?php else : ?>
+						<tr id="revision-field-<?php echo $field; ?>">
+							<th scope="row"><?php echo 'Revision ' . esc_html( $field_title ); ?></th>
+							<td><div class="pre"><?php echo bp_docs_history_post_revision_field( false, $field ) ?></div></td>
+						</tr>
+					<?php endif ?>
 
 				<?php endif ?>
 
@@ -69,7 +89,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 
 		<br class="clear" />
 
-		<?php bp_docs_list_post_revisions( get_the_ID(), array( 'parent' => true )) ?>
+		<?php bfc_docs_list_post_revisions( get_the_ID(), array( 'parent' => true )) ?>
 
 		</div>
 	<?php else : ?>
