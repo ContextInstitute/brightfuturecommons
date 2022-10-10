@@ -46,7 +46,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 				<tr id="revision">
 					<th scope="row"></th>
 					<th scope="col" class="th-full">
-						<span class="alignleft"><?php printf( __( 'You are currently viewing a revision saved %1$s by %2$s', 'buddypress-docs' ), bfc_nice_date( strtotime( bp_docs_history_post_revision_field( false, 'post_date' ) ) ), bp_core_get_userlink( bp_docs_history_post_revision_field( false, 'post_author' ) ) ); ?></span>
+						<span class="alignleft"><?php printf( __( 'You are currently viewing a revision saved %1$s by %2$s', 'buddypress-docs' ), bfc_nice_date( strtotime( bp_docs_history_post_revision_field( false, 'post_date_gmt' ) ) ), bp_core_get_userlink( bp_docs_history_post_revision_field( false, 'post_author' ) ) ); ?></span>
 					</th>
 				</tr>
 			<?php endif ?>
@@ -89,7 +89,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 
 		<br class="clear" />
 
-		<?php bfc_docs_list_post_revisions( get_the_ID(), array( 'parent' => true )) ?>
+		<?php bfc_docs_list_post_revisions( get_the_ID()) ?>
 
 		</div>
 	<?php else : ?>

@@ -517,14 +517,14 @@ function bfc_docs_list_post_revisions( $post_id = 0, $args = null ) {
 
 		$base_url = trailingslashit( get_permalink() . BP_DOCS_HISTORY_SLUG );
 
-		if ( $post->ID == $revision->ID ) {
+		if ( $post->post_modified_gmt == $revision->post_modified_gmt ) {
 			$date = bfc_nice_date( strtotime( $post->post_modified_gmt ) );
-			$hide_left = " style='display: none;'";
+			// $hide_left = " style='display: none;'";
 		} else {
-			$date = '<a href="' . add_query_arg( 'revision', $revision->ID ) . '">' . bfc_nice_date( strtotime( $revision->post_date ) ) . '</a>';
-			$hide_left = '';
+			$date = '<a href="' . add_query_arg( 'revision', $revision->ID ) . '">' . bfc_nice_date( strtotime( $revision->post_date_gmt ) ) . '</a>';
+			// $hide_left = '';
 		}
-		// $date = '<a href="' . add_query_arg( 'revision', $revision->ID ) . '">' . bp_format_time( strtotime( $revision->post_date ), false, false /* don't double localize time */ ) . '</a>';
+		// $date = '<a href="' . add_query_arg( 'revision', $revision->ID ) . '">' . bfc_nice_date( strtotime( $revision->post_date_gmt ) ) . '</a>';
 		$name = bp_core_get_userlink( $revision->post_author );
 
 		if ( 'form-table' == $format ) {
@@ -546,7 +546,7 @@ function bfc_docs_list_post_revisions( $post_id = 0, $args = null ) {
 				$actions = '';
 
 			$rows .= "<tr$class>\n";
-			$rows .= "\t<th style='white-space:nowrap;text-align:center' scope='row'><input type='radio' name='left' value='$revision->ID'$left_checked id='left-$revision->ID'$hide_left /><label class='screen-reader-text' for='left-$revision->ID'>" . __( 'Old', 'buddypress-docs' ) . "</label></th>\n";
+			$rows .= "\t<th style='white-space:nowrap;text-align:center' scope='row'><input type='radio' name='left' value='$revision->ID'$left_checked id='left-$revision->ID' /><label class='screen-reader-text' for='left-$revision->ID'>" . __( 'Old', 'buddypress-docs' ) . "</label></th>\n";
 			$rows .= "\t<th style='white-space:nowrap;text-align:center' scope='row'><input type='radio' name='right' value='$revision->ID'$right_checked id='right-$revision->ID' /><label class='screen-reader-text' for='right-$revision->ID'>" . __( 'New', 'buddypress-docs' ) . "</label></th>\n";
 			$rows .= "\t<td>$date</td>\n";
 			$rows .= "\t<td>$name</td>\n";
