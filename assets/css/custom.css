@@ -61,6 +61,14 @@ body.buddypress article.page>.entry-header .entry-title {
     font-size: 36px;
 }
 
+code, kbd, pre, samp {
+    font-family: "SF UI Display";
+}
+
+code {
+	background: hsl(200deg 7% 92%);
+}
+
 /* Blog and Docs type*/
 .single-item.bp-docs .doc-content,
 .type-bp_doc {
@@ -122,13 +130,20 @@ body.buddypress article.page>.entry-header .entry-title {
 	font-size: clamp(29px, 20.0000px + 2.5000vw, 41px);
 	line-height: clamp(39px, 29.2500px + 2.7083vw, 52px);
 }
-.bp-docs h2,
+
+.bp-docs h2:not(.media-frame-menu-heading, .media-attachments-filter-heading),
 .type-post h2,
 .type-bp_docs .h2,
 .type-post .h2 {
 	font-size: clamp(23px, 16.2500px + 1.8750vw, 32px);
 	line-height: clamp(32px, 24.5000px + 2.0833vw, 42px);
 }
+
+.bp-docs .media-frame-title h1 {
+	font-size: 22px;
+	line-height: 2.2727;
+}
+
 .bp-docs h3,
 .type-post h3,
 .type-bp_docs .h3,
@@ -475,6 +490,10 @@ body.buddypress article.page>.entry-header .entry-title {
 	display: none;
 }
 
+.groups .bp-docs-directory .folder-action-links {
+	display: block;
+}
+
 .bp-docs .media-router .media-menu-item {
 	color: #007CFF;
 }
@@ -515,6 +534,12 @@ body.buddypress article.page>.entry-header .entry-title {
 .doc-content table.post-revisions {
 	table-layout: auto;
 }
+
+.doc-content table.post-revisions tr:first-child input[name="left"],
+.doc-content table.post-revisions tr:first-child td.action-links>a {
+	display: none;
+}
+
 
 .doc-content table #revision-field-post_excerpt {
 	display: none;

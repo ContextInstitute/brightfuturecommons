@@ -135,9 +135,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 							<div class="meta-block">
 								<p>Last edit: <?php echo bfc_nice_date (get_post_modified_time('U', true)) ?></p>
 								<p><?php bfc_show_terms(); ?></p>
-								<?php if( bp_current_component() == 'groups') : ?>
-									<p><?php bfc_show_parent(); ?></p>
-								<?php endif ?>
+								<p><?php bfc_show_parent(); ?></p>
 							</div>
 							<div class="author-block">
 								<?php bfc_doc_authors( get_the_ID() ); ?>
