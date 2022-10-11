@@ -60,6 +60,20 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 
 		<?php do_action( 'bp_docs_before_doc_edit_content', $doc_id ) ?>
 
+		<div style="clear: both"> </div>
+		<div id="doc-submit-options-top">
+
+			<label>You need to save or cancel before you leave this view.</label>
+			<?php wp_nonce_field( 'bp_docs_save' ) ?>
+			<?php if(!apply_filters( 'bp_docs_allow_associated_group', true )):?>
+				<input type="hidden" id ="associated_group_id" name="associated_group_id" value="<?php echo $group_id ?>" />
+			<?php endif; ?>
+
+			<input type="hidden" id="doc_id" name="doc_id" value="<?php echo $doc_id ?>" />
+			<input type="submit" name="doc-edit-submit" id="doc-edit-submit" value="<?php _e( 'Save', 'buddypress-docs' ) ?>"> <input type="submit" name="doc-edit-submit-continue" id="doc-edit-submit-continue" value="<?php echo esc_attr( _e( 'Save and Continue Editing', 'buddypress-docs' ) ); ?>" /> <a href="<?php bp_docs_cancel_edit_link($doc_id) ?>" class="action safe confirm"><?php _e( 'Cancel', 'buddypress-docs' ); ?></a>
+		</div>
+		<div style="clear: both"> </div>
+
 		<div id="doc-content-textarea">
 			<label id="content-label" for="doc_content"><?php _e( 'Content', 'buddypress-docs' ) ?></label>
 			<div id="editor-toolbar">
