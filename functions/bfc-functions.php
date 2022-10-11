@@ -28,7 +28,8 @@ function bfc_member_dropdown( $type, $instance_id, $person, $follow_class ) {
 			$output .= bp_get_add_follow_button( $person, $user );
 		}
 		if ( is_super_admin( $user ) ) {
-			$output .= bp_get_add_switch_button( $person);
+			$output .= bp_get_last_activity( $person );
+			$output .= bp_get_add_switch_button( $person );
 		}
 	} elseif ( $old_user ) {
 		$output .= bp_get_add_switch_button( $old_user->ID );

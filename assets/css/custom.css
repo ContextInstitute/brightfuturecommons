@@ -494,6 +494,17 @@ code {
 	display: block;
 }
 
+.doc-content #doc-submit-options a.delete-doc-button:last-child {
+	display: none;
+}
+#doc-submit-options-top {
+	margin-top:30px
+}
+
+#doc-submit-options-top input[type=submit] {
+	margin-right: 15px;
+}
+
 .bp-docs .media-router .media-menu-item {
 	color: #007CFF;
 }
