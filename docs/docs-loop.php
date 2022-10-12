@@ -126,7 +126,18 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 							<div class="title-block">
 								<a href="<?php bp_docs_doc_link() ?>"><?php the_title() ?></a> <?php bp_docs_doc_trash_notice(); ?>
 								<div class="row-actions">
-									<?php bfc_docs_action_links() ?>
+									<?php 
+										bfc_docs_action_links();
+										$num_comments = 0;
+										$comments = get_comments (array ('post_id' => get_the_ID() ));
+										foreach ( (array)$comments as $comment ) {
+											if ( 'comment' == get_comment_type( $comment ) ) {$num_comments++;}
+										}
+										if ( $num_comments ) { 
+											$num_label = ($num_comments == 1) ? " comment" : " comments" ;
+											echo '<a href="' . bp_docs_get_doc_link() . '#comments" class="bfc-num-comments">- ' . $num_comments . $num_label .' </a>';
+										}
+									?>
 								</div>
 								<div class="folder-block">
 									<p><?php echo bfc_docs_location(); ?></p>
