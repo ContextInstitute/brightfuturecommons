@@ -164,26 +164,7 @@ function bfc_doc_authors( $post_id = false ) {
 		return '';
 	}
 
-	$post_author_ids = array();
-
-    $revision = wp_get_post_revisions($post_id);
-
-	foreach ($revision as $key => $value) {
-		// Check Id Already Exists in Array 
-		if ( ! in_array($value->post_author, $post_author_ids)) {
-			// Store Author Id 
-			$post_author_ids[] = $value->post_author;
-		}
-	}
-
-	$post = get_post($post_id);
-
-	if ( ! in_array($post->post_author, $post_author_ids)) {
-		// Store Author Id 
-		$post_author_ids[] = $post->post_author;
-	}
-
-	// $post_author_ids = array_reverse($post_author_ids);
+	$post_author_ids = bfc_doc_author_ids($post_id);
 
     if ( ! empty( $post_author_ids ) ) {
 		$is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
@@ -215,6 +196,32 @@ function bfc_doc_authors( $post_id = false ) {
 	}
 }
 
+function bfc_doc_author_ids ( $post_id = false ) {
+
+	if ( ! $post_id ) {
+		return '';
+	}
+
+	$post_author_ids = array();
+
+    $revision = wp_get_post_revisions($post_id);
+
+	foreach ($revision as $key => $value) {
+		// Check Id Already Exists in Array 
+		if ( ! in_array($value->post_author, $post_author_ids)) {
+			// Store Author Id 
+			$post_author_ids[] = $value->post_author;
+		}
+	}
+
+	$post = get_post($post_id);
+
+	if ( ! in_array($post->post_author, $post_author_ids)) {
+		// Store Author Id 
+		$post_author_ids[] = $post->post_author;
+	}
+	return $post_author_ids;
+}
 
 add_filter( 'bp_docs_enable_folders_for_current_context', 'bfc_docs_enable_folders' );
 
@@ -613,7 +620,12 @@ if (class_exists('Simple_Comment_Editing')) {
 	add_filter( 'sce_text_edit', 'bfc_sce_text_edit', 12 );
 
 	function bfc_sce_text_edit() {
-		return __( 'Edit', 'bfcommons-theme');
+		global $comment;
+		if ($comment->user_id == bp_loggedin_user_id()) {
+			return __( 'Edit', 'bfcommons-theme');
+		} else {
+			return __( 'Resolve', 'bfcommons-theme');
+		}
 	}
 
 	add_filter( 'sce_can_edit', 'bfc_docs_sce_can_edit', 12, 2 );
@@ -644,11 +656,13 @@ function bfc_docs_can_edit_comment ($comment) {
 
 	$retval = false;
 	if (bp_docs_is_single_doc()) {
-		$current_user_can_edit = current_user_can( 'bp_docs_edit' );
-		$comment_user_id = $comment->user_id;
-		if ($current_user_can_edit || $comment_user_id == bp_loggedin_user_id()) {
-			$retval = true;
-		}
+		$doc_id = get_the_ID();
+		$user_id = bp_loggedin_user_id();
+		$associated_group_id = bp_is_active( 'groups' ) ? bp_docs_get_associated_group_id( $doc_id ) : 0;
+		$is_comment_author = $comment->user_id == $user_id;
+		$is_doc_author = in_array( $user_id, bfc_doc_author_ids ( $doc_id ));
+		$is_steward = groups_is_user_admin( $user_id, $associated_group_id );
+		$retval = ( $is_comment_author || $is_doc_author || $is_steward );
 	} else {
 		$post_author_id = get_post_field ('post_author', $comment->comment_post_ID);
 		$comment_user_id = $comment->user_id;
@@ -659,6 +673,7 @@ function bfc_docs_can_edit_comment ($comment) {
 	}
 	return $retval;
 }
+
 add_action('wp_head', 'bfc_setup_doc_folders');
 
 function bfc_setup_doc_folders () {
