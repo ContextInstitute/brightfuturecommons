@@ -516,7 +516,7 @@ function bfc_rename_forum_nav ($link_text,$nav_item,$displayed_nav){
 	if (('Forum Threads' == $link_text || 'Discussions' == $link_text) && 'groups'== $displayed_nav) {
 		$link_text = 'Forum';
 		return $link_text;
-	} elseif ('Email Options' == $link_text && 'groups'== $displayed_nav && strpos( $nav_item->parent_slug,'manage')) {
+	} elseif ('notifications' == $nav_item->slug && 'groups'== $displayed_nav && strpos( $nav_item->parent_slug,'manage')) {
 		$link_text = 'Admin Emails';
 		return $link_text;
 	} else {
