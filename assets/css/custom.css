@@ -442,6 +442,11 @@ code {
 	flex-grow: 1.16;
 }
 
+.bp-docs-directory .title-block .row-actions a.bfc-num-comments {
+	font-size: 15px;
+	color: hsl(211deg 100% 50%);
+}
+
 @media (max-width: 640px) {
 
 	.bp-docs-single #bp-docs-single-doc-header,
