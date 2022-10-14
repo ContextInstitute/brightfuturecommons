@@ -443,8 +443,11 @@ code {
 }
 
 .bp-docs-directory .title-block .row-actions a.bfc-num-comments {
-	font-size: 15px;
-	color: hsl(211deg 100% 50%);
+	font-size: 16px;
+}
+
+.bp-docs-directory .title-block .row-actions span.bfc-comment-bubble {
+	font-size: 20px;
 }
 
 @media (max-width: 640px) {
