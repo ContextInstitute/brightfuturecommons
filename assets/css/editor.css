@@ -338,16 +338,23 @@ div.mce-tab {
 }
 
 #buddypress #profile-edit-form .wp-editor-container .mce-toolbar div,
-.single-item.bp-docs .doc-content .mce-toolbar div {
+.single-bp_doc .doc-content .mce-toolbar div,
+.single-item.bp-docs .doc-content .mce-toolbar div{
 	font-size: 14px;
 	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 	line-height: normal;
 }
 
+.single-bp_doc .doc-content .mce-toolbar div {
+	margin-bottom: 0;
+}
+
 #buddypress #profile-edit-form .wp-editor-container .mce-toolbar .mce-btn-group div.mce-btn,
+.single-bp_doc .doc-content .mce-toolbar .mce-btn-group div.mce-btn,
 .single-item.bp-docs .doc-content .mce-toolbar .mce-btn-group div.mce-btn {
 	margin-bottom: 2px;
 }
+
 
 
 div.mce-toolbar-grp {
@@ -1330,6 +1337,16 @@ i.mce-i-wp_code:before {
 
 .mce-content-body dl.wp-caption {
 	max-width: 100%;
+}
+
+.media-modal .media-modal-close {
+    top: 15px;
+    right: 10px;
+    width: 30px;
+    height: 20px;
+}
+.media-modal .media-modal-close:active, .media-modal .media-modal-close:hover {
+    color: #fff;
 }
 
 /* Quicktags */

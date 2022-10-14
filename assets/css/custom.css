@@ -114,9 +114,27 @@ code {
 	margin-bottom: 6px;
 }
 
+.bp-docs .standard-form label {
+	display: block;
+}
+
+.single-bp_doc.bp-docs-create .doc-content .wp-editor-container div,
+.single-bp_doc.bp-docs-edit .doc-content .wp-editor-container div, 
 .single-item.bp-docs.bp-docs-create .doc-content .wp-editor-container div,
 .single-item.bp-docs.bp-docs-edit .doc-content .wp-editor-container div {
 	margin-bottom: 0px;
+}
+
+.single-item.bp-docs .type-bp_doc .mce-top-part div,
+.single-bp_doc .type-bp_doc .mce-top-part div {
+	margin-bottom: 0;
+}
+
+.single-item.bp-docs div.wp-editor-tools,
+.single-item.bp-docs .wp-editor-tools div,
+.single-bp_doc .type-bp_doc div.wp-editor-tools,
+.single-bp_doc .type-bp_doc .wp-editor-tools div {
+	margin-bottom: 2px;
 }
 
 .bp-docs h1.directory-title
