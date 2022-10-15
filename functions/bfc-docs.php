@@ -627,6 +627,16 @@ if (class_exists('Simple_Comment_Editing')) {
 			return __( 'Resolve', 'bfcommons-theme');
 		}
 	}
+	
+	add_filter( 'sce_buttons', 'bfc_sce_allow_edit', 12, 2 );
+
+	function bfc_sce_allow_edit($textarea_buttons, $comment_id) {
+		$comment = get_comment ($comment_id);
+		if ($comment->user_id != bp_loggedin_user_id()) {
+			$textarea_buttons = str_replace('class="sce-comment-save"', 'class="sce-comment-save" style= "display: none;"', $textarea_buttons);
+		}
+		return $textarea_buttons;
+	}
 
 	add_filter( 'sce_can_edit', 'bfc_docs_sce_can_edit', 12, 2 );
 
