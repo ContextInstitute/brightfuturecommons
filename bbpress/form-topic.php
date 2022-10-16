@@ -259,3 +259,17 @@
 </div>
 
 <?php endif; ?>
+
+<script>
+var bfcCount = 0;
+jQuery('.bbp-topic-form form button#bbp_topic_submit').click(function(event){
+	bfcCount++;
+	if (bfcCount>1) {
+		event.preventDefault();
+		event.stopImmediatePropagation();
+	}
+	jQuery('#bbp_topic_submit')
+		.css({backgroundColor:'#fff', borderColor:'#c8cbcf', color: '#c8cbcf', cursor:'default'})
+		.text('Please wait ...');
+});
+</script>
