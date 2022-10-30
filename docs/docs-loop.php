@@ -9,7 +9,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 <!-- docs-loop start -->
 <div class="<?php bp_docs_container_class(); ?> bp-docs-directory">
 
-<?php if ('bfcom-help' == urldecode( $_GET['bpd_tag'] )) : ?>
+<?php if ('bfcom-help' == urldecode( isset($_GET['bpd_tag'] ) ? $_GET['bpd_tag'] : '') ) : ?>
 
 	<h1 class="directory-title">
 		<?php echo 'Commons Help'; ?>
