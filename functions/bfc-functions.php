@@ -19,22 +19,25 @@ function my_myme_types( $mime_types ) {
 }
 
 function bfc_member_dropdown( $type, $instance_id, $person, $follow_class ) {
-	$user = bp_loggedin_user_id();
-	$old_user = bp_current_member_switched();
-	$output = '<div class="dropdown-pane ' . $follow_class . '" id="' . $type . '-dropdown-' . esc_attr( $instance_id ) . '" data-dropdown data-hover="true" data-hover-pane="true" data-auto-focus="false">';
-	if ( $person != $user ) {
-		$output .= '<a href="/members/' . bp_core_get_username( $user ) . '/messages/compose/?r=' . bp_core_get_username( $person ) . '">Send a message</a><br>';
-		if ( 'follow-active' == $follow_class ) {
-			$output .= bp_get_add_follow_button( $person, $user );
+	$output = '';
+	if ($person > 0 && !bp_is_user_deleted($person)) {
+		$user = bp_loggedin_user_id();
+		$old_user = bp_current_member_switched();
+		$output .= '<div class="dropdown-pane ' . $follow_class . '" id="' . $type . '-dropdown-' . esc_attr( $instance_id ) . '" data-dropdown data-hover="true" data-hover-pane="true" data-auto-focus="false">';
+		if ( $person != $user ) {
+			$output .= '<a href="/members/' . bp_core_get_username( $user ) . '/messages/compose/?r=' . bp_core_get_username( $person ) . '">Send a message</a><br>';
+			if ( 'follow-active' == $follow_class ) {
+				$output .= bp_get_add_follow_button( $person, $user );
+			}
+			if ( is_super_admin( $user ) ) {
+				$output .= bp_get_last_activity( $person );
+				$output .= bp_get_add_switch_button( $person );
+			}
+		} elseif ( $old_user ) {
+			$output .= bp_get_add_switch_button( $old_user->ID );
 		}
-		if ( is_super_admin( $user ) ) {
-			$output .= bp_get_last_activity( $person );
-			$output .= bp_get_add_switch_button( $person );
-		}
-	} elseif ( $old_user ) {
-		$output .= bp_get_add_switch_button( $old_user->ID );
+		$output .= '<a href="/members/' . bp_core_get_username( $person ) . '">Visit profile</a></div>';
 	}
-	$output .= '<a href="/members/' . bp_core_get_username( $person ) . '">Visit profile</a></div>';
 	return $output;
 }
 
@@ -890,6 +893,45 @@ function bfc_photos_is_parent( $class_list, $classes, $item) {
 		$classes[] = 'selected';
 	}
 	return join( ' ', $classes );
+}
+
+/**
+ * Exclude users from BuddyPress members list.
+ * 
+ * From https://buddydev.com/hiding-users-on-buddypress-based-site/
+ *
+ * @param array $args args.
+ *
+ * @return array
+ */
+function bfc_exclude_users( $args ) {
+    // do not exclude in admin.
+    if ( is_admin() && ! defined( 'DOING_AJAX' ) ) {
+        return $args;
+    }
+ 
+    $excluded = isset( $args['exclude'] ) ? $args['exclude'] : array();
+ 
+    if ( ! is_array( $excluded ) ) {
+        $excluded = explode( ',', $excluded );
+    }
+ 
+    // Change it with the actual numeric user ids.
+    $user_ids = array( 1, 3 ); // user ids to exclude.
+ 
+    $excluded = array_merge( $excluded, $user_ids );
+ 
+    $args['exclude'] = $excluded;
+ 
+    return $args;
+}
+ 
+add_filter( 'bp_xprofile_is_richtext_enabled_for_field', 'bfc_disable_rt_function', 10, 2 );
+function bfc_disable_rt_function( $enabled, $field_id ) {
+  if ( 8 != $field_id ) {
+    $enabled = false;
+  }
+  return $enabled;
 }
 
 ?>
