@@ -138,11 +138,16 @@ function custom_group_tab_title() {
  * Display content of custom tab.
  */
 function custom_group_tab_content() {
+	$group_name = esc_html( bp_get_group_name() );
+	$start_welcome = "Welcome to the ";
+	$end_welcome = "'s dashboard";
+	if(substr($group_name, 0, 3) == 'The') { $start_welcome = "Welcome to "; }
+	if(substr($group_name, -1) == 's') { $end_welcome = "' dashboard"; }
 ?>
 	<div class="group-home-page">
 		<h2 class="user-home-welcome">
-			<span class="user-home-welcome-welcome">Welcome to the </span>
-			<span class="user-home-welcome-name"><?php echo esc_html( bp_get_group_name() ); ?>'s dashboard</span>
+			<span class="user-home-welcome-welcome"><?php echo $start_welcome; ?></span>
+			<span class="user-home-welcome-name"><?php echo esc_html( bp_get_group_name() . $end_welcome ); ?></span>
 		</h2>
 
 		<div class="bfc-group-description"><?php bp_current_group_description();?></div>
@@ -917,14 +922,16 @@ function bfc_exclude_users( $args ) {
     }
  
     // Change it with the actual numeric user ids.
-    $user_ids = array( 1, 3 ); // user ids to exclude.
- 
-    $excluded = array_merge( $excluded, $user_ids );
- 
+	if (bp_core_get_username(2)) {
+		$user_ids = array( 1, 3 ); // user ids to exclude.
+		$excluded = array_merge( $excluded, $user_ids );
+	}
+    
     $args['exclude'] = $excluded;
  
     return $args;
 }
+add_filter( 'bp_after_has_members_parse_args', 'bfc_exclude_users' );
  
 add_filter( 'bp_xprofile_is_richtext_enabled_for_field', 'bfc_disable_rt_function', 10, 2 );
 function bfc_disable_rt_function( $enabled, $field_id ) {
@@ -932,6 +939,17 @@ function bfc_disable_rt_function( $enabled, $field_id ) {
     $enabled = false;
   }
   return $enabled;
+}
+
+function bfc_member_has_meta() {
+	return (bool) bfc_get_member_meta();
+}
+
+function bfc_get_member_meta() {
+	$member = bp_get_displayed_user();
+	$meta = rtrim(xprofile_get_field_data( 22, $member->id ),'c');
+
+	return $meta;
 }
 
 ?>

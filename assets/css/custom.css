@@ -531,11 +531,11 @@ code {
 	margin-right: 15px;
 }
 
-.bp-docs .media-router .media-menu-item {
+.media-router .media-menu-item {
 	color: #007CFF;
 }
 
-.bp-docs .media-router .media-menu-item.active {
+.media-router .media-menu-item.active {
 	color: #1d2327;
 }
 
