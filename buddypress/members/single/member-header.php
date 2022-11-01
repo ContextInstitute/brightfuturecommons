@@ -39,44 +39,25 @@ remove_filter( 'bp_get_add_follow_button', 'buddyboss_theme_bp_get_add_follow_bu
 
 						<?php bp_nouveau_member_hook( 'before', 'header_meta' ); ?>
 
-						<?php if ( ( bp_is_active( 'activity' ) && bp_activity_do_mentions() ) || bp_nouveau_member_has_meta() ) : ?>
+						<?php if ( ( bp_is_active( 'activity' ) && bp_activity_do_mentions() ) || bfc_member_has_meta() ) : ?>
 							<div class="item-meta">
 								<?php if ( bp_is_active( 'activity' ) && bp_activity_do_mentions() ) : ?>
 									<span class="mention-name">@<?php bp_displayed_user_mentionname(); ?></span>
 								<?php endif; ?>
 
-								<?php if ( bp_is_active( 'activity' ) && bp_activity_do_mentions() && bp_nouveau_member_has_meta() ) : ?>
+								<?php if ( bp_is_active( 'activity' ) && bp_activity_do_mentions() && bfc_member_has_meta() ) : ?>
 									<span class="separator">&bull;</span>
 								<?php endif; ?>
 
 								<?php bp_nouveau_member_hook( 'before', 'header_meta' ); ?>
 
-								<?php if ( bp_nouveau_member_has_meta() ) : ?>
-									<?php bp_nouveau_member_meta(); ?>
+								<?php if ( bfc_member_has_meta() ) : ?>
+									<?php echo bfc_get_member_meta(); ?>
 								<?php endif; ?>
 							</div>	
 						<?php endif; ?>
 
-						<?php if( function_exists( 'bp_is_activity_follow_active' ) && bp_is_active('activity') && bp_is_activity_follow_active() ) { ?>
-							<div class="flex align-items-top member-social">
-                                <!-- <div class="flex align-items-center">
-								    <?php buddyboss_theme_followers_count(); ?>
-								    <?php buddyboss_theme_following_count(); ?>
-                                </div> -->
-								<?php
-		                        if( function_exists('bp_get_user_social_networks_urls') ) {
-			                        echo bp_get_user_social_networks_urls();
-		                        } ?>
-							</div>
-						<?php } else { ?>
-                            <div class="flex align-items-center">
-	                            <?php
-		                        if( function_exists('bp_get_user_social_networks_urls') ) {
-			                        echo bp_get_user_social_networks_urls();
-		                        }
-		                        ?>
-                            </div>
-                        <?php } ?>
+
 					</div>
 
 					<?php remove_filter( 'bp_get_add_friend_button', 'buddyboss_theme_bp_get_add_friend_button' ); ?>

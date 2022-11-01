@@ -7,7 +7,7 @@ function bp_docs_is_parent( $classes, $item) {
 	$item_title = $item->title;
 	$is_user_page = bp_is_user();
 	$cur_comp = bp_current_component();
-	if (bp_docs_is_bp_docs_page() && $item->title == 'Docs' && !bp_is_user() && bp_current_component() != 'groups' && !(bfc_doc_has_tag ('bfcom-help') || 'bfcom-help' == urldecode( $_GET['bpd_tag'] ))) {
+	if (bp_docs_is_bp_docs_page() && $item->title == 'Docs' && !bp_is_user() && bp_current_component() != 'groups' && !(bfc_doc_has_tag ('bfcom-help') || 'bfcom-help' == urldecode( isset($_GET['bpd_tag'] ) ? $_GET['bpd_tag'] : ''))) {
 		$classes[] = 'current_page_parent';
 	}
 	return $classes;
@@ -16,7 +16,7 @@ function bp_docs_is_parent( $classes, $item) {
 add_filter('nav_menu_css_class', 'bp_docs_help_is_parent', 10 , 2);
 
 function bp_docs_help_is_parent( $classes, $item) {
-	if (bp_docs_is_bp_docs_page() && $item->title == 'Help' && bp_current_component() != 'groups' && (bfc_doc_has_tag ('bfcom-help') || 'bfcom-help' == urldecode( $_GET['bpd_tag'] ))) {
+	if (bp_docs_is_bp_docs_page() && $item->title == 'Help' && bp_current_component() != 'groups' && (bfc_doc_has_tag ('bfcom-help') || 'bfcom-help' == urldecode( isset($_GET['bpd_tag'] ) ? $_GET['bpd_tag'] : ''))) {
 		$classes[] = 'current_page_parent';
 	}
 	return $classes;
@@ -241,7 +241,7 @@ function bfc_docs_add_single_doc_class ($classes) {
 add_filter('bp_docs_tax_query','bfc_remove_help_docs');
 
 function bfc_remove_help_docs ($query) {
-	if (bp_docs_is_global_directory() && 'bfcom-help' != urldecode( $_GET['bpd_tag'] )) {
+	if (bp_docs_is_global_directory() && 'bfcom-help' != urldecode( isset($_GET['bpd_tag'] ) ? $_GET['bpd_tag'] : '')) {
 		$query[] = array ('taxonomy' => 'bp_docs_tag', 'field'    => 'slug', 'terms'    => 'bfcom-help', 'operator' => 'NOT IN');
 	}
 	return $query;
@@ -783,4 +783,28 @@ function bfc_docs_get_the_content($post_id) {
 
 	return $content;
 }
+
+add_filter('bp_docs_current_user_can_create_in_context', 'bfc_docs_current_user_can_create_in_context');
+
+function bfc_docs_current_user_can_create_in_context($can_create) {
+
+	if ( function_exists( 'bp_is_group' ) && bp_is_group() ) {
+		$can_create = current_user_can( 'bp_docs_associate_with_group', bp_get_current_group_id() );
+	} elseif (bp_is_my_profile() || !bp_is_user()) {
+		$can_create = current_user_can( 'delete_others_posts' );
+	} else {
+		$can_create = false;
+	}
+
+	return $can_create;
+}
+
+add_filter('bp_docs_create_button', 'bfc_docs_create_button');
+
+function bfc_docs_create_button ($create_button) {
+	$can_create = bfc_docs_current_user_can_create_in_context('false');
+	if (!$can_create) {$create_button = '';}
+	return $create_button;
+}
+
 ?>

@@ -18,6 +18,8 @@
 				bp_nouveau_nav_item();
 				if (bp_nouveau_get_nav_link_text() == 'Timeline' && !(is_super_admin( bp_loggedin_user_id()) || bp_is_item_admin()) ) {
 					continue;
+				} elseif (bp_nouveau_get_nav_link_text() == 'Images') {
+					continue;
 				}
 			?>
 
