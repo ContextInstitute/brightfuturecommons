@@ -783,4 +783,28 @@ function bfc_docs_get_the_content($post_id) {
 
 	return $content;
 }
+
+add_filter('bp_docs_current_user_can_create_in_context', 'bfc_docs_current_user_can_create_in_context');
+
+function bfc_docs_current_user_can_create_in_context($can_create) {
+
+	if ( function_exists( 'bp_is_group' ) && bp_is_group() ) {
+		$can_create = current_user_can( 'bp_docs_associate_with_group', bp_get_current_group_id() );
+	} elseif (bp_is_my_profile() || !bp_is_user()) {
+		$can_create = current_user_can( 'delete_others_posts' );
+	} else {
+		$can_create = false;
+	}
+
+	return $can_create;
+}
+
+add_filter('bp_docs_create_button', 'bfc_docs_create_button');
+
+function bfc_docs_create_button ($create_button) {
+	$can_create = bfc_docs_current_user_can_create_in_context('false');
+	if (!$can_create) {$create_button = '';}
+	return $create_button;
+}
+
 ?>
