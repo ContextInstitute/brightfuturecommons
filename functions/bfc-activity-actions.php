@@ -504,20 +504,18 @@ add_filter( 'bp_notifications_get_registered_components', 'add_notification_comp
  * @return array|string
  */
 function follow_format_notifications( $content, $item_id, $secondary_item_id, $total_items, $format = 'string', $action ) {
-
+	
 	switch ($action) {
 		case 'follow':
-			$follow_title = bp_core_get_user_displayname( $secondary_item_id ) . ' is now following you.';
-			$follow_link  = bp_activity_get_permalink( $item_id );
+			$follow_link  = bp_core_get_user_domain( $secondary_item_id );
 			$follow_text  = bp_core_get_user_displayname( $secondary_item_id ) . ' is now following you.';
-			return apply_filters( 'follow_notification_filter', '<a href="' . esc_url( $follow_link ) . '" title="' . esc_attr( $follow_title ) . '">' . esc_html( $follow_text ) . '</a>', $follow_text, $follow_link );
+			echo '<a href="' . esc_url( $follow_link ) . '">' . esc_html( $follow_text ) . '</a>';
 			break;
 
 		case 'unfollow':
-			$follow_title = bp_core_get_user_displayname( $secondary_item_id ) . ' is no longer following you.';
-			$follow_link  = bp_activity_get_permalink( $item_id );
+			$follow_link  = bp_core_get_user_domain( $secondary_item_id );
 			$follow_text  = bp_core_get_user_displayname( $secondary_item_id ) . ' is no longer following you.';
-			return apply_filters( 'unfollow_notification_filter', '<a href="' . esc_url( $follow_link ) . '" title="' . esc_attr( $follow_title ) . '">' . esc_html( $follow_text ) . '</a>', $follow_text, $follow_link );
+			echo '<a href="' . esc_url( $follow_link ) . '">' . esc_html( $follow_text ) . '</a>';
 			break;
 
 		case 'left_group':
@@ -525,11 +523,9 @@ function follow_format_notifications( $content, $item_id, $secondary_item_id, $t
 			$person = $activity->user_id;
 			$group  = groups_get_group( $secondary_item_id );
 			$group_name = esc_html( $group->name );
-
-			$left_group_title = bp_core_get_user_displayname( $person ) . ' left the group ' . $group_name . ' where you are a steward';
 			$left_group_link  = bp_activity_get_permalink( $item_id );
 			$left_group_text  = bp_core_get_user_displayname( $person ) . ' left the group ' . $group_name . ' where you are a steward';
-			return apply_filters( 'left_group_notification_filter', esc_html( $left_group_text ), $left_group_text, $left_group_link );
+			echo '<a href="' . esc_html( $left_group_link ) . '">' . esc_html( $left_group_text ) . '</a>';
 			break;
 		default:
 			break;
