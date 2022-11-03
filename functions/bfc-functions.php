@@ -85,7 +85,7 @@ function buddypress_custom_group_tab() {
 		global $bp;
 
 		if (isset($bp->groups->current_group->slug) && $bp->groups->current_group->slug == $bp->current_item) {
-			$bp->bp_options_nav[$bp->groups->current_group->slug]['documents']['name'] = 'Uploads';
+			// $bp->bp_options_nav[$bp->groups->current_group->slug]['documents']['name'] = 'Uploads';
 			$bp->bp_options_nav[$bp->groups->current_group->slug]['activity']['name'] = 'Timeline';
 		}
 
@@ -773,7 +773,9 @@ function bfc_mygroups_nav_menu_items( $items, $menu ) {
 				foreach ($group_ids as $group_id) {
 					$order++;
 					$group_obj = groups_get_group( $group_id );
-					$items[] =  _custom_nav_menu_item($group_obj->name, bp_get_group_permalink( $group_obj ), $order, $item->ID );
+					if (!($group_obj->status == 'hidden')) {
+						$items[] =  _custom_nav_menu_item($group_obj->name, bp_get_group_permalink( $group_obj ), $order, $item->ID );
+					}
 				}
 			}
 		}
