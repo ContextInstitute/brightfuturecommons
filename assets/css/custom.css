@@ -191,6 +191,7 @@ code {
 
 /* Single Blog and Doc layouts */
 
+.groups.bp-docs .bp-docs-container.bp-docs-manage-folders,
 .single.single-bp_doc .site-content-grid,
 .bp-docs-create .bp-docs-single,
 .single-item.bp-docs .bp-docs-container.bp-docs-single,
@@ -201,6 +202,7 @@ code {
     background-color: hsl(0deg 0% 100%);
     border: 1px solid hsl(216, 12%, 92%);
 }
+.groups.bp-docs .bp-docs-container.bp-docs-manage-folders,
 .single.single-bp_doc .site-content-grid,
 .bp-docs-create .bp-docs-single,
 .single-item.bp-docs .bp-docs-single {
@@ -208,6 +210,7 @@ code {
 	max-width: 800px;
 }
 
+.groups.bp-docs .bp-docs-container.bp-docs-manage-folders,
 .bp-docs-create .bp-docs-single,
 .groups.bp-docs .bp-docs-container.bp-docs-single {
 	margin: 20px auto;
@@ -216,6 +219,7 @@ code {
     padding-right: 70px;
 }
 
+.groups.bp-docs .bp-docs-container.bp-docs-manage-folders ul.docs-folder-manage,
 .bp-docs .doc-content li {
 	margin-left: 0;
 }
@@ -2144,4 +2148,8 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
     vertical-align: middle;
     width: 20px;
     text-align: center;
+}
+
+.groups.bp-docs .site-content-grid .entry-footer {
+	display: none;
 }

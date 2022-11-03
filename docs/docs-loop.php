@@ -5,9 +5,12 @@ $help_group_id = BP_Groups_Group::get_id_from_slug( 'bfcom-documentation' );
 $bp_docs_do_theme_compat = is_buddypress() && bp_docs_do_theme_compat( 'docs-loop.php' );
 if ( ! $bp_docs_do_theme_compat ) : ?>
 <div id="buddypress">
-<?php endif; ?>
+<?php endif; 
+$docs_view_class = bp_docs_is_folder_manage_view() ? ' bp-docs-manage-folders' : ' bp-docs-directory';
+
+?>
 <!-- docs-loop start -->
-<div class="<?php bp_docs_container_class(); ?> bp-docs-directory">
+<div class="<?php bp_docs_container_class(); echo $docs_view_class ?> ">
 
 <?php if ('bfcom-help' == urldecode( isset($_GET['bpd_tag'] ) ? $_GET['bpd_tag'] : '') ) : ?>
 
@@ -163,7 +166,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 <?php endif; ?>
 
 <?php // Add the "no docs" message as the last row, for easy toggling. ?>
-	<div class="no-docs-row<?php if ( $has_docs || $has_folders ) { echo ' hide'; } ?>">
+	<div class="no-docs-row<?php if ( $has_docs || $has_folders || bp_docs_is_folder_manage_view()) { echo ' hide'; } ?>">
 		<?php if ( bp_docs_current_user_can_create_in_context() ) : ?>
 			<p class="no-docs"><?php printf( __( 'There are no docs for this view. Why not <a href="%s">create one</a>?', 'buddypress-docs' ), bp_docs_get_create_link() ); ?>
 		<?php else : ?>

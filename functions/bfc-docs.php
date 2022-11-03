@@ -795,6 +795,8 @@ function bfc_docs_current_user_can_create_in_context($can_create) {
 	} else {
 		$can_create = false;
 	}
+	
+	if(bp_docs_is_folder_manage_view() || bp_docs_is_single_doc()) {$can_create = false;}
 
 	return $can_create;
 }
