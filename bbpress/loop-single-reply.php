@@ -87,6 +87,7 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 					<div class="more-actions bb-reply-actions bs-dropdown-wrap align-self-center">
 						<?php
 						$empty       = false;
+						$edit_only   = false;
 						$topic_links = '';
 						$reply_links = '';
 						// If post is a topic, print the topic admin links instead.
@@ -105,6 +106,8 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 							$topic_links = bbp_get_topic_admin_links( $args );
 							if ( '' === wp_strip_all_tags( $topic_links ) ) {
 								$empty = true;
+							} elseif ( 'Edit' == wp_strip_all_tags( $reply_links )) {
+								$edit_only = true;
 							}
 							// If post is a reply, print the reply admin links instead.
 						} else {
@@ -126,12 +129,16 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 							$reply_links = bbp_get_reply_admin_links( $args );
 							if ( '' === wp_strip_all_tags( $reply_links ) ) {
 								$empty = true;
+							} elseif ( 'Edit' == wp_strip_all_tags( $reply_links )) {
+								$edit_only = true;
 							}
 						}
 
 						$parent_class = '';
 						if ( $empty ) {
 							$parent_class = 'bb-theme-no-actions';
+						} elseif ($edit_only) {
+							$parent_class = 'bfc-edit-only';
 						} else {
 							$parent_class = 'bb-theme-actions';
 						}
@@ -139,7 +146,12 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 						<div class="bs-dropdown-wrap-inner <?php echo esc_attr( $parent_class ); ?>">
 							<?php
 							// BB Theme code removed - admin links
-							if ( ! $empty ) {
+							if ($edit_only) {
+								do_action( 'bbp_theme_before_reply_admin_links' );
+								echo $topic_links;
+								echo $reply_links;
+								do_action( 'bbp_theme_after_reply_admin_links' );
+							} elseif ( ! $empty ) {
 								?>
 								<a href="#" class="bs-dropdown-link bb-reply-actions-button" data-balloon-pos="up"
 								data-balloon="<?php esc_html_e( 'More actions', 'bfcommons-theme' ); ?>"><i
