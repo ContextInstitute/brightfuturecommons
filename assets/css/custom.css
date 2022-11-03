@@ -2116,3 +2116,32 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	display: block;
 	margin-left: auto;
 }
+
+/* Miscellany */
+
+.notification-content a.bfc-notification-link {
+	color: var(--bb-primary-color);
+}
+#bbpress-forums#bbpress-forums .bs-forums-items.list-view .bs-dropdown-wrap .bfc-edit-only,
+#bbpress-forums#bbpress-forums .bs-forums-items.list-view .bs-dropdown-wrap .bfc-edit-only .bbp-admin-links {
+	visibility: visible;
+}
+
+#bbpress-forums#bbpress-forums .bs-forums-items.list-view .bs-dropdown-wrap .bfc-edit-only .bbp-admin-links a.bbp-reply-edit-link {
+	color: var(--bb-alternate-text-color);
+	/* font-family: charter, Georgia, Cambria, 'Times New Roman', Times, serif; */
+	font-family: "SF UI Text";
+	font-size: 13px;
+	text-transform: capitalize;
+}
+
+#bbpress-forums#bbpress-forums .bs-forums-items.list-view .bs-dropdown-wrap .bfc-edit-only .bbp-admin-links a.bbp-reply-edit-link:before {
+    content: '\ee5a';
+	font-family: bb-icons;
+    font-size: 16px;
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+    width: 20px;
+    text-align: center;
+}

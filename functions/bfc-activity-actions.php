@@ -538,4 +538,23 @@ function follow_format_notifications( $content, $item_id, $secondary_item_id, $t
 }
 add_filter( 'bp_notifications_get_notifications_for_user', 'follow_format_notifications', 10, 6 );
 
+
+function bfc_format_forum_reply_notifications ($content, $item_id, $secondary_item_id, $total_items = 1, $format = 'string', $action) {
+	if ( $action == 'bbp_new_reply') {
+		$author = bbp_get_reply_author_link (array ('post_id'=> $item_id, 'type'=>'name'));
+		$topic_title = bbp_get_reply_topic_title ($item_id);
+		$topic_id = bbp_get_reply_topic_id($item_id);
+		$topic_link = bbp_get_topic_permalink($topic_id);
+		$forum_id = bbp_get_topic_forum_id($topic_id);
+		$forum_title = bbp_get_topic_forum_title($topic_id);
+		$start_forum = '</a> in the <a class="bfc-notification-link" href="';
+		if(substr($forum_title, 0, 3) == 'The') { $start_forum = '</a> in <a class="bfc-notification-link" href="'; }
+		$forum_permalink = bbp_get_forum_permalink($forum_id);
+
+		return $author . ' replied to <a class="bfc-notification-link" href="' . $topic_link . '">' . $topic_title . $start_forum . $forum_permalink . '">' . $forum_title . '</a> forum';
+	}
+}
+
+add_filter( 'bp_notifications_get_notifications_for_user', 'bfc_format_forum_reply_notifications', 10, 6 );
+
 ?>
