@@ -561,14 +561,16 @@ function bfc_activity_widget_excerpt_length(){
 
 function bfc_simplify_activity_action ($action){
 	global $activities_template;
+	$bp = buddypress();
 	$action = str_replace(' posted an update','<br>', $action );
 	$action = str_replace(' the group','', $action );
 
 	if ($activities_template->activity->type == 'activity_update') {
 		$action = 'From ' . $action;
 	}
-	If (bp_current_component() == 'groups') {
-		$target = 'in <a href="' . bp_get_group_permalink() . '">' . bp_get_group_name() . '</a>';
+	If (bp_current_component() == 'groups' && isset( $bp->groups->current_group )) {
+		$current_group = $bp->groups->current_group;
+		$target = 'in <a href="' . bp_get_group_permalink($current_group) . '">' . bp_get_group_name($current_group) . '</a>';
 		$action = str_replace($target,' ', $action );
 	}
 	return $action;
