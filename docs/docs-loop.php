@@ -46,7 +46,7 @@ $docs_view_class = bp_docs_is_folder_manage_view() ? ' bp-docs-manage-folders' :
 
 	<?php include( apply_filters( 'bp_docs_header_template', bp_docs_locate_template( 'docs-header.php' ) ) ) ?>
 
-	<?php if ( current_user_can( 'bp_docs_manage_folders' ) && bp_docs_is_folder_manage_view() ) : ?>
+	<?php if ( current_user_can( 'bp_docs_associate_with_group', bp_get_current_group_id() ) && bp_docs_is_folder_manage_view() ) : ?>
 		<?php bp_docs_locate_template( 'manage-folders.php', true ); ?>
 	<?php else : ?>
 
@@ -58,7 +58,7 @@ $docs_view_class = bp_docs_is_folder_manage_view() ? ' bp-docs-manage-folders' :
 		<div class="docs-info-header">
 			<?php echo bfc_docs_get_info_header() ?>
 
-			<?php if ( bp_current_component() == 'groups' && current_user_can( 'bp_docs_manage_folders' ) ) : ?>
+			<?php if ( bp_current_component() == 'groups' && current_user_can( 'bp_docs_associate_with_group', bp_get_current_group_id() ) ) : ?>
 				<div class="folder-action-links manage-folders-link">
 					<a href="<?php bp_docs_manage_folders_url() ?>"><?php _e( 'Manage Folders', 'buddypress-docs' ) ?></a>
 				</div>
@@ -67,7 +67,7 @@ $docs_view_class = bp_docs_is_folder_manage_view() ? ' bp-docs-manage-folders' :
 
 		<?php if ( bp_docs_enable_folders_for_current_context() ) : ?>
 			<div class="folder-action-links">
-				<?php if ( current_user_can( 'bp_docs_manage_folders' ) ) : ?>
+				<?php if ( current_user_can( 'bp_docs_associate_with_group', bp_get_current_group_id() ) ) : ?>
 					<div class="manage-folders-link">
 						<a href="<?php bp_docs_manage_folders_url() ?>"><?php _e( 'Manage Folders', 'buddypress-docs' ) ?></a>
 					</div>
@@ -132,14 +132,9 @@ $docs_view_class = bp_docs_is_folder_manage_view() ? ' bp-docs-manage-folders' :
 									<?php 
 										bfc_docs_action_links();
 										if ( current_user_can( 'bp_docs_read_comments' ) ) {
-											$num_comments = 0;
-											$comments = get_comments (array ('post_id' => get_the_ID() ));
-											foreach ( (array)$comments as $comment ) {
-												if ( 'comment' == get_comment_type( $comment ) ) {$num_comments++;}
-											}
-											if ( $num_comments ) { 
-												$num_label = ($num_comments == 1) ? " comment" : " comments" ;
-												echo '<a href="' . bp_docs_get_doc_link() . '#comments" class="bfc-num-comments"> ' . $num_comments .'<span class="bb-icon-comment bb-icon-l bfc-comment-bubble"></span></a>';
+											$comment_count = get_comments (array ('post_id' => get_the_ID(), 'count' => true ));
+											if ( $comment_count ) { 
+												echo '<a href="' . bp_docs_get_doc_link() . '#comments" class="bfc-num-comments" title="Comments"> ' . $comment_count .'<span class="bb-icon-comment bb-icon-l bfc-comment-bubble"></span></a>';
 											}
 										}
 									?>

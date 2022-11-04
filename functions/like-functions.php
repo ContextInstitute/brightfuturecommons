@@ -206,11 +206,13 @@ function bfc_like_users_tooltip_string( $post_id ) { // from bp_activity_get_fav
 				return $carry;
 			}
 		);
-		$pos = strrpos( $favorited_users , ', ' );
-		if( $pos == false ) {return $favorited_users;}
-		$search_length  = strlen( ', ' );
-		$fav_user_cleaned = substr_replace($favorited_users, '', $pos, $search_length);
-		return $fav_user_cleaned;
+		if ($favorited_users) {
+			$pos = strrpos( $favorited_users , ', ' );
+			if( $pos == false ) {return $favorited_users;}
+			$search_length  = strlen( ', ' );
+			$fav_user_cleaned = substr_replace($favorited_users, '', $pos, $search_length);
+			return $fav_user_cleaned;
+		}
 	}
 
 	return $favorited_users;
