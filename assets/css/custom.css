@@ -233,6 +233,16 @@ code {
 	float: right;
 	font-size: clamp(14px, 9.5px + 1.2500vw, 20px);;
 }
+
+.site-content-grid .doc-tabs ul .bfc-num-comments {
+	font-size: 90%;
+	padding-left: 4px;
+}
+
+.site-content-grid .doc-tabs ul .bfc-num-comments .bfc-comment-bubble {
+	font-size: 111%;
+
+}
 .site-content-grid .doc-tabs li {
 	margin: 0;
 }

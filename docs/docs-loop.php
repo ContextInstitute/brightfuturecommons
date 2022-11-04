@@ -132,14 +132,9 @@ $docs_view_class = bp_docs_is_folder_manage_view() ? ' bp-docs-manage-folders' :
 									<?php 
 										bfc_docs_action_links();
 										if ( current_user_can( 'bp_docs_read_comments' ) ) {
-											$num_comments = 0;
-											$comments = get_comments (array ('post_id' => get_the_ID() ));
-											foreach ( (array)$comments as $comment ) {
-												if ( 'comment' == get_comment_type( $comment ) ) {$num_comments++;}
-											}
-											if ( $num_comments ) { 
-												$num_label = ($num_comments == 1) ? " comment" : " comments" ;
-												echo '<a href="' . bp_docs_get_doc_link() . '#comments" class="bfc-num-comments"> ' . $num_comments .'<span class="bb-icon-comment bb-icon-l bfc-comment-bubble"></span></a>';
+											$comment_count = get_comments (array ('post_id' => get_the_ID(), 'count' => true ));
+											if ( $comment_count ) { 
+												echo '<a href="' . bp_docs_get_doc_link() . '#comments" class="bfc-num-comments" title="Comments"> ' . $comment_count .'<span class="bb-icon-comment bb-icon-l bfc-comment-bubble"></span></a>';
 											}
 										}
 									?>
