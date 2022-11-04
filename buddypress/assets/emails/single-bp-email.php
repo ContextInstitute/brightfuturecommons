@@ -277,7 +277,7 @@ global $topline;;
 			<!-- Email Header : BEGIN -->
 			<table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 600px;">
 				<tr>
-					<td style="text-align: left; padding: 20px 0 20px 0;  mso-height-rule: exactly; font-weight: bold; color: <?php echo esc_attr( $settings['site_title_text_color'] ); ?>; font-size: <?php echo esc_attr( $settings['site_title_text_size'] . 'px' ); ?>" class="site_title_text_color site_title_text_size">
+					<td style="text-align: left; padding-top: 20px;  mso-height-rule: exactly; font-weight: bold; color: <?php echo esc_attr( $settings['site_title_text_color'] ); ?>; font-size: <?php echo esc_attr( $settings['site_title_text_size'] . 'px' ); ?>" class="site_title_text_color site_title_text_size">
 						<?php
 						/**
 						 * Fires before the display of the email template header.
@@ -312,7 +312,7 @@ global $topline;;
 						do_action( 'bp_after_email_header' );
 						?>
 					</td>
-					<td style="text-align: right; padding: 20px 0 20px 0;  mso-height-rule: exactly; font-weight: normal; color: <?php echo esc_attr( $settings['recipient_text_color'] ); ?>; font-size: <?php echo esc_attr( $settings['recipient_text_size'] . 'px' ); ?>" class="recipient_text_color recipient_text_size">
+					<td style="text-align: right; padding-top: 20px;  mso-height-rule: exactly; font-weight: normal; color: <?php echo esc_attr( $settings['recipient_text_color'] ); ?>; font-size: <?php echo esc_attr( $settings['recipient_text_size'] . 'px' ); ?>" class="recipient_text_color recipient_text_size">
 						<?php
 						/**
 						 * Fires before the display of the email recipient.
@@ -340,6 +340,7 @@ global $topline;;
 					</td>
 				</tr>
 			</table>
+			<div style="text-align:center; font-size: 14px; padding-bottom:20px;">If you'd like to reply, use a link below. You can't reply via email.</div>
 			<!-- Email Header : END -->
 
 			<!-- Email Body : BEGIN -->
