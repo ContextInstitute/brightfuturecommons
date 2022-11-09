@@ -326,11 +326,13 @@ class bsp_Activity_Widget extends WP_Widget {
 					// $author_avatar = bbp_get_topic_author_link( array( 'post_id' => $topic_id, 'type' => 'avatar', 'size' => $avatar_size ) );
 					$author_name = bbp_get_topic_author_link( array( 'post_id' => $topic_id, 'type' => 'name' ) );
 					$author_id = bbp_get_topic_author_id ($topic_id);
+					$post_link = bbp_get_topic_permalink ($topic_id);
 				//if has a reply then get the author of the reply
 				} else { 
 					// $author_avatar = bbp_get_reply_author_link( array( 'post_id' => $reply, 'type' => 'avatar', 'size' => $avatar_size) );
 					$author_name = bbp_get_reply_author_link( array( 'post_id' => $reply, 'type' => 'name') );
 					$author_id = bbp_get_reply_author_id( $reply );
+					$post_link = bbp_get_reply_url( $reply );
 				} 
 				
 				// Create excerpt
@@ -350,7 +352,7 @@ class bsp_Activity_Widget extends WP_Widget {
 					<?php echo bfc_member_dropdown( $type, $post_id, $person, $follow_class );?>
 					<div class="bfc-forum-links">
 						<div class="bsp-la-reply-topic-title">
-							<a href="<?php bbp_topic_permalink( $topic_id ); ?>"><?php bbp_topic_title( $topic_id ); ?></a><br>
+							<a href="<?php echo esc_url( $post_link ); ?>"><?php bbp_topic_title( $topic_id ); ?></a><br>
 							<?php 					
 							echo '<span class="bfc-la-topic-author-name topic-author">' . $author_name . '</span>';
 							
@@ -367,7 +369,7 @@ class bsp_Activity_Widget extends WP_Widget {
 					</div>
 					
 					<div class = "bfc-widget-actions">
-						<a href="<?php echo esc_url( bbp_get_reply_url( $reply ) ); ?>" class = "icon-bfc-arrow-up-right"></a>
+						<a href="<?php echo esc_url( $post_link ); ?>" class = "icon-bfc-arrow-up-right"></a>
 					</div>
 
 
