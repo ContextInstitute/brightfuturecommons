@@ -905,7 +905,7 @@ nav#object-nav li.bfc-group-name-nav{
 	padding: 1.25rem 1rem;
 	border: 1px solid #e6e6e6;
 	border-bottom: 0;
-	font-size: 0.75rem;
+	font-size: 1.25rem;
 	line-height: 1;
 	color: #1779ba; }
 	:last-child:not(.is-active) > .accordion-title {
@@ -2003,8 +2003,10 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 
 	#buddypress #bbpress-forums .bbp-reply-content.bs-forum-content,
 	#buddypress #bbpress-forums .bbp-reply-content.bs-forum-content p,
+	#buddypress #bbpress-forums .bbp-reply-content.bs-forum-content li,
 	#buddypress #members-group-list #members-intros .item-intro,
-	#buddypress #members-group-list #members-intros .item-intro p{
+	#buddypress #members-group-list #members-intros .item-intro p,
+	#buddypress #members-group-list #members-intros .item-intro li {
 		font-size: 16px;
 		line-height: 1.5em;
 	}
