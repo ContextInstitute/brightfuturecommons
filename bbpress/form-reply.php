@@ -109,10 +109,10 @@
 
 							<?php do_action( 'bbp_theme_before_reply_form_revisions' ); ?>
 
-							<fieldset class="bbp-form">
+							<!-- <fieldset class="bbp-form">
 								<div class="flex">
 									<legend>
-										<input name="bbp_log_reply_edit" id="bbp_log_reply_edit" class="bs-styled-checkbox" type="checkbox" value="1" <?php bbp_form_reply_log_edit(); ?> tabindex="<?php bbp_tab_index(); ?>" />
+										<input name="bbp_log_reply_edit" id="bbp_log_reply_edit" class="bs-styled-checkbox" type="checkbox" value="0" <?php bbp_form_reply_log_edit(); ?> tabindex="<?php bbp_tab_index(); ?>" />
 										<label for="bbp_log_reply_edit"><?php esc_html_e( 'Keep a log of this edit:', 'bfcommons-theme' ); ?></label>
 									</legend>
 
@@ -121,7 +121,7 @@
 										<input type="text" value="<?php bbp_form_reply_edit_reason(); ?>" tabindex="<?php bbp_tab_index(); ?>" size="40" name="bbp_reply_edit_reason" id="bbp_reply_edit_reason" placeholder="<?php esc_html_e( 'Optional reason for editing', 'bfcommons-theme' ); ?>" />
 									</div>
 								</div>
-							</fieldset>
+							</fieldset> -->
 
 							<?php do_action( 'bbp_theme_after_reply_form_revisions' ); ?>
 
