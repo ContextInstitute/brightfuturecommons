@@ -954,4 +954,16 @@ function bfc_get_member_meta() {
 	return $meta;
 }
 
+/*
+* Allows html in field and group descriptions
+*/
+function description_field_remove_html_filter() {
+	remove_filter( 'bp_get_the_profile_field_description', 'wp_filter_kses', 1  );
+	remove_filter( 'bp_get_the_profile_group_description', 'wp_filter_kses', 1  );
+	remove_filter( 'xprofile_field_description_before_save', 'wp_filter_kses', 1  );
+	remove_filter( 'xprofile_group_description_before_save', 'wp_filter_kses', 1  );
+	remove_filter( 'xprofile_field_description_before_save', 'wp_filter_kses');
+	remove_filter( 'xprofile_group_description_before_save', 'wp_filter_kses');
+}
+add_action( 'bp_init', 'description_field_remove_html_filter' );
 ?>
