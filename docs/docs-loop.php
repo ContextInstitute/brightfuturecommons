@@ -1,6 +1,6 @@
 <?php
 
-$help_group_id = BP_Groups_Group::get_id_from_slug( 'bfcom-documentation' );
+$help_group_id = BP_Groups_Group::get_id_from_slug( 'evolving-the-commons' );
 
 $bp_docs_do_theme_compat = is_buddypress() && bp_docs_do_theme_compat( 'docs-loop.php' );
 if ( ! $bp_docs_do_theme_compat ) : ?>
@@ -19,7 +19,7 @@ $docs_view_class = bp_docs_is_folder_manage_view() ? ' bp-docs-manage-folders' :
 	</h1>
 
 	<?php $has_docs = false ?>
-	<?php if ( bp_docs_has_docs( array( 'orderby' => 'title', 'order' => 'ASC', 'group_id' =>  $help_group_id) ) ) : ?>
+	<?php if ( bp_docs_has_docs( array( 'orderby' => 'menu_order', 'order' => 'ASC', 'group_id' =>  $help_group_id) ) ) : ?>
 		<?php $has_docs = true ?>
 		<ul class="docs-list">
 		<?php while ( bp_docs_has_docs() ) : bp_docs_the_doc() ?>

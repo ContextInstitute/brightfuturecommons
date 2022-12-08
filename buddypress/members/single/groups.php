@@ -11,7 +11,7 @@
 
 <?php if ( bp_is_my_profile() ) : ?>
 	<?php bp_get_template_part( 'members/single/parts/item-subnav' ); ?>
-<?php endif; ?>
+
 
 <?php if ( ! bp_is_current_action( 'invites' ) ) : ?>
 
@@ -49,3 +49,5 @@ switch ( bp_current_action() ) :
 		bp_get_template_part( 'members/single/plugins' );
 		break;
 endswitch;
+endif; 
+?>

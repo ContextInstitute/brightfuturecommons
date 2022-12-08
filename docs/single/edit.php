@@ -158,11 +158,14 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 						<table class="toggle-table" id="toggle-table-tags">
 							<tr>
 								<td class="desc-column">
-									<label for="bp_docs_tag"><?php _e( 'Tags are words or phrases that help to describe and organize your Docs.', 'buddypress-docs' ) ?></label>
-									<span class="description"><?php _e( 'Separate tags with commas (for example: <em>orchestra, snare drum, piccolo, Brahms</em>)', 'buddypress-docs' ) ?></span>
+									<label for="bp_docs_tag"><?php _e( 'Existing doc system tags: ', 'buddypress-docs' ) ?></label>
+									<!-- <span class="description"><?php _e( 'Separate tags with commas (for example: <em>orchestra, snare drum, piccolo, Brahms</em>)', 'buddypress-docs' ) ?></span> -->
+									<span class="description"><?php echo implode ( ', ', get_terms(array('taxonomy'=> 'bp_docs_tag', 'hide_empty' => 'false', 'fields' => 'names'))) ?></span>
 								</td>
 
-								<td>
+								<td class="bfc-docs-entry-column">
+									<label for="bp_docs_tag"><?php _e( 'Tags for this doc: ', 'buddypress-docs' ) ?></label>
+									<span class="description"><?php _e( '(<em>Existing or new; separate with commas</em>)', 'buddypress-docs' ) ?></span>
 									<?php bp_docs_post_tags_meta_box() ?>
 								</td>
 							</tr>

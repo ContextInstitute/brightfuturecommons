@@ -272,10 +272,9 @@ class bsp_Activity_Widget extends WP_Widget {
 			} else {
 				$helptip .= "<p>These are the <strong>most recent forum posts</strong> from this group.</p>";
 			}
-			$helptip .= "<p>To see the full post in its thread, click the <span class = 'bfc-widget-actions icon-bfc-arrow-up-right'></span> symbol to the right of the sender's name.</p>			
-			<p>Once you've gone to the full post, you can also <em>like</em> it and/or add a reply.</p>			
-			<p>Clicking on the thread subject takes you to the start of the thread.</p>			
-			<p>You can create a new thread by clicking on the <span class= 'bb-icon-edit' ></span> symbol to the left of the <span class= 'bb-icon-help-circle' ></span> symbol. This takes to the page that lists all of threads. Click the <em>New discussion</em> button to create your new thread.</p>			
+			$helptip .= "<p>To see the full post in its thread, click on the thread title or on the <span class = 'bfc-widget-actions icon-bfc-arrow-up-right'></span> symbol to the right of the title.</p>			
+			<p>Once you've gone to the full post, you can also <em>like</em> it and/or add a reply.</p>					
+			<p>You can create a new thread by clicking on the <span class= 'bb-icon-edit' ></span> symbol to the left of the <span class= 'bb-icon-help-circle' ></span> symbol. This takes to the page that lists all of threads. Click the <em>New Thread</em> button to create one.</p>			
 			<p>Hover over the sender's picture for quick access to sending them a new message, following them or going to their profile.</p>			
 			<p>Clicking on the sender's name also takes you to their profile.</p>";
 		} else {
@@ -285,10 +284,9 @@ class bsp_Activity_Widget extends WP_Widget {
 			} else {
 				$helptip .= "<p>These are the <strong>most recent forum posts</strong> from the <strong>groups</strong> you are part of.</p>";
 			}
-			$helptip .= "<p>To see the full post in its thread, click the <span class = 'bfc-widget-actions icon-bfc-arrow-up-right'></span> symbol to the right of the sender's name.</p>
-			<p>Once you've gone to the full post, you can also <em>like</em> it and/or add a reply.</p>			
-			<p>Clicking on the thread subject takes you to the start of the thread.</p>			
-			<p>Clicking on the group name in the lower right takes you to the group dashboard/homepage.</p>			
+			$helptip .= "<p>To see the full post in its thread, click on the thread title or on the <span class = 'bfc-widget-actions icon-bfc-arrow-up-right'></span> symbol to the right of the title.</p>
+			<p>Once you've gone to the full post, you can also <em>like</em> it and/or add a reply.</p>				
+			<p>Clicking on the group name in the lower right takes you to the group's dashboard.</p>			
 			<p>Hover over the sender's picture for quick access to sending them a new message, following them or going to their profile.</p>			
 			<p>Clicking on the sender's name also takes you to their profile.</p>";
 		}
@@ -867,21 +865,32 @@ class bfc_latest_activities extends WP_Widget {
 		} else {
 			$compose_link = bp_loggedin_user_domain() . 'activity/';
 		}
-		
-		?>
+		$activity_feed_status = bp_group_get_activity_feed_status();
+		$user_can_post_update = false;
+		if ($activity_feed_status == 'members'){
+			$user_can_post_update = true;
+		} elseif ($activity_feed_status == 'mods' && (groups_is_user_mod(bp_loggedin_user_id(), bp_get_current_group_id()) || groups_is_user_admin(bp_loggedin_user_id(), bp_get_current_group_id()))){
+			$user_can_post_update = true;
+		} elseif ($activity_feed_status == 'admins' && groups_is_user_admin(bp_loggedin_user_id(), bp_get_current_group_id())){
+			$user_can_post_update = true;
+		}
+
+		if ($user_can_post_update):?>
 		<div class='bfc-write-new'><a href="<?php echo $compose_link ?>" ><span class= 'bb-icon-edit' ></span></a></div>
-		<?php
+		<?php endif;
 		
 		$helptip = "<div class='bfc-helptip'><span class= 'bb-icon-help-circle' ></span><span class='bfc-helptiptext'>";
 		If (bp_current_component() == 'groups') {
 			$helptip .= "<p>These are <strong>update messages</strong> from and for this group.</strong></p>
 			<p>To see the full message plus any comments, click the <span class = 'bfc-widget-actions icon-bfc-arrow-up-right'></span> symbol to the right of the sender's name.</p>		
-			<p>Once you've gone to the full message, you can also <em>like</em> it and/or add your comment.</p>
-			<p>You can create a new update by clicking on the <span class= 'bb-icon-edit' ></span> symbol to the left of the <span class= 'bb-icon-help-circle' ></span> symbol.</p>					
-			<p>You can access the group's full activity feed in its <a href='";
-			$helptip .= bp_get_group_permalink();
-			$helptip .= "activity/'>Timeline section</a>.</p>		
-			<p>Hover over the person's picture for quick access to sending them a new message, following them or going to their profile.</p>		
+			<p>Once you've gone to the full message, you can also <em>like</em> it and/or add your comment.</p>";
+			if ($user_can_post_update) {
+				$helptip .= "<p>You can create a new update by clicking on the <span class= 'bb-icon-edit' ></span> symbol to the left of the <span class= 'bb-icon-help-circle' ></span> symbol.</p>					
+				<p>You can access the group's full activity feed in its <a href='";
+				$helptip .= bp_get_group_permalink();
+				$helptip .= "activity/'>Timeline section</a>.</p>";	
+			}	
+			$helptip .= "<p>Hover over the person's picture for quick access to sending them a new message, following them or going to their profile.</p>		
 			<p>Clicking on the person's name also takes you to their profile.</p>";
 		} else {
 			$helptip .= "<p>These are <strong>update messages</strong> from <strong>people you are following, groups you are part of and the one's you've sent.</strong></p>
