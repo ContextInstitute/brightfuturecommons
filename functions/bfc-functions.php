@@ -597,10 +597,15 @@ function bfc_activity_visibility_levels($allowed_visibilities){
 	return $allowed_visibilities;
 }
 
-add_filter( 'bp_before_activity_add_parse_args', 'bfc_custom_change_privacy_when_public', 100 );
+add_filter( 'bp_before_activity_add_parse_args', 'bfc_custom_change_privacy_args', 100 );
 
-function bfc_custom_change_privacy_when_public( $r ) {  
-if ( 'public' === $r['privacy'] ) {    $r['privacy'] = 'loggedin';  }  
+function bfc_custom_change_privacy_args( $r ) { 
+	if (bp_current_component() != 'groups' &&  'public' === $r['privacy'] ) {
+		$r['privacy'] = 'loggedin';  
+	} 
+	// if (bp_current_component() == 'groups') {
+	// 	$r['hide_sitewide'] = true;
+	// }
 return $r;
 }
 

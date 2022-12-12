@@ -2011,9 +2011,11 @@ html:lang(he-il) .rtl .quicktags-toolbar input {
 .doc-content .mce-btn[aria-label="Tab Indent"],
 .editfield.field_type_textarea .mce-i-drawit,
 .editfield.field_type_textarea .mce-colorbutton,
-.editfield.field_type_textarea .mce-menubtn[aria-label="Table"],
+.editfield.field_type_textarea .mce-btn[aria-label="Table"],
+.editfield.field_type_textarea .mce-btn[aria-label="Source code"],
 #buddypress #bbpress-forums .mce-i-drawit,
 #buddypress #bbpress-forums .mce-colorbutton,
-#buddypress #bbpress-forums .mce-menubtn[aria-label="Table"] {
+#buddypress #bbpress-forums .mce-btn[aria-label="Table"],
+#buddypress #bbpress-forums .bfc-not-editor .mce-btn[aria-label="Source code"] {
 	display: none;
 }

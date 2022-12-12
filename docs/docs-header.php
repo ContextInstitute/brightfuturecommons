@@ -1,7 +1,7 @@
 <?php do_action( 'bp_docs_before_doc_header' ) ?>
 <!-- header start-->
 <!-- <?php /* Subnavigation on user pages is handled by BP's core functions */ ?> -->
-<?php if ( bfc_docs_current_user_can_create_in_context(false)): ?> 
+<?php if ( bfc_docs_current_user_can_create_in_context(false) && !bp_is_my_profile()): ?> 
 	<div class="item-list-tabs no-ajax" id="subnav" role="navigation">
 		<?php bp_docs_create_button(); ?>
 	 </div> <!-- .item-list-tabs -->

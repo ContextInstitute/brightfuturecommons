@@ -75,7 +75,10 @@
 
 					<?php do_action( 'bbp_theme_before_topic_form_content' ); ?>
 
-					<?php echo bfc_get_the_content( array( 'context' => 'topic' ) ); ?>
+					<?php 
+						$before = current_user_can( 'delete_others_posts' ) ? '<div class="bbp-the-content-wrapper">' : '<div class="bbp-the-content-wrapper bfc-not-editor">';
+						echo bfc_get_the_content( array( 'context' => 'topic', 'before' => $before ) ); 
+					?>
 
 					<?php do_action( 'bbp_theme_after_topic_form_content' ); ?>
 
@@ -158,7 +161,7 @@
 
 					<?php endif; ?>
 
-					<?php if ( bbp_is_subscriptions_active() && ! bbp_is_anonymous() && ( ! bbp_is_topic_edit() || ( bbp_is_topic_edit() && ! bbp_is_topic_anonymous() ) ) ) : ?>
+					<?php if ( false && bbp_is_subscriptions_active() && ! bbp_is_anonymous() && ( ! bbp_is_topic_edit() || ( bbp_is_topic_edit() && ! bbp_is_topic_anonymous() ) ) ) : ?>
 
 						<?php
 						if (

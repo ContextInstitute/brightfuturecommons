@@ -28,6 +28,9 @@ require_once(get_stylesheet_directory().'/functions/bfc-editor.php');
 // bfcom-specific docs functions
 if ( class_exists('BP_Docs')) {
 require_once(get_stylesheet_directory().'/functions/bfc-docs.php');
+
+// bfnet-specific functions
+require_once(get_stylesheet_directory().'/functions/bfnet-functions.php');
 }
 
 ?>

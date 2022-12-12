@@ -60,8 +60,8 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 	jQuery(document).foundation();
 
 	jQuery('#submit').click(function(){
-		setTimeout(function(){
+		jQuery(document).ajaxComplete(function(){
 			document.location.reload();
-		}, 250);
+		});
 	});
 </script>

@@ -25,6 +25,8 @@
 
 				if ( ! is_admin() && is_array( $hidden_tabs ) && ! empty( $hidden_tabs ) && in_array( $nav_item->slug, $hidden_tabs, true ) ) {
 					continue;
+				} elseif (!bp_is_my_profile() && bp_nouveau_get_nav_link_text() == 'Groups') {
+					continue;
 				}
 
 			?>
