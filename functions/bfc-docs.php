@@ -809,4 +809,34 @@ function bfc_docs_create_button ($create_button) {
 	return $create_button;
 }
 
+add_filter('document_title', 'bfc_docs_single_title', 999);
+
+function bfc_docs_single_title($title) {
+	global $wp;
+	if(bp_current_component() == 'groups' && bp_docs_is_existing_doc()) {
+		$page_slug = substr($wp->request, strrpos($wp->request,'/docs/'));
+		$page_slug = str_replace('/edit','',$page_slug);
+		$current_url = home_url() . $page_slug;
+		$post_id = url_to_postid($current_url);
+		$title = get_the_title($post_id) . ' - ' . get_bloginfo('name');
+		return $title;
+	} elseif (isset($_GET['bpd_tag'] ) && 'bfcom-help' == urldecode( $_GET['bpd_tag'] )){
+		$title = 'Commons Help - ' . get_bloginfo('name');
+		return $title;
+	}
+	return $title;
+}
+
+add_filter( 'bp_docs_directory_breadcrumb', 'bfc_docs_group_directory_remove_s', 99 );
+
+function bfc_docs_group_directory_remove_s($crumbs){
+	$last = array_pop($crumbs);
+	$last = str_replace("s&#8217;s", "s&#8217;", $last);
+	if($crumbs) {$crumbs = array_push( $crumbs, $last );}
+	else { 
+		$crumbs = array();
+		$crumbs[] = $last;
+	}
+	return $crumbs;
+}
 ?>
