@@ -597,10 +597,15 @@ function bfc_activity_visibility_levels($allowed_visibilities){
 	return $allowed_visibilities;
 }
 
-add_filter( 'bp_before_activity_add_parse_args', 'bfc_custom_change_privacy_when_public', 100 );
+add_filter( 'bp_before_activity_add_parse_args', 'bfc_custom_change_privacy_args', 100 );
 
-function bfc_custom_change_privacy_when_public( $r ) {  
-if ( 'public' === $r['privacy'] ) {    $r['privacy'] = 'loggedin';  }  
+function bfc_custom_change_privacy_args( $r ) { 
+	if (bp_current_component() != 'groups' &&  'public' === $r['privacy'] ) {
+		$r['privacy'] = 'loggedin';  
+	} 
+	// if (bp_current_component() == 'groups') {
+	// 	$r['hide_sitewide'] = true;
+	// }
 return $r;
 }
 
@@ -954,4 +959,16 @@ function bfc_get_member_meta() {
 	return $meta;
 }
 
+/*
+* Allows html in field and group descriptions
+*/
+function description_field_remove_html_filter() {
+	remove_filter( 'bp_get_the_profile_field_description', 'wp_filter_kses', 1  );
+	remove_filter( 'bp_get_the_profile_group_description', 'wp_filter_kses', 1  );
+	remove_filter( 'xprofile_field_description_before_save', 'wp_filter_kses', 1  );
+	remove_filter( 'xprofile_group_description_before_save', 'wp_filter_kses', 1  );
+	remove_filter( 'xprofile_field_description_before_save', 'wp_filter_kses');
+	remove_filter( 'xprofile_group_description_before_save', 'wp_filter_kses');
+}
+add_action( 'bp_init', 'description_field_remove_html_filter' );
 ?>
