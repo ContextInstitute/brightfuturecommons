@@ -111,4 +111,27 @@ function bfc_profile_textarea_editor($editor_args) {
 		);
 	return bbp_parse_args ($bfc_args,$editor_args);
 }
+
+add_action('bbp_kses_allowed_tags','bfc_extra_allowed_html_tags', 199);
+add_action('init','bfc_extra_allowed_html_tags', 199);
+
+function bfc_extra_allowed_html_tags(){
+	global $allowedtags;
+	$allowedtags['h1'] = 	array(
+			'class' => array(),
+			'id'    => array(),
+			'style' => array(),
+		);
+	$allowedtags['h2'] = 	array(
+			'class' => array(),
+			'id'    => array(),
+			'style' => array(),
+		);
+	$allowedtags['h3'] = 	array(
+			'class' => array(),
+			'id'    => array(),
+			'style' => array(),
+		);
+	$allowedtags['span']['style'] = array();
+}
 ?>

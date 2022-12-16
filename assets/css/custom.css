@@ -663,6 +663,7 @@ code {
 }
 
 /* Avatars */
+
 #groups-list .bfc-rounded  img.avatar,
 .bb-activity img.avatar{
 	border-radius:20%;
@@ -676,6 +677,8 @@ code {
 #friend-list.item-list .item-avatar img, #members-list.item-list .item-avatar img{
 	border-radius:20%;
 	}
+
+.bp-search-page .bp-search-item .item-avatar img.avatar,
 #bbpress-forums#bbpress-forums .bs-forums-items .item-avatar img{
 	border-radius:20%;
 	max-width: 80px;

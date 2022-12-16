@@ -25,12 +25,12 @@
 <?php if ( bbp_current_user_can_access_create_topic_form() ) : 
 	$forum_link = esc_url( bbp_get_forum_permalink( bbp_get_topic_forum_id( bbp_get_topic_id() ) ));
 	$group_link = substr($forum_link, 0, strpos($forum_link, "forum/")) . "forum/" ;
-	$action = bbp_is_topic_edit() ? bbp_topic_edit_url() : $group_link ;
+	$action = bbp_is_topic_edit() ? bbp_get_topic_edit_url() : $group_link ;
 ?>
 
 	<div id="new-topic-<?php bbp_topic_id(); ?>" class="bbp-topic-form">
 
-		<form id="new-post" name="new-post" method="post" action="<?php echo $action; ?>">
+		<form id="new-post" name="new-post" method="post" action="<?php $action; ?>">
 
 			<?php do_action( 'bbp_theme_before_topic_form' ); ?>
 
