@@ -106,7 +106,7 @@ $follow_class = $is_follow_active ? 'follow-active' : '';
 							$topic_links = bbp_get_topic_admin_links( $args );
 							if ( '' === wp_strip_all_tags( $topic_links ) ) {
 								$empty = true;
-							} elseif ( 'Edit' == wp_strip_all_tags( $reply_links )) {
+							} elseif ( 'Edit' == wp_strip_all_tags( $topic_links )) {
 								$edit_only = true;
 							}
 							// If post is a reply, print the reply admin links instead.
