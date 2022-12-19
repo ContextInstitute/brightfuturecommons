@@ -117,21 +117,22 @@ add_action('init','bfc_extra_allowed_html_tags', 199);
 
 function bfc_extra_allowed_html_tags(){
 	global $allowedtags;
-	$allowedtags['h1'] = 	array(
-			'class' => array(),
-			'id'    => array(),
-			'style' => array(),
-		);
-	$allowedtags['h2'] = 	array(
-			'class' => array(),
-			'id'    => array(),
-			'style' => array(),
-		);
-	$allowedtags['h3'] = 	array(
-			'class' => array(),
-			'id'    => array(),
-			'style' => array(),
-		);
-	$allowedtags['span']['style'] = array();
+	$allowedtags = wp_kses_allowed_html('post');
+	// $allowedtags['h1'] = 	array(
+	// 		'class' => array(),
+	// 		'id'    => array(),
+	// 		'style' => array(),
+	// 	);
+	// $allowedtags['h2'] = 	array(
+	// 		'class' => array(),
+	// 		'id'    => array(),
+	// 		'style' => array(),
+	// 	);
+	// $allowedtags['h3'] = 	array(
+	// 		'class' => array(),
+	// 		'id'    => array(),
+	// 		'style' => array(),
+	// 	);
+	// $allowedtags['span']['style'] = array();
 }
 ?>
