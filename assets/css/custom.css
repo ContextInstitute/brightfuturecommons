@@ -149,6 +149,12 @@ code {
 	line-height: clamp(39px, 29.2500px + 2.7083vw, 52px);
 }
 
+#bbpress-forums h1.bfc-group-page-title,
+.bp-docs h1.directory-title {
+	font-size: clamp(26px, 18.857px + 2.232vw, 36px);
+	line-height: clamp(27px, 23.429px + 1.116vw, 32px);
+}
+
 .bp-docs h2:not(.media-frame-menu-heading, .media-attachments-filter-heading),
 .type-post h2,
 .type-bp_docs .h2,
@@ -2199,4 +2205,37 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 .bb-my-account-menu .bb-sub-menu .menu-item-1275,
 #buddypress.buddypress-wrap .subnav #profile-personal-li {
 	display: none;
+}
+
+.bp_group .bp-dir-hori-nav nav#object-nav {
+    background: var(--bb-content-background-color);
+    position: fixed;
+    top: 76px;
+    z-index: 600;
+    max-width: 1180px;
+    width: calc(100vw - 55px);
+}
+
+.bp_group .bp-dir-hori-nav .bp-wrap {
+	padding-top: 79px;
+}
+
+.bp-dir-hori-nav nav#object-nav.has-scrolled {
+    box-shadow: 0 1px 0 0 rgb(139 141 157 / 5%), 0 5px 10px 0 rgb(65 71 108 / 15%);
+}
+
+.single-item.groups.sticky-header .site-header.has-scrolled {
+	box-shadow: none;
+}
+
+.bp_group .bp-dir-hori-nav nav#object-nav #courtyard {
+	color:#243242;
+	font-weight: 600;
+}
+
+#bbpress-forums h1.bfc-group-page-title {
+    margin-top: 10px;
+    -webkit-font-smoothing: auto;
+    margin-bottom: 24px;
+	margin-right: auto;
 }
