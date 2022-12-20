@@ -35,10 +35,13 @@
 
     <div class="bbp-forum-buttons-wrap">
 		<?php
-		if ( ( bp_is_group_single() || bbp_is_single_forum() ) && bbp_has_forums() && ! bbp_is_forum_category() ) { ?>
-            <h3 class="bb-main-forum-title"><?php the_title(); ?></h3><?php
-		}
-
+		$group_name = esc_html( bp_get_group_name() );
+		$end_page_title = "&#8217;s Forum Threads";
+		if(substr($group_name, -1) == 's') { $end_page_title = "&#8217; Forum Threads"; }
+		$group_name .= $end_page_title;
+		?>
+		<h1 class="bfc-group-page-title"><?php echo $group_name; ?></h1>
+		<?php
 		if ( ( ! is_active_sidebar( 'forums' ) || bp_is_groups_component() ) && bbp_is_single_forum() && ! bbp_is_forum_category() && ( bbp_current_user_can_access_create_topic_form() || bbp_current_user_can_access_anonymous_user_form() ) ) { ?>
 			<!-- <?php bbp_forum_subscription_link(); ?> -->
 
@@ -88,7 +91,7 @@
 
 		<?php if ( ! bbp_is_forum_category() && bbp_has_topics() ) : ?>
 
-			<?php //bbp_get_template_part( 'pagination', 'topics'    ); ?>
+			<?php bbp_get_template_part( 'pagination', 'topics'    ); ?>
 
 			<?php bbp_get_template_part( 'loop', 'topics' ); ?>
 

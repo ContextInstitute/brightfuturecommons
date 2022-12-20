@@ -75,5 +75,18 @@ if ( bp_has_groups() ) :
 
 	<?php endwhile; ?>
 
+	<script>
+		var groupNav = jQuery("nav.groups-nav");
+		var scrollChange = 1;
+		jQuery(window).scroll(function() {
+			var scroll = jQuery(window).scrollTop();
+
+			if (scroll >= scrollChange) {
+				groupNav.addClass('has-scrolled');
+			} else {
+				groupNav.removeClass("has-scrolled");
+			}
+		});
+	</script>
 <?php
 endif;
