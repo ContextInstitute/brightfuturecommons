@@ -830,12 +830,14 @@ function bfc_docs_single_title($title) {
 add_filter( 'bp_docs_directory_breadcrumb', 'bfc_docs_group_directory_remove_s', 99 );
 
 function bfc_docs_group_directory_remove_s($crumbs){
-	$last = array_pop($crumbs);
-	$last = str_replace("s&#8217;s", "s&#8217;", $last);
-	if($crumbs) {$crumbs = array_push( $crumbs, $last );}
-	else { 
-		$crumbs = array();
-		$crumbs[] = $last;
+	if($crumbs) {
+		$last = array_pop($crumbs);
+		$last = str_replace("s&#8217;s", "s&#8217;", $last);
+		if($crumbs) {$crumbs = array_push( $crumbs, $last );}
+		else { 
+			$crumbs = array();
+			$crumbs[] = $last;
+		}
 	}
 	return $crumbs;
 }
