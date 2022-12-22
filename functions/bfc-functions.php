@@ -971,4 +971,14 @@ function description_field_remove_html_filter() {
 	remove_filter( 'xprofile_group_description_before_save', 'wp_filter_kses');
 }
 add_action( 'bp_init', 'description_field_remove_html_filter' );
+
+add_filter ('bbp_get_topic_pagination_links', 'bfc_latest_post_link');
+
+function bfc_latest_post_link($page_links){
+	$topic_id = bbp_get_topic_id();
+	$reply = get_post_meta( $topic_id, '_bbp_last_reply_id',true);
+	$page_links .= '<a class="bfc-latest-post-link" href="' . esc_url( bbp_get_reply_url( $reply ) ) . '" >Latest Post</a>';
+	return $page_links;
+}
+
 ?>

@@ -2277,6 +2277,10 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	box-shadow: 0 1px 0 0 rgb(139 141 157 / 5%), 0 12px 10px -8px rgb(65 71 108 / 15%);
 }
 
+.bbp-pagination-links .bfc-latest-post-link {
+	padding-left: 18px;
+}
+
 @media (max-width: 799px) {
 
 	.single-item.groups #masthead.site-header {
