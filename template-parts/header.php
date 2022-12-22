@@ -5,6 +5,7 @@ $show_dark    = buddyboss_theme_get_option( 'logo_dark_switch' );
 $logo_dark_id = buddyboss_theme_get_option( 'logo_dark', 'id' );
 $logo_dark    = ( $show && $show_dark && $logo_dark_id ) ? wp_get_attachment_image( $logo_dark_id, 'full', '', array( 'class' => 'bb-logo bb-logo-dark' ) ) : '';
 ?>
+<div id="bfc-left-head"></div>
 <div class="container site-header-container flex default-header">
     <a href="#" class="bb-toggle-panel"><i class="bb-icon-l bb-icon-sidebar"></i></a>
     <?php
@@ -28,3 +29,4 @@ $logo_dark    = ( $show && $show_dark && $logo_dark_id ) ? wp_get_attachment_ima
     ?>
 	<?php get_template_part( 'template-parts/header-aside' ); ?>
 </div>
+<div id="bfc-right-head"></div>

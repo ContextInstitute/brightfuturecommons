@@ -792,6 +792,7 @@ nav#object-nav li.bfc-group-name-nav{
 
 #bbpress-forums .bs-single-forum-list>li .bs-reply-list-item {
 	padding: 15px 30px 15px 0px;
+	scroll-margin-top: 53px;
 }
 #bbpress-forums#bbpress-forums .bs-forums-items .bbp-reply-author{
 	width: 150px;
@@ -2207,6 +2208,8 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	display: none;
 }
 
+/* Sticky menu, scrolling and orientation in groups*/
+
 .bp_group .bp-dir-hori-nav nav#object-nav {
     background: var(--bb-content-background-color);
     position: fixed;
@@ -2217,7 +2220,11 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 }
 
 .bp_group .bp-dir-hori-nav .bp-wrap {
-	padding-top: 79px;
+	padding-top: 80px;
+}
+
+.bp_group .bp-dir-hori-nav nav#object-nav .selected>a {
+    margin-bottom: 0px;
 }
 
 .bp-dir-hori-nav nav#object-nav.has-scrolled {
@@ -2226,6 +2233,7 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 
 .single-item.groups.sticky-header .site-header.has-scrolled {
 	box-shadow: none;
+	border-bottom: 1px solid hsl(0deg 0% 95%);
 }
 
 .bp_group .bp-dir-hori-nav nav#object-nav #courtyard {
@@ -2238,4 +2246,49 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
     -webkit-font-smoothing: auto;
     margin-bottom: 24px;
 	margin-right: auto;
+}
+
+.single-item.groups #masthead.site-header {
+	display: flex;
+	padding: 0px;
+}
+
+.single-item.groups .site-header .site-header-container.flex {
+    margin-left: 0px;
+    margin-right: 0px;
+    flex-grow: 30;
+	padding: 0px;
+	max-width: 1180px;
+}
+
+.single-item.groups .site-header #bfc-left-head,
+.single-item.groups .site-header #bfc-right-head {
+	min-width: 19px;
+	flex-grow: 1;
+
+}
+
+.single-item.groups .site-header #bfc-right-head {
+	min-width: 20px;
+}
+
+.single-item.groups .site-header.has-scrolled #bfc-left-head,
+.single-item.groups .site-header.has-scrolled #bfc-right-head {
+	box-shadow: 0 1px 0 0 rgb(139 141 157 / 5%), 0 12px 10px -8px rgb(65 71 108 / 15%);
+}
+
+@media (max-width: 799px) {
+
+	.single-item.groups #masthead.site-header {
+		display: block;
+	}
+
+	.single-item.groups .site-header #bfc-left-head,
+	.single-item.groups .site-header #bfc-right-head {
+		display: none;
+	}
+
+	.single-item.groups #masthead.site-header {
+		padding: 0 10px;
+	}
 }
