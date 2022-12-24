@@ -532,6 +532,7 @@ code {
 	text-align: center;
 }
 
+.groups .bp-docs-container.bp-docs-directory>.folder-action-links,
 .bp-docs-directory .folder-action-links {
 	display: none;
 }
