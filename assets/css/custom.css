@@ -532,6 +532,7 @@ code {
 	text-align: center;
 }
 
+.groups .bp-docs-container.bp-docs-directory>.folder-action-links,
 .bp-docs-directory .folder-action-links {
 	display: none;
 }
@@ -2144,6 +2145,10 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 .doc-content img.alignright {
 	display: block;
 	margin-left: auto;
+}
+
+.single-item.groups.docs .bfc-docs-anchor {
+	scroll-margin-top: 53px;
 }
 
 /* Miscellany */
