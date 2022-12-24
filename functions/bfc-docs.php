@@ -831,13 +831,7 @@ add_filter( 'bp_docs_directory_breadcrumb', 'bfc_docs_group_directory_remove_s',
 
 function bfc_docs_group_directory_remove_s($crumbs){
 	if($crumbs) {
-		$last = array_pop($crumbs);
-		$last = str_replace("s&#8217;s", "s&#8217;", $last);
-		if($crumbs) {$crumbs = array_push( $crumbs, $last );}
-		else { 
-			$crumbs = array();
-			$crumbs[] = $last;
-		}
+		$crumbs = str_replace("s&#8217;s", "s&#8217;", $crumbs);
 	}
 	return $crumbs;
 }
