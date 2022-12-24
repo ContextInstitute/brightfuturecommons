@@ -2146,6 +2146,10 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	margin-left: auto;
 }
 
+.single-item.groups.docs .bfc-docs-anchor {
+	scroll-margin-top: 53px;
+}
+
 /* Miscellany */
 
 .notification-content a.bfc-notification-link {
