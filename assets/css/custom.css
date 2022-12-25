@@ -1883,6 +1883,13 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	color: hsl(211deg 100% 50%);
 }
 
+.bb-mobile-panel-inner .bb-primary-menu .current-menu-item>a,
+.bb-mobile-panel-inner .bb-primary-menu .current_page_item>a {
+    color: hsl(211deg 100% 50%);
+	font-weight: 500;
+    text-decoration: underline;
+}
+
 /* Events Calendar */
 
 #bfc-user-panels div.tribe-compatibility-container h2.tribe-events-widget-events-list__header-title {
