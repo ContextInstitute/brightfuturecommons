@@ -627,6 +627,7 @@ code {
 /* Forum type */
 
 #bbpress-forums .bs-forum-content p,
+#bbpress-forums .bs-forum-content div,
 #bbpress-forums .bs-forum-content li {
 	font-family: charter, Georgia, Cambria, 'Times New Roman', Times, serif;
 	font-size: 18px;
@@ -1882,6 +1883,13 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	color: hsl(211deg 100% 50%);
 }
 
+.bb-mobile-panel-inner .bb-primary-menu .current-menu-item>a,
+.bb-mobile-panel-inner .bb-primary-menu .current_page_item>a {
+    color: hsl(211deg 100% 50%);
+	font-weight: 500;
+    text-decoration: underline;
+}
+
 /* Events Calendar */
 
 #bfc-user-panels div.tribe-compatibility-container h2.tribe-events-widget-events-list__header-title {
@@ -2017,9 +2025,11 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 
 	#buddypress #bbpress-forums .bbp-reply-content.bs-forum-content,
 	#buddypress #bbpress-forums .bbp-reply-content.bs-forum-content p,
+	#buddypress #bbpress-forums .bbp-reply-content.bs-forum-content div,
 	#buddypress #bbpress-forums .bbp-reply-content.bs-forum-content li,
 	#buddypress #members-group-list #members-intros .item-intro,
 	#buddypress #members-group-list #members-intros .item-intro p,
+	#buddypress #members-group-list #members-intros .item-intro div,
 	#buddypress #members-group-list #members-intros .item-intro li {
 		font-size: 16px;
 		line-height: 1.5em;

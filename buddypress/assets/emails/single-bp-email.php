@@ -294,7 +294,7 @@ global $topline;;
 							$image_src = wp_get_attachment_image_src( $attachment_id, array( 48,48 ) );
 							if ( ! empty( $image_src ) ) {
 								?>
-								<td style="vertical-align: middle;"><img src="<?php echo esc_attr( $image_src[0] ); ?>" alt="logo" style="margin:0; padding:0; border:none; display:inline; max-height:auto; height: 48px;; width: auto;" border="0" /></td>
+								<td style="vertical-align: middle;"><img src="<?php echo esc_attr( $image_src[0] ); ?>" alt="logo" style="margin:0; padding:0; border:none; display:inline; width:48px; min-width:48px; height:48px;" border="0" /></td>
 								<td style="vertical-align: middle; padding: 0 0 6px 12px;">
 								<?php
 								echo $blogname;
