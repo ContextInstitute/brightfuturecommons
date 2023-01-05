@@ -9,6 +9,8 @@ $buddypanel_logo = buddyboss_theme_get_option( 'buddypanel_show_logo' );
 $logo            = ( $show && $logo_id ) ? wp_get_attachment_image( $logo_id, 'full', '', array( 'class' => 'bb-logo' ) ) : get_bloginfo( 'name' );
 $logo_dark       = ( $show && $show_dark && $logo_dark_id ) ? wp_get_attachment_image( $logo_dark_id, 'full', '', array( 'class' => 'bb-logo bb-logo-dark' ) ) : '';
 
+$logo_link = (current_user_can( 'manage_options' )) ? home_url( '/wp-admin/' ) : home_url( '/' );
+
 // This is for better SEO
 $elem       = ( is_front_page() && is_home() ) ? 'h1' : 'div';
 $logo_class = $buddypanel ? $buddypanel_logo ? 'buddypanel_logo_display_on' : 'buddypanel_logo_display_off' : '';
@@ -28,7 +30,7 @@ if ( 'buddypanel_logo_display_on' === $logo_class ) {
 
 <div id="site-logo" class="site-branding <?php echo esc_attr( $logo_class ); ?>">
 	<<?php echo $elem; ?> class="site-title">
-		<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+		<a href="<?php echo esc_url( $logo_link ); ?>" rel="home">
 			<?php echo $logo; echo $logo_dark;?>
 		</a>
 	</<?php echo $elem; ?>>
