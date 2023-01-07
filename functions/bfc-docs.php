@@ -226,7 +226,7 @@ function bfc_doc_author_ids ( $post_id = false ) {
 add_filter( 'bp_docs_enable_folders_for_current_context', 'bfc_docs_enable_folders' );
 
 function bfc_docs_enable_folders () {
-	return (function_exists( 'bp_is_group' ) && bp_is_group() && isset( $_GET['folder'] )) ;
+	return (function_exists( 'bp_is_group' ) && bp_is_group()) ;
 }
 
 add_filter( 'bp_docs_get_container_classes', 'bfc_docs_add_single_doc_class' );
