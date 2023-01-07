@@ -28,53 +28,43 @@
 <?php $has_docs = false ?>
 <?php if ( bp_docs_has_docs() ) : ?>
 	<?php $has_docs = true; ?>
+		<ul class="docs-list">
 		<?php while ( bp_docs_has_docs() ) : bp_docs_the_doc() ?>
-		<tr<?php bp_docs_doc_row_classes(); ?> data-doc-id="<?php echo get_the_ID() ?>">
-			<?php if ( bp_docs_enable_attachments() ) : ?>
-				<td class="attachment-clip-cell">
-					<?php bp_docs_attachment_icon() ?>
-				</td>
-			<?php endif ?>
 
-			<td class="title-cell">
-				<?php bp_docs_genericon( 'document', get_the_ID() ); ?><a href="<?php bp_docs_doc_link() ?>"><?php the_title() ?></a> <?php bp_docs_doc_trash_notice(); ?>
-
-				<?php if ( bp_docs_get_excerpt_length() ) : ?>
-					<div class="doc-excerpt">
-						<?php the_excerpt() ?>
+			<li <?php bp_docs_doc_row_classes(); ?> data-doc-id="<?php echo get_the_ID() ?>">
+				<div class="list-wrap">
+					<div class="item">
+						<div class="title-block">
+							<a href="<?php bp_docs_doc_link() ?>"><?php the_title() ?></a> <?php bp_docs_doc_trash_notice(); ?>
+							<div class="row-actions">
+								<?php 
+									bfc_docs_action_links();
+									if ( current_user_can( 'bp_docs_read_comments' ) ) {
+										$comment_count = get_comments (array ('post_id' => get_the_ID(), 'count' => true ));
+										if ( $comment_count ) { 
+											echo '<a href="' . bp_docs_get_doc_link() . '#comments" class="bfc-num-comments" title="Comments"> ' . $comment_count .'<span class="bb-icon-comment bb-icon-l bfc-comment-bubble"></span></a>';
+										}
+									}
+								?>
+							</div>
+							<div class="folder-block">
+								<p><?php echo bfc_docs_location(); ?></p>
+							</div>
+						</div>
+						<div class="meta-block">
+							<p>Last edit: <?php echo bfc_nice_date (get_post_modified_time('U', true)) ?></p>
+							<p><?php bfc_show_terms(); ?></p>
+							<p><?php bfc_show_parent(); ?></p>
+						</div>
+						<div class="author-block">
+							<?php bfc_doc_authors( get_the_ID() ); ?>
+						</div>
 					</div>
-				<?php endif ?>
-
-				<?php do_action( 'bp_docs_loop_after_doc_excerpt' ) ?>
-
-				<div class="row-actions">
-					<?php bp_docs_doc_action_links() ?>
 				</div>
-
-				<div class="bp-docs-attachment-drawer" id="bp-docs-attachment-drawer-<?php echo get_the_ID() ?>">
-					<?php bp_docs_doc_attachment_drawer() ?>
-				</div>
-			</td>
-
-			<?php if ( ! bp_docs_is_started_by() ) : ?>
-				<td class="author-cell">
-					<a href="<?php echo bp_core_get_user_domain( get_the_author_meta( 'ID' ) ) ?>" title="<?php echo bp_core_get_user_displayname( get_the_author_meta( 'ID' ) ) ?>"><?php echo bp_core_get_user_displayname( get_the_author_meta( 'ID' ) ) ?></a>
-				</td>
-			<?php endif; ?>
-
-			<td class="date-cell created-date-cell">
-				<?php echo get_the_date() ?>
-			</td>
-
-			<td class="date-cell edited-date-cell">
-				<?php echo get_the_modified_date() ?>
-			</td>
-
-			<?php do_action( 'bp_docs_loop_additional_td' ) ?>
-			<?php wp_nonce_field( 'bp-docs-folder-drop-' . get_the_ID(), 'bp-docs-folder-drop-nonce-' . get_the_ID(), false, true ); ?>
-		</tr>
-	<?php endwhile ?>
-
+			</li>
+		<?php endwhile ?>
+		</ul>
+		
 		<tr class="folder-meta-info">
 			<?php if ( bp_docs_enable_attachments() ) : ?>
 				<td class="attachment-clip-cell">

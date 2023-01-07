@@ -7,7 +7,7 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 <div id="buddypress">
 <?php endif; 
 $docs_view_class = bp_docs_is_folder_manage_view() ? ' bp-docs-manage-folders' : ' bp-docs-directory';
-
+$has_docs = false;
 ?>
 <!-- docs-loop start -->
 <div class="<?php bp_docs_container_class(); echo $docs_view_class ?> ">
