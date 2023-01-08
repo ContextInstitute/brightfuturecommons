@@ -2311,3 +2311,21 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 		padding: 0 10px;
 	}
 }
+
+.doctable .docs-list {
+	margin-top: 12px;
+}
+
+.doctable .toggle-folder .genericon-expand:before {
+    content: "\f501";
+	margin-left: 11px;
+    vertical-align: 5px;
+    font-size: 15px;
+}
+
+.doctable .toggle-folder .genericon-collapse:before {
+    content: "\f502";
+	margin-left: 5px;
+    vertical-align: 1px;
+    font-size: 15px;
+}
