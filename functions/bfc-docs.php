@@ -226,7 +226,8 @@ function bfc_doc_author_ids ( $post_id = false ) {
 add_filter( 'bp_docs_enable_folders_for_current_context', 'bfc_docs_enable_folders' );
 
 function bfc_docs_enable_folders () {
-	return (function_exists( 'bp_is_group' ) && bp_is_group()) ;
+	return true;
+	// return (function_exists( 'bp_is_group' ) && bp_is_group()) ;
 }
 
 add_filter( 'bp_docs_get_container_classes', 'bfc_docs_add_single_doc_class' );
@@ -835,4 +836,125 @@ function bfc_docs_group_directory_remove_s($crumbs){
 	}
 	return $crumbs;
 }
+
+function bfc_docs_user_can_access_folder($folder_id) {
+	$levels = array( 'none' => 0, 'anyone' => 1, 'logged_in' => 2, 'group-members' => 3, 'admins-mods' => 4, 'creator' => 5);
+	$min_access = get_post_meta( $folder_id, 'bfc_contents_min_access', true );
+	$min_access = array_search($min_access, $levels);
+	$creators = get_post_meta( $folder_id, 'bfc_contents_creators', true);
+	$user_id = bp_loggedin_user_id();
+	if ( $min_access == 'logged_in' ) {return true;}
+	if ( is_array($creators) && in_array ($user_id, $creators) ) {return true;}
+	elseif ( $creators && $user_id == intval($creators) ) {return true;}
+	if ( bp_is_active( 'groups' ) && bp_is_group() ) {
+		$group_id = bp_get_current_group_id();
+		if ( $min_access == 'group-members' && groups_is_user_member( $user_id, $group_id )){return true;}
+		if ( $min_access == 'admins-mods' && (groups_is_user_admin( $user_id, $group_id ) || groups_is_user_mod( $user_id, $group_id )) ) {return true;}
+	}
+	return false;
+}
+add_action( 'bp_docs_after_save', 'bfc_docs_update_folder_access_on_edit',99 );
+add_action( 'bp_docs_doc_deleted', 'bfc_docs_update_folder_access_on_trash', 99 );
+add_action( 'bp_docs_doc_untrashed', 'bfc_docs_update_folder_access_on_untrash', 99 );
+add_action( 'untrashed_post', 'bfc_docs_update_folder_access_on_untrash', 99 );
+
+
+function bfc_docs_update_folder_access_on_edit ( $doc_id ) {
+	$folder_id = bp_docs_get_doc_folder($doc_id);
+	$prev_folder_id = get_post_meta( $doc_id, 'bfc_docs_prev_folder', true );
+	if($folder_id) {
+		bfc_docs_update_folder_access( $folder_id );		
+	} 
+	if($prev_folder_id && $prev_folder_id != $folder_id) {
+		bfc_docs_update_folder_access( $prev_folder_id );
+	}
+	if($prev_folder_id != $folder_id) {
+		update_post_meta($doc_id, 'bfc_docs_prev_folder', $folder_id);
+	}
+}
+
+function bfc_docs_update_folder_access_on_trash ( $delete_args ) {
+	$doc_id = $delete_args['ID'];
+	$folder_id = get_post_meta( $doc_id, 'bfc_docs_prev_folder', true );
+	if($folder_id) {
+		bfc_docs_update_folder_access( $folder_id );		
+	} 
+}	
+
+function bfc_docs_update_folder_access_on_untrash ( $doc_id ) {
+	$untrashed = wp_update_post( array(
+		'ID' => $doc_id,
+		'post_status' => 'publish',
+	) );
+	$folder_id = get_post_meta( $doc_id, 'bfc_docs_prev_folder', true );
+	if($folder_id && $untrashed) {
+		bp_docs_add_doc_to_folder( $doc_id, $folder_id, $append = false );
+		bfc_docs_update_folder_access( $folder_id );		
+	} 
+}	
+
+function bfc_docs_update_folder_access( $folder_id ) {
+
+	$levels = array( 'none' => 0, 'anyone' => 1, 'logged_in' => 2, 'group-members' => 3, 'admins-mods' => 4, 'creator' => 5);
+	if ($folder_id) {
+		// Get the docs belonging to this folder
+		$folder_term = bp_docs_get_folder_term( $folder_id );
+
+		$folder_docs = get_posts( array(
+			'post_type' => bp_docs_get_post_type_name(),
+			'tax_query' => array(
+				array(
+					'taxonomy' => 'bp_docs_doc_in_folder',
+					'field' => 'term_id',
+					'terms' => $folder_term,
+				),
+			),
+		) );		
+		$folder_access = array();
+		$folder_creators = array();
+		$fldr_id = $folder_id;
+		if (!$folder_docs) {
+			$fldr_min_access = 0;
+		} else {
+			foreach ( $folder_docs as $doc ) {
+				$settings = bp_docs_get_doc_settings( $doc->ID );
+				$doc_read_level = $levels[$settings['read']];
+				$folder_access[] = $doc_read_level;
+				if($doc_read_level == 5) { $folder_creators[] = $doc->post_author; }
+			}
+			$fldr_min_access = min($folder_access);
+			if( $fldr_min_access < 5) { $folder_creators = array();}
+			// $folder_min_access = array_search($fldr_min_access, $levels);
+		}
+		update_post_meta($fldr_id, 'bfc_contents_min_access', $fldr_min_access);
+		update_post_meta($fldr_id, 'bfc_contents_creators', $folder_creators);
+
+		$fldr = get_post( $fldr_id );
+		$fldr_id = $fldr->post_parent;
+		while($fldr_id) {
+			$folder_children = get_posts( array(
+				'post_type' => 'bp_docs_folder',
+				'post_parent' => $fldr_id,
+				));
+			$folder_access = array();
+			$folder_creators = array();
+			foreach ( $folder_children as $child ) {
+				$min_access = get_post_meta( $child->ID, 'bfc_contents_min_access', true );
+				if($min_access) {$folder_access[] = $min_access;}
+				$creators = get_post_meta( $child->ID, 'bfc_contents_creators', true);
+				if($min_access == 5 && is_array($creators)) {$folder_creators =  array_merge ($folder_creators, $creators); }
+			}
+			if($folder_access) {$fldr_min_access = min($folder_access);}
+			else {$fldr_min_access = 0;}
+			if( $fldr_min_access < 5) { $folder_creators = array();}
+			// $folder_min_access = array_search($fldr_min_access, $levels);
+			update_post_meta($fldr_id, 'bfc_contents_min_access', $fldr_min_access);
+			update_post_meta($fldr_id, 'bfc_contents_creators', $folder_creators);
+	
+			$fldr = get_post( $fldr_id );
+			$fldr_id = $fldr->post_parent;		
+		}
+	}
+}
+
 ?>

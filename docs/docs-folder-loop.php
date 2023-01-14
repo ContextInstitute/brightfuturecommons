@@ -5,22 +5,23 @@
 <?php if ( true ) : ?>
 	<?php if ( bp_docs_include_folders_in_loop_view() ) : ?>
 		<?php foreach ( bp_docs_get_folders() as $folder ) : ?>
-			<?php $has_folders  = true; ?>
-			<tr class="folder-row">
-				<?php /* Just to keep things even */ ?>
-				<?php if ( bp_docs_enable_attachments() ) : ?>
-					<td class="attachment-clip-cell">
-						<?php bp_docs_attachment_icon() ?>
+			<?php if ( bfc_docs_user_can_access_folder($folder->ID) ) : ?>
+				<?php $has_folders  = true; ?>
+				<tr class="folder-row">
+					<?php /* Just to keep things even */ ?>
+					<?php if ( bp_docs_enable_attachments() ) : ?>
+						<td class="attachment-clip-cell">
+							<?php bp_docs_attachment_icon() ?>
+						</td>
+					<?php endif ?>
+					<td class="folder-row-name" colspan=10>
+						<div class="toggleable <?php bp_docs_toggleable_open_or_closed_class( 'folder-contents-toggle' ); ?>">
+							<span class="folder-toggle-link toggle-link-js"><a class="toggle-folder" id="expand-folder-<?php echo $folder->ID; ?>" data-folder-id="<?php echo $folder->ID; ?>" href="<?php echo esc_url( bp_docs_get_folder_url( $folder->ID ) ) ?>"><span class="hide-if-no-js"><?php bp_docs_genericon( 'expand', $folder->ID ); ?></span><?php echo bfc_docs_folder_icon (); ?><?php echo esc_html( $folder->post_title ) ?></a></span>
+							<div class="toggle-content folder-loop"></div>
+						</div>
 					</td>
-				<?php endif ?>
-
-				<td class="folder-row-name" colspan=10>
-					<div class="toggleable <?php bp_docs_toggleable_open_or_closed_class( 'folder-contents-toggle' ); ?>">
-						<span class="folder-toggle-link toggle-link-js"><a class="toggle-folder" id="expand-folder-<?php echo $folder->ID; ?>" data-folder-id="<?php echo $folder->ID; ?>" href="<?php echo esc_url( bp_docs_get_folder_url( $folder->ID ) ) ?>"><span class="hide-if-no-js"><?php bp_docs_genericon( 'expand', $folder->ID ); ?></span><?php echo bfc_docs_folder_icon (); ?><?php echo esc_html( $folder->post_title ) ?></a></span>
-						<div class="toggle-content folder-loop"></div>
-					</div>
-				</td>
-			</tr>
+				</tr>
+			<?php endif; ?>
 		<?php endforeach ?>
 	<?php endif; ?>
 <?php endif; /* bp_docs_enable_folders_for_current_context() */ ?>
