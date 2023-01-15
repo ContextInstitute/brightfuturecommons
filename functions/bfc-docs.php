@@ -933,6 +933,7 @@ function bfc_docs_update_folder_access( $folder_id ) {
 		$fldr_id = $fldr->post_parent;
 		while($fldr_id) {
 			$folder_children = get_posts( array(
+				'numberposts' => -1,
 				'post_type' => 'bp_docs_folder',
 				'post_parent' => $fldr_id,
 				));
