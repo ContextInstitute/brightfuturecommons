@@ -385,11 +385,11 @@ function bfc_docs_location ( $args = array() ){
 					'<a href="%s">%s</a>',
 					bp_get_group_permalink( $group ) . bp_docs_get_slug() . '/',
 					/* translators: group name */
-					sprintf( esc_html__( '%s&#8217;s Docs', 'bfcommons-theme' ), esc_html( $group->name ) )
+					sprintf( esc_html__( '%s Docs', 'bfcommons-theme' ), esc_html( $group->name ) )
 				),
 			);
 		} else {
-			$group_crumbs = array(sprintf( esc_html__( '%s&#8217;s Docs', 'bfcommons-theme' ), esc_html( $group->name ) ));    
+			$group_crumbs = array(sprintf( esc_html__( '%s Docs', 'bfcommons-theme' ), esc_html( $group->name ) ));    
 		}
 	
 		$crumbs = array_merge( $group_crumbs, $crumbs );
