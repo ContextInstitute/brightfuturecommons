@@ -1842,6 +1842,19 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	min-height: 120px;
 }
 
+#bp-message-thread-list .bp-message-content-wrap {
+    font-size: 15px;
+}
+
+.bp-messages-content .bp-message-content_foot_note {
+    color: hsl(212deg 29% 20%);
+    font-size: 15px;
+}
+
+.bp-messages-content .bp-message-content_foot_note strong {
+	text-decoration: underline;
+}
+
 #bp-message-thread-list {
 	max-height: -webkit-calc(50vh - 78px);
 	max-height: calc(50vh - 78px);
