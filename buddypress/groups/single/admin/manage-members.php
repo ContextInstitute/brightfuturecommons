@@ -121,7 +121,26 @@ if ( bp_is_group_create() ) {
 
 		<p><?php printf( __( 'When a member joins a group, he or she is assigned the %1$s role by default. %2$s are able to contribute to the group’s discussions, activity feeds, and view other group members.', 'buddyboss' ), strtolower( get_group_role_label( bp_get_current_group_id(), 'member_singular_label_name' ) ), get_group_role_label( bp_get_current_group_id(), 'member_plural_label_name' ) ); ?></p>
 
-		<?php if ( bp_group_has_members( 'per_page=15&exclude_banned=0' ) ) : ?>
+		<?php
+		$count = groups_get_current_group()->total_member_count;
+		if($count>21) : ?>
+		<div class="bfc-admin-member-search">
+			<form id="bfc-admin-mem-search" action="" method="POST">
+				<label for="admin-member-search" class="bfc-admin-member-search-label">Search for<br>member by name</label>
+				<input type="text" id="admin-member-search" name="search">
+				<input name="search_submit" type="submit" value="Search" />
+			</form>
+			<form id="bfc-admin-mem-reset" action="" method="POST">
+				<input type="hidden" id="admin-member-reset" name="search" value="">
+				<input name="reset_submit" type="submit" value="Reset" />
+			</form>
+		</div>
+		<?php
+		endif;
+		$search='';
+		if (isset($_POST['search'])) {$search = $_POST['search'];}
+		
+		if ( bp_group_has_members( 'per_page=21&exclude_banned=0&search_terms=' . $search ) ) : ?>
 
 			<?php if ( bp_group_member_needs_pagination() ) : ?>
 
