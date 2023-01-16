@@ -2342,3 +2342,20 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
     vertical-align: 1px;
     font-size: 15px;
 }
+
+.bfc-admin-member-search {
+	display: flex;
+}
+
+.groups.group-admin #buddypress #item-body #group-settings-form .bfc-admin-member-search #admin-member-search {
+	margin: 0 20px 24px;
+	height: 32px;
+}
+
+.bfc-admin-member-search .bfc-admin-member-search-label {
+	min-width: 120px;
+}
+
+.bfc-admin-member-search #bfc-admin-mem-reset {
+	margin-left: 16px;
+}
