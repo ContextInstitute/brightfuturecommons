@@ -36,13 +36,20 @@ function bfc_docs_editor_args( $args ) {
 	return $wp_editor_args;
 }
 
-// add_filter('bp_docs_groups_enable_nav_item', '__return_true', 12 );
+add_filter( 'bp_docs_get_access_options', 'bfc_set_default_access_to_creator',20,1 );
 
-add_filter( 'bp_docs_get_access_options', 'bfc_remove_anyone_access',12,1 );
-
-function bfc_remove_anyone_access ($options) {
+function bfc_set_default_access_to_creator ($options) {
 	unset($options[10]);
-	if (isset ($options[20])) {$options[20]['default'] = 1;}
+	if (isset ($options[20])) {$options[20]['default'] = 0;}
+	if (isset ($options[90])) {$options[90]['default'] = 1;}
+	else {
+		$options[90] = array(
+			'name'  => 'creator',
+			'label' => __( 'The Doc author only', 'buddypress-docs' ),
+			'default' => 1 // default to 'creator' as a starting point.
+		);
+	}
+
 	return $options;
 }
 
