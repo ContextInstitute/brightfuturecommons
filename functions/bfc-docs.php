@@ -845,7 +845,7 @@ function bfc_docs_group_directory_remove_s($crumbs){
 }
 
 function bfc_docs_user_can_access_folder($folder_id) {
-	$levels = array( 'none' => 0, 'anyone' => 1, 'logged_in' => 2, 'group-members' => 3, 'admins-mods' => 4, 'creator' => 5);
+	$levels = array( 'none' => 0, 'anyone' => 1, 'loggedin' => 2, 'group-members' => 3, 'admins-mods' => 4, 'creator' => 5);
 	$min_access = get_post_meta( $folder_id, 'bfc_contents_min_access', true );
 	$min_access = array_search($min_access, $levels);
 	$creators = get_post_meta( $folder_id, 'bfc_contents_creators', true);
@@ -902,7 +902,7 @@ function bfc_docs_update_folder_access_on_untrash ( $doc_id ) {
 
 function bfc_docs_update_folder_access( $folder_id ) {
 
-	$levels = array( 'none' => 0, 'anyone' => 1, 'logged_in' => 2, 'group-members' => 3, 'admins-mods' => 4, 'creator' => 5);
+	$levels = array( 'none' => 0, 'anyone' => 1, 'loggedin' => 2, 'group-members' => 3, 'admins-mods' => 4, 'creator' => 5);
 	if ($folder_id) {
 		// Get the docs belonging to this folder
 		$folder_term = bp_docs_get_folder_term( $folder_id );
