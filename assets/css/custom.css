@@ -2323,6 +2323,10 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	.single-item.groups #masthead.site-header {
 		padding: 0 10px;
 	}
+
+	.buddypress-wrap:not(.bp-single-vert-nav) nav#object-nav li.hideshow {
+		float: right;
+	}
 }
 
 .doctable .docs-list {
