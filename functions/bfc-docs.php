@@ -36,13 +36,20 @@ function bfc_docs_editor_args( $args ) {
 	return $wp_editor_args;
 }
 
-// add_filter('bp_docs_groups_enable_nav_item', '__return_true', 12 );
+add_filter( 'bp_docs_get_access_options', 'bfc_set_default_access_to_creator',20,1 );
 
-add_filter( 'bp_docs_get_access_options', 'bfc_remove_anyone_access',12,1 );
-
-function bfc_remove_anyone_access ($options) {
+function bfc_set_default_access_to_creator ($options) {
 	unset($options[10]);
-	if (isset ($options[20])) {$options[20]['default'] = 1;}
+	if (isset ($options[20])) {$options[20]['default'] = 0;}
+	if (isset ($options[90])) {$options[90]['default'] = 1;}
+	else {
+		$options[90] = array(
+			'name'  => 'creator',
+			'label' => __( 'The Doc author only', 'buddypress-docs' ),
+			'default' => 1 // default to 'creator' as a starting point.
+		);
+	}
+
 	return $options;
 }
 
@@ -838,7 +845,7 @@ function bfc_docs_group_directory_remove_s($crumbs){
 }
 
 function bfc_docs_user_can_access_folder($folder_id) {
-	$levels = array( 'none' => 0, 'anyone' => 1, 'logged_in' => 2, 'group-members' => 3, 'admins-mods' => 4, 'creator' => 5);
+	$levels = array( 'none' => 0, 'anyone' => 1, 'loggedin' => 2, 'group-members' => 3, 'admins-mods' => 4, 'creator' => 5);
 	$min_access = get_post_meta( $folder_id, 'bfc_contents_min_access', true );
 	$min_access = array_search($min_access, $levels);
 	$creators = get_post_meta( $folder_id, 'bfc_contents_creators', true);
@@ -895,7 +902,7 @@ function bfc_docs_update_folder_access_on_untrash ( $doc_id ) {
 
 function bfc_docs_update_folder_access( $folder_id ) {
 
-	$levels = array( 'none' => 0, 'anyone' => 1, 'logged_in' => 2, 'group-members' => 3, 'admins-mods' => 4, 'creator' => 5);
+	$levels = array( 'none' => 0, 'anyone' => 1, 'loggedin' => 2, 'group-members' => 3, 'admins-mods' => 4, 'creator' => 5);
 	if ($folder_id) {
 		// Get the docs belonging to this folder
 		$folder_term = bp_docs_get_folder_term( $folder_id );
