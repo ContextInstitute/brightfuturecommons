@@ -10,16 +10,44 @@
 
 bp_nouveau_group_hook( 'before', 'request_membership_content' );
 
-if ( groups_check_user_has_invite( bp_loggedin_user_id(), bp_get_current_group_id() ) ) :
+if ( groups_check_user_has_invite( bp_loggedin_user_id(), bp_get_current_group_id() ) ) : ?>
 
-	?>
+	<div class="bfc-group-description">Description: <?php bp_current_group_description();?></div>
+	<div class="bfc-group-organizers"><?php
+		$group_admins = groups_get_group_admins( bp_get_current_group_id() );
+		
+		$ga_count = 0;
+		$olabel = " - group ";
+		(1 < count( $group_admins )) ? $olabel .= "stewards" : $olabel .=  "steward"; 
+		$is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_follow_active') && bp_is_activity_follow_active();
+		$follow_class = $is_follow_active ? 'follow-active' : '';
+		foreach ($group_admins as $admin) {
+			$ga_count++;
+			if ( 1 < $ga_count ) {
+				echo ", ";
+			}
+			?>
+			<span class="item-avatar" data-toggle="steward-dropdown-<?php echo esc_attr( $admin->user_id ); ?>">
+				<?php echo bp_core_fetch_avatar( array( 'item_id' => $admin->user_id, 'type'   => 'thumb', 'width'  => '40', 'height' => '40' )); 
+				echo " " .  bp_core_get_user_displayname($admin->user_id); ?></span>
+			<?php 
+			$type = 'steward';
+			$instance_id = $admin->user_id;
+			$person = $instance_id;
+			echo bfc_member_dropdown( $type, $instance_id, $person, $follow_class );
+		}
+		echo $olabel;
+		?>
+	</div>
 
 	<aside class="bp-feedback bp-messages loading">
 		<span class="bp-icon" aria-hidden="true"></span>
 		<p>
 			<?php
 			$inviter = bp_groups_get_invited_by( bp_loggedin_user_id(), bp_get_current_group_id() );
-			if ( ! empty( $inviter ) ) :
+			if ( ! empty( $inviter ) ) : ?>
+		
+				<?php
 				$groups_link = trailingslashit( bp_loggedin_user_domain() . bp_get_groups_slug() );
 				printf(
 					__( 'You are already invited to this group by %1$s %2$s. %3$s', 'buddyboss' ),
@@ -38,12 +66,11 @@ if ( groups_check_user_has_invite( bp_loggedin_user_id(), bp_get_current_group_i
 						__( 'View Invitation', 'buddyboss' )
 					)
 				);
-				?>
-			<?php endif; ?>
+			endif; ?>
 		</p>
 	</aside>
 
-	<?php elseif ( ! bp_group_has_requested_membership() ) : ?>
+<?php elseif ( ! bp_group_has_requested_membership() ) : ?>
 	<?php if ( bb_groups_user_can_send_membership_requests( bp_get_current_group_id() ) ) { ?>
 		<div class="bfc-group-description">Description: <?php bp_current_group_description();?></div>
 		<div class="bfc-group-organizers"><?php
