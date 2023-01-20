@@ -726,14 +726,19 @@ function bfc_docs_folders_meta_box() {
 	} else {
 		$folder_id = bp_docs_get_doc_folder( $doc_id );
 	}
-
+	if ($folder_id) {
+		$folder = get_post ($folder_id);
+		$current_folder = ' – ' . $folder->post_title;
+	} else {
+		$current_folder = ' – None';
+	}
 	?>
 
 	<div id="doc-folders" class="doc-meta-box bfc-folders">
 		<div class="toggleable <?php bp_docs_toggleable_open_or_closed_class( 'folders-meta-box' ) ?>">
 			<p id="folders-toggle-edit" class="toggle-switch">
 				<span class="hide-if-js toggle-link-no-js"><?php _e( 'Folders', 'buddypress-docs' ) ?></span>
-				<a class="hide-if-no-js toggle-link" id="folders-toggle-link" href="#"><span class="show-pane plus-or-minus"></span><span class="toggle-title"><?php _e( 'Folders', 'buddypress-docs' ) ?></span></a>
+				<a class="hide-if-no-js toggle-link" id="folders-toggle-link" href="#"><span class="show-pane plus-or-minus"></span><span class="toggle-title"><?php _e( 'Folders', 'buddypress-docs' )?></span> <?php echo '<span class="bfc-current-access">' . $current_folder . '</span>' ?></span></a>
 			</p>
 
 			<div class="toggle-content">

@@ -1,5 +1,6 @@
 <?php
-global $post;
+global $post, $bp;
+require_once(ABSPATH . '/wp-admin/includes/taxonomy.php');
 
 $doc_id = 0;
 $current_doc = bp_docs_get_current_doc();
@@ -126,12 +127,20 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 
 			<?php if ( current_user_can( 'bp_docs_manage', $doc_id ) && apply_filters( 'bp_docs_allow_access_settings', true ) ) : ?>
 				<?php do_action( 'bp_docs_before_access_settings_meta_box', $doc_id ) ?>
-
+				<?php 
+				$agents = array( 'anyone' => 'Public', 'loggedin' => 'Network Members', 'group-members' => 'Group Members', 'admins-mods' => 'Stewards & Mods', 'creator' => 'Doc Author');
+				$doc_settings = bp_docs_get_doc_settings( $doc_id );
+				$current_access = ' – <em>Read:</em> ' . $agents[$doc_settings['read']] . ', ' ;
+				$current_access .= '<em>Edit:</em> ' . $agents[$doc_settings['edit']];
+				// $current_access .= '<em>Read Comments:</em> ' . $agents[$doc_settings['read_comments']] . ', ';
+				// $current_access .= '<em>Post Comments:</em> ' . $agents[$doc_settings['post_comments']] . ', ';
+				// $current_access .= '<em>View History:</em> ' . $agents[$doc_settings['view_history']];
+				?>
 				<div id="doc-settings" class="doc-meta-box">
 					<div class="toggleable <?php bp_docs_toggleable_open_or_closed_class( 'access-meta-box' ) ?>">
 						<p class="toggle-switch" id="settings-toggle">
 							<span class="hide-if-js toggle-link-no-js"><?php _e( 'Access', 'buddypress-docs' ) ?></span>
-							<a class="hide-if-no-js toggle-link" id="settings-toggle-link" href="#"><span class="show-pane plus-or-minus"></span><?php _e( 'Access', 'buddypress-docs' ) ?></a>
+							<a class="hide-if-no-js toggle-link" id="settings-toggle-link" href="#"><span class="show-pane plus-or-minus"></span><?php _e( 'Access', 'buddypress-docs' ); echo '<span class="bfc-current-access">' . $current_access . '</span>' ; ?></a>
 						</p>
 
 						<div class="toggle-content">
@@ -147,11 +156,23 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 
 			<?php do_action( 'bp_docs_before_tags_meta_box', $doc_id ) ?>
 
+			<?php
+			$terms = '';
+			if ( bp_docs_is_existing_doc() ) {
+				$docs_tag_tax_name = $bp->bp_docs->docs_tag_tax_name;
+				$terms = get_terms_to_edit( $doc_id, $bp->bp_docs->docs_tag_tax_name );
+			}
+			$current_tags = ' – None';
+			if($terms) {
+				$current_tags = ' – '. $terms;
+			}
+			?>
+
 			<div id="doc-tax" class="doc-meta-box">
 				<div class="toggleable <?php bp_docs_toggleable_open_or_closed_class( 'tags-meta-box' ) ?>">
 					<p id="tags-toggle-edit" class="toggle-switch">
 						<span class="hide-if-js toggle-link-no-js"><?php _e( 'Tags', 'buddypress-docs' ) ?></span>
-						<a class="hide-if-no-js toggle-link" id="tags-toggle-link" href="#"><span class="show-pane plus-or-minus"></span><?php _e( 'Tags', 'buddypress-docs' ) ?></a>
+						<a class="hide-if-no-js toggle-link" id="tags-toggle-link" href="#"><span class="show-pane plus-or-minus"></span><?php _e( 'Tags', 'buddypress-docs' ) ?><?php echo '<span class="bfc-current-access">' . $current_tags ?></span></a>
 					</p>
 
 					<div class="toggle-content">
@@ -178,12 +199,22 @@ if ( ! $bp_docs_do_theme_compat ) : ?>
 
 			<?php if ( apply_filters( 'bp_docs_allow_parent_doc_setting', true, $doc_id ) ) : ?>
 				<?php do_action( 'bp_docs_before_parent_meta_box', $doc_id ) ?>
+				<?php
+				$current_parent = ' – None';
+				$doc = get_post ($doc_id);
+				$parent_id = $doc->post_parent;
+				if($parent_id) {
+					$parent = get_post($parent_id);
+					$current_parent = ' – ' . $parent->post_title;
+				}
+			?>
+
 
 				<div id="doc-parent" class="doc-meta-box">
 					<div class="toggleable <?php bp_docs_toggleable_open_or_closed_class( 'parent-meta-box' ) ?>">
 						<p class="toggle-switch" id="parent-toggle">
 							<span class="hide-if-js toggle-link-no-js"><?php _e( 'Parent', 'buddypress-docs' ) ?></span>
-							<a class="hide-if-no-js toggle-link" id="parent-toggle-link" href="#"><span class="show-pane plus-or-minus"></span><?php _e( 'Parent', 'buddypress-docs' ) ?></a>
+							<a class="hide-if-no-js toggle-link" id="parent-toggle-link" href="#"><span class="show-pane plus-or-minus"></span><?php _e( 'Parent', 'buddypress-docs' ) ?><?php echo '<span class="bfc-current-access">' . $current_parent ?></span></a>
 						</p>
 
 						<div class="toggle-content">

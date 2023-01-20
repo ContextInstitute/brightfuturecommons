@@ -118,21 +118,9 @@ add_action('init','bfc_extra_allowed_html_tags', 199);
 function bfc_extra_allowed_html_tags(){
 	global $allowedtags;
 	$allowedtags = wp_kses_allowed_html('post');
-	// $allowedtags['h1'] = 	array(
-	// 		'class' => array(),
-	// 		'id'    => array(),
-	// 		'style' => array(),
-	// 	);
-	// $allowedtags['h2'] = 	array(
-	// 		'class' => array(),
-	// 		'id'    => array(),
-	// 		'style' => array(),
-	// 	);
-	// $allowedtags['h3'] = 	array(
-	// 		'class' => array(),
-	// 		'id'    => array(),
-	// 		'style' => array(),
-	// 	);
-	// $allowedtags['span']['style'] = array();
+	$disallowed = array ('address', 'article', 'aside', 'blockquote', 'details', 'div', 'fieldset', 'footer', 'header', 'hgroup', 'hr', 'main', 'nav', 'section');
+	foreach ($disallowed as $dtag) {
+		unset($allowedtags[$dtag]);
+	}
 }
 ?>
