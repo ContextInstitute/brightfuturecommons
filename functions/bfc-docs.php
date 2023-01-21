@@ -856,7 +856,7 @@ function bfc_docs_user_can_access_folder($folder_id) {
 	$min_access = array_search($min_access, $levels);
 	$creators = get_post_meta( $folder_id, 'bfc_contents_creators', true);
 	$user_id = bp_loggedin_user_id();
-	if ( $min_access == 'logged_in' ) {return true;}
+	if ( $min_access == 'loggedin' ) {return true;}
 	if ( is_array($creators) && in_array ($user_id, $creators) ) {return true;}
 	elseif ( $creators && $user_id == intval($creators) ) {return true;}
 	if ( bp_is_active( 'groups' ) && bp_is_group() ) {
