@@ -2381,3 +2381,7 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 #buddypress .groups-manage-members-list .members-manage-buttons .button.member-ban {
 	display: none;
 }
+
+.search_results .item-title a {
+    color: var(--bb-primary-color);
+}

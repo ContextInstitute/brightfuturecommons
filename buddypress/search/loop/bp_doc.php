@@ -9,17 +9,17 @@
  * @version 1.0.0
  */
 
-$reply_id = get_the_ID();
-$topic_id = bbp_get_reply_topic_id( $reply_id );
+$doc_id= get_the_ID();
+$doc = get_post( $doc_id);
 ?>
 <li class="bp-search-item bp-search-item_reply">
 	<div class="list-wrap">
 		<div class="item-avatar">
-			<a href="<?php bbp_reply_url( $reply_id ); ?>" class="bp-search-item_reply_link">
+			<a href="<?php bbp_reply_url( $doc_id); ?>" class="bp-search-item_reply_link">
 				<?php
 				$args   = array(
 					'type'    => 'avatar',
-					'post_id' => get_the_ID(),
+					'post_id' => $doc_id,
 				);
 				$avatar = bbp_get_reply_author_link( $args );
 
@@ -36,15 +36,18 @@ $topic_id = bbp_get_reply_topic_id( $reply_id );
 
 		<div class="item">
 			<div class="entry-title item-title">
-				<a href="<?php bbp_reply_url( $reply_id ); ?>"><?php bbp_reply_author_display_name( $reply_id ); ?></a>
-				<?php esc_html_e( 'replied to a discussion', 'buddyboss' ); ?>
+				<a href="<?php bbp_topic_permalink( $doc_id ); ?>"><?php echo $doc->post_title; ?></a>
+				<!-- <?php esc_html_e( 'replied to a discussion', 'buddyboss' ); ?> -->
 			</div>
 			<div class="entry-content entry-summary">
-				<?php echo wp_kses_post( wp_trim_words( bbp_get_reply_content( $reply_id ), 30, '...' ) ); ?>
+				<?php echo wp_kses_post( wp_trim_words( bbp_get_reply_content( $doc_id), 30, '...' ) ); ?>
 			</div>
 			<div class="entry-meta">
+				<span><?php echo esc_html__( 'Started by ', 'buddyboss' ) . esc_html( bp_core_get_user_displayname( bbp_get_topic_author_id( $doc_id ) ) ); ?></span>
+				<span class="middot">&middot;</span>				
 				<span class="datetime">
-					<?php bbp_reply_post_date( $reply_id, true ); ?>
+					<?php echo esc_html__( 'Latest edit ', 'buddyboss' ); ?>
+					<?php bbp_reply_post_date( $doc_id, true ); ?>
 				</span>
 			</div>
 		</div>
