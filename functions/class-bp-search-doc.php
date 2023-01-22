@@ -9,12 +9,12 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-if ( ! class_exists( 'BP_Search_CPT' ) ) :
+if ( ! class_exists( 'BP_Search_Doc' ) ) :
 
 	/**
 	 * BuddyPress Global Search  - search posts class
 	 */
-	class BP_Search_CPT extends Bp_Search_Type {
+	class BP_Search_Doc extends Bp_Search_Type {
 		private $cpt_name;
 		private $search_type;
 
@@ -100,7 +100,7 @@ if ( ! class_exists( 'BP_Search_CPT' ) ) :
 			$sql = $wpdb->prepare( $sql, $query_placeholder );
 
 			return apply_filters(
-				'BP_Search_CPT_sql',
+				'BP_Search_Doc_sql',
 				$sql,
 				array(
 					'post_type'           => $this->cpt_name,
@@ -168,9 +168,40 @@ if ( ! class_exists( 'BP_Search_CPT' ) ) :
 			echo '</div><!-- .wp-user-fields -->';
 		}
 
+		/**
+		 * Get total count for the matched result.
+		 *
+		 * @param string $search_term Search term will be like whatever enter for search.
+		 * @param string $search_type
+		 *
+		 * @return mixed|string|null
+		 */
+		public function get_total_match_count( $search_term, $search_type = '' ) {
+			$this->search_term = $search_term;// save it for future reference may be.
+
+			global $wpdb;
+			static $bbp_search_term = array();
+			$cache_key = 'bb_search_term_total_match_count_' . sanitize_title( $search_term );
+			if ( ! empty( $search_type ) ) {
+				$cache_key .= sanitize_title( $search_type );
+			}
+			if ( ! isset( $bbp_search_term[ $cache_key ] ) ) {
+				$sql    = $this->sql( $search_term, false );
+				$full_results = $wpdb->get_results( $sql );
+				$trimmed_results = apply_filters('bfc_docs_get_total_match_count', $full_results );
+				$result = count($trimmed_results);
+				$bbp_search_term[ $cache_key ] = $result;
+			} else {
+				$result = $bbp_search_term[ $cache_key ];
+			}
+
+			return $result;
+		}
+
 	}
 
-	// End class BP_Search_CPT.
+
+	// End class BP_Search_Doc.
 
 endif;
 

@@ -971,4 +971,60 @@ function bfc_docs_update_folder_access( $folder_id ) {
 	}
 }
 
+add_filter('bp_search_query_results', 'bfc_docs_search_filter', 20); 
+add_filter('bfc_docs_get_total_match_count', 'bfc_docs_search_filter', 20); 
+
+function bfc_docs_search_filter ($results) {
+	foreach ($results as $key => $result_id) {
+		if ($result_id->type == 'cpt-bp_doc') {
+			$doc_id = $result_id->id;
+			if( !bfc_docs_user_can_read ($doc_id) ) {
+				unset($results[$key]);
+			}
+		}
+	}
+	return $results;
+}
+
+function bfc_docs_user_can_read ($doc_id) {
+	$doc = get_post($doc_id);
+	$user_id = bp_loggedin_user_id();
+	$settings = bp_docs_get_doc_settings( $doc_id );
+	$doc_read_access = $settings['read'];
+	if ( $doc_read_access == 'loggedin' ) {return true;}
+	if ( $doc_read_access == 'creator' && $user_id == $doc->post_author) {return true;}
+	if ( bp_is_active( 'groups' )) {
+		$group_id = bp_docs_get_associated_group_id( $doc_id );
+		if ( $doc_read_access == 'group-members' && groups_is_user_member( $user_id, $group_id )){return true;}
+		if ( $doc_read_access == 'admins-mods' && (groups_is_user_admin( $user_id, $group_id ) || groups_is_user_mod( $user_id, $group_id )) ) {return true;}
+	}
+	return false;
+}
+
+add_filter( 'bp_search_additional_search_helpers', 'bfc_docs_search_helper', 20 );
+/**
+ * Load search helpers for each searchable custom post type.
+ *
+ * @param array $helpers
+ * @return array
+ * @since BuddyBoss 1.0.0
+ */
+function bfc_docs_search_helper( $helpers ) {
+	$post_type = 'bp_doc';
+	$searchable_type = 'cpt-' . $post_type;
+	if(isset($helpers[ $searchable_type ])) {
+		unset($helpers[ $searchable_type ]);
+		// unset(BP_Search::instance()->searchable_items[ $searchable_type] );
+	}
+	$cpt_obj         = get_post_type_object( $post_type );
+	// is cpt still valid?
+	if ( $cpt_obj && ! is_wp_error( $cpt_obj ) ) {
+		require_once(get_stylesheet_directory().'/functions/class-bp-search-doc.php');
+		$helpers[ $searchable_type ]              = new BP_Search_Doc( $post_type, $searchable_type );
+		if(!array_search($searchable_type, BP_Search::instance()->searchable_items)) {
+			BP_Search::instance()->searchable_items[] = $searchable_type;
+		}
+	}
+return $helpers;
+}
 ?>
