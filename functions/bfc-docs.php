@@ -8,7 +8,7 @@ function bp_docs_is_parent( $classes, $item) {
 	$item_title = $item->title;
 	$is_user_page = bp_is_user();
 	$cur_comp = bp_current_component();
-	if ((!isset($_GET['bp_search'])) && $item->title == 'Docs' && !bp_is_user() && bp_current_component() != 'groups' && !(bfc_doc_has_tag ('bfcom-help') || 'bfcom-help' == urldecode( isset($_GET['bpd_tag'] ) ? $_GET['bpd_tag'] : ''))) {
+	if ((!isset($_GET['bp_search'])) && $docs_page && $item->title == 'Docs' && !bp_is_user() && bp_current_component() != 'groups' && !(bfc_doc_has_tag ('bfcom-help') || 'bfcom-help' == urldecode( isset($_GET['bpd_tag'] ) ? $_GET['bpd_tag'] : ''))) {
 		$classes[] = 'current_page_parent';
 	}
 	return $classes;
