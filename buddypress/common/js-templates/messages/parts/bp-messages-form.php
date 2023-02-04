@@ -53,13 +53,13 @@ $os = bb_core_get_os();
 	<div id="bp-message-content"></div>
 
 	<?php
-	if ( 'mac' === $os ) {
-		?>
-		<p class="bp-message-content_foot_note"><span class="space_note">Please note:</span><span class="space_note"><strong><?php esc_html_e( 'Shift+Return', 'buddyboss' ); ?> </strong> <?php esc_html_e( 'to add a new line', 'buddyboss' ); ?></span><strong><?php esc_html_e( 'Return', 'buddyboss' ); ?></strong><?php esc_html_e( ' to Send', 'buddyboss' ); ?></p>
-		<?php
-	} elseif ( 'window' === $os ) {
+	if ( 'window' === $os ) {
 		?>
 		<p class="bp-message-content_foot_note"><span class="space_note">Please note:</span><span class="space_note"><strong><?php esc_html_e( 'Shift+Enter', 'buddyboss' ); ?> </strong> <?php esc_html_e( 'to add a new line', 'buddyboss' ); ?></span><strong><?php esc_html_e( 'Enter', 'buddyboss' ); ?></strong><?php esc_html_e( ' to Send', 'buddyboss' ); ?></p>
+		<?php
+	} else {
+		?>
+		<p class="bp-message-content_foot_note"><span class="space_note">Please note:</span><span class="space_note"><strong><?php esc_html_e( 'Shift+Return', 'buddyboss' ); ?> </strong> <?php esc_html_e( 'to add a new line', 'buddyboss' ); ?></span><strong><?php esc_html_e( 'Return', 'buddyboss' ); ?></strong><?php esc_html_e( ' to Send', 'buddyboss' ); ?></p>
 		<?php
 	}
 	?>
