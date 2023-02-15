@@ -981,4 +981,11 @@ function bfc_latest_post_link($page_links){
 	return $page_links;
 }
 
+// adding support for html emails
+add_filter( 'wp_mail_content_type','bfc_set_content_type' );
+ 
+function bfc_set_content_type() {
+        return "text/html";
+}
+
 ?>
