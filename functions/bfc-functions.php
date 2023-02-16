@@ -981,11 +981,17 @@ function bfc_latest_post_link($page_links){
 	return $page_links;
 }
 
-// adding support for html emails
-add_filter( 'wp_mail_content_type','bfc_set_content_type' );
- 
-function bfc_set_content_type() {
-        return "text/html";
+add_filter( 'comment_notification_headers', 'bfc_comment_set_html',999 );
+
+function bfc_comment_set_html ($message_headers) {
+	$new_header = str_replace('text/plain', 'text/html', $message_headers);
+	return $new_header;
+}
+
+add_filter ( 'comment_notification_text', 'bfc_wp_email_boarder_radius' );
+
+function bfc_wp_email_boarder_radius ( $notify_message ) {
+	return str_replace('border-radius: 50%', 'border-radius: 20%', $notify_message);
 }
 
 ?>
