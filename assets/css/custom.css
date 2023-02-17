@@ -1671,7 +1671,7 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	margin-top: -9px;
 }
 
-.like-state > .like-state-likes > span {
+.like-state span.like-state-likes {
 	color: rgb(85,85,85);
 	font-family: "SF UI Text", sans-serif;
 	font-size: 14px;
