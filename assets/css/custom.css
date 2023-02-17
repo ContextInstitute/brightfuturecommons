@@ -2385,3 +2385,7 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 .search_results .item-title a {
     color: var(--bb-primary-color);
 }
+
+.bp-single-message-wrap .bp-avatar-wrap img.avatar {
+	width: 40px;
+}
