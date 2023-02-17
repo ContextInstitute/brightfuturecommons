@@ -123,4 +123,15 @@ function bfc_extra_allowed_html_tags(){
 		unset($allowedtags[$dtag]);
 	}
 }
+
+// Fixes a conflict between the bp_doc system and the BuddyBoss document system.
+// Also makes the urls readable outside of the group.
+
+add_filter( 'bbp_get_reply_content', 'bfc_fix_doc_url', 9999);
+add_filter( 'bbp_get_topic_content', 'bfc_fix_doc_url', 9999);
+
+function bfc_fix_doc_url( $content ){
+	$new_content = preg_replace('#href="https:.+?/docs/#', 'href="/docs/', $content);
+	return $new_content;
+}
 ?>

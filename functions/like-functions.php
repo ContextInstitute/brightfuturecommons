@@ -4,7 +4,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Output the state buttons inside an forum post Loop.
+ * Output the state buttons inside a forum post Loop.
  *
  * @since BuddyPress 3.0.0
  */
@@ -16,11 +16,11 @@ function bfc_like_state($post_id) { // from bp_nouveau_activity_state() /buddybo
 	
 	?>
 	<div class="like-state <?php echo $like_users_string ? 'has-likes' : ''; ?>">
-		<a href="javascript:void(0);" class="like-state-likes">
-			<span class="like-text hint--bottom hint--medium hint--multiline" style="<?php echo $like_users_string ? 'display:inline-block' : 'display:none'; ?>" data-hint="<?php echo ( $favorited_users ) ? $favorited_users : ''; ?>" data-post_id="<?php echo $post_id; ?>">
+		<?php echo $favorited_users ? '<a href="javascript:void(0);">': ''; ?>
+			<span class="like-text<?php echo $favorited_users ?' hint--bottom hint--medium hint--multiline':''; ?> like-state-likes" style="<?php echo $like_users_string ? 'display:inline-block' : 'display:none'; ?>"<?php echo ( $favorited_users ) ? ' data-hint="'.$favorited_users : ''; ?>" data-post_id="<?php echo $post_id; ?>">
 				<?php echo $like_users_string ?: ''; ?>
 			</span>
-		</a>
+		<?php echo $favorited_users ? '</a>': ''; ?>
 	</div>
 	<?php
 }
@@ -29,7 +29,6 @@ function bfc_widget_like_state($post_id) {
 	
 	$like_users_string       = bfc_like_users_string( $post_id );
 	$favorited_users = bfc_like_users_tooltip_string( $post_id );
-	// if ($like_users_string == '') { return '';}
 	
 	?>
 	<div class="like-state <?php echo $like_users_string ? 'has-likes' : ''; ?>">
@@ -52,10 +51,6 @@ function bfc_widget_like_state($post_id) {
  * @return int|string
  */
 function bfc_like_users_string( $post_id ) { // bp_activity_get_favorite_users_string from buddyboss-platform/bp-activity/bp-activity-functions.php line 1103
-
-	// if ( ! bp_is_activity_like_active() ) {
-	// 	return 0;
-	// }
 
 	$like_count      = get_post_meta($post_id, 'like_count', true );
 	$like_count      = ( isset( $like_count ) && ! empty( $like_count ) ) ? $like_count : 0;
@@ -116,7 +111,6 @@ function bfc_like_users_string( $post_id ) { // bp_activity_get_favorite_users_s
 			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
 			$return_str       .= $user_display_name . ' ' . __( 'like this.', 'bfcommons-theme' ) . ' ';
 
-			// $return_str .= ' ' . __( '1 other like this', 'bfcommons-theme' );
 		} else {
 
 			$user_data         = get_userdata( array_pop( $favorited_users ) );
@@ -131,7 +125,6 @@ function bfc_like_users_string( $post_id ) { // bp_activity_get_favorite_users_s
 			$user_display_name = ! empty( $user_data ) ? bp_core_get_user_displayname( $user_data->ID ) : __( 'Unknown', 'bfcommons-theme' );
 			$return_str       .= $user_display_name . ' ' . __( 'like this.', 'bfcommons-theme' ) . ' ';
 
-			// $return_str .= ' ' . __( '1 other like this', 'bfcommons-theme' );
 		}
 	} elseif ( 3 < $like_count ) {
 
@@ -184,10 +177,6 @@ function bfc_like_users_string( $post_id ) { // bp_activity_get_favorite_users_s
  * @return string
  */
 function bfc_like_users_tooltip_string( $post_id ) { // from bp_activity_get_favorite_users_tooltip_string buddyboss-platform/bp-activity/bp-activity-functions.php line 1210
-
-	// if ( ! bp_is_activity_like_active() ) {
-	// 	return false;
-	// }
 
 	$current_user_id = get_current_user_id();
 	$favorited_users = get_post_meta($post_id, 'bbp_like_users', true );
@@ -246,22 +235,7 @@ function bfc_ajax_mark_post_like() {
 			'content'    => __( 'Unlike', 'bfcommons-theme' ),
 			'like_users_string' => bfc_like_users_string( $_POST['post_id'] ),
 			'tooltip'    => bfc_like_users_tooltip_string( $_POST['post_id'] ),
-			// 'nonce2'	 => wp_create_nonce( 'bfc_post_unlike' ),
-		); // here like_users_string is for visible list of likers
-
-		// if ( ! bp_is_user() ) {
-		// 	$fav_count = (int) bfc_get_total_like_count_for_user( bp_loggedin_user_id() ); //bp_get_total_favorite_count_for_user buddyboss-platform/bp-activity/bp-activity-template.php line 3122
-
-		// 	if ( 1 === $fav_count ) {
-		// 		$response['directory_tab'] = '<li id="activity-favorites" data-bp-scope="favorites" data-bp-object="activity">
-		// 			<a href="' . bp_loggedin_user_domain() . bp_get_activity_slug() . '/favorites/">
-		// 				' . esc_html__( 'Likes', 'bfcommons-theme' ) . '
-		// 			</a>
-		// 		</li>';
-		// 	} else {
-		// 		$response['fav_count'] = $fav_count;
-		// 	}
-		// }
+		); 
 
 		wp_send_json_success( $response );
 	} else {
@@ -291,18 +265,7 @@ function bfc_ajax_unmark_post_like () { //bp_nouveau_ajax_unmark_activity_favori
 			'content'    => __( 'Like', 'bfcommons-theme' ),
 			'like_users_string' => bfc_like_users_string( $_POST['post_id'] ),
 			'tooltip'    => bfc_like_users_tooltip_string( $_POST['post_id'] ),
-			// 'nonce2'	 => wp_create_nonce( 'bfc_post_like' ),
-		); // here like_users_string is for visible list of likers.
-
-		// $fav_count = (int) bfc_get_total_like_count_for_user( bp_loggedin_user_id() );
-
-		// if ( 0 === $fav_count && ! bp_is_single_activity() ) { //todo
-		// 	$response['no_favorite'] = '<li><div class="bp-feedback bp-messages info">
-		// 		' . __( 'Sorry, there was no activity found.', 'bfcommons-theme' ) . '
-		// 	</div></li>';
-		// } else {
-		// 	$response['fav_count'] = $fav_count;
-		// }
+		); 
 
 		wp_send_json_success( $response );
 
