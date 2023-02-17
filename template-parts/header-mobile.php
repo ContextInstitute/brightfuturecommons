@@ -25,13 +25,15 @@ $logo_class         = ( $logo_align <= 1 && ( ! buddyboss_is_learndash_inner() &
 			$logo         = ( $show && $logo_id ) ? wp_get_attachment_image( $logo_id, 'full', '', array( 'class' => 'bb-mobile-logo' ) ) : get_bloginfo( 'name' );
 			$logo_dark    = ( $show && $show_dark && $logo_dark_id ) ? wp_get_attachment_image( $logo_dark_id, 'full', '', array( 'class' => 'bb-mobile-logo bb-mobile-logo-dark' ) ) : '';
 
+			$logo_link = (current_user_can( 'manage_options' )) ? home_url( '/wp-admin/' ) : home_url( '/' );
+
 			// This is for better SEO.
 			$elem = ( is_front_page() && is_home() ) ? 'h1' : 'div';
 			?>
 
 			<<?php echo $elem; ?> class="site-title">
 
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+				<a href="<?php echo esc_url( $logo_link ); ?>" rel="home">
 					<?php
 					if ( buddyboss_is_learndash_inner() && buddyboss_theme_ld_focus_mode() ) {
 						if ( buddyboss_is_learndash_brand_logo() ) {
