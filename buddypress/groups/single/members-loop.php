@@ -22,7 +22,7 @@ $is_follow_active = bp_is_active('activity') && function_exists('bp_is_activity_
 $follow_class = $is_follow_active ? 'follow-active' : '';
 ?>
 
-<?php if ( bp_group_has_members( bp_ajax_querystring( 'group_members' ) . '&type=group_role' ) ) : ?>
+<?php if ( bp_group_has_members( bp_ajax_querystring( 'group_members' ) . '&type=active&per_page=40' ) ) : ?>
 
 	<?php bp_nouveau_group_hook( 'before', 'members_content' ); ?>
 
