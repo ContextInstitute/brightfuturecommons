@@ -2414,7 +2414,7 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	width: 40px;
 }
 
-.single-item.group.group-members #buddypress .item-body {
+.single-item.groups.group-members #buddypress .item-body {
 	max-width: 880px;
 	margin: 0 auto;
 }
