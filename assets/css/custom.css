@@ -108,6 +108,30 @@ code {
 	margin-bottom: 22px;
 }
 
+#bbpress-forums div.bbp-reply-content ul, 
+#bbpress-forums div.bbp-topic-content ul,
+.single-item.bp-docs .doc-content ul,
+.single-bp_doc .type-bp_doc ul,
+.single-post .type-post .entry-content ul {
+	list-style: disc;
+}
+
+#bbpress-forums div.bbp-reply-content ul ul, 
+#bbpress-forums div.bbp-topic-content ul ul,
+.single-item.bp-docs .doc-content ul ul,
+.single-bp_doc .type-bp_doc ul ul,
+.single-post .type-post .entry-content ul ul {
+	list-style: circle;
+}
+
+#bbpress-forums div.bbp-reply-content ul ul ul, 
+#bbpress-forums div.bbp-topic-content ul ul ul,
+.single-item.bp-docs .doc-content ul ul ul,
+.single-bp_doc .type-bp_doc ul ul ul,
+.single-post .type-post .entry-content ul ul ul{
+	list-style: square;
+}
+
 .single-item.bp-docs .doc-content li,
 .single-bp_doc .type-bp_doc li,
 .single-post .type-post .entry-content li {
