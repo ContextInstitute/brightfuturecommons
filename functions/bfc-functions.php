@@ -994,4 +994,16 @@ function bfc_wp_email_boarder_radius ( $notify_message ) {
 	return str_replace('border-radius: 50%', 'border-radius: 20%', $notify_message);
 }
 
+// Fixes the pagination for the forum listing in a user profile area for users other than the logged-in user. Could have unintended consequences elsewhere.
+
+add_filter ('bbp_is_single_user_topics', 'bfc_fix_user_forum_pagination');
+add_filter ('bbp_is_single_user_replies', 'bfc_fix_user_forum_pagination');
+
+function bfc_fix_user_forum_pagination($retval) {
+	if( bp_is_user()) {
+		$retval = true;
+	}
+	return $retval;
+}
+
 ?>
