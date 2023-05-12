@@ -2419,6 +2419,7 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	margin: 0 auto;
 }
 
+#new-post .bbp-form #bbp_topic_submit,
 #new-post .bbp-form #bbp_reply_submit {
 	opacity: 1;
 	pointer-events: initial;
