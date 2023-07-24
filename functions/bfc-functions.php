@@ -994,6 +994,13 @@ function bfc_wp_email_boarder_radius ( $notify_message ) {
 	return str_replace('border-radius: 50%', 'border-radius: 20%', $notify_message);
 }
 
+add_filter ( 'comment_notification_text', 'bfc_comment_notification_text' );
+
+function bfc_comment_notification_text( $notify_message){
+	$pattern = '/Moderate.*/';
+	return preg_replace($pattern,'',$notify_message);
+}
+
 // Fixes the pagination for the forum listing in a user profile area for users other than the logged-in user. Could have unintended consequences elsewhere.
 
 add_filter ('bbp_is_single_user_topics', 'bfc_fix_user_forum_pagination');
