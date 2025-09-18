@@ -36,6 +36,41 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// Establish proper context - added for compatibility with BuddyBoss - down to materials section
+global $post;
+if (!$post) {
+    $post = get_queried_object();
+}
+if (!$post) {
+    $post = get_post();
+}
+
+// Set user context
+$user_id = get_current_user_id();
+$course_id = $course_id ?? learndash_get_course_id();
+$lesson_id = $lesson_id ?? get_the_ID();
+
+// Initialize content
+$content = '';
+if ($post && !empty($post->post_content)) {
+    $content = apply_filters('the_content', $post->post_content);
+}
+
+// Simple show_content - just check basic access
+$show_content = true;
+if ($user_id && $course_id && function_exists('sfwd_lms_has_access')) {
+    $show_content = sfwd_lms_has_access($course_id, $user_id);
+} elseif (!$user_id) {
+	// Not logged in - check if course/lesson is open
+	$show_content = false; // or false if you want to require login
+}
+
+// Initialize materials variable
+$materials = '';
+if ($lesson_id) {
+    $materials = learndash_get_setting($lesson_id, 'lesson_materials');
+}
+
 $in_focus_mode = LearnDash_Settings_Section::get_section_setting( 'LearnDash_Settings_Theme_LD30', 'focus_mode_enabled' );
 add_filter( 'comments_array', 'learndash_remove_comments', 1, 2 );
 $lesson_data = $post;

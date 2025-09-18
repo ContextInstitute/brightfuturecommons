@@ -1,6 +1,15 @@
 <?php
 
-global $post, $wpdb;
+// Establish context
+global $post, $user_id, $wpdb;
+
+if (!isset($user_id) || !$user_id) {
+    $user_id = get_current_user_id();
+}
+
+if (!isset($user_id)) {
+    $user_id = get_current_user_id();
+}
 
 $parent_course_data = learndash_get_setting( $post, 'course' );
 if ( 0 === $parent_course_data ) {
