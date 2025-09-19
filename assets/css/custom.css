@@ -1706,6 +1706,11 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 
 #buddypress .bs-forum-content .post-like-meta .generic-button .bfc-post-like {
 	line-height: 18px;
+	background-color: #fff;
+    color: var(--bb-primary-button-text-regular);
+    border: none;
+    padding: 0;
+    display: inline;
 }
 
 #buddypress .bs-forum-content .post-like-meta .generic-button .bfc-post-like.button:active,

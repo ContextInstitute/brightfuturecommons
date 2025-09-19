@@ -18,39 +18,38 @@ jQuery(document).ready( function() {
 			data : {action: bfcAction, post_id: bfcPost_id, nonce: bfcNonce},
 			success: function(response) {
 				if(true === response.success) {
-					var oldUrl = $(this2).attr("href"); // Get current url
+					var oldUrl = jQuery(this2).attr("href"); // Get current url
 					var newUrl = oldUrl.replace(bfcType, bfcType2); // Create new url
-					$(this2).attr("href", newUrl); // Set herf value
-					$(this2).removeClass( bfcType );
-					$(this2).addClass( bfcType2 );
+					jQuery(this2).attr("href", newUrl); // Set herf value
+					jQuery(this2).removeClass( bfcType );
+					jQuery(this2).addClass( bfcType2 );
 
-
-					if ( $( this2 ).find( 'span' ).first().length ) {
-						$( this2 ).find( 'span' ).first().html( response.data.content );
-						$( this2 ).children('.bfc-post-like-text').html( response.data.content );
+					if ( jQuery( this2 ).find( 'span' ).first().length ) {
+						jQuery( this2 ).find( 'span' ).first().html( response.data.content );
+						jQuery( this2 ).children('.bfc-post-like-text').html( response.data.content );
 					} else {
-						$( this2 ).html( response.data.content );
+						jQuery( this2 ).html( response.data.content );
 					}
 
-					if ('false' == $( this2 ).attr( 'aria-pressed' ) ) {
-						$( this2 ).attr( 'aria-pressed', 'true' );
+					if ('false' == jQuery( this2 ).attr( 'aria-pressed' ) ) {
+						jQuery( this2 ).attr( 'aria-pressed', 'true' );
 					} else {
-						$( this2 ).attr( 'aria-pressed', 'false' );
+						jQuery( this2 ).attr( 'aria-pressed', 'false' );
 					}
 
-					var likeState = $( "#post-" + bfcPost_id).find('.like-state');
-					var likeText = $(likeState).find('.like-text');
+					var likeState = jQuery( "#post-" + bfcPost_id).find('.like-state');
+					var likeText = jQuery(likeState).find('.like-text');
 					if (response.data.like_users_string == 0){response.data.like_users_string = '';}
 					if (response.data.like_users_string) {
-						$(likeState).addClass( 'has-likes' );
-						$(likeText).show();
+						jQuery(likeState).addClass( 'has-likes' );
+						jQuery(likeText).show();
 					} else {
-						$(likeState).removeClass( 'has-likes' );
-						$(likeText).hide();
+						jQuery(likeState).removeClass( 'has-likes' );
+						jQuery(likeText).hide();
 					}
 
-					$(likeText).attr('data-hint', response.data.tooltip );
-					$(likeText).html( response.data.like_users_string );
+					jQuery(likeText).attr('data-hint', response.data.tooltip );
+					jQuery(likeText).html( response.data.like_users_string );
 				} else {
 					console.log("fail");
 				}
