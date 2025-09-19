@@ -122,7 +122,8 @@ function bfc_extra_allowed_html_tags(){
 function bfc_fix_doc_url( $content ){
     // Only run regex if content contains docs links
     if (strpos($content, '/docs/') !== false) {
-        $new_content = preg_replace('#href="https:[^>]+?/docs/(\w+?)#', 'href="/docs/\1', $content);
+        // Find where the docs link is
+        $new_content = preg_replace('#/groups/[^/]+/docs/([^/\\"\'"]+)/?#', '/docs/$1', $content);
         return $new_content;
     }
     return $content;
@@ -141,10 +142,6 @@ function bfc_override_bb_content_display() {
     remove_all_filters('bbp_get_reply_content');
     remove_all_filters('bbp_get_topic_content');
 
-    // Also handle profile content filters
-    remove_all_filters('bp_get_the_profile_field_value');
-    remove_all_filters('xprofile_get_field_data');
-    
     // Apply standard WordPress content processing to both replies and topics
     $content_filters = array(
         'wptexturize',
@@ -153,44 +150,120 @@ function bfc_override_bb_content_display() {
         'wpautop',
         'shortcode_unautop',
         'prepend_attachment',
-        'do_shortcode'  // Added this for shortcode support
+        'do_shortcode'
     );
     
     foreach ($content_filters as $filter) {
         add_filter('bbp_get_reply_content', $filter);
         add_filter('bbp_get_topic_content', $filter);
-
-        // Add same processing to profile fields
-        add_filter('bp_get_the_profile_field_value', $filter);
-        add_filter('xprofile_get_field_data', $filter);
     }
     
     // Add embed processing at the right priority
     global $wp_embed;
-	if ($wp_embed) {
-		add_filter('bbp_get_reply_content', array($wp_embed, 'run_shortcode'), 8);
-		add_filter('bbp_get_reply_content', array($wp_embed, 'autoembed'), 8);
-		add_filter('bbp_get_topic_content', array($wp_embed, 'run_shortcode'), 8);
-		add_filter('bbp_get_topic_content', array($wp_embed, 'autoembed'), 8);
+    if ($wp_embed) {
+        add_filter('bbp_get_reply_content', array($wp_embed, 'run_shortcode'), 8);
+        add_filter('bbp_get_reply_content', array($wp_embed, 'autoembed'), 8);
+        add_filter('bbp_get_topic_content', array($wp_embed, 'run_shortcode'), 8);
+        add_filter('bbp_get_topic_content', array($wp_embed, 'autoembed'), 8);
+    }
 
-        // Add embed processing to profile fields
-        add_filter('bp_get_the_profile_field_value', array($wp_embed, 'run_shortcode'), 8);
-        add_filter('bp_get_the_profile_field_value', array($wp_embed, 'autoembed'), 8);
-        add_filter('xprofile_get_field_data', array($wp_embed, 'run_shortcode'), 8);
-        add_filter('xprofile_get_field_data', array($wp_embed, 'autoembed'), 8);
-	}
-
-	// Re-add BFC's custom doc URL fix after removing all filters
-	// Fixes a conflict between the bp_doc system and the BuddyBoss document system.
-	// Also makes the urls readable outside of the group.
+    // Re-add BFC's custom doc URL fix after removing all filters
     add_filter('bbp_get_reply_content', 'bfc_fix_doc_url', 15);
     add_filter('bbp_get_topic_content', 'bfc_fix_doc_url', 15);
-
-    // Apply doc URL fix to profile content too
-    add_filter('bp_get_the_profile_field_value', 'bfc_fix_doc_url', 15);
-    add_filter('xprofile_get_field_data', 'bfc_fix_doc_url', 15);
 }
 add_action('init', 'bfc_override_bb_content_display', 25);
+
+// Field 8 is the rich text bio field that needs embed and doc URL processing
+// Override field 8 processing at a very late priority
+// This function has been generalized to handle both textarea and profile context
+function bfc_field_8_processing($value, $type = '', $field_id = 0) {
+    // Only completely reprocess field 8
+    if ($type === 'textarea') {
+        // Extract YouTube/Vimeo URLs from existing links and convert to embeds
+        $value = preg_replace_callback(
+            '#<a[^>]+href=["\']?(https?://(?:www\.)?(?:youtube\.com/watch\?v=|youtu\.be/|vimeo\.com/)([^"\'>\s]+))["\']?[^>]*>.*?</a>#i',
+            function($matches) {
+                global $wp_embed;
+                $url = $matches[1];
+                if ($wp_embed) {
+                    $embed = $wp_embed->shortcode(array(), $url);
+                    return $embed ? $embed : $matches[0]; // Return embed or original if embed fails
+                }
+                return $matches[0];
+            },
+            $value
+        );
+        
+        // Apply other processing
+        $value = wptexturize($value);
+        $value = convert_smilies($value);
+        $value = convert_chars($value);
+        $value = wpautop($value);
+        $value = shortcode_unautop($value);
+        $value = do_shortcode($value);
+        $value = bfc_fix_doc_url($value);
+    }
+    
+    return $value;
+}
+
+// Add at very late priority to override BB's processing
+add_filter('bp_get_the_profile_field_value', 'bfc_field_8_processing', 999, 3);
+add_filter('xprofile_get_field_data', 'bfc_field_8_processing', 999, 3);
+
+// Extend existing processing to handle bp_get_profile_field_data as well
+add_filter('bp_get_profile_field_data', 'bfc_textarea_processing_simple', 999);
+
+// Updated processing function for bp_get_profile_field_data
+// This function handles both plain text URLs and URLs within <a> tags
+// Used for profile bio field in group member lists
+function bfc_textarea_processing_simple($value) {
+    // Only process if this looks like rich content (has URLs or substantial text)
+    if (!empty($value) && (strpos($value, 'http') !== false || strlen($value) > 50)) {
+        
+        // First, handle plain text YouTube/Vimeo URLs (convert directly to embeds)
+        $value = preg_replace_callback(
+            '#(?<!href=["\'])\b(https?://(?:www\.)?(?:youtube\.com/watch\?v=|youtu\.be/|vimeo\.com/)[^\s<>"]+)#i',
+            function($matches) {
+                global $wp_embed;
+                $url = $matches[1];
+                if ($wp_embed) {
+                    $embed = $wp_embed->shortcode(array(), $url);
+                    return $embed ? $embed : $matches[0];
+                }
+                return $matches[0];
+            },
+            $value
+        );
+        
+        // Then handle YouTube/Vimeo URLs that are already in <a> tags
+        $value = preg_replace_callback(
+            '#<a[^>]+href=["\']?(https?://(?:www\.)?(?:youtube\.com/watch\?v=|youtu\.be/|vimeo\.com/)([^"\'>\s]+))["\']?[^>]*>.*?</a>#i',
+            function($matches) {
+                global $wp_embed;
+                $url = $matches[1];
+                if ($wp_embed) {
+                    $embed = $wp_embed->shortcode(array(), $url);
+                    return $embed ? $embed : $matches[0];
+                }
+                return $matches[0];
+            },
+            $value
+        );
+        
+        // Apply other processing
+        $value = wptexturize($value);
+        $value = convert_smilies($value);
+        $value = convert_chars($value);
+        $value = wpautop($value);
+        $value = shortcode_unautop($value);
+        $value = do_shortcode($value);
+        $value = bfc_fix_doc_url($value);
+    }
+    
+    return $value;
+}
+
 
 // Configure Heartbeat for forum pagesand profile pages to avoid nonce expiration
 function bfc_modify_heartbeat_settings($settings) {
