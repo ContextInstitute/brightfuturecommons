@@ -22,7 +22,7 @@ function bfc_get_the_content( $args = array() ) {
 		'get_the_content'
 	);
 
-	// If using tinymce, remove our escaping and trust tinymce
+
 	if ( bbp_use_wp_editor() && ( false !== $r['tinymce'] ) ) {
 		remove_filter( 'bbp_get_form_forum_content', 'esc_textarea' );
 		remove_filter( 'bbp_get_form_topic_content', 'esc_textarea' );
@@ -42,9 +42,6 @@ function bfc_get_the_content( $args = array() ) {
 		echo $r['before'];
 	}
 
-	// Use TinyMCE if available
-	// if ( bbp_use_wp_editor() ) :
-
 		// Enable additional TinyMCE plugins before outputting the editor
 		add_filter( 'tiny_mce_plugins', 'bbp_get_tiny_mce_plugins' );
 		add_filter( 'teeny_mce_plugins', 'bbp_get_tiny_mce_plugins' );
@@ -60,7 +57,7 @@ function bfc_get_the_content( $args = array() ) {
 			'tabindex'          => $r['tabindex'],
 			'tabfocus_elements' => $r['tabfocus_elements'],
 			'editor_class'      => $r['editor_class'],
-			'tinymce'           => true, //$r['tinymce'],
+			'tinymce'           => true, //always true to enable the filters above
 			'teeny'             => $r['teeny'],
 			'quicktags'         => $r['quicktags'],
 			'dfw'               => $r['dfw'],
@@ -71,13 +68,6 @@ function bfc_get_the_content( $args = array() ) {
 			remove_filter( 'teeny_mce_plugins', 'bbp_get_tiny_mce_plugins' );
 			remove_filter( 'teeny_mce_buttons', 'bbp_get_teeny_mce_buttons' );
 			remove_filter( 'quicktags_settings', 'bbp_get_quicktags_settings' );
-
-			/**
-			 * Fallback to normal textarea.
-			 *
-			 * Note that we do not use esc_textarea() here to prevent double
-			 * escaping the editable output, mucking up existing content.
-			 */
 
 
 		// Output something after the editor
@@ -112,7 +102,7 @@ function bfc_profile_textarea_editor($editor_args) {
 	return bbp_parse_args ($bfc_args,$editor_args);
 }
 
-add_action('bbp_kses_allowed_tags','bfc_extra_allowed_html_tags', 199);
+add_action('bbp_kses_allowed_tags','bfc_extra_allowed_html_tags', 189);
 add_action('init','bfc_extra_allowed_html_tags', 199);
 
 function bfc_extra_allowed_html_tags(){
@@ -126,12 +116,213 @@ function bfc_extra_allowed_html_tags(){
 
 // Fixes a conflict between the bp_doc system and the BuddyBoss document system.
 // Also makes the urls readable outside of the group.
+// Added to both topic and reply content filters in the bfc_override_bb_content_display function below.
 
-add_filter( 'bbp_get_reply_content', 'bfc_fix_doc_url', 9999);
-add_filter( 'bbp_get_topic_content', 'bfc_fix_doc_url', 9999);
 
 function bfc_fix_doc_url( $content ){
-	$new_content = preg_replace('#href="https:[^>]+?/docs/(\w+?)#', 'href="/docs/\1', $content);
-	return $new_content;
+    // Only run regex if content contains docs links
+    if (strpos($content, '/docs/') !== false) {
+        // Find where the docs link is
+        $new_content = preg_replace('#/groups/[^/]+/docs/([^/\\"\'"]+)/?#', '/docs/$1', $content);
+        return $new_content;
+    }
+    return $content;
 }
+
+/**
+ * BFC Compatibility Fix for BB Theme v2.4+
+ * 
+ * BB Theme v2.4+ introduced content filters that break WordPress oEmbed functionality.
+ * Since BFC uses TinyMCE and relies on standard WP embed features, we bypass BB's 
+ * content processing entirely and use WordPress's native content filters instead.
+ */
+
+function bfc_override_bb_content_display() {
+    // Remove all BB content filters that interfere with embeds
+    remove_all_filters('bbp_get_reply_content');
+    remove_all_filters('bbp_get_topic_content');
+
+    // Apply standard WordPress content processing to both replies and topics
+    $content_filters = array(
+        'wptexturize',
+        'convert_smilies', 
+        'convert_chars',
+        'wpautop',
+        'shortcode_unautop',
+        'prepend_attachment',
+        'do_shortcode'
+    );
+    
+    foreach ($content_filters as $filter) {
+        add_filter('bbp_get_reply_content', $filter);
+        add_filter('bbp_get_topic_content', $filter);
+    }
+    
+    // Add embed processing at the right priority
+    global $wp_embed;
+    if ($wp_embed) {
+        add_filter('bbp_get_reply_content', array($wp_embed, 'run_shortcode'), 8);
+        add_filter('bbp_get_reply_content', array($wp_embed, 'autoembed'), 8);
+        add_filter('bbp_get_topic_content', array($wp_embed, 'run_shortcode'), 8);
+        add_filter('bbp_get_topic_content', array($wp_embed, 'autoembed'), 8);
+    }
+
+    // Re-add BFC's custom doc URL fix after removing all filters
+    add_filter('bbp_get_reply_content', 'bfc_fix_doc_url', 15);
+    add_filter('bbp_get_topic_content', 'bfc_fix_doc_url', 15);
+}
+add_action('init', 'bfc_override_bb_content_display', 25);
+
+// Field 8 is the rich text bio field that needs embed and doc URL processing
+// Override field 8 processing at a very late priority
+// This function has been generalized to handle both textarea and profile context
+function bfc_field_8_processing($value, $type = '', $field_id = 0) {
+    // Only completely reprocess field 8
+    if ($type === 'textarea') {
+        // Extract YouTube/Vimeo URLs from existing links and convert to embeds
+        $value = preg_replace_callback(
+            '#<a[^>]+href=["\']?(https?://(?:www\.)?(?:youtube\.com/watch\?v=|youtu\.be/|vimeo\.com/)([^"\'>\s]+))["\']?[^>]*>.*?</a>#i',
+            function($matches) {
+                global $wp_embed;
+                $url = $matches[1];
+                if ($wp_embed) {
+                    $embed = $wp_embed->shortcode(array(), $url);
+                    return $embed ? $embed : $matches[0]; // Return embed or original if embed fails
+                }
+                return $matches[0];
+            },
+            $value
+        );
+        
+        // Apply other processing
+        $value = wptexturize($value);
+        $value = convert_smilies($value);
+        $value = convert_chars($value);
+        $value = wpautop($value);
+        $value = shortcode_unautop($value);
+        $value = do_shortcode($value);
+        $value = bfc_fix_doc_url($value);
+    }
+    
+    return $value;
+}
+
+// Add at very late priority to override BB's processing
+add_filter('bp_get_the_profile_field_value', 'bfc_field_8_processing', 999, 3);
+add_filter('xprofile_get_field_data', 'bfc_field_8_processing', 999, 3);
+
+// Extend existing processing to handle bp_get_profile_field_data as well
+add_filter('bp_get_profile_field_data', 'bfc_textarea_processing_simple', 999);
+
+// Updated processing function for bp_get_profile_field_data
+// This function handles both plain text URLs and URLs within <a> tags
+// Used for profile bio field in group member lists
+function bfc_textarea_processing_simple($value) {
+    // Only process if this looks like rich content (has URLs or substantial text)
+    if (!empty($value) && (strpos($value, 'http') !== false || strlen($value) > 50)) {
+        
+        // First, handle plain text YouTube/Vimeo URLs (convert directly to embeds)
+        $value = preg_replace_callback(
+            '#(?<!href=["\'])\b(https?://(?:www\.)?(?:youtube\.com/watch\?v=|youtu\.be/|vimeo\.com/)[^\s<>"]+)#i',
+            function($matches) {
+                global $wp_embed;
+                $url = $matches[1];
+                if ($wp_embed) {
+                    $embed = $wp_embed->shortcode(array(), $url);
+                    return $embed ? $embed : $matches[0];
+                }
+                return $matches[0];
+            },
+            $value
+        );
+        
+        // Then handle YouTube/Vimeo URLs that are already in <a> tags
+        $value = preg_replace_callback(
+            '#<a[^>]+href=["\']?(https?://(?:www\.)?(?:youtube\.com/watch\?v=|youtu\.be/|vimeo\.com/)([^"\'>\s]+))["\']?[^>]*>.*?</a>#i',
+            function($matches) {
+                global $wp_embed;
+                $url = $matches[1];
+                if ($wp_embed) {
+                    $embed = $wp_embed->shortcode(array(), $url);
+                    return $embed ? $embed : $matches[0];
+                }
+                return $matches[0];
+            },
+            $value
+        );
+        
+        // Apply other processing
+        $value = wptexturize($value);
+        $value = convert_smilies($value);
+        $value = convert_chars($value);
+        $value = wpautop($value);
+        $value = shortcode_unautop($value);
+        $value = do_shortcode($value);
+        $value = bfc_fix_doc_url($value);
+    }
+    
+    return $value;
+}
+
+
+// Configure Heartbeat for forum pagesand profile pages to avoid nonce expiration
+function bfc_modify_heartbeat_settings($settings) {
+    if (bbp_is_forum() || bbp_is_topic() || bbp_is_reply() || bbp_is_single_forum() || bbp_is_single_topic() || bp_is_user_profile_edit()) {
+        $settings['interval'] = 30; // Beat every 30 seconds
+        $settings['suspension'] = false; // Don't suspend heartbeat
+    }
+    return $settings;
+}
+add_filter('heartbeat_settings', 'bfc_modify_heartbeat_settings');
+
+// Send nonce data with heartbeat
+function bfc_heartbeat_send($response, $data) {
+    if (isset($data['bfc_forum_active'])) {
+        $response['bfc_new_nonce'] = wp_create_nonce('bbp-new-reply');
+        $response['bfc_topic_nonce'] = wp_create_nonce('bbp-new-topic');
+		$response['bfc_profile_nonce'] = wp_create_nonce('bp_xprofile_edit'); 
+    }
+    return $response;
+}
+add_filter('heartbeat_send', 'bfc_heartbeat_send', 10, 2);
+
+// Receive heartbeat response and update nonces
+function bfc_heartbeat_receive() {
+    if (bbp_is_forum() || bbp_is_topic() || bbp_is_reply() || bbp_is_single_forum() || bbp_is_single_topic() || bp_is_user_profile_edit()) {
+        ?>
+        <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            // Tell heartbeat we're on a forum page
+			$(document).on('heartbeat-send', function(e, data) {
+				if ($('.bbp-reply-form, .bbp-topic-form').length) {
+					data.bfc_forum_active = true;
+				}
+				if ($('#profile-edit-form, .standard-form').length) {
+					data.bfc_profile_active = true;
+				}
+			});
+            
+            // Update nonces when heartbeat responds
+            $(document).on('heartbeat-tick', function(e, data) {
+                if (data.bfc_new_nonce) {
+                    $('input[name="bbp_reply_nonce"]').val(data.bfc_new_nonce);
+                    $('input[name="_wpnonce"]').val(data.bfc_new_nonce);
+                }
+				
+				if (data.bfc_profile_nonce) {  // Add this block
+     			   $('input[name="_wpnonce_update_profile"]').val(data.bfc_profile_nonce);
+				}
+    
+				if (data.bfc_topic_nonce) {
+					$('input[name="bbp_topic_nonce"]').val(data.bfc_topic_nonce);
+					$('input[name="_wpnonce"]').val(data.bfc_topic_nonce);
+				}
+            });
+        });
+        </script>
+        <?php
+    }
+}
+add_action('wp_footer', 'bfc_heartbeat_receive');
+
 ?>

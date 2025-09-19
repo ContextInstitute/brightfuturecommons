@@ -1945,6 +1945,7 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	font-family: "SF UI Display", sans-serif;
 	color: #122B46;
 	line-height: 32px;
+	text-transform: none;
 }
 
 /* #bfc-user-panel-right .tribe-compatibility-container {
