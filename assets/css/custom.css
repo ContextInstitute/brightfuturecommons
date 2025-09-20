@@ -810,6 +810,19 @@ nav#object-nav li.bfc-group-name-nav{
 
 /* Forums and Group Member Intros*/
 
+/* Restore bbPress forum link styling that was removed in BB update after 2.3.50
+also preserves like icon as lined and not box-lined.
+ */
+#bbpress-forums div.bbp-reply-content a:not(.entry-img), 
+#bbpress-forums div.bbp-topic-content a:not(.entry-img) {
+    background: 0 0;
+    border: none;
+    display: inline;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
 #members-intros,
 #bbpress-forums {
 	max-width: 810px;
@@ -1736,11 +1749,13 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
     font-size: 13px;
 }
 
+/* Needs font-weight 400 in bb-icons for the lined icon.*/
 .post-like-meta > .generic-button > .bfc-post-like:before {
 	content: "\ef41";
 	color: rgb(0, 124, 255);
 	display: inline-block;
 	font-family: bb-icons;
+	font-weight: 400;
 	font-size: 22px;
 	line-height: 22px;
 	min-width: 22px;
@@ -2131,7 +2146,7 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 }
 @media (max-width: 1200px) {
 	#bbpress-forums#bbpress-forums .bs-forums-items.bs-item-list.list-view .bfc-like-section div.action {
-		margin-top: 0;
+		margin-top: 6px;
 		min-width: 0;
 		padding-left: 0;
 	}
