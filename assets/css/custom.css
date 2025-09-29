@@ -30,6 +30,13 @@ p, li, div {
     text-rendering: optimizeLegibility;
 }
 
+
+.bb-dark-theme .ld-tab-content p,
+.bb-dark-theme .ld-tab-content li,
+.bb-dark-theme .ld-tab-content div { 
+	color: #aaa;
+}
+
 p {
 	margin-bottom: 1rem;
 }
@@ -93,7 +100,13 @@ code {
 .single-bp_doc .type-bp_doc .doc-content div,
 .single-post .type-post .entry-content p,
 .single-post .type-post .entry-content li,
-.single-post .type-post .entry-content div {
+.single-post .type-post .entry-content div,
+.bb-dark-theme .ld-tab-content p,
+.bb-dark-theme .ld-tab-content li,
+.bb-dark-theme .ld-tab-content div,
+.learndash-wrapper .ld-tab-content p,
+.learndash-wrapper .ld-tab-content li,
+.learndash-wrapper .ld-tab-content div {
 	font-family:  charter, Georgia, Cambria, 'Times New Roman', Times, serif;
 	font-size: clamp(14px, 9.5px + 1.2500vw, 20px);
 	line-height: clamp(1.5rem, 1.1250rem + 1.6667vw, 2rem);
@@ -2445,3 +2458,4 @@ body #buddypress .bp-list .action .generic-button .membership-requested:hover {
 	opacity: 1;
 	pointer-events: initial;
   }
+
